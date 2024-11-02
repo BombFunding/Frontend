@@ -4,7 +4,6 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import { Button } from "./components/ui/button";
 import { Loading } from "./components/Loading";
-import Form from "./components/Form/index";
 
 function App() {
 	// const [count, setCount] = useState(0);

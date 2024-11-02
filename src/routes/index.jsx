@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "../Layout/main";
+import Layout from "../Layouts/main";
 import Error from "../pages/Error";
-import PrivateLayout from "../Layout/private";
+import Login from "../pages/Login";
+import PrivateLayout from "../Layouts/private";
+import App from '../App.jsx'
 
 export const router = createBrowserRouter([
   {
@@ -11,8 +13,12 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: <App />,
       },
+      {
+        path: "/login",
+        element: <Login />,
+      }
     ],
   },
   {
