@@ -3,63 +3,67 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import loginimage from "../../assets/loginpage.png";
 import styles from "./Login.module.scss";
-import React from "react";
 import CanvasTriangle from "./Canvas";
+import { useWindowSize } from "react-use";
+import CustomButton from "@/components/CustomButton";
+import PasswordField from "./PasswordField/PasswordField";
+import PasswordInput from "./PasswordInput";
 
 const Login = () => {
+	const { width, height } = useWindowSize();
 	return (
 		<>
-			<div className="bg-gray-100 font-vazirmatn container h-screen rounded-lg shadow-md flex flex-row justify-between">
-				{/* <div className=""> */}
-				{/* <svg
-            className="bg-white"
-            stroke="black"
-            strokeWidth="10"
-            
-          >
-            <polygon
-              className=""
-              points="100,10 200,0 300,40"
-              fill="red"
-            />
-          </svg> */}
-				<div className="w-1/2 relative z-0">
+			<div className="bg-gray-100 font-vazirmatn container h-screen shadow-md flex flex-row justify-between">
+				{/* <div className="w-72 relative z-0">
 					<img
-						className="h-screen rounded-l-md absolute z-10"
+						className="h-screen absolute inset-0 object-cover"
 						src={loginimage}
 						alt="login"
 					/>
-				</div>
-
-				<form className="content-center p-12 place-items-center grid">
-					<div className="text-black text m-4">خوش آمدید</div>
+					<div className="absolute inset-0 object-cover">
+						<CanvasTriangle
+							width={width}
+							height={height}
+							className=""
+						/>
+					</div>
+				</div> */}
+				<img className="h-screen" src={loginimage} alt="login" />
+				<form className="content-center p-12 place-items-center grid w-full">
+					<div className="text-black text m-4 text-xl">خوش آمدید</div>
 					<div className="text-black text m-4">
 						برای ورود اطلاعات خود را وارد کنید
 					</div>
-					<Label className="text-black m-1.5 place-self-end">
+					<Label className="text-black m-1.5 place-self-end pe-1 mb-2">
 						ایمیل یا نام کاربری
 					</Label>
 					<Input
 						type="email"
 						placeholder="ایمیل"
-						className="text-right ease-in duration-300 bg-orange-100 mb-2 hover:placeholder:text-rose-700 text-black"
+						className="ease-in duration-300 bg-orange-100 mb-2 hover:placeholder:text-rose-700 text-black"
 					/>
-					<Label className="items-center text-black m-1.5 place-self-end">
+					<Label className="text-black m-1.5 place-self-end pe-1 mb-2">
 						رمز عبور
 					</Label>
-					<Input
+					{/* <PasswordField /> */}
+					<PasswordInput />
+					{/* <Input
 						type="email"
 						placeholder="رمز عبور"
 						className="text-right ease-in duration-300 bg-orange-100 mb-2 hover:placeholder:text-rose-700 text-black"
-					/>
-					<Button className="text-right ease-in duration-200 ml-1 mt-3 text-rose-700 hover:text-orange-200 bg-orange-200 rounded-full hover:bg-rose-700 w-16">
+					/> */}
+					<CustomButton className="mt-2.5">ورود</CustomButton>
+					{/* <Button className="text-right ease-in duration-200 ml-1 mt-3 bg-bomborange hover:text-bomborange rounded-full hover:bg-bombblack w-16">
 						ورود
-					</Button>
-					<Button
-						className={`flex mt-12 text-rose-700 bg- place-self-start border border-blue-500 rounded-lg ${styles.button}`}
+					</Button> */}
+					<CustomButton className="place-self-start mt-12 ml-3">
+						ثبت نام
+					</CustomButton>
+					{/* <Button
+						className={``}
 					>
 						ثبت نام
-					</Button>
+					</Button> */}
 				</form>
 				{/* </div> */}
 			</div>

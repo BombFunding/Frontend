@@ -4,7 +4,6 @@ import Error from "../pages/Error";
 import Login from "../pages/Login";
 import PrivateLayout from "../Layouts/private";
 import App from "../App.jsx";
-
 export const router = createBrowserRouter([
 	{
 		path: "/",
