@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./style.css";
+import "./PasswordInput.css";
 import { Input } from "@/components/ui/input";
 
 const PasswordInput = () => {
@@ -29,21 +29,10 @@ const PasswordInput = () => {
 
 	return (
 		<div className="relative w-full">
-			{/* <input
-				type={showPassword ? "text" : "password"}
-				id="password"
-        placeholder="رمز عبور"
-				autoComplete="off"
-				autoCorrect="off"
-				autoCapitalize="off"
-				spellCheck="false"
-				data-lpignore="true"
-				className="ease-in duration-300 bg-orange-100 mb-2 hover:placeholder:text-rose-700 text-black"
-			/> */}
 			<Input
 				type={showPassword ? "text" : "password"}
 				placeholder="رمز عبور"
-				className="ease-in duration-300 bg-orange-100 mb-2 hover:placeholder:text-rose-700 text-black "
+				className="font-roboto ease-in duration-300 bg-orange-100 mb-2 hover:placeholder:text-bombgray text-bombblack focus:text-bombblack border-solid border-4 border-bombgray focus:border-bomborange focus-visible:ring-0"
 			></Input>
 			<button
 				type="button"

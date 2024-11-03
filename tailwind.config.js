@@ -5,7 +5,7 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				vazirmatn: ["Vazirmatn", "sans-serif"], // Custom font name
+				vazirmatn: ["Vazirmatn", "Roboto"], // Custom font name
 			},
 
 			borderRadius: {

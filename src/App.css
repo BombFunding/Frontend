@@ -1,8 +1,10 @@
 /* #root {
   background-color: white;
 } */
+:root {
+	background-color: white;
+}
 /* 
-  
 .logo {
   height: 6em;
   padding: 1.5em;
