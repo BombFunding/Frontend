@@ -1,9 +1,10 @@
 :root {
 	--inputColor: #2c2727;
-	--beamColor: #ff7517;
+	/* --beamColor: #ff7517; */
+	--beamColor: #fe9149;
 }
 
-[id="eyeball"] {
+.eyeball {
 	--size: 1rem;
 	display: flex;
 	align-items: center;
@@ -17,7 +18,7 @@
 	background-color: transparent;
 	transform: translateY(-50%);
 }
-[id="eyeball"]:active {
+.eyeball:active {
 	transform: translateY(calc(-50% + 1px));
 }
 
@@ -51,7 +52,7 @@
 	border-radius: 100%;
 }
 
-[id="beam"] {
+.beam {
 	position: absolute;
 	top: 45%;
 	right: 1.75rem;
@@ -65,7 +66,4 @@
 	transform-origin: 100% 50%;
 	transform: translateY(-50%) rotate(var(--beamDegrees, 0));
 	pointer-events: none;
-}
-.show-password [id="beam"] {
-	background: var(--beamColor);
 }

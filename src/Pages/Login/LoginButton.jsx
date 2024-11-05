@@ -1,12 +1,16 @@
 import "./LoginButton.css";
 
-function LoginButton() {
+function LoginButton({children}) {
+    function handleLogin(e) {
+        e.preventDefault();
+        
+    }
     return (
-        <button className="learn-more mt-6">
+        <button type="submit" className="login mt-6" onClick={(e) => handleLogin(e)}>
             <span className="circle" aria-hidden>
                 <span className="icon arrow"></span>
             </span>
-            <span className="button-text font-vazirmatn">ورود</span>
+            <span className="button-text font-vazirmatn">{children}</span>
         </button>
     )
 }

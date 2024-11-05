@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./PasswordInput.css";
+import styles from "./Eye.module.scss";
 import { Input } from "@/components/ui/input";
 
 const PasswordInput = () => {
@@ -32,22 +32,23 @@ const PasswordInput = () => {
 			<Input
 				type={showPassword ? "text" : "password"}
 				placeholder="رمز عبور"
-				className="font-roboto ease-in duration-300 bg-orange-100 mb-2 hover:placeholder:text-bombgray text-bombblack focus:text-bombblack border-solid border-4 border-bombgray focus:border-bomborange focus-visible:ring-0"
-			></Input>
+				className="min-w-full pr-20 font-roboto ease-in duration-300 bg-orange-100 mb-2 hover:placeholder:text-bombgray text-bombblack focus:text-bombblack border-solid border-4 border-bombgray focus:border-bomborange focus-visible:ring-0"
+			/>
 			<button
 				type="button"
 				id="eyeball"
-				className=""
+				className={`${styles.eyeball}`}
 				onClick={togglePasswordVisibility}
 			>
-				<div className="eye"></div>
+				<div className={styles.eye}></div>
 			</button>
 			<div
 				id="beam"
 				style={{
 					transform: `translateY(-50%) rotate(${beamDegrees})`,
-					backgroundColor: showPassword ? "#FF7517" : "transparent",
+					backgroundColor: showPassword ? "#fe9149" : "transparent",
 				}}
+				className={styles.beam}
 			></div>
 		</div>
 	);
