@@ -1,21 +1,21 @@
 @import url("https://fonts.googleapis.com/css?family=Mukta:700");
 /* * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 *::before,
 *::after {
-	box-sizing: border-box;
+  box-sizing: border-box;
 } */
 
 /* body {
-	font-size: 1rem;
-	line-height: 1.5;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin: 0;
-	min-height: 100vh;
-	background: #f3f8fa;
+  font-size: 1rem;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  min-height: 100vh;
+  background: #f3f8fa;
 } */
 
 button {
@@ -71,7 +71,7 @@ button.login .circle .icon.arrow::before {
 	border-right: 0.125rem solid #fff;
 	transform: rotate(45deg);
 }
-button.login .button-text {
+button.login .button_text {
 	transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
 	position: absolute;
 	top: 0;
@@ -93,21 +93,21 @@ button:hover .circle .icon.arrow {
 	background: #fff;
 	transform: translate(1rem, 0);
 }
-button:hover .button-text {
+button:hover .button_text {
 	color: #fff;
 }
 
 /* @supports (display: grid) {
-	body {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		grid-gap: 0.625rem;
-		grid-template-areas: ". main main ." ". main main .";
-	}
+  body {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 0.625rem;
+    grid-template-areas: ". main main ." ". main main .";
+  }
 
-	#container {
-		grid-area: main;
-		align-self: center;
-		justify-self: center;
-	}
+  #container {
+    grid-area: main;
+    align-self: center;
+    justify-self: center;
+  }
 } */
