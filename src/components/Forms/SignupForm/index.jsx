@@ -1,14 +1,13 @@
 import useLoginStore from "@/stores/LoginStore";
 import logo from "@/assets/logo.png";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Label } from "@radix-ui/react-label";
 import CustomInput from "@/components/Custom/CustomInput";
-import PasswordInput from "@/Pages/Login/PasswordInput";
+import PasswordInput from "@/components/Custom/PasswordInput/PasswordInput";
 import DrawerButton from "@/components/DrawerButton";
 import styles from "./SignupForm.module.scss";
 
-function SignupForm({ className }) {
+function SignupForm() {
 	const navigate = useNavigate();
 	const { usernameEmail, password, updateUsernameEmail, updatePassword } =
 		useLoginStore();
@@ -43,6 +42,7 @@ function SignupForm({ className }) {
 				placeholder="Email or Username"
 				autofocus="true"
 				onKey={(e) => handleKeyDown(e)}
+				key={"signup"}
 			/>
 			<Label className="text-black m-1.5 place-self-end pe-1 mb-2">
 				رمز عبور

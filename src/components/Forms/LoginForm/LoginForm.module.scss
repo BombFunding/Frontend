@@ -5,5 +5,25 @@
 }
 
 .form_style {
-	@apply content-center p-12 place-items-center grid my-4 ;
+	@apply content-center p-12 place-items-center grid my-4;
+}
+
+.welcome {
+	@apply text-black text-xl;
+}
+
+.logo {
+	@apply mix-blend-darken h-0;
+}
+
+.text {
+	@apply text-black m-4 text-xs text-center;
+}
+
+.no_account {
+	@apply text-xs text-bombgray cursor-pointer hover:text-black;
+}
+
+.Label {
+	@apply text-black m-1.5 place-self-end pe-1 mb-2;
 }
