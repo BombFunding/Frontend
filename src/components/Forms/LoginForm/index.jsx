@@ -1,9 +1,8 @@
 import logo from "@/assets/logo.png";
 import useLoginStore from "@/stores/LoginStore";
 import { Label } from "@radix-ui/react-label";
-import CustomInput from "@/components/CustomInput";
+import CustomInput from "@/components/Custom/CustomInput";
 import PasswordInput from "@/Pages/Login/PasswordInput";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./LoginForm.module.scss";
 import DrawerButton from "@/components/DrawerButton";
@@ -20,14 +19,6 @@ function LoginForm({ className }) {
 	function Login(e) {
 		e.preventDefault();
 		console.log(usernameEmail, password);
-		// axios({
-		// 	method: "post",
-		// 	url: "http://127.0.0.1:8000/auth/register/",
-		// 	data: {
-		// 		username: usernameEmail,
-		// 		password: password,
-		// 	},
-		// });
 	}
 	return (
 		<form className={styles.form_style} onSubmit={(e) => Login(e)}>

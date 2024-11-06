@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./PasswordInput.module.scss";
-import CustomInput from "@/components/CustomInput";
+import CustomInput from "@/components/Custom/CustomInput";
 
 const PasswordInput = ({
 	value,
@@ -41,7 +41,7 @@ const PasswordInput = ({
 				update={update}
 				placeholder="Password"
 				onKey={(e) => handleKeyDown(e)}
-				className={`pr-10 ${className}`}
+				className={`pr-20 ${className}`}
 			/>
 			<button
 				type="button"

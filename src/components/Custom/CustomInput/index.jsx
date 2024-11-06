@@ -1,4 +1,4 @@
-import { Input } from "../ui/input";
+import { Input } from "../../ui/input";
 
 function CustomInput({
 	value,
@@ -11,7 +11,6 @@ function CustomInput({
 	register,
 	registerName,
 }) {
-	
 	return (
 		<Input
 			value={value}

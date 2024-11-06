@@ -3,7 +3,7 @@ import logo from "@/assets/logo.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Label } from "@radix-ui/react-label";
-import CustomInput from "@/components/CustomInput";
+import CustomInput from "@/components/Custom/CustomInput";
 import PasswordInput from "@/Pages/Login/PasswordInput";
 import DrawerButton from "@/components/DrawerButton";
 import styles from "./SignupForm.module.scss";
