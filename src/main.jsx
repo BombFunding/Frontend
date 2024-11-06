@@ -7,8 +7,9 @@ import { RouterProvider } from "react-router-dom";
 
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    {/* <App /> */}
-    <RouterProvider router={router} />
-  </StrictMode>
+  <RouterProvider router={router} />
+  // <StrictMode>
+  //   {/* <App /> */}
+    
+  // </StrictMode>
 )
