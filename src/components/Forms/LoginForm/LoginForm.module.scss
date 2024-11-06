@@ -1,0 +1,9 @@
+@media (min-width: 768px) {
+	.form_style {
+		@apply w-1/2;
+	}
+}
+
+.form_style {
+	@apply content-center p-12 place-items-center grid my-4 ;
+}

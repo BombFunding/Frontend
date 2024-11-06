@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import styles from "./PasswordInput.module.scss";
-import { Input } from "@/components/ui/input";
 import CustomInput from "@/components/CustomInput";
-import useLoginStore from "@/stores/LoginStore";
 
-const PasswordInput = ({ value, update, register }) => {
+const PasswordInput = ({ value, update, register, className }) => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [beamDegrees, setBeamDegrees] = useState("0deg");
 
@@ -31,20 +29,14 @@ const PasswordInput = ({ value, update, register }) => {
 
 	return (
 		<div className="relative w-full">
-			{/* <Input
-				type={showPassword ? "text" : "password"}
-				placeholder="رمز عبور"
-				value={value}
-				onChange={(e) => update(e)}
-				className="min-w-full pr-20 font-roboto ease-in duration-300 bg-orange-100 mb-2 hover:placeholder:text-bombgray text-bombblack focus:text-bombblack border-solid border-4 border-bombgray focus:border-bomborange focus-visible:ring-0"
-			/> */}
 			<CustomInput
 				type={showPassword ? "text" : "password"}
 				value={value}
 				update={update}
-				placeholder="رمز عبور"
+				placeholder="Password"
 				register={register}
 				registerName="password"
+				className={`pr-10 ${className}`}
 			/>
 			<button
 				type="button"
