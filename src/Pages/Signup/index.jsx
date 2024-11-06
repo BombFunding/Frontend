@@ -6,7 +6,10 @@ import SignupForm from "@/components/Forms/SignupForm";
 function Signup() {
 	return (
 		<div className={styles.signup_container}>
-			<SignupForm />
+			<div className={styles.formstyle}>
+				<SignupForm  />
+			</div>
+			{/* <form>nig</form> */}
 			<img className={styles.bg_img} src={loginimage} alt="login" />
 		</div>
 	);
