@@ -8,21 +8,29 @@ import LoginButton from "../Login/LoginButton";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
-	const Navigate = useNavigate();
+	const navigate = useNavigate();
+
 	const isMobile = useMediaQuery({
 		query: "(min-width: 768px)",
+	});
+	const isTablet = useMediaQuery({
+		query: "(max-width: 1280px)",
 	});
 	return (
 		<div className="container">
 			<div className="bg-gray-100 font-vazirmatn container h-screen shadow-md flex flex-row justify-between">
-				<form className="content-center p-12 place-items-center grid w-1/2">
+				<form
+					className={`content-center p-12 place-items-center grid ${
+						isMobile ? "w-1/2" : ""
+					}`}
+				>
 					<img
 						className="mix-blend-darken h-0"
 						src={logo}
 						alt="logo"
 					/>
-					<div className="text-black text m-4 text-xl">خوش آمدید</div>
-					<div className="text-black text m-4">
+					<div className="text-black m-4 text-xl">خوش آمدید</div>
+					<div className="text-black m-4">
 						برای ثبت نام اطلاعات خود را وارد کنید
 					</div>
 					<Label className="text-black m-1.5 place-self-end pe-1 mb-2">
@@ -32,20 +40,26 @@ function Signup() {
 					<Label className="text-black m-1.5 place-self-end pe-1 mb-2">
 						رمز عبور
 					</Label>
-					<PasswordInput className="w-72" />
+					<PasswordInput className="" />
 					<div
-						onClick={() => Navigate("/login")}
+						onClick={() => navigate("/login")}
 						className="text-xs text-bombgray cursor-pointer hover:text-black"
 					>
 						قبلا ثبت نام کرده‌اید؟
 					</div>
-					<LoginButton>ارسال کد</LoginButton>
+					<LoginButton>ثبت نام</LoginButton>
 					{/* <CustomButton className="mt-5 place-self-start ml-2">
 						ورود
 					</CustomButton> */}
 				</form>
 				{isMobile && (
-					<img src={loginimage} alt="login" className="h-screen" />
+					<img
+						src={loginimage}
+						alt="login"
+						className={`h-screen w-1/2 object-cover ${
+							isTablet ? " " : ""
+						}`}
+					/>
 				)}
 			</div>
 		</div>
