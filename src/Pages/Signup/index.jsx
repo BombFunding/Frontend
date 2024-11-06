@@ -6,12 +6,8 @@ import SignupForm from "@/components/Forms/SignupForm";
 function Signup() {
 	return (
 		<div className={styles.signup_container}>
-			<SignupForm className="mt-5" />
-			<img
-				className={styles.bg_img}
-				src={loginimage}
-				alt="login"
-			/>
+			<SignupForm />
+			<img className={styles.bg_img} src={loginimage} alt="login" />
 		</div>
 	);
 }

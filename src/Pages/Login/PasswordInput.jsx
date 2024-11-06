@@ -2,7 +2,13 @@ import { useState, useEffect } from "react";
 import styles from "./PasswordInput.module.scss";
 import CustomInput from "@/components/CustomInput";
 
-const PasswordInput = ({ value, update, register, className }) => {
+const PasswordInput = ({
+	value,
+	update,
+	register,
+	handleKeyDown,
+	className,
+}) => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [beamDegrees, setBeamDegrees] = useState("0deg");
 
@@ -34,8 +40,7 @@ const PasswordInput = ({ value, update, register, className }) => {
 				value={value}
 				update={update}
 				placeholder="Password"
-				register={register}
-				registerName="password"
+				onKey={(e) => handleKeyDown(e)}
 				className={`pr-10 ${className}`}
 			/>
 			<button
