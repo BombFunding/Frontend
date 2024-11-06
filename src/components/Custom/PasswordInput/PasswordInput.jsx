@@ -6,9 +6,9 @@ function PasswordInput({
 	value,
 	update,
 	register,
-	registerName,
 	handleKeyDown,
 	className,
+	errors,
 }) {
 	const [showPassword, setShowPassword] = useState(false);
 	const [beamDegrees, setBeamDegrees] = useState("0deg");
@@ -42,10 +42,10 @@ function PasswordInput({
 				placeholder="Password"
 				onKey={(e) => handleKeyDown(e)}
 				className={`pr-20 ${className}`}
-				// register={register}
-				// registerName={registerName}
+				id="password"
+				name="password"
 				{...register("password")}
-				errors
+				errors={errors}
 			/>
 			<button
 				type="button"
