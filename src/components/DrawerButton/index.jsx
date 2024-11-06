@@ -5,7 +5,7 @@ function DrawerButton({ onClick, classNames, children }) {
 		<button
 			type="submit"
 			className={`${styles.login} mt-6 ${classNames}`}
-			onClick={(e) => onClick(e)}
+			onClick={(e) => onClick && onClick(e)}
 		>
 			<span className={styles.circle} aria-hidden>
 				<span className={`${styles.icon} ${styles.arrow}`}></span>

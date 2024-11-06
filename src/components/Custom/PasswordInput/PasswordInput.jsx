@@ -60,6 +60,7 @@ function PasswordInput({
 				style={{
 					transform: `translateY(-50%) rotate(${beamDegrees})`,
 					backgroundColor: showPassword ? "#fe9149" : "transparent",
+					// marginRight: "-0.5rem"
 				}}
 				className={styles.beam}
 			></div>

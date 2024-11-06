@@ -21,7 +21,10 @@ const schema = yup.object().shape({
 		.required("این مورد اجباری است")
 		.min(8, "رمز عبور باید حداقل 8 حرف باشد")
 		.max(50, "رمز عبور طولانی است")
-		
+		.matches(/[A-Z]/, "رمز عبور باید حداقل شامل یک حرف بزرگ انگلیسی باشد")
+		.matches(/[a-z]/, "رمز عبور باید حداقل شامل یک حرف کوچک انگلیسی باشد")
+		.matches(/\d/, "رمز عبور باید حداقل شامل یک عدد باشد")
+		.matches(/[@$!%*?&#]/, "رمز عبور باید حداقل شامل یک علامت باشد"),
 });
 
 function LoginForm() {
@@ -95,11 +98,12 @@ function LoginForm() {
 		}
 	}
 	const onSubmit = (data) => {
-		console.log("Form Data:", data);
+		console.log("Form Data:", errors, data);
+		console.log("Form Data:", errors.password);
 	};
 	function Login(e) {
 		e.preventDefault();
-		console.log(usernameEmail, password, errors.password?.message);
+		console.log(usernameEmail, password, errors.password);
 		// if (validate()) {
 		// 	console.log("send reqqqqqqqqqqqqqqqqqqqq");
 		// } else {
@@ -142,6 +146,8 @@ function LoginForm() {
 				حساب کاربری ندارید؟
 			</div>
 			<DrawerButton onClick={(e) => Login(e)}>ورود</DrawerButton>
+			{/* <DrawerButton >ورود</DrawerButton> */}
+			{/* <button type="submit">kill yourself</button> */}
 		</form>
 	);
 }
