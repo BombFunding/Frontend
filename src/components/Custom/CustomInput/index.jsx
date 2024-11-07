@@ -1,6 +1,26 @@
 import { Input } from "../../ui/input";
 import styles from "./CustomInput.module.scss";
 
+const errorsAll = {
+  password: [
+    // "اجباری",
+    "حداقل 8 کاراکتر",
+    "شامل حروف کوچک",
+    "شامل حروف بزرگ",
+    "شامل اعداد",
+    "شامل علامت",
+  ],
+  username: [
+    // "اجباری",
+    "حداقل 3 کاراکتر",
+  ],
+
+  email: [
+    // "اجباری",
+    "فرمت درست ایمیل",
+  ],
+};
+
 function CustomInput({
   placeholder,
   autofocus,
@@ -11,8 +31,10 @@ function CustomInput({
   name,
   value,
   onChange,
+  showErrors,
 }) {
-  // console.log(errors);
+  console.log("Errors:", errors);
+  const errorsList = errors?.map((err) => err.message);
   return (
     <>
       <Input
@@ -26,17 +48,36 @@ function CustomInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
-      {
-        errors &&
-          errors.map((error) => {
-            if (error.path == name) {
-              return <p className={styles.error_label}>{error.message}</p>;
-              // return <p className={styles.error_label}>{error}</p>;
-            }
-          })
+      <div className="grid grid-cols-2 place-self-center ">
+        {
+          showErrors &&
+            errorsAll[name]?.map((error) => (
+              <p
+                className={
+                  !errorsList?.includes(error)
+                    ? styles.error_solved
+                    : styles.error_label
+                }
+                key={error.message}
+              >
+                {error}
+              </p>
+            ))
+          // errors &&
+          // 	errors.map((error) => {
+          // 		if (error.path == name) {
+          // 			return (
+          // 				<p className={styles.error_label}>
+          // 					{error.message}
+          // 				</p>
+          // 			);
+          // 			// return <p className={styles.error_label}>{error}</p>;
+          // 		}
+          // 	})
 
-        // <p className={styles.error_label}>{errors[name]}</p>
-      }
+          // <p className={styles.error_label}>{errors[name]}</p>
+        }
+      </div>
     </>
   );
 }
