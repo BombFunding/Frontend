@@ -15,6 +15,7 @@ function PasswordInput({
   onChange,
   showPassword,
   togglePasswordVisibility,
+  showErrors
 }) {
   // const {showPassword, toggleShowPassword} = useSignupFormStore();
   // const [showPassword, setShowPassword] = useState(false);
@@ -54,6 +55,7 @@ function PasswordInput({
         onChange={onChange}
         value={value}
         errors={errors}
+        showErrors={showErrors}
       />
       {hasEye && (
         <>
