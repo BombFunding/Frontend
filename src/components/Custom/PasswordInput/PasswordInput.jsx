@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./PasswordInput.module.scss";
 import CustomInput from "@/components/Custom/CustomInput";
+import { useSignupFormStore } from "@/stores/FormStore";
 
 function PasswordInput({
 	update,
@@ -12,12 +13,15 @@ function PasswordInput({
 	placeholder,
 	hasEye,
 	onChange,
+  showPassword,
+  togglePasswordVisibility
 }) {
-	const [showPassword, setShowPassword] = useState(false);
+  // const {showPassword, toggleShowPassword} = useSignupFormStore();
+	// const [showPassword, setShowPassword] = useState(false);
 	const [beamDegrees, setBeamDegrees] = useState("0deg");
-	const togglePasswordVisibility = () => {
-		setShowPassword((prev) => !prev);
-	};
+	// const togglePasswordVisibility = () => {
+	// 	setShowPassword(showPassword);
+	// };
 
 	useEffect(() => {
 		const handleMouseMove = (e) => {
@@ -51,7 +55,7 @@ function PasswordInput({
 				value={value}
 				errors={errors}
 			/>
-			{ hasEye &&
+			{hasEye && (
 				<>
 					<button
 						type="button"
@@ -72,7 +76,7 @@ function PasswordInput({
 						className={styles.beam}
 					/>
 				</>
-			}
+			)}
 		</div>
 	);
 }

@@ -6,7 +6,7 @@ import CustomInput from "@/components/Custom/CustomInput";
 import PasswordInput from "@/components/Custom/PasswordInput/PasswordInput";
 import styles from "./LoginForm.module.scss";
 import DrawerButton from "@/components/DrawerButton";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLoginFormStore } from "@/stores/FormStore";
 
 const schema = yup.object().shape({
@@ -26,13 +26,13 @@ function LoginForm() {
   const navigate = useNavigate();
   function handleKeyDown(e) {
     if (e.key === "Enter") {
-      Login(e);
+		onSubmit();
     }
   }
 
   const { usernameEmail, password } = useLoginFormStore((state) => state);
   const formData = { usernameEmail, password };
-  const formState = useLoginFormStore((state) => state);
+  const {formState} = useLoginFormStore((state) => state);
   const [errors, setErrors] = useState(null);
 
   const onSubmit = async (e) => {
@@ -55,7 +55,7 @@ function LoginForm() {
         <div className={styles.text}>برای ورود اطلاعات خود را وارد کنید</div>
         <Label className={styles.Label}>ایمیل یا نام کاربری</Label>
         <CustomInput
-          update={(e) => updateUsernameEmail(e.target.value)}
+          update={(e) => formState.updateUsernameEmail(e.target.value)}
           placeholder="Email or Username"
           autofocus={true}
           onKey={(e) => handleKeyDown(e)}
@@ -66,7 +66,7 @@ function LoginForm() {
         />
         <Label className={styles.Label}>رمز عبور</Label>
         <PasswordInput
-          update={(e) => updatePassword(e.target.value)}
+          update={(e) => formState.updatePassword(e.target.value)}
           handleKeyDown={handleKeyDown}
           errors={errors}
           placeholder="Password"
