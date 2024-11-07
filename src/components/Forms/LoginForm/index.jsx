@@ -6,7 +6,7 @@ import CustomInput from "@/components/Custom/CustomInput";
 import PasswordInput from "@/components/Custom/PasswordInput/PasswordInput";
 import styles from "./LoginForm.module.scss";
 import DrawerButton from "@/components/DrawerButton";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLoginFormStore } from "@/stores/FormStore";
 import { postData } from "@/Servises/ApiClient/index.js";
 import useTokenStore from "@/stores/TokenStore";
@@ -28,14 +28,14 @@ function LoginForm() {
   const navigate = useNavigate();
   function handleKeyDown(e) {
     if (e.key === "Enter") {
-      Login(e);
+		onSubmit();
     }
   }
 
   const { usernameEmail, password } = useLoginFormStore((state) => state);
   const TokenManager = useTokenStore((state) => state);
   const formData = { usernameEmail, password };
-  const formState = useLoginFormStore((state) => state);
+  const {formState} = useLoginFormStore((state) => state);
   const [errors, setErrors] = useState(null);
 
   const onSubmit = async (e) => {

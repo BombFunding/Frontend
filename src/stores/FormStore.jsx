@@ -1,11 +1,12 @@
 import { create } from "zustand";
 
 const useLoginFormStore = create((set) => ({
-  usernameEmail: "",
-  password: "",
-  updateUsernameEmail: (usernameEmail) =>
-    set((pre) => ({ ...pre, usernameEmail: usernameEmail })),
-  updatePassword: (password) => set((pre) => ({ ...pre, password: password })),
+	usernameEmail: "",
+	password: "",
+	updateUsernameEmail: (usernameEmail) =>
+		set((pre) => ({ ...pre, usernameEmail: usernameEmail })),
+	updatePassword: (password) =>
+		set((pre) => ({ ...pre, password: password })),
 }));
 const useSignupFormStore = create((set) => ({
   username: "",

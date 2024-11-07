@@ -27,6 +27,10 @@ const schema = yup.object().shape({
 
 function SignupForm() {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   function handleKeyDown(e) {
     if (e.key === "Enter") {
       onSubmit(e);
@@ -97,6 +101,8 @@ function SignupForm() {
             name="confirmPassword"
             onChange={formState.updateConfirmPassword}
             value={confirmPassword}
+            showPassword={showPassword}
+            togglePasswordVisibility={togglePasswordVisibility}
           />
         </div>
         <div className="grid place-items-center">
@@ -126,6 +132,8 @@ function SignupForm() {
               hasEye={true}
               onChange={formState.updatePassword}
               value={password}
+              showPassword={showPassword}
+              togglePasswordVisibility={togglePasswordVisibility}
             />
           </div>
           {/* </div> */}
