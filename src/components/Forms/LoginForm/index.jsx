@@ -92,6 +92,7 @@ function LoginForm() {
           update={(e) => updatePassword(e.target.value)}
           handleKeyDown={handleKeyDown}
           errors={errors}
+          placeholder="Password"
           name="password"
           setter={setFormData}
           value={formData}
