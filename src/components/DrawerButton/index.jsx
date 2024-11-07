@@ -11,7 +11,7 @@ function DrawerButton({ onClick, classNames, children }) {
       <span className={styles.circle} aria-hidden>
         <span className={`${styles.icon} ${styles.arrow}`}></span>
       </span>
-      <span className={`${styles.button_text} font-vazirmatn`}>{children}</span>
+      <span className={styles.button_text}>{children}</span>
     </button>
   );
 }

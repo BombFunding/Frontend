@@ -42,7 +42,7 @@ function PasswordInput({
   }, []);
 
   return (
-    <div className="relative w-full">
+    <div className={styles.password_input_structure}>
       <CustomInput
         type={showPassword ? "text" : "password"}
         update={update}

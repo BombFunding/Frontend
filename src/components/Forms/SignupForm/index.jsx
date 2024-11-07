@@ -72,16 +72,12 @@ function SignupForm() {
     // <form className={styles.form_style} onSubmit={(e) => Signup(e)}>
     // <form className={styles.form_style} onSubmit={handleSubmit(onSubmit)}>
     <form className={styles.form_style} onSubmit={onSubmit}>
-      <img className="mix-blend-darken h-0" src={logo} alt="logo" />
-      <div className="text-black m-4 text-xl">خوش آمدید</div>
-      <div className="text-black text-xs text-center">
-        برای ثبت نام اطلاعات خود را وارد کنید
-      </div>
-      <div className="flex justify-evenly w-full">
-        <div className="grid place-self-center">
-          <Label className="text-black m-1.5 place-self-end pe-1 mb-2">
-            ایمیل
-          </Label>
+      <img className={styles.logo} src={logo} alt="logo" />
+      <div className={styles.welcome}>خوش آمدید</div>
+      <div className={styles.text}>برای ثبت نام اطلاعات خود را وارد کنید</div>
+      <div className={styles.form_even_justify}>
+        <div className={styles.form_column}>
+          <Label className={styles.Label}>ایمیل</Label>
           <CustomInput
             placeholder="Email"
             autofocus={true}
@@ -91,9 +87,7 @@ function SignupForm() {
             value={email}
             errors={errors}
           />
-          <Label className="text-black m-1.5 place-self-end pe-1 mb-2">
-            تایید رمز عبور
-          </Label>
+          <Label className={styles.Label}>تایید رمز عبور</Label>
           <PasswordInput
             handleKeyDown={handleKeyDown}
             placeholder="Confirm Password"
@@ -105,10 +99,8 @@ function SignupForm() {
             togglePasswordVisibility={togglePasswordVisibility}
           />
         </div>
-        <div className="grid place-items-center">
-          <Label className="text-black m-1.5 place-self-end pe-1 mb-2">
-            نام کاربری
-          </Label>
+        <div className={styles.form_column}>
+          <Label className={styles.Label}>نام کاربری</Label>
           <CustomInput
             placeholder="Username"
             autofocus={true}
@@ -119,9 +111,7 @@ function SignupForm() {
             value={username}
           />
 
-          <Label className="text-black m-1.5 place-self-end pe-1 mb-2">
-            رمز عبور
-          </Label>
+          <Label className={styles.Label}>رمز عبور</Label>
           <div>
             <PasswordInput
               handleKeyDown={handleKeyDown}
@@ -139,10 +129,7 @@ function SignupForm() {
           {/* </div> */}
         </div>
       </div>
-      <div
-        onClick={() => navigate("/login")}
-        className="text-xs text-bombgray cursor-pointer hover:text-black mt-1"
-      >
+      <div onClick={() => navigate("/login")} className={styles.has_account}>
         قبلا ثبت نام کرده‌اید؟
       </div>
       {/* <DrawerButton onClick={handleSubmit(onSubmit)}> */}
