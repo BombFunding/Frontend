@@ -8,6 +8,8 @@ import styles from "./LoginForm.module.scss";
 import DrawerButton from "@/components/DrawerButton";
 import { useEffect, useState } from "react";
 import { useLoginFormStore } from "@/stores/FormStore";
+import { postData } from "@/Servises/ApiClient/index.js";
+import useTokenStore from "@/stores/TokenStore";
 
 const schema = yup.object().shape({
   usernameEmail: yup.string().required("این مورد اجباری است"),
@@ -31,6 +33,7 @@ function LoginForm() {
   }
 
   const { usernameEmail, password } = useLoginFormStore((state) => state);
+  const TokenManager = useTokenStore((state) => state);
   const formData = { usernameEmail, password };
   const formState = useLoginFormStore((state) => state);
   const [errors, setErrors] = useState(null);
@@ -41,6 +44,30 @@ function LoginForm() {
     try {
       await schema.validate(formData, { abortEarly: false });
       console.log("Form Data:", formData);
+
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      let bodyData;
+      if (emailRegex.test(usernameEmail)) {
+        bodyData = {
+          email: usernameEmail,
+          password: password,
+        };
+      } else {
+        bodyData = {
+          username: usernameEmail,
+          password: password,
+        };
+      }
+
+      postData("/auth/login/", bodyData)
+        .then((response) => {
+          console.log("Data posted successfully:", response);
+          TokenManager.updateAccessToken(response.access_token);
+          TokenManager.updateRefreshToken(response.refresh_token);
+        })
+        .catch((error) => {
+          console.log("Data posting FAILED:", error);
+        });
     } catch (error) {
       console.log("Form Validation Errors:", error.inner);
       setErrors(error.inner);
@@ -55,7 +82,6 @@ function LoginForm() {
         <div className={styles.text}>برای ورود اطلاعات خود را وارد کنید</div>
         <Label className={styles.Label}>ایمیل یا نام کاربری</Label>
         <CustomInput
-          update={(e) => updateUsernameEmail(e.target.value)}
           placeholder="Email or Username"
           autofocus={true}
           onKey={(e) => handleKeyDown(e)}
@@ -66,7 +92,6 @@ function LoginForm() {
         />
         <Label className={styles.Label}>رمز عبور</Label>
         <PasswordInput
-          update={(e) => updatePassword(e.target.value)}
           handleKeyDown={handleKeyDown}
           errors={errors}
           placeholder="Password"

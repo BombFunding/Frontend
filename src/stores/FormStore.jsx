@@ -12,13 +12,13 @@ const useSignupFormStore = create((set) => ({
   email: "",
   password: "",
   confirmPassword: "",
-  user_type: "",
+  user_type: "basic",
   updateUsername: (username) => set((pre) => ({ ...pre, username: username })),
   updatePassword: (password) => set((pre) => ({ ...pre, password: password })),
   updateConfirmPassword: (confirmPassword) =>
     set((pre) => ({ ...pre, confirmPassword: confirmPassword })),
   updateEmail: (email) => set((pre) => ({ ...pre, email: email })),
-  updateEmail: (user_type) => set((pre) => ({ ...pre, user_type: user_type })),
+  updateUser_type: (user_type) => set((pre) => ({ ...pre, user_type: user_type })),
 }));
 
 export { useLoginFormStore, useSignupFormStore };

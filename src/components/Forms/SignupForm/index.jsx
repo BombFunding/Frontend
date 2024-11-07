@@ -1,4 +1,3 @@
-import useLoginStore from "@/stores/LoginStore";
 import logo from "@/assets/logo.png";
 
 import * as yup from "yup";
@@ -9,13 +8,12 @@ import CustomInput from "@/components/Custom/CustomInput";
 import PasswordInput from "@/components/Custom/PasswordInput/PasswordInput";
 import DrawerButton from "@/components/DrawerButton";
 import styles from "./SignupForm.module.scss";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useSignupFormStore } from "@/stores/FormStore";
+import { postData } from "@/Servises/ApiClient/index.js";
 
 const schema = yup.object().shape({
-  usernameEmail: yup.string().required("این مورد اجباری است"),
+  username: yup.string().required("این مورد اجباری است"),
   password: yup
     .string()
     .required("این مورد اجباری است")
@@ -47,6 +45,19 @@ function SignupForm() {
     try {
       await schema.validate(formData, { abortEarly: false });
       console.log("Form Data:", formData);
+      const bodyData = {
+        username: username,
+        email: email,
+        password: password,
+        user_type: "basic",
+      };
+      postData("/auth/register/", bodyData)
+        .then((response) => {
+          console.log("Data posted successfully:", response);
+        })
+        .catch((error) => {
+          console.log("Data posting FAILED:", error);
+        });
     } catch (error) {
       console.log("Form Validation Errors:", error.inner);
       setErrors(error.inner);
@@ -71,7 +82,6 @@ function SignupForm() {
             placeholder="Email"
             autofocus={true}
             onKey={(e) => handleKeyDown(e)}
-            // register={register}
             name="email"
             onChange={formState.updateEmail}
             value={email}
