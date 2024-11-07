@@ -28,11 +28,13 @@ const schema = yup.object().shape({
 });
 
 function LoginForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+  //   const {
+  //     register,
+  //     handleSubmit,
+  //     formState: { errors },
+  //   } = useForm({
+  //     resolver: yupResolver(schema, { abortEarly: false }),
+  //   });
   // const { errors, setErrors } = useState([]);
   const navigate = useNavigate();
   const { usernameEmail, password, updateUsernameEmail, updatePassword } =
@@ -43,42 +45,106 @@ function LoginForm() {
       Login(e);
     }
   }
-  const onSubmit = (data) => {
-    console.log("Form Submitted", data);
+
+  const [formData, setFormData] = useState({});
+  const [errors, setErrors] = useState(null);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Form Submitted", e);
+    try {
+      await schema.validate(formData, { abortEarly: false });
+      console.log("Form Data:", formData);
+    } catch (error) {
+      console.log("Form Validation Errors:", error.inner);
+      setErrors(error.inner);
+    }
   };
 
+  //   useEffect(() => {
+  //     console.log(errors);
+  //   }, [errors]);
+  //   useEffect(() => {
+  //     console.log(formData);
+  //   }, [formData]);
+
   return (
-    <form className={styles.form_style} onSubmit={handleSubmit(onSubmit)}>
-      <img className={styles.logo} src={logo} alt="logo" />
-      <div className={styles.welcome}>خوش آمدید</div>
-      <div className={styles.text}>برای ورود اطلاعات خود را وارد کنید</div>
-      <Label className={styles.Label}>ایمیل یا نام کاربری</Label>
-      <CustomInput
-        value={usernameEmail}
-        update={(e) => updateUsernameEmail(e.target.value)}
-        placeholder="Email or Username"
-        autofocus={true}
-        onKey={(e) => handleKeyDown(e)}
-        // {...register("usernameEmail")}
-        register={register}
-        name="usernameEmail"
-        errors={errors}
-      />
-      <Label className={styles.Label}>رمز عبور</Label>
-      <PasswordInput
-        value={password}
-        update={(e) => updatePassword(e.target.value)}
-        handleKeyDown={handleKeyDown}
-        errors={errors}
-        register={register}
-        name="password"
-      />
-      <div onClick={() => navigate("/signup")} className={styles.no_account}>
-        حساب کاربری ندارید؟
-      </div>
-      <DrawerButton onClick={handleSubmit(onSubmit)}>ورود</DrawerButton>
-    </form>
+    <>
+      <form className={styles.form_style} onSubmit={onSubmit}>
+        <img className={styles.logo} src={logo} alt="logo" />
+        <div className={styles.welcome}>خوش آمدید</div>
+        <div className={styles.text}>برای ورود اطلاعات خود را وارد کنید</div>
+        <Label className={styles.Label}>ایمیل یا نام کاربری</Label>
+        <CustomInput
+          update={(e) => updateUsernameEmail(e.target.value)}
+          placeholder="Email or Username"
+          autofocus={true}
+          onKey={(e) => handleKeyDown(e)}
+          // {...register("usernameEmail")}
+          //   register={register}
+          name="usernameEmail"
+          errors={errors}
+          setter={setFormData}
+          value={formData}
+        />
+        <Label className={styles.Label}>رمز عبور</Label>
+        <PasswordInput
+          update={(e) => updatePassword(e.target.value)}
+          handleKeyDown={handleKeyDown}
+          errors={errors}
+          name="password"
+          setter={setFormData}
+          value={formData}
+        />
+        <div onClick={() => navigate("/signup")} className={styles.no_account}>
+          حساب کاربری ندارید؟
+        </div>
+        <DrawerButton onClick={onSubmit}>ورود</DrawerButton>
+      </form>
+      {errors?.password?.types &&
+        Object.values(errors.username.types).map((message, index) => (
+          <p key={index}>{message}</p>
+        ))}
+    </>
   );
+  //   return (
+  //     <>
+  //       <form className={styles.form_style} onSubmit={handleSubmit(onSubmit)}>
+  //         <img className={styles.logo} src={logo} alt="logo" />
+  //         <div className={styles.welcome}>خوش آمدید</div>
+  //         <div className={styles.text}>برای ورود اطلاعات خود را وارد کنید</div>
+  //         <Label className={styles.Label}>ایمیل یا نام کاربری</Label>
+  //         <CustomInput
+  //           value={usernameEmail}
+  //           update={(e) => updateUsernameEmail(e.target.value)}
+  //           placeholder="Email or Username"
+  //           autofocus={true}
+  //           onKey={(e) => handleKeyDown(e)}
+  //           // {...register("usernameEmail")}
+  //           register={register}
+  //           name="usernameEmail"
+  //           errors={errors}
+  //         />
+  //         <Label className={styles.Label}>رمز عبور</Label>
+  //         <PasswordInput
+  //           value={password}
+  //           update={(e) => updatePassword(e.target.value)}
+  //           handleKeyDown={handleKeyDown}
+  //           errors={errors}
+  //           register={register}
+  //           name="password"
+  //         />
+  //         <div onClick={() => navigate("/signup")} className={styles.no_account}>
+  //           حساب کاربری ندارید؟
+  //         </div>
+  //         <DrawerButton onClick={handleSubmit(onSubmit)}>ورود</DrawerButton>
+  //       </form>
+  //       {errors.password?.types &&
+  //         Object.values(errors.username.types).map((message, index) => (
+  //           <p key={index}>{message}</p>
+  //         ))}
+  //     </>
+  //   );
 }
 
 export default LoginForm;

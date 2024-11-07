@@ -12,25 +12,35 @@ function CustomInput({
   errors,
   name,
   register,
+  setter,
 }) {
   // console.log(errors);
   return (
     <>
       <Input
         // value={value}
-        onChange={(e) => update(e)}
         type={type}
         placeholder={placeholder}
         autoFocus={autofocus}
         onKeyDown={(e) => onKey(e)}
         className={`pt-2 text-start min-w-full font-roboto ease-in duration-300 bg-orange-100 mb-2 hover:placeholder:text-bombgray text-bombblack focus:text-bombblack border-solid border-4 border-bombgray focus:border-bomborange focus-visible:ring-0 ${className}`}
-        {...register(name)}
+        // {...register(name)}
         name={name}
         id={name}
+        value={value[name]}
+        onChange={(e) => setter((pre) => ({ ...pre, [name]: e.target.value }))}
       />
-      {errors[name] && (
-        <p className={styles.error_label}>{errors[name]?.message}</p>
-      )}
+      {
+        errors &&
+          errors.map((error) => {
+            if (error.path == name) {
+              return <p className={styles.error_label}>{error.message}</p>;
+              // return <p className={styles.error_label}>{error}</p>;
+            }
+          })
+
+        // <p className={styles.error_label}>{errors[name]}</p>
+      }
     </>
   );
 }

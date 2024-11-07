@@ -3,13 +3,14 @@ import styles from "./PasswordInput.module.scss";
 import CustomInput from "@/components/Custom/CustomInput";
 
 function PasswordInput({
-  value,
-  update,
-  handleKeyDown,
-  className,
-  errors,
-  register,
-  name,
+	update,
+	handleKeyDown,
+	className,
+	errors,
+	register,
+	name,
+	value,
+	setter
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [beamDegrees, setBeamDegrees] = useState("0deg");
@@ -38,13 +39,13 @@ function PasswordInput({
     <div className="relative w-full">
       <CustomInput
         type={showPassword ? "text" : "password"}
-        value={value}
         update={update}
         placeholder="Password"
         onKey={(e) => handleKeyDown(e)}
         className={`pr-20 ${className}`}
         name={name}
-		register={register}
+		setter={setter}
+        value={value}
         errors={errors}
       />
       <button
