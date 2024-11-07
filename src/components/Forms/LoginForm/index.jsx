@@ -28,14 +28,14 @@ function LoginForm() {
   const navigate = useNavigate();
   function handleKeyDown(e) {
     if (e.key === "Enter") {
-		onSubmit();
+      onSubmit();
     }
   }
 
   const { usernameEmail, password } = useLoginFormStore((state) => state);
   const TokenManager = useTokenStore((state) => state);
   const formData = { usernameEmail, password };
-  const {formState} = useLoginFormStore((state) => state);
+  const formState = useLoginFormStore((state) => state);
   const [errors, setErrors] = useState(null);
 
   const onSubmit = async (e) => {
