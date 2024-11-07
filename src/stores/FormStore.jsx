@@ -1,13 +1,24 @@
 import { create } from "zustand";
 
-const useFormStore = create((set) => ({
-    
-	usernameEmail: "",
-	password: "",
-	user_type: "",
-	updateUsernameEmail: (usernameEmail) =>
-		set(() => ({ usernameEmail: usernameEmail })),
-	updatePassword: (password) => set(() => ({ password: password })),
+const useLoginFormStore = create((set) => ({
+  usernameEmail: "",
+  password: "",
+  updateUsernameEmail: (usernameEmail) =>
+    set((pre) => ({ ...pre, usernameEmail: usernameEmail })),
+  updatePassword: (password) => set((pre) => ({ ...pre, password: password })),
+}));
+const useSignupFormStore = create((set) => ({
+  username: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  user_type: "",
+  updateUsername: (username) => set((pre) => ({ ...pre, username: username })),
+  updatePassword: (password) => set((pre) => ({ ...pre, password: password })),
+  updateConfirmPassword: (confirmPassword) =>
+    set((pre) => ({ ...pre, confirmPassword: confirmPassword })),
+  updateEmail: (email) => set((pre) => ({ ...pre, email: email })),
+  updateEmail: (user_type) => set((pre) => ({ ...pre, user_type: user_type })),
 }));
 
-export default useFormStore;
+export { useLoginFormStore, useSignupFormStore };

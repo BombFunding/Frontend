@@ -7,12 +7,11 @@ function PasswordInput({
 	handleKeyDown,
 	className,
 	errors,
-	register,
 	name,
 	value,
-	setter,
 	placeholder,
 	hasEye,
+	onChange,
 }) {
 	const [showPassword, setShowPassword] = useState(false);
 	const [beamDegrees, setBeamDegrees] = useState("0deg");
@@ -48,7 +47,7 @@ function PasswordInput({
 				// className={`pr-20 ${className}`}
 				className={`${className}`}
 				name={name}
-				setter={setter}
+				onChange={onChange}
 				value={value}
 				errors={errors}
 			/>

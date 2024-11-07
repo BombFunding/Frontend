@@ -1,18 +1,13 @@
 import { useNavigate } from "react-router-dom";
-
 import logo from "@/assets/logo.png";
-
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-
 import { Label } from "@radix-ui/react-label";
-import useLoginStore from "@/stores/LoginStore";
 import CustomInput from "@/components/Custom/CustomInput";
 import PasswordInput from "@/components/Custom/PasswordInput/PasswordInput";
 import styles from "./LoginForm.module.scss";
 import DrawerButton from "@/components/DrawerButton";
 import { useEffect, useState } from "react";
+import { useLoginFormStore } from "@/stores/FormStore";
 
 const schema = yup.object().shape({
   usernameEmail: yup.string().required("این مورد اجباری است"),
@@ -28,25 +23,16 @@ const schema = yup.object().shape({
 });
 
 function LoginForm() {
-  //   const {
-  //     register,
-  //     handleSubmit,
-  //     formState: { errors },
-  //   } = useForm({
-  //     resolver: yupResolver(schema, { abortEarly: false }),
-  //   });
-  // const { errors, setErrors } = useState([]);
   const navigate = useNavigate();
-  const { usernameEmail, password, updateUsernameEmail, updatePassword } =
-    useLoginStore();
-
   function handleKeyDown(e) {
     if (e.key === "Enter") {
       Login(e);
     }
   }
 
-  const [formData, setFormData] = useState({});
+  const { usernameEmail, password } = useLoginFormStore((state) => state);
+  const formData = { usernameEmail, password };
+  const formState = useLoginFormStore((state) => state);
   const [errors, setErrors] = useState(null);
 
   const onSubmit = async (e) => {
@@ -61,13 +47,6 @@ function LoginForm() {
     }
   };
 
-  //   useEffect(() => {
-  //     console.log(errors);
-  //   }, [errors]);
-  //   useEffect(() => {
-  //     console.log(formData);
-  //   }, [formData]);
-
   return (
     <>
       <form className={styles.form_style} onSubmit={onSubmit}>
@@ -80,12 +59,10 @@ function LoginForm() {
           placeholder="Email or Username"
           autofocus={true}
           onKey={(e) => handleKeyDown(e)}
-          // {...register("usernameEmail")}
-          //   register={register}
           name="usernameEmail"
           errors={errors}
-          setter={setFormData}
-          value={formData}
+          value={formData.usernameEmail}
+          onChange={formState.updateUsernameEmail}
         />
         <Label className={styles.Label}>رمز عبور</Label>
         <PasswordInput
@@ -94,58 +71,17 @@ function LoginForm() {
           errors={errors}
           placeholder="Password"
           name="password"
-          setter={setFormData}
-          value={formData}
+          onChange={formState.updatePassword}
+          value={formData.password}
+          hasEye={true}
         />
         <div onClick={() => navigate("/signup")} className={styles.no_account}>
           حساب کاربری ندارید؟
         </div>
         <DrawerButton onClick={onSubmit}>ورود</DrawerButton>
       </form>
-      {errors?.password?.types &&
-        Object.values(errors.username.types).map((message, index) => (
-          <p key={index}>{message}</p>
-        ))}
     </>
   );
-  //   return (
-  //     <>
-  //       <form className={styles.form_style} onSubmit={handleSubmit(onSubmit)}>
-  //         <img className={styles.logo} src={logo} alt="logo" />
-  //         <div className={styles.welcome}>خوش آمدید</div>
-  //         <div className={styles.text}>برای ورود اطلاعات خود را وارد کنید</div>
-  //         <Label className={styles.Label}>ایمیل یا نام کاربری</Label>
-  //         <CustomInput
-  //           value={usernameEmail}
-  //           update={(e) => updateUsernameEmail(e.target.value)}
-  //           placeholder="Email or Username"
-  //           autofocus={true}
-  //           onKey={(e) => handleKeyDown(e)}
-  //           // {...register("usernameEmail")}
-  //           register={register}
-  //           name="usernameEmail"
-  //           errors={errors}
-  //         />
-  //         <Label className={styles.Label}>رمز عبور</Label>
-  //         <PasswordInput
-  //           value={password}
-  //           update={(e) => updatePassword(e.target.value)}
-  //           handleKeyDown={handleKeyDown}
-  //           errors={errors}
-  //           register={register}
-  //           name="password"
-  //         />
-  //         <div onClick={() => navigate("/signup")} className={styles.no_account}>
-  //           حساب کاربری ندارید؟
-  //         </div>
-  //         <DrawerButton onClick={handleSubmit(onSubmit)}>ورود</DrawerButton>
-  //       </form>
-  //       {errors.password?.types &&
-  //         Object.values(errors.username.types).map((message, index) => (
-  //           <p key={index}>{message}</p>
-  //         ))}
-  //     </>
-  //   );
 }
 
 export default LoginForm;
