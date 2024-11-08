@@ -1,59 +1,58 @@
 import { Input } from "../../ui/input";
 import styles from "./CustomInput.module.scss";
 const errorsAll = {
-	password: [
-		// "اجباری",
-		"حداقل 8 کاراکتر",
-		"شامل حروف کوچک",
-		"شامل حروف بزرگ",
-		"شامل اعداد",
-		"شامل علامت",
-	],
-	username: [
-		// "اجباری",
-		"حداقل 3 کاراکتر",
-	],
+  password: [
+    // "اجباری",
+    "حداقل 8 کاراکتر",
+    "شامل حروف کوچک",
+    "شامل حروف بزرگ",
+    "شامل اعداد",
+    "شامل علامت",
+  ],
+  username: [
+    // "اجباری",
+    "حداقل 3 کاراکتر",
+  ],
 
-	email: [
-		// "اجباری",
-		"فرمت درست ایمیل",
-	],
+  email: [
+    // "اجباری",
+    "فرمت درست ایمیل",
+  ],
 
-	confirmPassword: [
-		// "اجباری",
-		"یکسان با پسورد",
-	],
+  confirmPassword: [
+    // "اجباری",
+    "یکسان با پسورد",
+  ],
 };
 
 function CustomInput({
-	placeholder,
-	autofocus,
-	type,
-	onKey,
-	className,
-	errors,
-	name,
-	value,
-	onChange,
-	showErrors,
+  placeholder,
+  autofocus,
+  type,
+  onKey,
+  className,
+  errors,
+  name,
+  value,
+  onChange,
+  showErrors,
 }) {
-	// console.log("Errors:", errors);
-	const errorsList = errors?.map((err) => err.message);
-	return (
-		<>
-			
-			<Input
-				type={type}
-				placeholder={placeholder}
-				autoFocus={autofocus}
-				onKeyDown={(e) => onKey(e)}
-				className={`${styles.custom_input_structure} font-roboto ${className}`}
-				name={name}
-				id={name}
-				value={value}
-				onChange={(e) => onChange(e.target.value)}
-			/>
-			{/* <div className={styles.input_errors}>
+  // console.log("Errors:", errors);
+	
+  return (
+    <>
+      <Input
+        type={type}
+        placeholder={placeholder}
+        autoFocus={autofocus}
+        onKeyDown={(e) => onKey(e)}
+        className={`${styles.custom_input_structure} font-roboto ${className}`}
+        name={name}
+        id={name}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
+      {/* <div className={styles.input_errors}>
 				{
 					showErrors &&
 						errorsAll[name]?.map((error) => (
@@ -83,8 +82,8 @@ function CustomInput({
 					// <p className={styles.error_label}>{errors[name]}</p>
 				}
 			</div> */}
-		</>
-	);
+    </>
+  );
 }
 
 export default CustomInput;

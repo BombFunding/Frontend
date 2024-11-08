@@ -65,64 +65,65 @@ function SignupForm() {
   const formData = { username, email, password, confirmPassword, user_type };
   const [errors, setErrors] = useState([]);
 
-	function addNotification(title, subtitles, actions, icon) {
-		setNotifications((prev) => [
-			...prev,
-			{ id: Math.random(), title, subtitles, actions, icon },
-		]);
-	}
-	const dismissNotification = (id) => {
-		setNotifications((prev) => prev.filter((note) => note.id !== id));
-	};
-	function onChangeRole(e) {
-		setRole(e.target.value);
-	}
-	function togglePasswordVisibility() {
-		setShowPassword(!showPassword);
-	}
-	function handleKeyDown(e) {
-		if (e.key === "Enter") {
-			onSubmit(e);
-		}
-	}
-	// useEffect(() => {
-	// 	const Fields = {
-	// 		username: "نام کاربری",
-	// 		password: "رمز عبور",
-	// 		email: "ایمیل",
-	// 		confirmPassword: "تایید رمز عبور",
-	// 	};
-	// 	const X = ["username", "password", "email", "confirmPassword"];
-	// 	X.map((path) => {
-	// 		// console.log(path);
-	// 		const notificationErrors = [];
-	// 		errors[0]
-	// 			?.filter((err) => err.path === path)
-	// 			.map((err) => notificationErrors.push(err.message));
-	// 		errors[1]
-	// 			?.filter((err) => err.path === path)
-	// 			.map((err) => notificationErrors.push(err.message));
-	// 		if (notificationErrors.length > 0) {
-	// 			addNotification(
-	// 				Fields[path],
-	// 				notificationErrors,
-	// 				["اوکی"]
-	// 			);
-	// 		}
-	// 	});
-	// }, [errors]);
-	const onSubmit = async (e) => {
-		setNotifications([]);
-		// console.log("Form Submitted", e);
-		try {
-			await schema.validate(formData, { abortEarly: false });
-			const bodyData = {
-				username: username,
-				email: email,
-				password: password,
-				user_type: "basic",
-			};
-			// console.log("Form bodyData:", bodyData);
+  function addNotification(title, subtitles, actions, icon) {
+    setNotifications((prev) => [
+      ...prev,
+      { id: Math.random(), title, subtitles, actions, icon },
+    ]);
+  }
+  const dismissNotification = (id) => {
+    setNotifications((prev) => prev.filter((note) => note.id !== id));
+  };
+  function onChangeRole(e) {
+    setRole(e.target.value);
+  }
+  function togglePasswordVisibility() {
+    setShowPassword(!showPassword);
+  }
+  function handleKeyDown(e) {
+    if (e.key === "Enter") {
+      onSubmit(e);
+    }
+  }
+  // useEffect(() => {
+  // 	const Fields = {
+  // 		username: "نام کاربری",
+  // 		password: "رمز عبور",
+  // 		email: "ایمیل",
+  // 		confirmPassword: "تایید رمز عبور",
+  // 	};
+  // 	const X = ["username", "password", "email", "confirmPassword"];
+  // 	X.map((path) => {
+  // 		// console.log(path);
+  // 		const notificationErrors = [];
+  // 		errors[0]
+  // 			?.filter((err) => err.path === path)
+  // 			.map((err) => notificationErrors.push(err.message));
+  // 		errors[1]
+  // 			?.filter((err) => err.path === path)
+  // 			.map((err) => notificationErrors.push(err.message));
+  // 		if (notificationErrors.length > 0) {
+  // 			addNotification(
+  // 				Fields[path],
+  // 				notificationErrors,
+  // 				["اوکی"]
+  // 			);
+  // 		}
+  // 	});
+  // }, [errors]);
+  const onSubmit = async (e) => {
+    setNotifications([]);
+    setErrors([]);
+    // console.log("Form Submitted", e);
+    try {
+      await schema.validate(formData, { abortEarly: false });
+      const bodyData = {
+        username: username,
+        email: email,
+        password: password,
+        user_type: "basic",
+      };
+      // console.log("Form bodyData:", bodyData);
 
       await postData("/auth/register/", bodyData)
         .then((response) => {
@@ -137,13 +138,17 @@ function SignupForm() {
                 message: "نام کاربری تکراری است",
                 path: "username",
               };
-              setErrors((pre) => [...pre, err]);
+              const temp = errors;
+              temp[0].push(err);
+              setErrors((pre) => [temp]);
             } else if (data?.email) {
               const err = {
                 message: "ایمیل تکراری است",
                 path: "email",
               };
-              setErrors((pre) => [...pre, err]);
+              const temp = errors;
+              temp[0].push(err);
+              setErrors((pre) => [temp]);
             }
           }
         });
