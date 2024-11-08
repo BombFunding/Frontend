@@ -63,7 +63,7 @@ function SignupForm() {
   const [role, setRole] = useState("1");
   const formState = useSignupFormStore((state) => state);
   const formData = { username, email, password, confirmPassword, user_type };
-  const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState([]);
 
   function addNotification(title, subtitle, actions) {
     // const messages = getNotificationMessages();
@@ -111,16 +111,30 @@ function SignupForm() {
       };
       console.log("Form bodyData:", bodyData);
 
-      postData("/auth/register/", bodyData)
+      await postData("/auth/register/", bodyData)
         .then((response) => {
           console.log("Data posted successfully:", response);
         })
         .catch((error) => {
-          console.log("Data posting FAILED:", error);
+          //   console.log(error);
+          if (error?.response?.data) {
+            const data = error?.response?.data;
+            if (data?.username) {
+              const err = {
+                message: "نام کاربری تکراری است",
+                path: "username",
+              };
+              setErrors((pre) => [...pre, err]);
+            } else if (data?.email) {
+              const err = { message: "ایمیل تکراری است", path: "email" };
+              setErrors((pre) => [...pre, err]);
+            }
+          }
         });
     } catch (error) {
-      console.log("Form Validation Errors:", error.inner);
-      setErrors(error.inner);
+      setErrors((pre) => [...pre, error.inner]);
+    } finally {
+      console.log("Errors: ", errors);
     }
   };
 
