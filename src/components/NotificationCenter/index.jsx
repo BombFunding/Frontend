@@ -27,41 +27,47 @@ export const Notification = ({
 	subtitles,
 	actions,
 	onDismiss,
-}) => (
-	<div className="notification">
-		<div className="notification__box">
-			<div className="notification__content">
-				<div className="notification__icon">
-					<img
-						aria-label={icon}
-						src={errorIcon}
-					/>
+}) => {
+	const [isDismissing, setIsDismissing] = useState(false);
+	const handleDismiss = () => {
+		setIsDismissing(true); // Apply the notification--out class
+		onDismiss(id);
+	  };
+	return (
+		<div className="notification">
+			<div className="notification__box">
+				<div className="notification__content">
+					<div className="notification__icon">
+						<img aria-label={icon} src={errorIcon} />
+					</div>
+					<div className="notification__text">
+						<div className="notification__text-title">{title}</div>
+						{subtitles &&
+							subtitles.map((subtitle) => (
+								<div
+									className="notification__text-subtitle"
+									key={subtitle}
+								>
+									{subtitle}
+								</div>
+							))}
+					</div>
 				</div>
-				<div className="notification__text">
-					<div className="notification__text-title">{title}</div>
-					{subtitles &&
-						subtitles.map((subtitle) => (
-							<div
-								className="notification__text-subtitle"
-								key={subtitle}
-							>
-								{subtitle}
-							</div>
-						))}
+				<div className={`notification__btns ${isDismissing ? 'notification--out' : ''}`}>
+					{actions?.map((action) => (
+						<button
+							key={id}
+							type="button"
+							className="notification__btn"
+							onClick={() => handleDismiss()}
+						>
+							<span className="notification__btn-text">
+								{action}
+							</span>
+						</button>
+					))}
 				</div>
-			</div>
-			<div className="notification__btns">
-				{actions?.map((action) => (
-					<button
-						key={id}
-						type="button"
-						className="notification__btn"
-						onClick={() => onDismiss(id)}
-					>
-						<span className="notification__btn-text">{action}</span>
-					</button>
-				))}
 			</div>
 		</div>
-	</div>
-);
+	);
+};

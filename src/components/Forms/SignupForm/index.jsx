@@ -112,6 +112,7 @@ function SignupForm() {
 	// 	});
 	// }, [errors]);
 	const onSubmit = async (e) => {
+		setNotifications([]);
 		// console.log("Form Submitted", e);
 		try {
 			await schema.validate(formData, { abortEarly: false });
