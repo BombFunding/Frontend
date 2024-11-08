@@ -53,7 +53,7 @@ button {
 	background-color: hsl(0, 0%, 100%);
 	border-radius: 0.75em;
 	box-shadow: 0 0.5em 1em hsla(var(--hue), 10%, 10%, 0.1);
-	height: 3em;
+	height: auto;
 	transition: background-color var(--transDur), color var(--transDur);
 	backdrop-filter: blur(8px); /* Adds a blur effect for a glassy look */
 	/* border: 1px solid rgba(255, 255, 255, 0.3); */
@@ -65,7 +65,7 @@ button {
 	align-items: center;
 	padding: 0.375em 1em;
 	width: 100%;
-	height: 100%;
+	height: auto;
 }
 .notification__icon {
 	flex-shrink: 0;
@@ -95,7 +95,7 @@ button {
 	flex-direction: column;
 	flex-shrink: 0;
 	min-width: 4em;
-	height: 100%;
+	/* height: 100%; */
 	transition: box-shadow var(--transDur);
 }
 .notification__btn {

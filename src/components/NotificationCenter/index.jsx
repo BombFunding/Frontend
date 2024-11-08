@@ -23,7 +23,7 @@ export const Notification = ({
 	id,
 	icon,
 	title,
-	subtitle,
+	subtitles,
 	actions,
 	onDismiss,
 }) => (
@@ -43,11 +43,12 @@ export const Notification = ({
 				</div>
 				<div className="notification__text">
 					<div className="notification__text-title">{title}</div>
-					{subtitle && (
-						<div className="notification__text-subtitle">
-							{subtitle}
-						</div>
-					)}
+					{subtitles &&
+						subtitles.map((subtitle) => (
+							<div className="notification__text-subtitle">
+								{subtitle}
+							</div>
+						))}
 				</div>
 			</div>
 			<div className="notification__btns">
