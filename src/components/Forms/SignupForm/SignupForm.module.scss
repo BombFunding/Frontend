@@ -1,38 +1,39 @@
 @media (min-width: 768px) {
-  .form_style {
-    @apply w-1/2;
-  }
+	.form_style {
+		@apply w-1/2;
+	}
 }
 
 .form_style {
-  @apply content-center place-items-center flex flex-col w-full;
-  // @apply content-center p-12 place-items-center grid justify-between my-4;
+	// @apply content-center place-items-center flex flex-col w-full;
+	@apply content-center place-items-center flex flex-col justify-between my-4 w-full;
 }
 
 .Label {
-  @apply text-black m-1.5 place-self-end pe-1 mb-2;
+	@apply text-black m-1.5 place-self-end pe-1 mb-2;
 }
 
 .welcome {
-  @apply text-black m-4 text-xl;
+	@apply text-black m-4 text-xl;
 }
 
 .logo {
-  @apply mix-blend-darken h-0;
+	@apply mix-blend-darken h-0;
 }
 
 .text {
-  @apply text-black text-xs text-center;
+	@apply text-black text-xs text-center mb-3;
 }
 
 .form_column {
-  @apply grid place-self-center;
+	@apply self-start w-1/3;
 }
 
 .form_even_justify {
-  @apply flex justify-evenly w-full;
+	// @apply grid grid-cols-2 place-items-center;
+	@apply flex flex-row justify-evenly w-full place-items-center;
 }
 
 .has_account {
-  @apply text-xs text-bombgray cursor-pointer hover:text-bomborange hover:underline;
+	@apply text-xs text-bombgray cursor-pointer hover:text-bomborange hover:underline pt-8;
 }

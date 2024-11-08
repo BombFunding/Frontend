@@ -1,0 +1,69 @@
+:root {
+	--primary-light: #8abdff;
+	--primary: #ff7517;
+	--primary-dark: #5b0eeb;
+	--white: #ffffff;
+	--greyLight-1: #e4ebf5;
+	/* --greyLight-2: #ffc9a6; */
+	--greyLight-2: #c8d0e7;
+	--greyLight-3: #bec8e4;
+	/* --greyDark: #9baacf; */
+	--greyDark: #ffa569;
+}
+
+.segmented_control {
+	@apply text-bombblack text-center;
+	grid-column: 3/4;
+	grid-row: 1/2;
+	width: 12rem;
+	height: 2rem;
+	box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
+		-0.2rem -0.2rem 0.5rem var(--white);
+	border-radius: 1rem;
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+.segmented_control input {
+	
+	display: none;
+}
+.segmented_control > input:checked + label {
+	transition: all 0.5s ease;
+	color: var(--primary);
+}
+.segmented_control_element {
+	width: 4rem;
+	height: 1.8rem;
+	font-size: 0.7rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	color: var(--greyDark);
+	transition: all 0.5s ease;
+}
+.segmented_control_color {
+	position: absolute;
+	height: 1.7rem;
+	width: 3.7rem;
+	margin-left: 0.3rem;
+	border-radius: 0.8rem;
+	box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
+		inset -0.2rem -0.2rem 0.5rem var(--white);
+	pointer-events: none;
+}
+#tab-1:checked ~ .segmented_control_color {
+	transform: translateX(0);
+	transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#tab-2:checked ~ .segmented_control_color {
+	transform: translateX(4rem);
+	transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+#tab-3:checked ~ .segmented_control_color {
+	transform: translateX(7.8rem);
+	transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
