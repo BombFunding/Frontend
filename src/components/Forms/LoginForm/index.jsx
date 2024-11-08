@@ -74,7 +74,7 @@ function LoginForm() {
               const message = inputState
                 ? "نام کاربری یا رمز ورود اشتباه است"
                 : "ایمیل یا رمز ورود اشتباه است";
-              const err = { message: message, path: "username" };
+              const err = { message: message, path: "usernameEmail" };
               setErrors((pre) => [...pre, err]);
             }
           }
