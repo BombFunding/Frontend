@@ -14,36 +14,36 @@ import { postData } from "@/Servises/ApiClient/index.js";
 import { RadioInput, RadioInputOption } from "@/components/Custom/RadioInput";
 import { Notification } from "@/components/NotificationCenter";
 
-const inlineErrors = ["حروف بزرگ", "حروف کوچک", "اعداد", "علامت"];
-
 const schema = yup.object().shape({
-  username: yup.string().required("اجباری").min(3, "حداقل 3 کاراکتر"),
+  username: yup
+    .string()
+    .required("این مورد اجباری است")
+    .min(3, "نام کاربری باید حداقل 3 کاراکتر باشد"),
   password: yup
     .string()
-    .required("اجباری")
+    .required("این مورد اجباری است")
     .min(8, "رمز عبور باید حداقل 8 کاراکتر باشد")
     .max(50, "رمز عبور طولانی است")
-    .matches(/[A-Z]/, "حروف بزرگ")
-    .matches(/[a-z]/, "حروف کوچک")
-    .matches(/\d/, "اعداد")
-    .matches(/[@$!%*?&#]/, "علامت"),
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      "رمز عبور باید حداقل شامل یک حرف بزرگ، عدد و علامت باشد"
+    ),
+  email: yup
+    .string()
+    .required("این مورد اجباری است")
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "فرمت ایمیل اشتباه است"
+    ),
+  confirmPassword: yup
+    .string()
+    .required("این مورد اجباری است")
+    .oneOf(
+      [yup.ref("password")],
+      "مقادیر رمز عبور و تایید رمز عبور یکسان نیستند"
+    ),
 });
-const getNotificationMessages = () => [
-  {
-    icon: "error",
-    title: "رمز عبور غیرقابل قبول است",
-    subtitle: "",
-    actions: ["Close"],
-  },
-  { icon: "success", title: "Changes Saved", actions: ["OK"] },
-  {
-    icon: "warning",
-    title: "Reminder",
-    subtitle: "You will receive more notifications.",
-    actions: ["Close"],
-  },
-  // Add more messages here as needed
-];
+
 function SignupForm() {
   const navigate = useNavigate();
   const [notifications, setNotifications] = useState([]);
@@ -65,13 +65,13 @@ function SignupForm() {
   const formData = { username, email, password, confirmPassword, user_type };
   const [errors, setErrors] = useState([]);
 
-  function addNotification(title, subtitle, actions) {
+  function addNotification(title, subtitles, actions) {
     // const messages = getNotificationMessages();
     // const message = messages[Math.floor(Math.random() * messages.length)];
     // setNotifications((prev) => [...prev, { id: Date.now(), ...message }]);
     setNotifications((prev) => [
       ...prev,
-      { id: Date.now(), title, subtitle, actions },
+      { id: Date.now(), title, subtitles, actions },
     ]);
   }
   const dismissNotification = (id) => {
@@ -79,17 +79,8 @@ function SignupForm() {
   };
   function onChangeRole(e) {
     setRole(e.target.value);
-    console.log(errors?.map((err) => err.message));
+    // console.log(errors?.map((err) => err.message));
     // const notif = addNotification("Heelo", "Nigga", "OK");
-
-    addNotification(
-      "مشکل داری؟",
-      errors
-        ?.filter((err) => inlineErrors.includes(err))
-        .map((err) => err.message)
-        .join(" ،"),
-      ["دارم"]
-    );
   }
   function togglePasswordVisibility() {
     setShowPassword(!showPassword);
@@ -100,7 +91,7 @@ function SignupForm() {
     }
   }
   const onSubmit = async (e) => {
-    console.log("Form Submitted", e);
+    // console.log("Form Submitted", e);
     try {
       await schema.validate(formData, { abortEarly: false });
       const bodyData = {
@@ -109,7 +100,7 @@ function SignupForm() {
         password: password,
         user_type: "basic",
       };
-      console.log("Form bodyData:", bodyData);
+      // console.log("Form bodyData:", bodyData);
 
       await postData("/auth/register/", bodyData)
         .then((response) => {
@@ -135,6 +126,22 @@ function SignupForm() {
       setErrors((pre) => [...pre, error.inner]);
     } finally {
       console.log("Errors: ", errors);
+      const Fields = {
+        username: "نام کاربری",
+        password: "رمز عبور",
+        email: "ایمیل",
+        confirmPassword: "تایید رمز عبور",
+      };
+      Object.keys(Fields).map((path) => {
+        console.log(path);
+        const notificationErrors = [];
+        errors
+          .filter((err) => err.path === path)
+          .map((err) => notificationErrors.push(err.message));
+        if (notificationErrors.length > 0) {
+          addNotification(Fields[path], notificationErrors, ["اوکی"]);
+        }
+      });
     }
   };
 
