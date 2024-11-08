@@ -83,7 +83,7 @@ function LoginForm() {
 	return (
 		<>
 			<form className={styles.form_style} onSubmit={onSubmit}>
-				<img className={styles.logo} src={logo} alt="logo" />
+				{/* <img className={styles.logo} src={logo} alt="logo" /> */}
 				<div className={styles.welcome}>خوش آمدید</div>
 				<div className={styles.text}>
 					برای ورود اطلاعات خود را وارد کنید

@@ -3,11 +3,11 @@ import styles from "../layout.module.scss";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {
-  return (
-    <>
-    <Outlet />
-    </>
-  );
+	return (
+		<>
+			<Outlet />
+		</>
+	);
 };
 
 export default Layout;

@@ -1,9 +1,9 @@
-import "./RadioInput.css";
+import "./RadioInput.scss";
 // import "./m2.css";
 
-export const RadioInput = ({ onChange, children }) => {
+export const RadioInput = ({ children }) => {
 	return (
-		<div className={"segmented_control"} onChange={onChange}>
+		<div className={"segmented_control"}>
 			{children}
 			<div className={"segmented_control_color"}></div>
 		</div>
@@ -11,7 +11,6 @@ export const RadioInput = ({ onChange, children }) => {
 };
 
 export const RadioInputOption = ({
-	onClick,
 	id,
 	checked,
 	onChange,
@@ -25,6 +24,7 @@ export const RadioInputOption = ({
 				name="radio2"
 				id={id}
 				checked={checked}
+                onChange={onChange}
 				value={value}
 			></input>
 			<label className={"segmented_control_element"} htmlFor={id}>
