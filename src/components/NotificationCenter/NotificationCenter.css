@@ -20,19 +20,19 @@ button {
 	color: var(--fg);
 	font: 1em/1.5 "DM Sans", "Helvetica Neue", Helvetica, sans-serif;
 }
-body {
+/* body {
 	background-color: var(--bg);
 	height: 100vh;
 	display: grid;
 	place-items: center;
 	transition: background-color var(--transDur);
-}
+} */
 .notification {
 	/* padding-bottom: 0.75em; */
 
 	position: relative;
-	top: 1.5em;
-	right: 1.5em;
+	/* top: 1.5em;
+	right: 1.5em; */
 	width: 25em;
 	/* height: 10rem; */
 	max-width: calc(100% - 3em);

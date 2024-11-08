@@ -126,15 +126,6 @@ function SignupForm() {
 
   return (
     <>
-      <div>
-        {notifications?.map((note) => (
-          <Notification
-            key={note.id}
-            {...note}
-            onDismiss={() => dismissNotification(note.id)}
-          />
-        ))}
-      </div>
       <form
         className={styles.form_style}
         onSubmit={(e) => {
@@ -252,6 +243,17 @@ function SignupForm() {
           ثبت نام
         </DrawerButton>
       </form>
+      <div className={styles.notification_box}>
+        <div className={styles.notification_box_flex}>
+          {notifications?.map((note) => (
+            <Notification
+              key={note.id}
+              {...note}
+              onDismiss={() => dismissNotification(note.id)}
+            />
+          ))}
+        </div>
+      </div>
       {/* <NotificationCenter /> */}
     </>
   );

@@ -53,3 +53,10 @@
 .input_row {
   @apply flex items-center justify-between gap-5;
 }
+
+.notification_box {
+	@apply fixed right-3 bottom-3;
+}
+.notification_box_flex {
+	@apply flex flex-col items-end gap-1;
+}
