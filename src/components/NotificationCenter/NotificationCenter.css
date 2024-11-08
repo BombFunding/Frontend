@@ -60,7 +60,7 @@ button {
 	@apply rounded-l-xl text-right;
 	background-color: var(--content-color);
 	align-items: center;
-
+	place-content: space-between;
 	padding: 0.375em 1em;
 	width: 100%;
 	height: auto;
