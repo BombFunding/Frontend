@@ -48,21 +48,19 @@ button {
 }
 
 .notification__box {
-	align-items: center;
+	place-self: right;
 	animation: flyIn 0.3s ease-in;
 	background-color: hsl(0, 0%, 100%);
 	border-radius: 0.75em;
 	box-shadow: 0 0.5em 1em hsla(var(--hue), 10%, 10%, 0.1);
-	height: auto;
 	transition: background-color var(--transDur), color var(--transDur);
-	backdrop-filter: blur(8px); /* Adds a blur effect for a glassy look */
-	/* border: 1px solid rgba(255, 255, 255, 0.3); */
 }
 
 .notification__content {
-	@apply rounded-l-xl;
+	@apply rounded-l-xl text-right;
 	background-color: var(--content-color);
 	align-items: center;
+
 	padding: 0.375em 1em;
 	width: 100%;
 	height: auto;
@@ -93,8 +91,10 @@ button {
 	background-color: var(--btn-color);
 	box-shadow: -1px 0 0 hsla(var(--hue), 10%, 10%, 0.15);
 	flex-direction: column;
-	flex-shrink: 0;
+	/* flex-shrink: 0; */
 	min-width: 4em;
+	height: auto;
+	/* min-height: 2em; */
 	/* height: 100%; */
 	transition: box-shadow var(--transDur);
 }
@@ -105,7 +105,7 @@ button {
 	font-size: 0.6em;
 	line-height: 1;
 	font-weight: 500;
-	height: 100%;
+	height: 150%;
 	padding: 0 0.5rem;
 	transition: background-color var(--transDur), color var(--transDur);
 	-webkit-appearance: none;
@@ -116,6 +116,7 @@ button {
 	@apply font-vazirmatn;
 	display: inline-block;
 	pointer-events: none;
+	place-self: center;
 }
 .notification__btn:first-of-type {
 	border-radius: 0 0.75rem 0 0;

@@ -17,7 +17,7 @@
 
 .form_style {
   // @apply content-center place-items-center flex flex-col w-full;
-  @apply content-center place-items-center flex flex-col justify-between p-4 w-full;
+  @apply content-center place-items-center flex flex-col justify-between p-2 w-full;
 }
 
 .Label {
@@ -47,7 +47,7 @@
 }
 
 .has_account {
-  @apply text-xs text-bombgray cursor-pointer hover:text-bomborange hover:underline pt-8;
+  @apply text-xs text-bombgray cursor-pointer hover:text-bomborange hover:underline pt-3;
 }
 
 .input_row {

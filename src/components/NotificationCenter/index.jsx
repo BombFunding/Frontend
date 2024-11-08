@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./NotificationCenter.css";
+import errorIcon from "../../assets/errorIcon.png";
 
 // Helper to generate random notification messages
 const getNotificationMessages = () => [
@@ -31,30 +32,28 @@ export const Notification = ({
 		<div className="notification__box">
 			<div className="notification__content">
 				<div className="notification__icon">
-					<svg
-						className="notification__icon-svg"
-						width="32px"
-						height="32px"
-						role="img"
+					<img
 						aria-label={icon}
-					>
-						<use href={`#${icon}`} />
-					</svg>
+						src={errorIcon}
+					/>
 				</div>
 				<div className="notification__text">
 					<div className="notification__text-title">{title}</div>
 					{subtitles &&
 						subtitles.map((subtitle) => (
-							<div className="notification__text-subtitle">
+							<div
+								className="notification__text-subtitle"
+								key={subtitle}
+							>
 								{subtitle}
 							</div>
 						))}
 				</div>
 			</div>
 			<div className="notification__btns">
-				{actions?.map((action, idx) => (
+				{actions?.map((action) => (
 					<button
-						key={idx}
+						key={id}
 						type="button"
 						className="notification__btn"
 						onClick={() => onDismiss(id)}
