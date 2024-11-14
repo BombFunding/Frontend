@@ -1,0 +1,15 @@
+.error_label {
+	@apply text-red-600 text-[14px];
+}
+
+.error_solved {
+	@apply text-green-600 text-[14px];
+}
+
+.custom_input_structure {
+	@apply pt-2 text-start min-w-full ease-in duration-300 bg-orange-100 mb-3 hover:placeholder:text-bombgray text-bombblack focus:text-bombblack border-solid border-4 border-bombgray focus:border-bomborange focus-visible:ring-0;
+}
+
+.input_errors {
+	@apply grid place-self-end;
+}

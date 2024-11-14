@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "http://localhost:8000/",
+  baseURL: "http://127.0.0.1:8000/",
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -62,7 +62,8 @@ export const postData = async (endPoint, data) => {
     const response = await apiClient.post(endPoint, data);
     return response.data;
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
+    throw error;
   }
 };
 export const putData = async (endPoint, data) => {
