@@ -77,6 +77,7 @@ function LoginForm() {
           console.log("Data posted successfully:", response);
           TokenManager.updateAccessToken(response.access_token);
           TokenManager.updateRefreshToken(response.refresh_token);
+          console.log("stored token is:", TokenManager.accessToken);
         })
         .catch((error) => {
           console.log("Data posting FAILED:", error);

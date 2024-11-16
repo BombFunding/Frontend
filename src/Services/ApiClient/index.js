@@ -1,7 +1,8 @@
+import useTokenStore from "@/stores/TokenStore";
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "http://127.0.0.1:8000/",
+  baseURL: "http://104.168.46.4:8000/",
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -17,7 +18,8 @@ apiClient.interceptors.request.use(
   (config) => {
     // Modify the config before the request is sent, e.g., attach token
     //  const token = localStorage.getItem('token');
-    //   if (token) config.headers.Authorization = `Bearer ${token}`;
+    // const token = useTokenStore((state) => state.accessToken);
+    // if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
   (error) => {

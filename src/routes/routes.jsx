@@ -7,6 +7,7 @@ import Signup from "../Pages/Signup";
 import PrivateLayout from "../Layouts/Private";
 import App from "../App.jsx";
 import Home from "@/Pages/Landing";
+import Profile from "@/components/Profile/CommonProfile/Public";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -25,14 +26,18 @@ export const router = createBrowserRouter([
         path: "/signup",
         element: <Signup />,
       },
+      // {
+      //   path: "/profile",
+      //   element: <Profile />,
+      // },
     ],
   },
   {
     element: <PrivateLayout />,
     children: [
       {
-        path: "/Home",
-        element: <Home />,
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },
