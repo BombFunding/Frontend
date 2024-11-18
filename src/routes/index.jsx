@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../Layouts/main";
 import Error from "../pages/Error";
-// import Login from "../pages/Login";
 import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
 import PrivateLayout from "../Layouts/private";
 import App from "../App.jsx";
+import Landing from "@/Pages/Landing/Landing";
+import Navbar from "@/components/Navbar/Navbar";
 export const router = createBrowserRouter([
 	{
 		path: "/",
@@ -14,7 +15,7 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				index: true,
-				element: <App />,
+				element: <Landing />,
 			},
 			{
 				path: "/login",
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
 			{
 				path: "/signup",
 				element: <Signup />,
+			},
+			{
+				path: "/test",
+				element: <Navbar />,
 			},
 		],
 	},
