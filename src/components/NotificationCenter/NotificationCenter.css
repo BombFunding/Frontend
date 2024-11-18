@@ -15,18 +15,10 @@
 	--transDur: 0.15s;
 	font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1280 - 320));
 }
-body,
 button {
 	color: var(--fg);
 	font: 1em/1.5 "DM Sans", "Helvetica Neue", Helvetica, sans-serif;
 }
-/* body {
-	background-color: var(--bg);
-	height: 100vh;
-	display: grid;
-	place-items: center;
-	transition: background-color var(--transDur);
-} */
 .notification {
 	/* padding-bottom: 0.75em; */
 

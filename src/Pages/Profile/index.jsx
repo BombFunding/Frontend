@@ -5,7 +5,7 @@ import React from "react";
 const Profile = () => {
   return (
     <>
-    <PublicCommonProfile />
+      <PublicCommonProfile className={"w-[85vw]"} />
     </>
   );
 };

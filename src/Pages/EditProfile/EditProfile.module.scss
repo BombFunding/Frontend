@@ -1,0 +1,36 @@
+@media (max-width: 768px) {
+  .input_row {
+    @apply flex flex-col justify-between items-center gap-4;
+  }
+}
+
+.card_style {
+  @apply w-[75vw] h-auto mt-2 shadow-lg mb-4 overflow-hidden;
+}
+
+.avatar_container {
+  @apply bg-gradient-to-tr from-orange-900 to-bomborange  p-5 relative;
+}
+
+.input_block {
+  @apply grid w-full items-center gap-1.5;
+}
+.input_field {
+  @apply border-[2px] border-solid border-gray-900 focus:border-0 focus:outline-bomborange focus:ring-0 h-7;
+}
+
+.input_text_field {
+  @apply border-[2px] border-solid border-gray-900 focus:border-0 focus:outline-bomborange focus:ring-0 h-16;
+}
+
+.input_row {
+  @apply flex justify-between items-center gap-10;
+}
+
+.input_label {
+  @apply text-xs text-gray-500;
+}
+
+.profile_box {
+  @apply w-full bg-bomborange relative h-32 !important;
+}

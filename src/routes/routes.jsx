@@ -7,7 +7,8 @@ import Signup from "../Pages/Signup";
 import PrivateLayout from "../Layouts/Private";
 import App from "../App.jsx";
 import Home from "@/Pages/Landing";
-import Profile from "@/components/Profile/CommonProfile/Public";
+import Profile from "@/Pages/Profile";
+import EditProfile from "@/Pages/EditProfile/EditProfile";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -36,8 +37,12 @@ export const router = createBrowserRouter([
     element: <PrivateLayout />,
     children: [
       {
-        path: "/profile",
+        path: "/Profile",
         element: <Profile />,
+      },
+      {
+        path: "/EditProfile",
+        element: <EditProfile />,
       },
     ],
   },
