@@ -1,12 +1,19 @@
 import SearchBar from "../SearchBar/SearchBar";
 import Logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
+import LogoutButton from "../Custom/LogoutButton/LogoutButton";
+import HomeButton from "../Custom/HomeButton/HomeButton";
+import NavbarLogin from "../Custom/NavbarLogin/NavbarLogin";
+import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 function Navbar() {
-	const Navigate = useNavigate(); 
+	const Navigate = useNavigate();
 	return (
 		<nav className="flex justify-around bg-gray-800 w-screen h-14">
 			<div className="container px-4 py-6 flex justify-between items-center">
-				<div className="flex text-white hover:cursor-pointer" onClick={() => Navigate("/")} >
+				<div
+					className="flex text-white hover:cursor-pointer"
+					onClick={() => Navigate("/")}
+				>
 					<img
 						src={Logo}
 						alt="Bomb Funding"
@@ -17,7 +24,13 @@ function Navbar() {
 					</a>
 				</div>
 				<SearchBar />
-                <div>nigga</div>
+				<div>
+					<LogoutButton />
+					<HomeButton />
+					{/* <NavbarLogin /> */}
+					<NavbarLogin />
+					<ProfileDropDown />
+				</div>
 			</div>
 		</nav>
 	);
