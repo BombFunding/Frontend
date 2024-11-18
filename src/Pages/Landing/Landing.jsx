@@ -5,7 +5,6 @@ const Landing = () => {
 	return (
 		<>
 			<Navbar />
-			<div className="text-black">Nigggga</div>
 		</>
 	);
 };

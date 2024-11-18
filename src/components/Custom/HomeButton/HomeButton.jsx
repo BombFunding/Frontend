@@ -1,32 +1,17 @@
-import React, { useState } from "react";
-import { Player } from "@lottiefiles/react-lottie-player";
-import animationData from "./home.json";
+
 import staticSvg from "./home.svg";
+import { useNavigate } from "react-router-dom";
 
 const HomeButton = () => {
-  const [animationLoaded, setAnimationLoaded] = useState(true);
-
-  return (
-    <div>
-      {animationLoaded ? (
-        <Player
-          //   autoplay
-          //   loop
-          src={animationData}
-          style={{ height: "100px", width: "100px" }}
-          onEvent={(event) => {
-            if (event === "error") setAnimationLoaded(false);
-          }}
-        />
-      ) : (
-        <img
-          src={staticSvg}
-          alt="Static Icon"
-          style={{ height: "100px", width: "100px" }}
-        />
-      )}
-    </div>
-  );
+	const Navigate = useNavigate();
+	return (
+		<button
+			className="place-self-center bg-white border-solid border-4 p-1 rounded-full"
+			onClick={()=>Navigate("/")}
+		>
+			<img src={staticSvg} alt="Avatar" className="h-5" />
+		</button>
+	);
 };
 
 export default HomeButton;

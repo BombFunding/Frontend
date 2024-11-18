@@ -8,7 +8,7 @@ function SearchBar() {
 	return (
 		<div className="relative">
 			<svg
-				className={`size-4 absolute top-2.5 left-3 hover:text-bomborange ${
+				className={`size-4 absolute top-2.5 left-3 ${
 					searchFocused ? "text-bomborange" : "text-gray-500"
 				}`}
 				stroke="currentColor"
@@ -25,7 +25,7 @@ function SearchBar() {
 			</svg>
 			<input
 				placeholder="...جست و جو"
-				className="input font-vazirmatn h-9 w-44 text-sm focus:w-64 shadow-lg focus:border-solid focus:border-[3px] focus:outline-none focus:border-bomborange px-5 py-3 rounded-xl transition-all outline-none"
+				className="input font-vazirmatn h-9 w-44 text-sm focus:w-64 shadow-lg focus:border-solid focus:border-[3px] focus:outline-none focus:border-white px-5 py-3 rounded-xl transition-all outline-none"
 				name="search"
 				onFocus={handleSearchFocus}
                 onBlur={handleSearchFocus}

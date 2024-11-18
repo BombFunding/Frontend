@@ -3,7 +3,6 @@ import styles from "./LogoutButton.module.scss";
 
 function LogoutButton() {
   return (
-    /* From Uiverse.io by vinodjangid07 */
     <button className={styles.Btn}>
       <div className={styles.sign}>
         <svg viewBox="0 0 512 512">

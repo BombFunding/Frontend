@@ -5,10 +5,12 @@ import LogoutButton from "../Custom/LogoutButton/LogoutButton";
 import HomeButton from "../Custom/HomeButton/HomeButton";
 import NavbarLogin from "../Custom/NavbarLogin/NavbarLogin";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
+import { useState } from "react";
 function Navbar() {
 	const Navigate = useNavigate();
+	const [loggedIn, setLoggedIn] = useState(true);
 	return (
-		<nav className="flex justify-around bg-gray-800 w-screen h-14">
+		<nav className="flex justify-around bg-bomborange w-screen h-14 top-0 fixed right-0">
 			<div className="container px-4 py-6 flex justify-between items-center">
 				<div
 					className="flex text-white hover:cursor-pointer"
@@ -19,17 +21,15 @@ function Navbar() {
 						alt="Bomb Funding"
 						className="rounded-full w-10 h-10 place-self-center"
 					/>
-					<a className="font-bold text-sm text-left px-2 place-self-center w-10 text-bomborange">
+					<a className="font-extrabold text-sm text-left px-2 place-self-center w-10 text-bombblack">
 						Bomb Funding
 					</a>
 				</div>
 				<SearchBar />
-				<div>
-					<LogoutButton />
+				<div className="flex h-full gap-2">
 					<HomeButton />
-					{/* <NavbarLogin /> */}
-					<NavbarLogin />
-					<ProfileDropDown />
+					{/* <LogoutButton /> */}
+					{loggedIn ? <ProfileDropDown /> : <NavbarLogin />}
 				</div>
 			</div>
 		</nav>
