@@ -16,12 +16,10 @@ function ForgetPassword() {
 	const onSubmit = async (e) => {
 		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 		let bodyData;
-		let inputState;
 		if (emailRegex.test(email)) {
 			bodyData = {
 				email: email,
 			};
-			inputState = true;
 		} else {
 			console.log("Invalid email");
 			return;
