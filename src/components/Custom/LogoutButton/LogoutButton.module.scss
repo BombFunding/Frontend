@@ -1,5 +1,6 @@
 /* From Uiverse.io by vinodjangid07 */
 .Btn {
+  @apply bg-bomborange;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -12,7 +13,6 @@
   overflow: hidden;
   transition-duration: 0.3s;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-  background-color: rgb(255, 65, 65);
 }
 
 /* plus sign */
@@ -33,12 +33,13 @@
 }
 /* text */
 .text {
+  @apply place-content-start text-right left-2 font-vazirmatn;
   position: absolute;
   right: 0%;
   width: 0%;
   opacity: 0;
   color: white;
-  font-size: 0.6em;
+  font-size: 1em;
   font-weight: 600;
   transition-duration: 0.3s;
 }

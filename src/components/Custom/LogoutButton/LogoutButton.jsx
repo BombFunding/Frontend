@@ -10,7 +10,7 @@ function LogoutButton() {
         </svg>
       </div>
 
-      <div className={styles.text}>Logout</div>
+      <div className={styles.text}>خروج</div>
     </button>
   );
 }

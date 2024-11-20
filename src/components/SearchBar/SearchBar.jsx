@@ -2,9 +2,9 @@ import { useState } from "react";
 
 function SearchBar() {
 	const [searchFocused, setSearchFocused] = useState(false);
-    function handleSearchFocus() {
-        setSearchFocused(!searchFocused);
-    }
+	function handleSearchFocus() {
+		setSearchFocused(!searchFocused);
+	}
 	return (
 		<div className="relative">
 			<svg
@@ -28,7 +28,7 @@ function SearchBar() {
 				className="input font-vazirmatn h-9 w-44 text-sm focus:w-64 shadow-lg focus:border-solid focus:border-[3px] focus:outline-none focus:border-white px-5 py-3 rounded-xl transition-all outline-none"
 				name="search"
 				onFocus={handleSearchFocus}
-                onBlur={handleSearchFocus}
+				onBlur={handleSearchFocus}
 			/>
 		</div>
 	);

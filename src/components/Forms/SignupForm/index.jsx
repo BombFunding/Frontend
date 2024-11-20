@@ -1,5 +1,3 @@
-import logo from "@/assets/logo.png";
-
 import * as yup from "yup";
 
 import { useNavigate } from "react-router-dom";
@@ -8,7 +6,7 @@ import CustomInput from "@/components/Custom/CustomInput";
 import PasswordInput from "@/components/Custom/PasswordInput/PasswordInput";
 import DrawerButton from "@/components/Custom/DrawerButton";
 import styles from "./SignupForm.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useSignupFormStore } from "@/stores/FormStore";
 import { postData } from "@/Servises/ApiClient/index.js";
 import { RadioInput, RadioInputOption } from "@/components/Custom/RadioInput";
@@ -111,7 +109,7 @@ function SignupForm() {
 	// 		}
 	// 	});
 	// }, [errors]);
-	const onSubmit = async (e) => {
+	const onSubmit = async () => {
 		setNotifications([]);
 		setErrors([]);
 		// console.log("Form Submitted", e);
@@ -140,7 +138,7 @@ function SignupForm() {
 							};
 							const temp = errors;
 							temp[0].push(err);
-							setErrors((pre) => [temp]);
+							setErrors(() => [temp]);
 						} else if (data?.email) {
 							const err = {
 								message: "ایمیل تکراری است",
@@ -148,7 +146,7 @@ function SignupForm() {
 							};
 							const temp = errors;
 							temp[0].push(err);
-							setErrors((pre) => [temp]);
+							setErrors(() => [temp]);
 						}
 					}
 				});
