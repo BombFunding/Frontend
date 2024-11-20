@@ -3,16 +3,43 @@ import styles from "./ForgetPassword.module.scss";
 import CustomInput from "@/components/Custom/CustomInput";
 import ReturnButton from "@/components/Custom/ReturnButton/ReturnButton";
 import DrawerButton from "@/components/Custom/DrawerButton";
+import { postData } from "@/Servises/ApiClient";
+import { useState } from "react";
 
 function ForgetPassword() {
+	const [email, setEmail] = useState("");
 	function handleKeyDown(e) {
 		if (e.key === "Enter") {
 			onSubmit();
 		}
 	}
-	function onSubmit(e) {
-		e.preventDefault();
-	}
+	const onSubmit = async (e) => {
+		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		let bodyData;
+		let inputState;
+		if (emailRegex.test(email)) {
+			bodyData = {
+				email: email,
+			};
+			inputState = true;
+		} else {
+			console.log("Invalid email");
+			return;
+		}
+		await postData("/auth/forgetpassword/", bodyData)
+			.then((res) => {
+				console.log("Data posted successfully:", res);
+			})
+			.catch((err) => {
+				console.log("Data posting FAILED:", err);
+				if (err?.response?.data) {
+					const data = err?.response?.data;
+					if (data?.non_field_errors) {
+                        true;
+					}
+				}
+			});
+	};
 	return (
 		<form
 			className={styles.forgetpassword_container}
@@ -30,6 +57,8 @@ function ForgetPassword() {
 				autofocus={true}
 				onKey={(e) => handleKeyDown(e)}
 				name="email"
+				value={email}
+				onChange={setEmail}
 			/>
 			<DrawerButton classNames="mt-0" onClick={(e) => onSubmit(e)}>
 				ارسال ایمیل
