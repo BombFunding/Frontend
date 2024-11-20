@@ -11,6 +11,9 @@ import { useSignupFormStore } from "@/stores/FormStore";
 import { postData } from "@/Servises/ApiClient/index.js";
 import { RadioInput, RadioInputOption } from "@/components/Custom/RadioInput";
 import { Notification } from "@/components/NotificationCenter";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ToastifyT from "@/components/NotificationCenter/index2";
 
 const schema = yup.object().shape({
 	username: yup
@@ -58,7 +61,7 @@ function SignupForm() {
 		updateUser_type,
 	} = useSignupFormStore((state) => state);
 	const [showPassword, setShowPassword] = useState(false);
-	const [role, setRole] = useState("1");
+	const [role, setRole] = useState("basic");
 	const formState = useSignupFormStore((state) => state);
 	const formData = { username, email, password, confirmPassword, user_type };
 	const [errors, setErrors] = useState([]);
@@ -112,6 +115,11 @@ function SignupForm() {
 	const onSubmit = async () => {
 		setNotifications([]);
 		setErrors([]);
+		// errors[0] = [];
+		// toast(<ToastifyT />);
+		// toast(<ToastifyT />);
+		// toast("Hi");
+		// toast("nigga");
 		// console.log("Form Submitted", e);
 		try {
 			await schema.validate(formData, { abortEarly: false });
@@ -121,14 +129,11 @@ function SignupForm() {
 				password: password,
 				user_type: "basic",
 			};
-			// console.log("Form bodyData:", bodyData);
-
 			await postData("/auth/register/", bodyData)
 				.then((response) => {
 					console.log("Data posted successfully:", response);
 				})
 				.catch((error) => {
-					//   console.log(error);
 					if (error?.response?.data) {
 						const data = error?.response?.data;
 						if (data?.username) {
@@ -154,6 +159,15 @@ function SignupForm() {
 			setErrors((pre) => [...pre, error.inner]);
 		} finally {
 			console.log("Eerrors: ", errors);
+			// setErrors()
+			// errors[0].map((err) => {
+			// 	toast(
+			// 		<div className="font-vazirmatn text-[10px]">
+			// 			{err.message}
+			// 		</div>
+			// 	);
+			// });
+
 			const Fields = {
 				username: "نام کاربری",
 				password: "رمز عبور",
@@ -170,7 +184,19 @@ function SignupForm() {
 				// 	?.filter((err) => err.path === path)
 				// 	.map((err) => notificationErrors.push(err.message));
 				if (notificationErrors.length > 0) {
-					addNotification(Fields[path], notificationErrors, ["اوکی"]);
+					toast(
+						<>
+							<h1 className="font-vazirmatn text-[20px]">
+								{Fields[path]}
+							</h1>
+							<div className="font-vazirmatn text-[10px]">
+								{notificationErrors.map((err) => (
+									<div key={err}>{err}</div>
+								))}
+							</div>
+						</>
+					);
+					// addNotification(Fields[path], notificationErrors, ["اوکی"]);
 				}
 			});
 		}
@@ -258,28 +284,28 @@ function SignupForm() {
 						</div>
 					</div>
 				</div>
-				<div className="pt-5">
+				<div className="pt-2">
 					<RadioInput>
 						<RadioInputOption
-							value={"1"}
+							value={"basic"}
 							id="tab-1"
-							checked={role === "1"}
+							checked={role === "basic"}
 							onChange={onChangeRole}
 						>
 							هیچکدام
 						</RadioInputOption>
 						<RadioInputOption
-							value={"2"}
+							value={"startup"}
 							id="tab-2"
-							checked={role === "2"}
+							checked={role === "startup"}
 							onChange={onChangeRole}
 						>
 							استارت‌آپ
 						</RadioInputOption>
 						<RadioInputOption
-							value={"3"}
+							value={"investor"}
 							id="tab-3"
-							checked={role === "3"}
+							checked={role === "investor"}
 							onChange={onChangeRole}
 						>
 							سرمایه‌گذار
@@ -303,7 +329,25 @@ function SignupForm() {
 					ثبت نام
 				</DrawerButton>
 			</form>
-			<div className={styles.notification_box}>
+			<ToastContainer
+				toastStyle={{
+					backgroundColor: "#2C2727",
+					fontSize: "16px",
+					borderRadius: "8px",
+
+				}}
+				position="bottom-right"
+				autoClose={false}
+				hideProgressBar={true}
+				closeOnClick
+				draggable
+				theme="dark"
+				newestOnTop={true}
+				role="alert"
+				closeButton={false}
+				limit={4}
+			/>
+			{/* <div className={styles.notification_box}>
 				<div className={styles.notification_box_flex}>
 					{notifications?.map((note) => (
 						<Notification
@@ -313,7 +357,7 @@ function SignupForm() {
 						/>
 					))}
 				</div>
-			</div>
+			</div> */}
 			{/* <NotificationCenter /> */}
 		</>
 	);
