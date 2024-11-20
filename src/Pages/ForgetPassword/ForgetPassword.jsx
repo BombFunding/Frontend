@@ -34,6 +34,7 @@ function ForgetPassword() {
 					const data = err?.response?.data;
 					if (data?.non_field_errors) {
                         true;
+						// send notification and navigate to login or popup
 					}
 				}
 			});
