@@ -1,0 +1,11 @@
+.input_block {
+  @apply grid w-full items-center gap-1.5;
+}
+
+.input_label {
+  @apply text-xs text-gray-500;
+}
+
+.input_field {
+  @apply border-[2px] border-solid border-gray-900 focus:border-0 focus:outline-bomborange focus:ring-0 h-7;
+}
