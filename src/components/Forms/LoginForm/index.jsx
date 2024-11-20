@@ -121,65 +121,79 @@ function LoginForm() {
     }
   };
 
-  return (
-    <>
-      <form
-        className={styles.form_style}
-        onSubmit={(e) => {
-          e.preventDefault();
-          onSubmit(e);
-        }}
-      >
-        {/* <img className={styles.logo} src={logo} alt="logo" /> */}
-        <div className={styles.welcome}>خوش آمدید</div>
-        <div className={styles.text}>برای ورود اطلاعات خود را وارد کنید</div>
-        <Label className={styles.Label}>ایمیل یا نام کاربری</Label>
-        <CustomInput
-          placeholder="Email or Username"
-          autofocus={true}
-          onKey={(e) => handleKeyDown(e)}
-          name="usernameEmail"
-          errors={errors}
-          value={formData.usernameEmail}
-          onChange={formState.updateUsernameEmail}
-        />
-        <Label className={styles.Label}>رمز عبور</Label>
-        <PasswordInput
-          handleKeyDown={handleKeyDown}
-          errors={errors}
-          placeholder="Password"
-          name="password"
-          onChange={formState.updatePassword}
-          value={formData.password}
-          hasEye={true}
-          showPassword={showPassword}
-          togglePasswordVisibility={togglePasswordVisibility}
-        />
-        <div
-          onClick={() => {
-            updateUsernameEmail("");
-            updatePassword("");
-            navigate("/signup");
-          }}
-          className={styles.no_account}
-        >
-          حساب کاربری ندارید؟
-        </div>
-        <DrawerButton onClick={onSubmit}>ورود</DrawerButton>
-      </form>
-      <div className={styles.notification_box}>
-        <div className={styles.notification_box_flex}>
-          {notifications?.map((note) => (
-            <Notification
-              key={note.id}
-              {...note}
-              onDismiss={() => dismissNotification(note.id)}
-            />
-          ))}
-        </div>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<form
+				className={styles.form_style}
+				onSubmit={(e) => {
+					e.preventDefault();
+					onSubmit(e);
+				}}
+			>
+				{/* <img className={styles.logo} src={logo} alt="logo" /> */}
+				<div className={styles.welcome}>خوش آمدید</div>
+				<div className={styles.text}>
+					برای ورود اطلاعات خود را وارد کنید
+				</div>
+				<Label className={styles.Label}>ایمیل یا نام کاربری</Label>
+				<CustomInput
+					placeholder="Email or Username"
+					autofocus={true}
+					onKey={(e) => handleKeyDown(e)}
+					name="usernameEmail"
+					errors={errors}
+					value={formData.usernameEmail}
+					onChange={formState.updateUsernameEmail}
+				/>
+				<Label className={styles.Label}>رمز عبور</Label>
+				<PasswordInput
+					handleKeyDown={handleKeyDown}
+					errors={errors}
+					placeholder="Password"
+					name="password"
+					onChange={formState.updatePassword}
+					value={formData.password}
+					hasEye={true}
+					showPassword={showPassword}
+					togglePasswordVisibility={togglePasswordVisibility}
+				/>
+
+				<div
+					onClick={() => {
+						updateUsernameEmail("");
+						updatePassword("");
+						navigate("/forgetpassword");
+					}}
+					className={styles.forget_password}
+				>
+					رمز عبور خود را فراموش کرده‌اید؟
+				</div>
+
+				<DrawerButton onClick={onSubmit}>ورود</DrawerButton>
+				<div
+					onClick={() => {
+						updateUsernameEmail("");
+						updatePassword("");
+						navigate("/signup");
+					}}
+					className={styles.no_account}
+				>
+					حساب کاربری ندارید؟
+				</div>
+			</form>
+			<div className={styles.notification_box}>
+				<div className={styles.notification_box_flex}>
+					{notifications?.map((note) => (
+						<Notification
+							key={note.id}
+							{...note}
+							onDismiss={() => dismissNotification(note.id)}
+						/>
+					))}
+				</div>
+			</div>
+		</>
+	);
 }
 
 export default LoginForm;

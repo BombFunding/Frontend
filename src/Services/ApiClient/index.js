@@ -30,57 +30,61 @@ apiClient.interceptors.request.use(
 
 // Response Interceptor
 apiClient.interceptors.response.use(
-  (response) => {
-    // Any response status code 2xx is handled here
-    return response;
-  },
-  (error) => {
-    // Handle response errors globally
-    if (error.response) {
-      // Server responded with a status other than 2xx
-      console.error("API Error:", error.response.status, error.response.data);
-    } else if (error.request) {
-      // No response was received
-      console.error("No response received:", error.request);
-    } else {
-      // Something happened in setting up the request
-      console.error("Error setting up request:", error.message);
-    }
-    return Promise.reject(error);
-  }
+	(response) => {
+		// Any response status code 2xx is handled here
+		return response;
+	},
+	(error) => {
+		// Handle response errors globally
+		if (error.response) {
+			// Server responded with a status other than 2xx
+			console.error(
+				"API Error:",
+				error.response.status,
+				error.response.data
+			);
+		} else if (error.request) {
+			// No response was received
+			console.error("No response received:", error.request);
+		} else {
+			// Something happened in setting up the request
+			console.error("Error setting up request:", error.message);
+		}
+		return Promise.reject(error);
+	}
 );
 
 export const getData = async (endPoint) => {
-  try {
-    const response = await apiClient.get(endPoint);
-    return response.data;
-  } catch (error) {
-    throw new Error(error);
-  }
+	try {
+		const response = await apiClient.get(endPoint);
+		return response.data;
+	} catch (error) {
+		throw new Error(error);
+	}
 };
 
 export const postData = async (endPoint, data) => {
-  try {
-    const response = await apiClient.post(endPoint, data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+	try {
+		const response = await apiClient.post(endPoint, data);
+		return response.data;
+	} catch (error) {
+		console.log(error);
+		throw error;
+	}
 };
 export const putData = async (endPoint, data) => {
-  try {
-    const response = await apiClient.put(endPoint, data);
-    return response.data;
-  } catch (error) {
-    throw new Error(error);
-  }
+	try {
+		const response = await apiClient.put(endPoint, data);
+		return response.data;
+	} catch (error) {
+		throw new Error(error);
+	}
 };
 export const deleteData = async (endPoint) => {
-  try {
-    const response = await apiClient.delete(endPoint);
-    return response.data;
-  } catch (error) {
-    throw new Error(error);
-  }
+	try {
+		const response = await apiClient.delete(endPoint);
+		return response.data;
+	} catch (error) {
+		throw new Error(error);
+	}
 };
