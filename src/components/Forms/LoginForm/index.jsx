@@ -157,6 +157,19 @@ function LoginForm() {
 					showPassword={showPassword}
 					togglePasswordVisibility={togglePasswordVisibility}
 				/>
+
+				<div
+					onClick={() => {
+						updateUsernameEmail("");
+						updatePassword("");
+						navigate("/forgetpassword");
+					}}
+					className={styles.forget_password}
+				>
+					رمز عبور خود را فراموش کرده‌اید؟
+				</div>
+
+				<DrawerButton onClick={onSubmit}>ورود</DrawerButton>
 				<div
 					onClick={() => {
 						updateUsernameEmail("");
@@ -167,7 +180,6 @@ function LoginForm() {
 				>
 					حساب کاربری ندارید؟
 				</div>
-				<DrawerButton onClick={onSubmit}>ورود</DrawerButton>
 			</form>
 			<div className={styles.notification_box}>
 				<div className={styles.notification_box_flex}>

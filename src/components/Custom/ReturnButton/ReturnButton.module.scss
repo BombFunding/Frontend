@@ -1,0 +1,68 @@
+.button {
+	@apply font-vazirmatn font-extrabold text-[72px] bg-bombblack;
+    // position: fixed !important;
+    // top: 10vh;
+    // left: 10vw;
+    position: absolute !important;
+    top: 50px;
+    left: 50px;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	// background-color: rgb(20, 20, 20);
+	border: none;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0px 0px 0px 4px rgba(255,117,23, 0.25);
+	cursor: pointer;
+	transition-duration: 0.3s;
+	overflow: hidden;
+	position: relative;
+}
+
+.button:hover {
+    @apply bg-bomborange;
+	width: 140px;
+	border-radius: 50px;
+	transition-duration: 0.3s;
+	// background-color: rgb(181, 160, 255);
+	align-items: center;
+}
+
+.button:hover .svgIcon {
+	/* width: 20px; */
+	transition-duration: 2s;
+	// transform: translateY(200%);
+    transition: all ease-in-out;
+	transform: translateX(-400%);
+}
+
+.button::before {
+	@apply font-vazirmatn font-extrabold text-[40px];
+	position: absolute;
+	bottom: -20px;
+	content: "بازگشت";
+	color: white;
+	// transition-duration: .3s;
+	font-size: 0px;
+}
+
+.button:hover::before {
+	font-size: 20px;
+	opacity: 1;
+	bottom: unset;
+	// transform: translateY(-30px); 
+	transition-duration: 0.3s;
+}
+
+.svgIcon {
+	width: 24px !important;
+	transition-duration: 0.3s;
+    // rotate: 90deg;
+}
+
+.svgIcon path {
+	fill: white;
+}

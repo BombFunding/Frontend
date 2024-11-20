@@ -6,6 +6,7 @@ import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
 import PrivateLayout from "../Layouts/private";
 import App from "../App.jsx";
+import ForgetPassword from "@/Pages/ForgetPassword/ForgetPassword";
 export const router = createBrowserRouter([
 	{
 		path: "/",
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
 			{
 				path: "/signup",
 				element: <Signup />,
+			},
+			{
+				path: "/forgetpassword",
+				element: <ForgetPassword />,
 			},
 		],
 	},
