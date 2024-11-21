@@ -1,32 +1,53 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import * as yup from "yup";
+import AVATARIMG from "@/assets/A1.jpg";
+import AvatarWithFileUpload from "@/components/Custom/AvatarWithFileUpload/AvatarWithFileUpload";
 import BANNER from "@/assets/baner.jpg";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import CloseIcon from "@mui/icons-material/Close";
+import DrawerButton from "@/components/Custom/DrawerButton";
+import EditButton from "@/components/Custom/EditButton/EditButton";
+import EditIcon from "@mui/icons-material/Edit";
+import EditableInput from "@/components/Custom/EditableInput/EditableInput";
+import GeneralDrawerButton from "@/components/Custom/GeneralDrawerButton/GeneralDrawerButton";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import React from "react";
+import TelegramIcon from "@mui/icons-material/Telegram";
+import VerifiableInput from "@/components/Custom/VerifiableInput/VerifiableInput";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import WebIcon from "@mui/icons-material/Web";
+import XIcon from "@mui/icons-material/X";
+import styles from "./EditProfile.module.scss";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import React from "react";
-import AVATARIMG from "@/assets/A1.jpg";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import AvatarWithFileUpload from "@/components/Custom/AvatarWithFileUpload/AvatarWithFileUpload";
-import styles from "./EditProfile.module.scss";
-import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-import EditIcon from "@mui/icons-material/Edit";
-import EditableInput from "@/components/Custom/EditableInput/EditableInput";
-import VerifiableInput from "@/components/Custom/VerifiableInput/VerifiableInput";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import TelegramIcon from "@mui/icons-material/Telegram";
-import XIcon from "@mui/icons-material/X";
-import WebIcon from "@mui/icons-material/Web";
-import EditButton from "@/components/Custom/EditButton/EditButton";
-import CloseIcon from "@mui/icons-material/Close";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import SaveIcon from "@mui/icons-material/Save";
+import { Button } from "@mui/material";
+
+const schema = yup.object().shape({});
 
 const EditProfile = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (data) => {
+    console.log("Form submitted");
+    console.log(data);
+  };
   return (
     <div className="font-vazirmatn mt-8 h-auto">
       <Label className=" text-black text-2xl">اطلاعات کاربری</Label>
       <Card className={styles.card_style}>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.avatar_container}>
             <img
               className="w-full object-cover absolute"
@@ -96,6 +117,13 @@ const EditProfile = () => {
               </div>
             </div>
           </div>
+          {/* <GeneralDrawerButton classNames="fixed bottom-4 right-5" icon={<SaveIcon />}>
+            <span>ذخیره</span>
+          </GeneralDrawerButton> */}
+          <button className={styles.save_btn} type="submit">
+            <SaveIcon className={styles.save_icon} />
+            <span className={styles.save_txt}>ذخیره</span>
+          </button>
         </form>
       </Card>
     </div>
