@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import styles from "./CustomButton.module.scss";
 
 const CustomButton = ({ className, children }) => {

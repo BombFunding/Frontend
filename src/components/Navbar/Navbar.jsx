@@ -2,10 +2,11 @@ import SearchBar from "../SearchBar/SearchBar";
 import Logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 // import LogoutButton from "../Custom/LogoutButton/LogoutButton";
-import HomeButton from "../Custom/HomeButton/HomeButton";
+// import HomeButton from "../Custom/HomeButton/HomeButton";
 import NavbarLogin from "../Custom/NavbarLogin/NavbarLogin";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 import { useState } from "react";
+import CustomButton from "../Custom/CustomButton/CustomButton";
 function Navbar() {
 	const Navigate = useNavigate();
 	const [loggedIn, setLoggedIn] = useState(true);
@@ -27,11 +28,13 @@ function Navbar() {
 				</div>
 				<SearchBar />
 				<div className="flex">
-					<HomeButton loggedIn={loggedIn} />
+					{/* <HomeButton loggedIn={loggedIn} /> */}
 					{/* <LogoutButton /> */}
 					{loggedIn ? (
 						<ProfileDropDown />
 					) : (
+						// <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">Responsive</button>
+						// <CustomButton>Login</CustomButton>
 						<NavbarLogin />
 					)}
 				</div>
