@@ -5,6 +5,8 @@ import SaveAsIcon from "@mui/icons-material/SaveAs";
 import { Input } from "@/components/ui/input";
 import styles from "./EditableInput.module.scss";
 import { Textarea } from "@/components/ui/textarea";
+import EditButton from "../EditButton/EditButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 const EditableInput = ({
   name,
@@ -23,23 +25,14 @@ const EditableInput = ({
           {name}
         </Label>
         <div className="flex items-center gap-[3px]">
-          {!edit ? (
-            <div
-              className={`transition-all duration-300 ease-in-out transform hover:opacity-80 hover:scale-110 bg-slate-50 shadow-md rounded-lg px-1`}
-              onClick={(edit) => setEdit(true)}
-            >
-              <Label className="text-[14px] text-gray-500 ml-1">Edit</Label>
-              <EditIcon sx={{ fontSize: 16, color: "gray" }} />
-            </div>
-          ) : (
-            <div
-              className={`transition-all duration-300 ease-in-out transform hover:opacity-80 hover:scale-110 bg-slate-50 shadow-md rounded-lg px-1`}
-              onClick={(edit) => setEdit(false)}
-            >
-              <Label className="text-[14px] text-bomborange ml-1">Saved</Label>
-              <SaveAsIcon sx={{ fontSize: 16, color: "orange" }} />
-            </div>
-          )}
+          <EditButton
+            name1={"تغییر"}
+            name2={"کنسل"}
+            icon1={<EditIcon />}
+            icon2={<CloseIcon />}
+            edit={edit}
+            setEdit={setEdit}
+          />
         </div>
       </div>
       <div className="flex flex-row justify-between items-center gap-1">

@@ -15,10 +15,7 @@
     "@hookform/resolvers": "^3.9.1",
     "@mui/icons-material": "^6.1.7",
     "@mui/material": "^6.1.7",
-<<<<<<< HEAD
     "@radix-ui/react-avatar": "^1.1.1",
-=======
->>>>>>> 92b96e6ab491e51d8e56a2245d55c51586f565d8
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-separator": "^1.1.0",

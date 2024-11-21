@@ -1,63 +1,11 @@
-.edit_button {
-  @apply text-xs;
-  width: 40px;
-  height: 40px;
-  border-radius: 10%;
-  background-color: rgb(20, 20, 20);
-  border: none;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
-  cursor: pointer;
-  transition-duration: 0.3s;
-  overflow: hidden;
-  position: relative;
-  text-decoration: none !important;
-  gap: 5px;
+.label {
+  @apply text-[14px] ml-1;
 }
 
-.edit_svgIcon {
-  width: 17px;
-  transition-duration: 0.3s;
+.icon {
+  @apply text-[16px] !important;
 }
 
-.edit_svgIcon path {
-  fill: white;
-}
-
-.edit_button:hover {
-  @apply bg-bomborange;
-  width: 100px;
-  border-radius: 50px;
-  transition-duration: 0.3s;
-  align-items: center;
-}
-
-.edit_button:hover .edit_svgIcon {
-  width: 20px;
-  transition-duration: 0.3s;
-  transform: translateY(60%);
-  -webkit-transform: rotate(360deg);
-  -moz-transform: rotate(360deg);
-  -o-transform: rotate(360deg);
-  -ms-transform: rotate(360deg);
-  transform: rotate(360deg);
-}
-
-.edit_button::before {
-  display: none;
-  color: white;
-  transition-duration: 0.3s;
-  font-size: 2px;
-}
-
-.edit_button:hover::before {
-  display: block;
-  padding-right: 10px;
-  font-size: 13px;
-  opacity: 1;
-  transform: translateY(0px);
-  transition-duration: 0.3s;
+.box {
+  @apply  text-gray-500 hover:text-bomborange transition-all duration-300 ease-in-out transform opacity-[93%] hover:opacity-100 hover:scale-110 bg-slate-50 shadow-md rounded-lg px-1 flex items-center h-4;
 }
