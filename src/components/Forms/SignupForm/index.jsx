@@ -117,15 +117,15 @@ function SignupForm() {
 				confirmPassword: "تایید رمز عبور",
 			};
 			console.log("in:", error.inner, error);
-			toast.error(
-				"yah"
-			);
 			// toast.error(
-			// 	<CustomToast
-			// 		Header={Fields[error.inner[0].path]}
-			// 		Message={error.inner[0].message}
-			// 	/>
+			// 	"yah"
 			// );
+			toast.error(
+				<CustomToast
+					Header={Fields[error.inner[0].path]}
+					Message={error.inner[0].message}
+				/>
+			);
 			setErrors((pre) => [error.inner]);
 		} finally {
 			const Fields = {

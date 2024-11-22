@@ -39,7 +39,7 @@ function LoginForm() {
 	const onSubmit = async (e) => {
 		console.log("Form Submitted", e);
 		try {
-			await schema.validate(formData, { abortEarly: false });
+			// await schema.validate(formData, { abortEarly: false });
 			console.log("Form Dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:", formData);
 
 			const emailRegex =
@@ -86,7 +86,7 @@ function LoginForm() {
 				});
 		} catch (error) {
 			setErrors((pre) => [...pre, error.inner]);
-			console.log(errors);
+			console.log("errors:", errors);
 		} finally {
 			const Fields = {
 				usernameEmail: "نام کاربری یا ایمیل",
