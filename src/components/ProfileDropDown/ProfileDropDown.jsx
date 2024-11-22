@@ -6,13 +6,12 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import LogoutButton from "../Custom/LogoutButton/LogoutButton";
 
 function ProfileDropDown() {
+	const Navigate = useNavigate();
 	return (
 		<DropdownMenu className="z-30">
 			<DropdownMenuTrigger className={styles.trigger}>
@@ -23,8 +22,11 @@ function ProfileDropDown() {
 				/>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className={styles.content}>
-				<DropdownMenuItem className={styles.item}>
+
+
+				<DropdownMenuItem className={styles.item} onClick={()=>Navigate("/profile")}>
 					داشبورد
+
 				</DropdownMenuItem>
 				<DropdownMenuItem className={styles.item}>
 					تنظیمات

@@ -9,7 +9,7 @@ import { useState } from "react";
 import CustomButton from "../Custom/CustomButton/CustomButton";
 function Navbar() {
 	const Navigate = useNavigate();
-	const [loggedIn, setLoggedIn] = useState(true);
+	const [loggedIn, setLoggedIn] = useState(false);
 	return (
 		<nav className="flex justify-around bg-bomborange w-screen h-12 top-0 fixed right-0 z-50">
 			<div className="container px-4 py-6 flex justify-between items-center">
