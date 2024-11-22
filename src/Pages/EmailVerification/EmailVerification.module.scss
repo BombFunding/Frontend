@@ -1,0 +1,9 @@
+.page {
+    @apply h-screen w-screen bg-bombblack place-content-center;
+}
+
+.container {
+    @apply px-8 gap-4 font-vazirmatn rounded overflow-hidden w-[70vw] h-[70vh] shadow-bomborange flex flex-col place-self-center place-content-center place-items-center align-middle;
+    transition: all 200ms ease-in-out 0s;
+    box-shadow: 0px 0px 10px 1px #FF7517;
+}
