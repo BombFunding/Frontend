@@ -154,6 +154,7 @@ function LoginForm() {
 					onChange={formState.updatePassword}
 					value={formData.password}
 					hasEye={true}
+					className="peer-valid:right-7"
 					showPassword={showPassword}
 					togglePasswordVisibility={togglePasswordVisibility}
 				/>

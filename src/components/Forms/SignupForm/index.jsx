@@ -220,10 +220,10 @@ function SignupForm() {
 				</div>
 				<div className={styles.form_even_justify}>
 					<div className={styles.input_row}>
-						<div>
-							<Label className={styles.Label}>نام کاربری</Label>
+						{/* <div> */}
+							{/* <Label className={styles.Label}>نام کاربری</Label> */}
 							<CustomInput
-								placeholder="Username"
+								placeholder="نام کاربری"
 								autofocus={true}
 								onKey={(e) => handleKeyDown(e)}
 								name="username"
@@ -232,11 +232,11 @@ function SignupForm() {
 								value={username}
 								showErrors={true}
 							/>
-						</div>
-						<div>
-							<Label className={styles.Label}>ایمیل</Label>
+						{/* </div> */}
+						{/* <div> */}
+							{/* <Label className={styles.Label}>ایمیل</Label> */}
 							<CustomInput
-								placeholder="Email"
+								placeholder="ایمیل"
 								autofocus={true}
 								onKey={(e) => handleKeyDown(e)}
 								name="email"
@@ -245,16 +245,16 @@ function SignupForm() {
 								errors={errors}
 								showErrors={true}
 							/>
-						</div>
+						{/* </div> */}
 					</div>
 					<div className={styles.input_row}>
-						<div>
-							<Label className={styles.Label}>
+						{/* <div> */}
+							{/* <Label className={styles.Label}>
 								تایید رمز عبور
-							</Label>
+							</Label> */}
 							<PasswordInput
 								handleKeyDown={handleKeyDown}
-								placeholder="Confirm Password"
+								placeholder="تایید رمز عبور"
 								errors={errors}
 								name="confirmPassword"
 								onChange={formState.updateConfirmPassword}
@@ -265,15 +265,15 @@ function SignupForm() {
 								}
 								showErrors={true}
 							/>
-						</div>
-						<div>
-							<Label className={styles.Label}>رمز عبور</Label>
+						{/* </div> */}
+						{/* <div> */}
+							{/* <Label className={styles.Label}>رمز عبور</Label> */}
 							<PasswordInput
 								handleKeyDown={handleKeyDown}
-								placeholder="Password"
+								placeholder="رمز عبور"
 								errors={errors}
 								name="password"
-								className=""
+								className="peer-valid:right-7"
 								hasEye={true}
 								onChange={formState.updatePassword}
 								value={password}
@@ -281,12 +281,11 @@ function SignupForm() {
 								togglePasswordVisibility={
 									togglePasswordVisibility
 								}
-								showErrors={true}
 							/>
-						</div>
+						{/* </div> */}
 					</div>
 				</div>
-				<div className="pt-2">
+				<div className="pt-5">
 					<RadioInput>
 						<RadioInputOption
 							value={"basic"}
