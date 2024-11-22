@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import NavbarLogin from "../Custom/NavbarLogin/NavbarLogin";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 import useTokenStore from "@/stores/TokenStore";
+import styles from "./Navbar.module.scss";
 function Navbar() {
 	const Navigate = useNavigate();
 	const TOKEN = useTokenStore((state) => state.accessToken);
@@ -25,7 +26,7 @@ function Navbar() {
 						Bomb Funding
 					</a>
 				</div>
-				<SearchBar />
+				<SearchBar className={styles.SearchBar} />
 				<div className="flex">
 					{/* <HomeButton loggedIn={loggedIn} /> */}
 					{/* <LogoutButton /> */}

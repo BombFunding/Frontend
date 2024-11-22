@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-function SearchBar() {
+function SearchBar({ className }) {
 	const [searchFocused, setSearchFocused] = useState(false);
 	function handleSearchFocus() {
 		setSearchFocused(!searchFocused);
 	}
 	return (
-		<div className="relative">
+		<div className={`relative ${className}`}>
 			<svg
 				className={`size-4 absolute top-2 left-3 ${
 					searchFocused ? "text-bomborange" : "text-gray-500"
