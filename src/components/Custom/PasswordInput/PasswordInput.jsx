@@ -49,7 +49,7 @@ function PasswordInput({
 				placeholder={placeholder}
 				onKey={(e) => handleKeyDown(e)}
 				// className={`pr-20 ${className}`}
-				className={`${className} ${hasEye ? "right-10" : ""}`}
+				className={`${className} ${hasEye ? "right-11" : ""}`}
 				name={name}
 				onChange={onChange}
 				value={value}
@@ -70,8 +70,8 @@ function PasswordInput({
 						style={{
 							transform: `translateY(-50%) rotate(${beamDegrees})`,
 							backgroundColor: showPassword
-								// ? "#fe9149"
-								? "#fda469"
+								? // ? "#fe9149"
+								  "#fda469"
 								: "transparent",
 						}}
 						className={styles.beam}

@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useSignupFormStore } from "@/stores/FormStore";
 import { postData } from "@/Servises/ApiClient/index.js";
 import { RadioInput, RadioInputOption } from "@/components/Custom/RadioInput";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CustomToast from "@/components/CustomToast/CustomToast";
 
@@ -58,13 +58,11 @@ function SignupForm() {
 		updateUser_type,
 	} = useSignupFormStore((state) => state);
 	const [showPassword, setShowPassword] = useState(false);
-	const [role, setRole] = useState("basic");
-	const formState = useSignupFormStore((state) => state);
-	const formData = { username, email, password, confirmPassword, user_type };
-	const [errors, setErrors] = useState([]);
+	// const formState = useSignupFormStore((state) => state);
+	// const formData = { username, email, password, confirmPassword, user_type };
 
 	function onChangeRole(e) {
-		setRole(e.target.value);
+		updateUser_type(e.target.value);
 	}
 	function togglePasswordVisibility() {
 		setShowPassword(!showPassword);
@@ -76,57 +74,134 @@ function SignupForm() {
 	}
 	const onSubmit = async () => {
 		try {
-			await schema.validate(formData, { abortEarly: false });
+			console.log(username, password, email, confirmPassword, user_type);
+			// await schema.validate(formData, { abortEarly: false });
+			if (username === "") {
+				toast.error(
+					<CustomToast
+						Header="نام کاربری"
+						Message="نام کاربری خود را وارد کنید"
+					/>
+				);
+				return;
+			}
+			if (username.length < 3) {
+				toast.error(
+					<CustomToast
+						Header="نام کاربری"
+						Message="نام کاربری حداقل باید 3 حرف باشد"
+					/>
+				);
+				return;
+			}
+			if (password === "") {
+				toast.error(
+					<CustomToast
+						Header="رمز عبور"
+						Message="رمز عبور خود را وارد کنید"
+					/>
+				);
+				return;
+			}
+			if (password.length < 8) {
+				toast.error(
+					<CustomToast
+						Header="رمز عبور"
+						Message="رمز عبور حداقل باید دارای 8 کاراکتر باشد"
+					/>
+				);
+				return;
+			}
+			if (password.length > 50) {
+				toast.error(
+					<CustomToast
+						Header="رمز عبور"
+						Message="رمز عبور طولانی است"
+					/>
+				);
+				return;
+			}
+			if (
+				!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+					password
+				)
+			) {
+				toast.error(
+					<CustomToast
+						Header="رمز عبور"
+						Message="رمز عبور باید حداقل شامل یک حرف بزرگ، عدد و علامت باشد"
+					/>
+				);
+				return;
+			}
+			if (email === "") {
+				toast.error(
+					<CustomToast
+						Header="ایمیل"
+						Message="ایمیل خود را وارد کنید"
+					/>
+				);
+				return;
+			}
+			if (
+				!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
+			) {
+				toast.error(
+					<CustomToast
+						Header="ایمیل"
+						Message="فرمت ایمیل درست نمی‌باشد"
+					/>
+				);
+				return;
+			}
+			if (confirmPassword === "") {
+				toast.error(
+					<CustomToast
+						Header="تایید رمز عبور"
+						Message="تکرار رمز عبور خود را وارد کنید"
+					/>
+				);
+				return;
+			}
+			if (confirmPassword !== password) {
+				toast.error(
+					<CustomToast
+						Header="تایید رمز عبور"
+						Message="مقدار رمز عبور و تایید رمز عبور باید یکسان باشد"
+					/>
+				);
+				return;
+			}
+
+			console.log("hi");
 			const bodyData = {
-				username: username,
-				email: email,
-				password: password,
-				user_type: "basic",
+				username,
+				email,
+				password,
+				user_type,
 			};
-			await postData("/auth/register/", bodyData)
-				.then((response) => {
-					console.log("Data posted successfully:", response);
-				})
-				// .catch((error) => {
-				// 	if (error?.response?.data) {
-				// 		const data = error?.response?.data;
-				// 		if (data?.username) {
-				// 			const err = {
-				// 				message: "نام کاربری تکراری است",
-				// 				path: "username",
-				// 			};
-				// 			const temp = errors;
-				// 			temp[0].push(err);
-				// 			setErrors(() => [temp]);
-				// 		} else if (data?.email) {
-				// 			const err = {
-				// 				message: "ایمیل تکراری است",
-				// 				path: "email",
-				// 			};
-				// 			const temp = errors;
-				// 			temp[0].push(err);
-				// 			setErrors(() => [temp]);
-				// 		}
-				// 	}
-				// });
+			// console.log(bodyData);
+			await postData("/auth/register", bodyData).then((response) => {
+				console.log("Data posted successfully:", response);
+			});
 		} catch (error) {
+			console.log("wtf");
 			const Fields = {
 				username: "نام کاربری",
 				password: "رمز عبور",
 				email: "ایمیل",
 				confirmPassword: "تایید رمز عبور",
 			};
-			console.log("in:", error.inner, error);
-			// toast.error(
-			// 	"yah"
-			// );
-			toast.error(
-				<CustomToast
-					Header={Fields[error.inner[0].path]}
-					Message={error.inner[0].message}
-				/>
-			);
-			setErrors((pre) => [error.inner]);
+			console.log("in:", error);
+			if (error?.inner) {
+				// console.log("in:", error.inner[0].message);
+				toast.error(
+					<CustomToast
+						Header={Fields[error.inner[0].path]}
+						Message={error.inner[0].message}
+					/>
+				);
+			}
 		} finally {
 			const Fields = {
 				username: "نام کاربری",
@@ -134,71 +209,11 @@ function SignupForm() {
 				email: "ایمیل",
 				confirmPassword: "تایید رمز عبور",
 			};
-			// console.log("Eerrors1: ", errors);
-			// console.log("Eerrors2: ", errors[0]);
-			// console.log("Eerrors2.2: ", errors[0][0]);
-			// console.log("Eerrors3: ", errors[0][0].message);
-			// console.log("Eerrors4: ", Fields[errors[0][0].path]);
-
-			// if (errors[0]?.length > 0) {
-			// 	// console.log(errors[0][0].message, Fields[errors[0][0].path]);
-			// 	toast.error(
-			// 		<CustomToast
-			// 			Header={Fields[errors[0][0].path]}
-			// 			Message={errors[0][0].message}
-			// 		/>
-			// 	);
-			// }
-
-			// Object.keys(Fields).map((path) => {
-			// 	const ErrorMessages = errors[0]
-			// 		?.filter((err) => err.path === path)
-			// 		.map((err) => err.message);
-
-			// });
-			// Object.keys(Fields).map((path) => {
-			// 	const notificationErrors = [];
-			// 	errors[0]
-			// 		?.filter((err) => err.path === path)
-			// 		.map((err) => notificationErrors.push(err.message));
-			// 	if (notificationErrors.length > 0) {
-			// 		toast(
-			// 			<>
-			// 				<h1 className="font-vazirmatn text-[20px]">
-			// 					{Fields[path]}
-			// 				</h1>
-			// 				<div className="font-vazirmatn text-[10px]">
-
-			// 					{notificationErrors.map((err) => (
-			// 						<div key={err}>{err}</div>
-			// 					))}
-			// 				</div>
-			// 			</>
-			// 		);
-			// 	}
-			// });
 		}
 	};
 
 	return (
 		<>
-			{/* <ToastContainer
-				toastStyle={{
-					backgroundColor: "#2C2727",
-					fontSize: "16px",
-					borderRadius: "8px",
-				}}
-				position="bottom-right"
-				autoClose={true}
-				hideProgressBar={true}
-				closeOnClick
-				draggable
-				theme="dark"
-				newestOnTop={true}
-				role="alert"
-				closeButton={false}
-				limit={4}
-			/> */}
 			<form
 				className={styles.form_style}
 				onSubmit={(e) => {
@@ -217,8 +232,7 @@ function SignupForm() {
 							autofocus={true}
 							onKey={(e) => handleKeyDown(e)}
 							name="username"
-							errors={errors}
-							onChange={formState.updateUsername}
+							onChange={e=>updateUsername(e)}
 							value={username}
 							showErrors={true}
 						/>
@@ -227,9 +241,8 @@ function SignupForm() {
 							autofocus={true}
 							onKey={(e) => handleKeyDown(e)}
 							name="email"
-							onChange={formState.updateEmail}
+							onChange={(e) => updateEmail(e)}
 							value={email}
-							errors={errors}
 							showErrors={true}
 						/>
 					</div>
@@ -237,22 +250,17 @@ function SignupForm() {
 						<PasswordInput
 							handleKeyDown={handleKeyDown}
 							placeholder="تایید رمز عبور"
-							errors={errors}
 							name="confirmPassword"
-							onChange={formState.updateConfirmPassword}
-							value={confirmPassword}
+							onChange={(e) => updateConfirmPassword(e)}
 							showPassword={showPassword}
 							togglePasswordVisibility={togglePasswordVisibility}
-							showErrors={true}
 						/>
 						<PasswordInput
 							handleKeyDown={handleKeyDown}
 							placeholder="رمز عبور"
-							errors={errors}
 							name="password"
 							hasEye={true}
-							onChange={formState.updatePassword}
-							value={password}
+							onChange={(e) => updatePassword(e)}
 							showPassword={showPassword}
 							togglePasswordVisibility={togglePasswordVisibility}
 						/>
@@ -263,24 +271,24 @@ function SignupForm() {
 						<RadioInputOption
 							value={"basic"}
 							id="tab-1"
-							checked={role === "basic"}
-							onChange={onChangeRole}
+							checked={user_type === "basic"}
+							onChange={updateUser_type}
 						>
 							هیچکدام
 						</RadioInputOption>
 						<RadioInputOption
 							value={"startup"}
 							id="tab-2"
-							checked={role === "startup"}
-							onChange={onChangeRole}
+							checked={user_type === "startup"}
+							onChange={updateUser_type}
 						>
 							استارت‌آپ
 						</RadioInputOption>
 						<RadioInputOption
 							value={"investor"}
 							id="tab-3"
-							checked={role === "investor"}
-							onChange={onChangeRole}
+							checked={user_type === "investor"}
+							onChange={updateUser_type}
 						>
 							سرمایه‌گذار
 						</RadioInputOption>
@@ -299,9 +307,7 @@ function SignupForm() {
 				>
 					قبلا ثبت نام کرده‌اید؟
 				</div>
-				<DrawerButton classNames="font-vazirmatn">
-					ثبت نام
-				</DrawerButton>
+				<DrawerButton classNames="font-vazirmatn">ثبت نام</DrawerButton>
 			</form>
 
 			{/* <div className={styles.notification_box}>

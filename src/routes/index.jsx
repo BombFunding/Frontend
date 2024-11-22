@@ -7,6 +7,7 @@ import Landing from "@/Pages/Landing/Landing";
 import Navbar from "@/components/Navbar/Navbar";
 import NoNavbarLayout from "@/Layouts/NoNavbarLayout/NoNavbarLayout";
 import PrivateLayout from "@/Layouts/private/PrivateLayout";
+import EmailVerification from "@/Pages/EmailVerification/EmailVerification";
 export const router = createBrowserRouter([
 	{
 		path: "/",
