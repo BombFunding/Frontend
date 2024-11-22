@@ -130,12 +130,10 @@ function LoginForm() {
 					onSubmit(e);
 				}}
 			>
-				{/* <img className={styles.logo} src={logo} alt="logo" /> */}
 				<div className={styles.welcome}>خوش آمدید</div>
 				<div className={styles.text}>
 					برای ورود اطلاعات خود را وارد کنید
 				</div>
-				{/* <Label className={styles.Label}>ایمیل یا نام کاربری</Label> */}
 				<CustomInput
 					placeholder="ایمیل یا نام کاربری"
 					autofocus={true}
@@ -145,7 +143,6 @@ function LoginForm() {
 					value={formData.usernameEmail}
 					onChange={formState.updateUsernameEmail}
 				/>
-				{/* <Label className={styles.Label}>رمز عبور</Label> */}
 				<PasswordInput
 					handleKeyDown={handleKeyDown}
 					errors={errors}
@@ -154,7 +151,6 @@ function LoginForm() {
 					onChange={formState.updatePassword}
 					value={formData.password}
 					hasEye={true}
-					className="peer-valid:right-7"
 					showPassword={showPassword}
 					togglePasswordVisibility={togglePasswordVisibility}
 				/>

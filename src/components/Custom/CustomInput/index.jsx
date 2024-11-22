@@ -70,9 +70,11 @@ function CustomInput({
 					// className={`absolute bg-transparent pointer-events-none text-sm left-3 -top-1 text-gray-500 transition-all translate-y-4 scale-100 peer-focus:-translate-y-2 peer-focus:scale-90 peer-valid:scale-90 peer-focus:left-3 peer-valid:left-3 peer-focus:bg-gray-100 peer-valid:bg-gray-100 peer-focus:px-1 peer-valid:px-1 peer-focus:text-gray-500`}
 					className={`${
 						flg
-							? "-translate-y-0 scale-90 left-3 bg-gray-100 px-1 text-gray-500 bg-transparent"
+							// ? "-translate-y-0 scale-90 left-3 bg-gray-100 px-1 text-gray-500 bg-transparent"
+							// ? "-translate-y-5 bg-gray-100 px-1 text-gray-500 bg-transparent"
+							? "-translate-y-[35px] px-[5px]"
 							: ""
-					} ${className} absolute bg-transparent pointer-events-none text-sm left-3 top-3 text-gray-500 transition-all scale-100 peer-focus:-translate-y-5 peer-focus:scale-90 peer-valid:scale-90 peer-focus:left-3 peer-valid:right-1 peer-focus:bg-gray-100 peer-valid:bg-gray-100 peer-focus:px-1 peer-valid:px-1 peer-focus:text-gray-500`}
+					} ${className} absolute right-4 px-[5px] pointer-events-none text-sm top-3 text-gray-500 transition-all peer-focus:-translate-y-[35px] peer-focus:right-1 peer-focus:scale-[70%] peer-valid:bg-gray-100 peer-focus:text-gray-500`}
 				>
 					{placeholder}
 				</label>

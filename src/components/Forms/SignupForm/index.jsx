@@ -213,15 +213,12 @@ function SignupForm() {
 					onSubmit(e);
 				}}
 			>
-				{/* <img className={styles.logo} src={logo} alt="logo" /> */}
 				<div className={styles.welcome}>خوش آمدید</div>
 				<div className={styles.text}>
 					برای ثبت نام اطلاعات خود را وارد کنید
 				</div>
 				<div className={styles.form_even_justify}>
 					<div className={styles.input_row}>
-						{/* <div> */}
-							{/* <Label className={styles.Label}>نام کاربری</Label> */}
 							<CustomInput
 								placeholder="نام کاربری"
 								autofocus={true}
@@ -232,9 +229,6 @@ function SignupForm() {
 								value={username}
 								showErrors={true}
 							/>
-						{/* </div> */}
-						{/* <div> */}
-							{/* <Label className={styles.Label}>ایمیل</Label> */}
 							<CustomInput
 								placeholder="ایمیل"
 								autofocus={true}
@@ -245,13 +239,8 @@ function SignupForm() {
 								errors={errors}
 								showErrors={true}
 							/>
-						{/* </div> */}
 					</div>
 					<div className={styles.input_row}>
-						{/* <div> */}
-							{/* <Label className={styles.Label}>
-								تایید رمز عبور
-							</Label> */}
 							<PasswordInput
 								handleKeyDown={handleKeyDown}
 								placeholder="تایید رمز عبور"
@@ -265,15 +254,11 @@ function SignupForm() {
 								}
 								showErrors={true}
 							/>
-						{/* </div> */}
-						{/* <div> */}
-							{/* <Label className={styles.Label}>رمز عبور</Label> */}
 							<PasswordInput
 								handleKeyDown={handleKeyDown}
 								placeholder="رمز عبور"
 								errors={errors}
 								name="password"
-								className="peer-valid:right-7"
 								hasEye={true}
 								onChange={formState.updatePassword}
 								value={password}
@@ -282,7 +267,6 @@ function SignupForm() {
 									togglePasswordVisibility
 								}
 							/>
-						{/* </div> */}
 					</div>
 				</div>
 				<div className="pt-5">
