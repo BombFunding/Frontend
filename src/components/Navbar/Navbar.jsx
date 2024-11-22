@@ -5,11 +5,10 @@ import { useNavigate } from "react-router-dom";
 // import HomeButton from "../Custom/HomeButton/HomeButton";
 import NavbarLogin from "../Custom/NavbarLogin/NavbarLogin";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
-import { useState } from "react";
-import CustomButton from "../Custom/CustomButton/CustomButton";
+import useTokenStore from "@/stores/TokenStore";
 function Navbar() {
 	const Navigate = useNavigate();
-	const [loggedIn, setLoggedIn] = useState(false);
+	const TOKEN = useTokenStore((state) => state.accessToken);
 	return (
 		<nav className="flex justify-around bg-bomborange w-screen h-12 top-0 fixed right-0 z-50">
 			<div className="container px-4 py-6 flex justify-between items-center">
@@ -30,7 +29,7 @@ function Navbar() {
 				<div className="flex">
 					{/* <HomeButton loggedIn={loggedIn} /> */}
 					{/* <LogoutButton /> */}
-					{loggedIn ? (
+					{TOKEN ? (
 						<ProfileDropDown />
 					) : (
 						// <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">Responsive</button>

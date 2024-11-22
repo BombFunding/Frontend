@@ -26,7 +26,6 @@ function ProfileDropDown() {
 
 				<DropdownMenuItem className={styles.item} onClick={()=>Navigate("/profile")}>
 					داشبورد
-
 				</DropdownMenuItem>
 				<DropdownMenuItem className={styles.item}>
 					تنظیمات

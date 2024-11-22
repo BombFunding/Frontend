@@ -1,29 +1,5 @@
 import { Input } from "../../ui/input";
 import styles from "./CustomInput.module.scss";
-const errorsAll = {
-  password: [
-    // "اجباری",
-    "حداقل 8 کاراکتر",
-    "شامل حروف کوچک",
-    "شامل حروف بزرگ",
-    "شامل اعداد",
-    "شامل علامت",
-  ],
-  username: [
-    // "اجباری",
-    "حداقل 3 کاراکتر",
-  ],
-
-  email: [
-    // "اجباری",
-    "فرمت درست ایمیل",
-  ],
-
-  confirmPassword: [
-    // "اجباری",
-    "یکسان با پسورد",
-  ],
-};
 
 function CustomInput({
   placeholder,

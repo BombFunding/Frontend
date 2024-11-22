@@ -136,8 +136,8 @@
 	margin-top: 10px;
 }
 
-/*text styling*/
 .error404 {
+	user-select: none;
 	font-family: "Abril Fatface", serif;
 	color: #ededed;
 	text-align: center;
@@ -148,6 +148,7 @@
 
 .notfound {
 	@apply font-vazirmatn;
+	user-select: none;
 	font-size: 2em;
 	text-transform: uppercase;
 	text-align: center;
@@ -158,6 +159,7 @@
 
 .text {
     @apply font-vazirmatn;
+	user-select: none;
 	text-align: center;
 	color: #242424;
 	font-size: 0.6em;

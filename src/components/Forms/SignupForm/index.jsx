@@ -1,7 +1,6 @@
 import * as yup from "yup";
 
 import { useNavigate } from "react-router-dom";
-import { Label } from "@radix-ui/react-label";
 import CustomInput from "@/components/Custom/CustomInput";
 import PasswordInput from "@/components/Custom/PasswordInput/PasswordInput";
 import DrawerButton from "@/components/Custom/DrawerButton";
@@ -10,10 +9,9 @@ import { useState } from "react";
 import { useSignupFormStore } from "@/stores/FormStore";
 import { postData } from "@/Servises/ApiClient/index.js";
 import { RadioInput, RadioInputOption } from "@/components/Custom/RadioInput";
-import { Notification } from "@/components/NotificationCenter";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ToastifyT from "@/components/NotificationCenter/index2";
+import CustomToast from "@/components/CustomToast/CustomToast";
 
 const schema = yup.object().shape({
 	username: yup
@@ -46,8 +44,7 @@ const schema = yup.object().shape({
 });
 
 function SignupForm() {
-	const navigate = useNavigate();
-	const [notifications, setNotifications] = useState([]);
+	const Navigate = useNavigate();
 	const {
 		username,
 		email,
@@ -66,15 +63,6 @@ function SignupForm() {
 	const formData = { username, email, password, confirmPassword, user_type };
 	const [errors, setErrors] = useState([]);
 
-	function addNotification(title, subtitles, actions, icon) {
-		setNotifications((prev) => [
-			...prev,
-			{ id: Math.random(), title, subtitles, actions, icon },
-		]);
-	}
-	const dismissNotification = (id) => {
-		setNotifications((prev) => prev.filter((note) => note.id !== id));
-	};
 	function onChangeRole(e) {
 		setRole(e.target.value);
 	}
@@ -86,41 +74,7 @@ function SignupForm() {
 			onSubmit(e);
 		}
 	}
-	// useEffect(() => {
-	// 	const Fields = {
-	// 		username: "نام کاربری",
-	// 		password: "رمز عبور",
-	// 		email: "ایمیل",
-	// 		confirmPassword: "تایید رمز عبور",
-	// 	};
-	// 	const X = ["username", "password", "email", "confirmPassword"];
-	// 	X.map((path) => {
-	// 		// console.log(path);
-	// 		const notificationErrors = [];
-	// 		errors[0]
-	// 			?.filter((err) => err.path === path)
-	// 			.map((err) => notificationErrors.push(err.message));
-	// 		errors[1]
-	// 			?.filter((err) => err.path === path)
-	// 			.map((err) => notificationErrors.push(err.message));
-	// 		if (notificationErrors.length > 0) {
-	// 			addNotification(
-	// 				Fields[path],
-	// 				notificationErrors,
-	// 				["اوکی"]
-	// 			);
-	// 		}
-	// 	});
-	// }, [errors]);
 	const onSubmit = async () => {
-		setNotifications([]);
-		setErrors([]);
-		// errors[0] = [];
-		// toast(<ToastifyT />);
-		// toast(<ToastifyT />);
-		// toast("Hi");
-		// toast("nigga");
-		// console.log("Form Submitted", e);
 		try {
 			await schema.validate(formData, { abortEarly: false });
 			const bodyData = {
@@ -133,77 +87,118 @@ function SignupForm() {
 				.then((response) => {
 					console.log("Data posted successfully:", response);
 				})
-				.catch((error) => {
-					if (error?.response?.data) {
-						const data = error?.response?.data;
-						if (data?.username) {
-							const err = {
-								message: "نام کاربری تکراری است",
-								path: "username",
-							};
-							const temp = errors;
-							temp[0].push(err);
-							setErrors(() => [temp]);
-						} else if (data?.email) {
-							const err = {
-								message: "ایمیل تکراری است",
-								path: "email",
-							};
-							const temp = errors;
-							temp[0].push(err);
-							setErrors(() => [temp]);
-						}
-					}
-				});
+				// .catch((error) => {
+				// 	if (error?.response?.data) {
+				// 		const data = error?.response?.data;
+				// 		if (data?.username) {
+				// 			const err = {
+				// 				message: "نام کاربری تکراری است",
+				// 				path: "username",
+				// 			};
+				// 			const temp = errors;
+				// 			temp[0].push(err);
+				// 			setErrors(() => [temp]);
+				// 		} else if (data?.email) {
+				// 			const err = {
+				// 				message: "ایمیل تکراری است",
+				// 				path: "email",
+				// 			};
+				// 			const temp = errors;
+				// 			temp[0].push(err);
+				// 			setErrors(() => [temp]);
+				// 		}
+				// 	}
+				// });
 		} catch (error) {
-			setErrors((pre) => [...pre, error.inner]);
-		} finally {
-			console.log("Eerrors: ", errors);
-			// setErrors()
-			// errors[0].map((err) => {
-			// 	toast(
-			// 		<div className="font-vazirmatn text-[10px]">
-			// 			{err.message}
-			// 		</div>
-			// 	);
-			// });
-
 			const Fields = {
 				username: "نام کاربری",
 				password: "رمز عبور",
 				email: "ایمیل",
 				confirmPassword: "تایید رمز عبور",
 			};
-			Object.keys(Fields).map((path) => {
-				// console.log(path);
-				const notificationErrors = [];
-				errors[0]
-					?.filter((err) => err.path === path)
-					.map((err) => notificationErrors.push(err.message));
-				// errors[1]
-				// 	?.filter((err) => err.path === path)
-				// 	.map((err) => notificationErrors.push(err.message));
-				if (notificationErrors.length > 0) {
-					toast(
-						<>
-							<h1 className="font-vazirmatn text-[20px]">
-								{Fields[path]}
-							</h1>
-							<div className="font-vazirmatn text-[10px]">
-								{notificationErrors.map((err) => (
-									<div key={err}>{err}</div>
-								))}
-							</div>
-						</>
-					);
-					// addNotification(Fields[path], notificationErrors, ["اوکی"]);
-				}
-			});
+			console.log("in:", error.inner, error);
+			toast.error(
+				"yah"
+			);
+			// toast.error(
+			// 	<CustomToast
+			// 		Header={Fields[error.inner[0].path]}
+			// 		Message={error.inner[0].message}
+			// 	/>
+			// );
+			setErrors((pre) => [error.inner]);
+		} finally {
+			const Fields = {
+				username: "نام کاربری",
+				password: "رمز عبور",
+				email: "ایمیل",
+				confirmPassword: "تایید رمز عبور",
+			};
+			// console.log("Eerrors1: ", errors);
+			// console.log("Eerrors2: ", errors[0]);
+			// console.log("Eerrors2.2: ", errors[0][0]);
+			// console.log("Eerrors3: ", errors[0][0].message);
+			// console.log("Eerrors4: ", Fields[errors[0][0].path]);
+
+			// if (errors[0]?.length > 0) {
+			// 	// console.log(errors[0][0].message, Fields[errors[0][0].path]);
+			// 	toast.error(
+			// 		<CustomToast
+			// 			Header={Fields[errors[0][0].path]}
+			// 			Message={errors[0][0].message}
+			// 		/>
+			// 	);
+			// }
+
+			// Object.keys(Fields).map((path) => {
+			// 	const ErrorMessages = errors[0]
+			// 		?.filter((err) => err.path === path)
+			// 		.map((err) => err.message);
+
+			// });
+			// Object.keys(Fields).map((path) => {
+			// 	const notificationErrors = [];
+			// 	errors[0]
+			// 		?.filter((err) => err.path === path)
+			// 		.map((err) => notificationErrors.push(err.message));
+			// 	if (notificationErrors.length > 0) {
+			// 		toast(
+			// 			<>
+			// 				<h1 className="font-vazirmatn text-[20px]">
+			// 					{Fields[path]}
+			// 				</h1>
+			// 				<div className="font-vazirmatn text-[10px]">
+
+			// 					{notificationErrors.map((err) => (
+			// 						<div key={err}>{err}</div>
+			// 					))}
+			// 				</div>
+			// 			</>
+			// 		);
+			// 	}
+			// });
 		}
 	};
 
 	return (
 		<>
+			{/* <ToastContainer
+				toastStyle={{
+					backgroundColor: "#2C2727",
+					fontSize: "16px",
+					borderRadius: "8px",
+				}}
+				position="bottom-right"
+				autoClose={true}
+				hideProgressBar={true}
+				closeOnClick
+				draggable
+				theme="dark"
+				newestOnTop={true}
+				role="alert"
+				closeButton={false}
+				limit={4}
+			/> */}
 			<form
 				className={styles.form_style}
 				onSubmit={(e) => {
@@ -217,54 +212,50 @@ function SignupForm() {
 				</div>
 				<div className={styles.form_even_justify}>
 					<div className={styles.input_row}>
-							<CustomInput
-								placeholder="نام کاربری"
-								autofocus={true}
-								onKey={(e) => handleKeyDown(e)}
-								name="username"
-								errors={errors}
-								onChange={formState.updateUsername}
-								value={username}
-								showErrors={true}
-							/>
-							<CustomInput
-								placeholder="ایمیل"
-								autofocus={true}
-								onKey={(e) => handleKeyDown(e)}
-								name="email"
-								onChange={formState.updateEmail}
-								value={email}
-								errors={errors}
-								showErrors={true}
-							/>
+						<CustomInput
+							placeholder="نام کاربری"
+							autofocus={true}
+							onKey={(e) => handleKeyDown(e)}
+							name="username"
+							errors={errors}
+							onChange={formState.updateUsername}
+							value={username}
+							showErrors={true}
+						/>
+						<CustomInput
+							placeholder="ایمیل"
+							autofocus={true}
+							onKey={(e) => handleKeyDown(e)}
+							name="email"
+							onChange={formState.updateEmail}
+							value={email}
+							errors={errors}
+							showErrors={true}
+						/>
 					</div>
 					<div className={styles.input_row}>
-							<PasswordInput
-								handleKeyDown={handleKeyDown}
-								placeholder="تایید رمز عبور"
-								errors={errors}
-								name="confirmPassword"
-								onChange={formState.updateConfirmPassword}
-								value={confirmPassword}
-								showPassword={showPassword}
-								togglePasswordVisibility={
-									togglePasswordVisibility
-								}
-								showErrors={true}
-							/>
-							<PasswordInput
-								handleKeyDown={handleKeyDown}
-								placeholder="رمز عبور"
-								errors={errors}
-								name="password"
-								hasEye={true}
-								onChange={formState.updatePassword}
-								value={password}
-								showPassword={showPassword}
-								togglePasswordVisibility={
-									togglePasswordVisibility
-								}
-							/>
+						<PasswordInput
+							handleKeyDown={handleKeyDown}
+							placeholder="تایید رمز عبور"
+							errors={errors}
+							name="confirmPassword"
+							onChange={formState.updateConfirmPassword}
+							value={confirmPassword}
+							showPassword={showPassword}
+							togglePasswordVisibility={togglePasswordVisibility}
+							showErrors={true}
+						/>
+						<PasswordInput
+							handleKeyDown={handleKeyDown}
+							placeholder="رمز عبور"
+							errors={errors}
+							name="password"
+							hasEye={true}
+							onChange={formState.updatePassword}
+							value={password}
+							showPassword={showPassword}
+							togglePasswordVisibility={togglePasswordVisibility}
+						/>
 					</div>
 				</div>
 				<div className="pt-5">
@@ -297,7 +288,7 @@ function SignupForm() {
 				</div>
 				<div
 					onClick={() => {
-						navigate("/login");
+						Navigate("/login");
 						updateUsername("");
 						updatePassword("");
 						updateConfirmPassword("");
@@ -308,28 +299,11 @@ function SignupForm() {
 				>
 					قبلا ثبت نام کرده‌اید؟
 				</div>
-				<DrawerButton classNames="font-vazirmatn" onClick={onSubmit}>
+				<DrawerButton classNames="font-vazirmatn">
 					ثبت نام
 				</DrawerButton>
 			</form>
-			<ToastContainer
-				toastStyle={{
-					backgroundColor: "#2C2727",
-					fontSize: "16px",
-					borderRadius: "8px",
 
-				}}
-				position="bottom-right"
-				autoClose={false}
-				hideProgressBar={true}
-				closeOnClick
-				draggable
-				theme="dark"
-				newestOnTop={true}
-				role="alert"
-				closeButton={false}
-				limit={4}
-			/>
 			{/* <div className={styles.notification_box}>
 				<div className={styles.notification_box_flex}>
 					{notifications?.map((note) => (

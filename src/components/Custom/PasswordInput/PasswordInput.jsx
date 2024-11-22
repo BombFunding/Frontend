@@ -49,7 +49,7 @@ function PasswordInput({
 				placeholder={placeholder}
 				onKey={(e) => handleKeyDown(e)}
 				// className={`pr-20 ${className}`}
-				className={`${className} ${hasEye ? "right-9" : ""}`}
+				className={`${className} ${hasEye ? "right-10" : ""}`}
 				name={name}
 				onChange={onChange}
 				value={value}
