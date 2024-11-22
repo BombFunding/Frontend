@@ -10,6 +10,8 @@ const VerifiableInput = ({
   isVerified = false,
   type = "text",
   editable = false,
+  register,
+  fieldName,
 }) => {
   return (
     <div className={styles.input_block}>
@@ -37,6 +39,7 @@ const VerifiableInput = ({
         type={type}
         id={name}
         placeholder={name}
+        {...register(fieldName)}
       />
     </div>
   );

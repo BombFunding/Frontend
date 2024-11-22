@@ -1,5 +1,5 @@
 import { Label } from "@/components/ui/label";
-import React from "react";
+import React, { useEffect } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import { Input } from "@/components/ui/input";
@@ -7,16 +7,30 @@ import styles from "./EditableInput.module.scss";
 import { Textarea } from "@/components/ui/textarea";
 import EditButton from "../EditButton/EditButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { useRef } from "react";
 
 const EditableInput = ({
   name,
   value,
-  editable,
+  fieldName,
   icon,
   type = "text",
   isTextArea = false,
+  register,
+  setFocus,
+  setValue,
 }) => {
+  const inputRef = useRef(null);
   const [edit, setEdit] = React.useState(false);
+
+  useEffect(() => {
+    // console.log("edit", edit);
+    if (edit) {
+      setFocus(name);
+    } else {
+      setValue(name, value, { shouldValidate: false });
+    }
+  }, [edit]);
 
   return (
     <div className={styles.input_block}>
@@ -39,36 +53,34 @@ const EditableInput = ({
         {!isTextArea ? (
           edit ? (
             <Input
+              ref={inputRef}
               disabled={!edit}
               className={styles.input_field}
               type={type}
-              placeholder={name}
-              id={name}
+              {...register(fieldName)}
             />
           ) : (
             <Input
+              ref={inputRef}
               disabled={!edit}
               className={styles.input_field}
               type={type}
-              placeholder={name}
-              id={name}
-              value={value}
+              {...register(fieldName)}
             />
           )
         ) : edit ? (
           <Textarea
+            ref={inputRef}
             className={styles.input_text_field}
             type={type}
-            placeholder={name}
-            id={name}
+            {...register(fieldName)}
           />
         ) : (
           <Textarea
+            ref={inputRef}
             disabled={!edit}
             className={styles.input_text_field}
-            value={value}
-            placeholder={name}
-            id={name}
+            {...register(fieldName)}
           />
         )}
         {icon}
