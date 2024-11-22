@@ -1,44 +1,95 @@
 import { Label } from "@radix-ui/react-label";
 import styles from "./ChangePassword.module.scss";
-import CustomInput from "@/components/Custom/CustomInput";
 import { useState } from "react";
 import DrawerButton from "@/components/Custom/DrawerButton";
 import { postData } from "@/Servises/ApiClient";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import PasswordInput from "@/components/Custom/PasswordInput/PasswordInput";
+import { toast } from "react-toastify";
+import CustomToast from "@/components/CustomToast/CustomToast";
 
 function ChangePassword() {
-	const { Uid, token } = useParams();
+	const Navigate = useNavigate();
+	const { uid, token } = useParams();
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [showPassword, setShowPassword] = useState(false);
+	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+	const togglePasswordVisibility = () => {
+		setShowPassword(!showPassword);
+	};
+	const toggleConfirmPasswordVisibility = () => {
+		setShowConfirmPassword(!showConfirmPassword);
+	};
 	function handleKeyDown(e) {
 		if (e.key === "Enter") {
 			onSubmit();
 		}
 	}
 	const onSubmit = async (e) => {
-		const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+		const passwordRegex =
+			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 		let bodyData;
-		if (passwordRegex.test(password) && password === confirmPassword) {
-			bodyData = {
-				password: password,
-				Uid: Uid,
-				token: token
-			};
-		} else {
-			console.log("Invalid email");
+		if (password === "") {
+			toast.error(
+				<CustomToast
+					Header="رمز عبور جدید"
+					Message="رمز عبور جدید خود را وارد کنید"
+				/>
+			);
 			return;
 		}
+		if (confirmPassword === "") {
+			toast.error(
+				<CustomToast
+					Header="تایید رمز عبور جدید"
+					Message="تایید رمز عبور جدید خود را وارد کنید"
+				/>
+			);
+			return;
+		}
+		if (!passwordRegex.test(password)) {
+			console.log("Invalid password");
+			toast.error(
+				<CustomToast
+					Header="رمز عبور جدید"
+					Message="رمز عبور باید حداقل شامل یک حرف بزرگ، عدد و علامت باشد"
+				/>
+			);
+			return;
+		}
+		if (password !== confirmPassword) {
+			console.log("Invalid confirm password");
+			toast.error(
+				<CustomToast
+					Header="تایید رمز عبور جدید"
+					Message="مقادیر رمز عبور جدید و تایید رمز عبور جدید یکسان نیستند"
+				/>
+			);
+			return;
+		}
+		bodyData = {
+			password: password,
+			uid: uid,
+			token: token,
+		};
 		await postData("/auth/resetpassword/", bodyData)
 			.then((res) => {
 				console.log("Data posted successfully:", res);
+				toast.success(
+					<CustomToast Header="رمز عبور شما با موفقیت تغییر داده شد." />
+				);
+				setTimeout(() => Navigate("/login"), 3000);
 			})
 			.catch((err) => {
 				console.log("Data posting FAILED:", err);
 				if (err?.response?.data) {
 					const data = err?.response?.data;
 					if (data?.non_field_errors) {
-						// send notification password changed and redirect to landing page or dashboard
-						true;
+						toast.error(
+							<CustomToast Header="لینک تغییر رمز عبور شما منقضی شده" />
+						);
+						setTimeout(() => Navigate("/forgetpassword"), 3000);
 					}
 				}
 			});
@@ -46,7 +97,10 @@ function ChangePassword() {
 	return (
 		<form
 			className={styles.changepassword_container}
-			onSubmit={(e) => e.preventDefault()}
+			onSubmit={(e) => {
+				e.preventDefault();
+				onSubmit(e);
+			}}
 		>
 			<Label className="font-vazirmatn font-extrabold text-[48px] text-bombblack">
 				تغییر رمز عبور
@@ -54,27 +108,45 @@ function ChangePassword() {
 			<Label className="font-vazirmatn text-[20px] text-bombblack">
 				رمز عبور جدید خود را وارد کنید
 			</Label>
-			<Label className={styles.Label}>رمز عبور جدید</Label>
-			<CustomInput
-				placeholder="Password"
+			<PasswordInput
+				handleKeyDown={handleKeyDown}
+				placeholder="رمز عبور جدید"
+				name="password"
+				onChange={(e) => {
+					setPassword(e.target.value);
+				}}
+				hasEye={true}
+				showPassword={showPassword}
+				togglePasswordVisibility={togglePasswordVisibility}
+			/>
+			{/* <CustomInput
+				placeholder="رمز عبور جدید"
 				autofocus={true}
 				onKey={(e) => handleKeyDown(e)}
 				name="password"
 				value={password}
 				onChange={setPassword}
+			/> */}
+			<PasswordInput
+				handleKeyDown={handleKeyDown}
+				placeholder="تایید رمز عبور جدید"
+				name="confirmPassword"
+				onChange={(e) => {
+					setConfirmPassword(e.target.value);
+				}}
+				hasEye={true}
+				showPassword={showConfirmPassword}
+				togglePasswordVisibility={toggleConfirmPasswordVisibility}
 			/>
-			<Label className={styles.Label}>تایید رمز عبور جدید</Label>
-			<CustomInput
-				placeholder="Confirm Password"
+			{/* <CustomInput
+				placeholder="تایید رمز عبور جدید"
 				autofocus={true}
 				onKey={(e) => handleKeyDown(e)}
 				name="confirmEmail"
 				value={confirmPassword}
 				onChange={setConfirmPassword}
-			/>
-			<DrawerButton classNames="mt-0" onClick={(e) => onSubmit(e)}>
-				تغییر رمز عبور
-			</DrawerButton>
+			/> */}
+			<DrawerButton>تغییر رمز عبور</DrawerButton>
 			{/* <CustomButton>Nigga</CustomButton> */}
 		</form>
 	);

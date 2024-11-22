@@ -5,9 +5,13 @@ import ReturnButton from "@/components/Custom/ReturnButton/ReturnButton";
 import DrawerButton from "@/components/Custom/DrawerButton";
 import { postData } from "@/Servises/ApiClient";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import CustomToast from "@/components/CustomToast/CustomToast";
+import { useNavigate } from "react-router";
 
 function ForgetPassword() {
 	const [email, setEmail] = useState("");
+	const Navigate = useNavigate();
 	function handleKeyDown(e) {
 		if (e.key === "Enter") {
 			onSubmit();
@@ -16,25 +20,47 @@ function ForgetPassword() {
 	const onSubmit = async (e) => {
 		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 		let bodyData;
-		if (emailRegex.test(email)) {
-			bodyData = {
-				email: email,
-			};
-		} else {
-			console.log("Invalid email");
+		if (email === "") {
+			toast.error(
+				<CustomToast Header="ایمیل" Message="ایمیل خود را وارد کنید" />
+			);
 			return;
 		}
+		if (!emailRegex.test(email)) {
+			toast.error(
+				<CustomToast Header="ایمیل" Message="فرمت ایمیل نادرست است" />
+			);
+			return;
+		}
+
+		bodyData = {
+			email: email,
+		};
 		await postData("/auth/forgetpassword/", bodyData)
 			.then((res) => {
 				console.log("Data posted successfully:", res);
+				toast.success(
+					<CustomToast Header="لطفا ایمیل خود را بررسی کنید" />
+				);
+				setTimeout(() => Navigate("/"), 3000);
 			})
 			.catch((err) => {
 				console.log("Data posting FAILED:", err);
 				if (err?.response?.data) {
 					const data = err?.response?.data;
 					if (data?.non_field_errors) {
-                        true;
-						// send notification and navigate to login or popup
+						if (
+							data?.non_field_errors[0] === "Email does not exist."
+						) {
+							toast.error(
+								<CustomToast Header="حساب کاربری با این ایمیل پیدا نشد" />
+							);
+						}
+						else {
+							toast.error(
+								<CustomToast Header="مشکلی در ارسال ایمیل به وجود آمد" />
+							);
+						}
 					}
 				}
 			});
@@ -52,17 +78,18 @@ function ForgetPassword() {
 				آدرس ایمیل خود را وارد کنید
 			</Label>
 			<CustomInput
-				placeholder="Email address"
+				placeholder="ایمیل"
 				autofocus={true}
 				onKey={(e) => handleKeyDown(e)}
 				name="email"
-				value={email}
-				onChange={setEmail}
+				onChange={(e) => {
+					setEmail(e.target.value);
+					console.log(email);
+				}}
 			/>
 			<DrawerButton classNames="mt-0" onClick={(e) => onSubmit(e)}>
 				ارسال ایمیل
 			</DrawerButton>
-			{/* <CustomButton>Nigga</CustomButton> */}
 		</form>
 	);
 }

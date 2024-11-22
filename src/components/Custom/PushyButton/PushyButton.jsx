@@ -1,17 +1,14 @@
 // import { Button } from "@/components/ui/button";
-import styles from "./NavbarLogin.module.scss";
+import styles from "./PushyButton.module.scss";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
-
-// function NavbarLogin() {
-//   const Navigate = useNavigate();
-//   return <Button className={styles.button1} onClick={() => Navigate("/login")}>Login</Button>;
-// }
-
-const NavbarLogin = () => {
-	const Navigate = useNavigate();
+const PushyButton = ({ onClick, children }) => {
 	return (
-		<Button className={styles.login_button} onClick={() => Navigate("/login")}>Login</Button>
+		<Button
+			className={styles.login_button}
+			onClick={onClick}
+		>
+			{children}
+		</Button>
 		// <button
 		// 	className="pr-0 overflow-hidden relative w-16 h-8 bg-white text-bombblack border-none rounded-md text-sm font-bold cursor-pointer z-10 group place-self-center text-center content-center"
 		// 	onClick={() => Navigate("/login")}
@@ -27,4 +24,4 @@ const NavbarLogin = () => {
 	);
 };
 
-export default NavbarLogin;
+export default PushyButton;
