@@ -135,9 +135,9 @@ function LoginForm() {
 				<div className={styles.text}>
 					برای ورود اطلاعات خود را وارد کنید
 				</div>
-				<Label className={styles.Label}>ایمیل یا نام کاربری</Label>
+				{/* <Label className={styles.Label}>ایمیل یا نام کاربری</Label> */}
 				<CustomInput
-					placeholder="Email or Username"
+					placeholder="ایمیل یا نام کاربری"
 					autofocus={true}
 					onKey={(e) => handleKeyDown(e)}
 					name="usernameEmail"
@@ -145,11 +145,11 @@ function LoginForm() {
 					value={formData.usernameEmail}
 					onChange={formState.updateUsernameEmail}
 				/>
-				<Label className={styles.Label}>رمز عبور</Label>
+				{/* <Label className={styles.Label}>رمز عبور</Label> */}
 				<PasswordInput
 					handleKeyDown={handleKeyDown}
 					errors={errors}
-					placeholder="Password"
+					placeholder="رمز عبور"
 					name="password"
 					onChange={formState.updatePassword}
 					value={formData.password}

@@ -60,7 +60,7 @@ function CustomInput({
         onChange={(e) => onChange(e.target.value)}
       /> */}
 
-      <div className="relative group">
+      <div className="relative group mt-6">
         <input
           type={type}
           name={name}
