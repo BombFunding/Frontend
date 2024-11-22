@@ -1,15 +1,11 @@
-.error_label {
-	@apply text-red-600 text-[14px];
-}
+// .CustomInput {
+//     @apply block border-solid border-2 border-bomborange rounded-lg bg-gray-100 px-4 pb-2 pt-2.5 text-black text-left transition duration-150 ease-in-out focus:outline-none focus:border-bomborange;
+// }
 
-.error_solved {
-	@apply text-green-600 text-[14px];
-}
+// .Placeholder {
+//     @apply absolute right-4 peer-focus:px-[5px] pointer-events-none text-sm top-3 text-gray-500 transition-all peer-focus:-translate-y-[35px] peer-focus:right-1 peer-focus:scale-[70%] peer-valid:bg-gray-100 peer-focus:text-gray-500;
+// }
 
-.custom_input_structure {
-	@apply pt-2 text-start min-w-full ease-in duration-300 bg-orange-100 mb-3 hover:placeholder:text-bombgray text-bombblack focus:text-bombblack border-solid border-4 border-bombgray focus:border-bomborange focus-visible:ring-0;
-}
-
-.input_errors {
-	@apply grid place-self-end;
-}
+// .NotEmpty {
+//     @apply -translate-y-[35px] px-[5px];
+// }

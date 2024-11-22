@@ -4,7 +4,7 @@ function DrawerButton({ onClick, classNames, children }) {
 	return (
 		<button
 			type="submit"
-			className={`${styles.login} font-vazirmatn mt-2 ${classNames}`}
+			className={`${styles.login} font-vazirmatn mt-6 ${classNames}`}
 			// onClick={(e) => onClick && onClick(e)}
 			onClick={() => onClick && onClick()}
 		>

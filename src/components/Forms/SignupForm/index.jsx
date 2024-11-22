@@ -1,18 +1,17 @@
-import logo from "@/assets/logo.png";
-
 import * as yup from "yup";
 
 import { useNavigate } from "react-router-dom";
-import { Label } from "@radix-ui/react-label";
 import CustomInput from "@/components/Custom/CustomInput";
 import PasswordInput from "@/components/Custom/PasswordInput/PasswordInput";
 import DrawerButton from "@/components/Custom/DrawerButton";
 import styles from "./SignupForm.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useSignupFormStore } from "@/stores/FormStore";
 import { postData } from "@/Servises/ApiClient/index.js";
 import { RadioInput, RadioInputOption } from "@/components/Custom/RadioInput";
-import { Notification } from "@/components/NotificationCenter";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import CustomToast from "@/components/CustomToast/CustomToast";
 
 const schema = yup.object().shape({
 	username: yup
@@ -45,8 +44,7 @@ const schema = yup.object().shape({
 });
 
 function SignupForm() {
-	const navigate = useNavigate();
-	const [notifications, setNotifications] = useState([]);
+	const Navigate = useNavigate();
 	const {
 		username,
 		email,
@@ -60,20 +58,11 @@ function SignupForm() {
 		updateUser_type,
 	} = useSignupFormStore((state) => state);
 	const [showPassword, setShowPassword] = useState(false);
-	const [role, setRole] = useState("1");
+	const [role, setRole] = useState("basic");
 	const formState = useSignupFormStore((state) => state);
 	const formData = { username, email, password, confirmPassword, user_type };
 	const [errors, setErrors] = useState([]);
 
-	function addNotification(title, subtitles, actions, icon) {
-		setNotifications((prev) => [
-			...prev,
-			{ id: Math.random(), title, subtitles, actions, icon },
-		]);
-	}
-	const dismissNotification = (id) => {
-		setNotifications((prev) => prev.filter((note) => note.id !== id));
-	};
 	function onChangeRole(e) {
 		setRole(e.target.value);
 	}
@@ -85,36 +74,7 @@ function SignupForm() {
 			onSubmit(e);
 		}
 	}
-	// useEffect(() => {
-	// 	const Fields = {
-	// 		username: "نام کاربری",
-	// 		password: "رمز عبور",
-	// 		email: "ایمیل",
-	// 		confirmPassword: "تایید رمز عبور",
-	// 	};
-	// 	const X = ["username", "password", "email", "confirmPassword"];
-	// 	X.map((path) => {
-	// 		// console.log(path);
-	// 		const notificationErrors = [];
-	// 		errors[0]
-	// 			?.filter((err) => err.path === path)
-	// 			.map((err) => notificationErrors.push(err.message));
-	// 		errors[1]
-	// 			?.filter((err) => err.path === path)
-	// 			.map((err) => notificationErrors.push(err.message));
-	// 		if (notificationErrors.length > 0) {
-	// 			addNotification(
-	// 				Fields[path],
-	// 				notificationErrors,
-	// 				["اوکی"]
-	// 			);
-	// 		}
-	// 	});
-	// }, [errors]);
-	const onSubmit = async (e) => {
-		setNotifications([]);
-		setErrors([]);
-		// console.log("Form Submitted", e);
+	const onSubmit = async () => {
 		try {
 			await schema.validate(formData, { abortEarly: false });
 			const bodyData = {
@@ -123,63 +83,122 @@ function SignupForm() {
 				password: password,
 				user_type: "basic",
 			};
-			// console.log("Form bodyData:", bodyData);
-
 			await postData("/auth/register/", bodyData)
 				.then((response) => {
 					console.log("Data posted successfully:", response);
 				})
-				.catch((error) => {
-					//   console.log(error);
-					if (error?.response?.data) {
-						const data = error?.response?.data;
-						if (data?.username) {
-							const err = {
-								message: "نام کاربری تکراری است",
-								path: "username",
-							};
-							const temp = errors;
-							temp[0].push(err);
-							setErrors((pre) => [temp]);
-						} else if (data?.email) {
-							const err = {
-								message: "ایمیل تکراری است",
-								path: "email",
-							};
-							const temp = errors;
-							temp[0].push(err);
-							setErrors((pre) => [temp]);
-						}
-					}
-				});
+				// .catch((error) => {
+				// 	if (error?.response?.data) {
+				// 		const data = error?.response?.data;
+				// 		if (data?.username) {
+				// 			const err = {
+				// 				message: "نام کاربری تکراری است",
+				// 				path: "username",
+				// 			};
+				// 			const temp = errors;
+				// 			temp[0].push(err);
+				// 			setErrors(() => [temp]);
+				// 		} else if (data?.email) {
+				// 			const err = {
+				// 				message: "ایمیل تکراری است",
+				// 				path: "email",
+				// 			};
+				// 			const temp = errors;
+				// 			temp[0].push(err);
+				// 			setErrors(() => [temp]);
+				// 		}
+				// 	}
+				// });
 		} catch (error) {
-			setErrors((pre) => [...pre, error.inner]);
-		} finally {
-			console.log("Eerrors: ", errors);
 			const Fields = {
 				username: "نام کاربری",
 				password: "رمز عبور",
 				email: "ایمیل",
 				confirmPassword: "تایید رمز عبور",
 			};
-			Object.keys(Fields).map((path) => {
-				// console.log(path);
-				const notificationErrors = [];
-				errors[0]
-					?.filter((err) => err.path === path)
-					.map((err) => notificationErrors.push(err.message));
-				// errors[1]
-				// 	?.filter((err) => err.path === path)
-				// 	.map((err) => notificationErrors.push(err.message));
-				if (notificationErrors.length > 0) {
-					addNotification(Fields[path], notificationErrors, ["اوکی"]);
-				}
-			});
+			console.log("in:", error.inner, error);
+			// toast.error(
+			// 	"yah"
+			// );
+			toast.error(
+				<CustomToast
+					Header={Fields[error.inner[0].path]}
+					Message={error.inner[0].message}
+				/>
+			);
+			setErrors((pre) => [error.inner]);
+		} finally {
+			const Fields = {
+				username: "نام کاربری",
+				password: "رمز عبور",
+				email: "ایمیل",
+				confirmPassword: "تایید رمز عبور",
+			};
+			// console.log("Eerrors1: ", errors);
+			// console.log("Eerrors2: ", errors[0]);
+			// console.log("Eerrors2.2: ", errors[0][0]);
+			// console.log("Eerrors3: ", errors[0][0].message);
+			// console.log("Eerrors4: ", Fields[errors[0][0].path]);
+
+			// if (errors[0]?.length > 0) {
+			// 	// console.log(errors[0][0].message, Fields[errors[0][0].path]);
+			// 	toast.error(
+			// 		<CustomToast
+			// 			Header={Fields[errors[0][0].path]}
+			// 			Message={errors[0][0].message}
+			// 		/>
+			// 	);
+			// }
+
+			// Object.keys(Fields).map((path) => {
+			// 	const ErrorMessages = errors[0]
+			// 		?.filter((err) => err.path === path)
+			// 		.map((err) => err.message);
+
+			// });
+			// Object.keys(Fields).map((path) => {
+			// 	const notificationErrors = [];
+			// 	errors[0]
+			// 		?.filter((err) => err.path === path)
+			// 		.map((err) => notificationErrors.push(err.message));
+			// 	if (notificationErrors.length > 0) {
+			// 		toast(
+			// 			<>
+			// 				<h1 className="font-vazirmatn text-[20px]">
+			// 					{Fields[path]}
+			// 				</h1>
+			// 				<div className="font-vazirmatn text-[10px]">
+
+			// 					{notificationErrors.map((err) => (
+			// 						<div key={err}>{err}</div>
+			// 					))}
+			// 				</div>
+			// 			</>
+			// 		);
+			// 	}
+			// });
 		}
 	};
 
 	return (
 		<>
+			{/* <ToastContainer
+				toastStyle={{
+					backgroundColor: "#2C2727",
+					fontSize: "16px",
+					borderRadius: "8px",
+				}}
+				position="bottom-right"
+				autoClose={true}
+				hideProgressBar={true}
+				closeOnClick
+				draggable
+				theme="dark"
+				newestOnTop={true}
+				role="alert"
+				closeButton={false}
+				limit={4}
+			/> */}
 			<form
 				className={styles.form_style}
 				onSubmit={(e) => {
@@ -187,101 +206,80 @@ function SignupForm() {
 					onSubmit(e);
 				}}
 			>
-				{/* <img className={styles.logo} src={logo} alt="logo" /> */}
 				<div className={styles.welcome}>خوش آمدید</div>
 				<div className={styles.text}>
 					برای ثبت نام اطلاعات خود را وارد کنید
 				</div>
 				<div className={styles.form_even_justify}>
 					<div className={styles.input_row}>
-						<div>
-							<Label className={styles.Label}>نام کاربری</Label>
-							<CustomInput
-								placeholder="Username"
-								autofocus={true}
-								onKey={(e) => handleKeyDown(e)}
-								name="username"
-								errors={errors}
-								onChange={formState.updateUsername}
-								value={username}
-								showErrors={true}
-							/>
-						</div>
-						<div>
-							<Label className={styles.Label}>ایمیل</Label>
-							<CustomInput
-								placeholder="Email"
-								autofocus={true}
-								onKey={(e) => handleKeyDown(e)}
-								name="email"
-								onChange={formState.updateEmail}
-								value={email}
-								errors={errors}
-								showErrors={true}
-							/>
-						</div>
+						<CustomInput
+							placeholder="نام کاربری"
+							autofocus={true}
+							onKey={(e) => handleKeyDown(e)}
+							name="username"
+							errors={errors}
+							onChange={formState.updateUsername}
+							value={username}
+							showErrors={true}
+						/>
+						<CustomInput
+							placeholder="ایمیل"
+							autofocus={true}
+							onKey={(e) => handleKeyDown(e)}
+							name="email"
+							onChange={formState.updateEmail}
+							value={email}
+							errors={errors}
+							showErrors={true}
+						/>
 					</div>
 					<div className={styles.input_row}>
-						<div>
-							<Label className={styles.Label}>
-								تایید رمز عبور
-							</Label>
-							<PasswordInput
-								handleKeyDown={handleKeyDown}
-								placeholder="Confirm Password"
-								errors={errors}
-								name="confirmPassword"
-								onChange={formState.updateConfirmPassword}
-								value={confirmPassword}
-								showPassword={showPassword}
-								togglePasswordVisibility={
-									togglePasswordVisibility
-								}
-								showErrors={true}
-							/>
-						</div>
-						<div>
-							<Label className={styles.Label}>رمز عبور</Label>
-							<PasswordInput
-								handleKeyDown={handleKeyDown}
-								placeholder="Password"
-								errors={errors}
-								name="password"
-								className=""
-								hasEye={true}
-								onChange={formState.updatePassword}
-								value={password}
-								showPassword={showPassword}
-								togglePasswordVisibility={
-									togglePasswordVisibility
-								}
-								showErrors={true}
-							/>
-						</div>
+						<PasswordInput
+							handleKeyDown={handleKeyDown}
+							placeholder="تایید رمز عبور"
+							errors={errors}
+							name="confirmPassword"
+							onChange={formState.updateConfirmPassword}
+							value={confirmPassword}
+							showPassword={showPassword}
+							togglePasswordVisibility={togglePasswordVisibility}
+							showErrors={true}
+						/>
+						<PasswordInput
+							handleKeyDown={handleKeyDown}
+							placeholder="رمز عبور"
+							errors={errors}
+							name="password"
+							hasEye={true}
+							onChange={formState.updatePassword}
+							value={password}
+							showPassword={showPassword}
+							togglePasswordVisibility={togglePasswordVisibility}
+						/>
 					</div>
 				</div>
 				<div className="pt-5">
 					<RadioInput>
 						<RadioInputOption
-							value={"1"}
+							value={"basic"}
 							id="tab-1"
-							checked={role === "1"}
+							checked={role === "basic"}
 							onChange={onChangeRole}
 						>
 							هیچکدام
 						</RadioInputOption>
 						<RadioInputOption
-							value={"2"}
+							value={"startup"}
 							id="tab-2"
-							checked={role === "2"}
+							checked={role === "startup"}
 							onChange={onChangeRole}
 						>
 							استارت‌آپ
 						</RadioInputOption>
 						<RadioInputOption
-							value={"3"}
+							value={"investor"}
 							id="tab-3"
-							checked={role === "3"}
+							checked={role === "investor"}
 							onChange={onChangeRole}
 						>
 							سرمایه‌گذار
@@ -290,7 +288,7 @@ function SignupForm() {
 				</div>
 				<div
 					onClick={() => {
-						navigate("/login");
+						Navigate("/login");
 						updateUsername("");
 						updatePassword("");
 						updateConfirmPassword("");
@@ -301,11 +299,12 @@ function SignupForm() {
 				>
 					قبلا ثبت نام کرده‌اید؟
 				</div>
-				<DrawerButton classNames="font-vazirmatn" onClick={onSubmit}>
+				<DrawerButton classNames="font-vazirmatn">
 					ثبت نام
 				</DrawerButton>
 			</form>
-			<div className={styles.notification_box}>
+
+			{/* <div className={styles.notification_box}>
 				<div className={styles.notification_box_flex}>
 					{notifications?.map((note) => (
 						<Notification
@@ -315,7 +314,7 @@ function SignupForm() {
 						/>
 					))}
 				</div>
-			</div>
+			</div> */}
 			{/* <NotificationCenter /> */}
 		</>
 	);
