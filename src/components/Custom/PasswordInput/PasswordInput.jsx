@@ -1,27 +1,19 @@
 import { useState, useEffect } from "react";
 import styles from "./PasswordInput.module.scss";
-import CustomInput from "@/components/Custom/CustomInput";
-import { useSignupFormStore } from "@/stores/FormStore";
+import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 
 function PasswordInput({
 	update,
 	handleKeyDown,
 	className,
-	errors,
 	name,
-	value,
 	placeholder,
 	hasEye,
 	onChange,
 	showPassword,
 	togglePasswordVisibility,
 }) {
-	// const {showPassword, toggleShowPassword} = useSignupFormStore();
-	// const [showPassword, setShowPassword] = useState(false);
 	const [beamDegrees, setBeamDegrees] = useState("0deg");
-	// const togglePasswordVisibility = () => {
-	// 	setShowPassword(showPassword);
-	// };
 
 	useEffect(() => {
 		const handleMouseMove = (e) => {
@@ -48,8 +40,7 @@ function PasswordInput({
 				update={update}
 				placeholder={placeholder}
 				onKey={(e) => handleKeyDown(e)}
-				// className={`pr-20 ${className}`}
-				className={`${className} ${hasEye ? "right-11" : ""}`}
+				className={`${className} ${hasEye ? "right-[2.5rem]" : ""}`}
 				name={name}
 				onChange={onChange}
 			/>

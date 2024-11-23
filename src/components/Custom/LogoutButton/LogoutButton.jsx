@@ -1,4 +1,3 @@
-// import styles from "./LogoutButton.module.scss";
 import useTokenStore from "@/stores/TokenStore";
 import styles from "./LogoutButton.module.scss";
 

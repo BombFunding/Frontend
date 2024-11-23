@@ -1,12 +1,12 @@
 import { Label } from "@radix-ui/react-label";
 import styles from "./ForgetPassword.module.scss";
-import CustomInput from "@/components/Custom/CustomInput";
+import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import ReturnButton from "@/components/Custom/ReturnButton/ReturnButton";
-import DrawerButton from "@/components/Custom/DrawerButton";
-import { postData } from "@/Services/ApiClient";
+import DrawerButton from "@/components/Custom/DrawerButton/DrawerButton";
+import { postData } from "@/Services/ApiClient/Services";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import CustomToast from "@/components/CustomToast/CustomToast";
+import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 import { useNavigate } from "react-router";
 
 function ForgetPassword() {
@@ -50,13 +50,13 @@ function ForgetPassword() {
 					const data = err?.response?.data;
 					if (data?.non_field_errors) {
 						if (
-							data?.non_field_errors[0] === "Email does not exist."
+							data?.non_field_errors[0] ===
+							"Email does not exist."
 						) {
 							toast.error(
 								<CustomToast Header="حساب کاربری با این ایمیل پیدا نشد" />
 							);
-						}
-						else {
+						} else {
 							toast.error(
 								<CustomToast Header="مشکلی در ارسال ایمیل به وجود آمد" />
 							);
@@ -87,7 +87,7 @@ function ForgetPassword() {
 					console.log(email);
 				}}
 			/>
-			<DrawerButton classNames="mt-0" onClick={(e) => onSubmit(e)}>
+			<DrawerButton onClick={(e) => onSubmit(e)}>
 				ارسال ایمیل
 			</DrawerButton>
 		</form>

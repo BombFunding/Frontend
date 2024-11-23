@@ -5,7 +5,6 @@ import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 import useTokenStore from "@/stores/TokenStore";
 import styles from "./Navbar.module.scss";
 import PushyButton from "../Custom/PushyButton/PushyButton";
-import CustomButton from "../Custom/CustomButton";
 function Navbar() {
 	const Navigate = useNavigate();
 	const TOKEN = useTokenStore((state) => state.accessToken);
@@ -27,13 +26,9 @@ function Navbar() {
 				</div>
 				<SearchBar className={styles.SearchBar} />
 				<div className="flex">
-					{/* <HomeButton loggedIn={loggedIn} /> */}
-					{/* <LogoutButton /> */}
 					{TOKEN ? (
 						<ProfileDropDown />
 					) : (
-						// <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">Responsive</button>
-						// <CustomButton>Login</CustomButton>
 						<PushyButton onClick={() => Navigate("/login")}>
 							Login
 						</PushyButton>
