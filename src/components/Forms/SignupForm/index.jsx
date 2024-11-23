@@ -6,40 +6,40 @@ import DrawerButton from "@/components/Custom/DrawerButton";
 import styles from "./SignupForm.module.scss";
 import { useState } from "react";
 import { useSignupFormStore } from "@/stores/FormStore";
-import { postData } from "@/Servises/ApiClient/index.js";
+import { postData } from "@/Services/ApiClient/index.js";
 import { RadioInput, RadioInputOption } from "@/components/Custom/RadioInput";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CustomToast from "@/components/CustomToast/CustomToast";
 
 const schema = yup.object().shape({
-	username: yup
-		.string()
-		.required("این مورد اجباری است")
-		.min(3, "نام کاربری باید حداقل 3 کاراکتر باشد"),
-	password: yup
-		.string()
-		.required("این مورد اجباری است")
-		.min(8, "رمز عبور باید حداقل 8 کاراکتر باشد")
-		.max(50, "رمز عبور طولانی است")
-		.matches(
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-			"رمز عبور باید حداقل شامل یک حرف بزرگ، عدد و علامت باشد"
-		),
-	email: yup
-		.string()
-		.required("این مورد اجباری است")
-		.matches(
-			/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-			"فرمت ایمیل اشتباه است"
-		),
-	confirmPassword: yup
-		.string()
-		.required("این مورد اجباری است")
-		.oneOf(
-			[yup.ref("password")],
-			"مقادیر رمز عبور و تایید رمز عبور یکسان نیستند"
-		),
+  username: yup
+    .string()
+    .required("این مورد اجباری است")
+    .min(3, "نام کاربری باید حداقل 3 کاراکتر باشد"),
+  password: yup
+    .string()
+    .required("این مورد اجباری است")
+    .min(8, "رمز عبور باید حداقل 8 کاراکتر باشد")
+    .max(50, "رمز عبور طولانی است")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      "رمز عبور باید حداقل شامل یک حرف بزرگ، عدد و علامت باشد"
+    ),
+  email: yup
+    .string()
+    .required("این مورد اجباری است")
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "فرمت ایمیل اشتباه است"
+    ),
+  confirmPassword: yup
+    .string()
+    .required("این مورد اجباری است")
+    .oneOf(
+      [yup.ref("password")],
+      "مقادیر رمز عبور و تایید رمز عبور یکسان نیستند"
+    ),
 });
 
 function SignupForm() {
@@ -305,7 +305,7 @@ function SignupForm() {
 						/>
 					</div>
 				</div>
-				<div className="pt-5">
+				<div className="pt-2">
 					<RadioInput>
 						<RadioInputOption
 							value={"basic"}
@@ -348,7 +348,6 @@ function SignupForm() {
 				</div>
 				<DrawerButton classNames="font-vazirmatn">ثبت نام</DrawerButton>
 			</form>
-
 			{/* <div className={styles.notification_box}>
 				<div className={styles.notification_box_flex}>
 					{notifications?.map((note) => (

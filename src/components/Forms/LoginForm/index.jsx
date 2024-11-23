@@ -6,14 +6,14 @@ import styles from "./LoginForm.module.scss";
 import DrawerButton from "@/components/Custom/DrawerButton";
 import { useState } from "react";
 import { useLoginFormStore } from "@/stores/FormStore";
-import { postData } from "@/Servises/ApiClient/index.js";
+import { postData } from "@/Services/ApiClient/index.js";
 import useTokenStore from "@/stores/TokenStore";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/CustomToast/CustomToast";
 
 const schema = yup.object().shape({
-	usernameEmail: yup.string().required("این مورد اجباری است"),
-	password: yup.string().required("این مورد اجباری است"),
+  usernameEmail: yup.string().required("این مورد اجباری است"),
+  password: yup.string().required("این مورد اجباری است"),
 });
 
 function LoginForm() {
@@ -40,23 +40,22 @@ function LoginForm() {
 			// await schema.validate(formData, { abortEarly: false });
 			console.log("Form Dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:", formData);
 
-			const emailRegex =
-				/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-			let bodyData;
-			let inputState;
-			if (emailRegex.test(usernameEmail)) {
-				bodyData = {
-					email: usernameEmail,
-					password: password,
-				};
-				inputState = 0;
-			} else {
-				bodyData = {
-					username: usernameEmail,
-					password: password,
-				};
-				inputState = 1;
-			}
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      let bodyData;
+      let inputState;
+      if (emailRegex.test(usernameEmail)) {
+        bodyData = {
+          email: usernameEmail,
+          password: password,
+        };
+        inputState = 0;
+      } else {
+        bodyData = {
+          username: usernameEmail,
+          password: password,
+        };
+        inputState = 1;
+      }
 
 			await postData("/auth/login/", bodyData)
 				.then((response) => {

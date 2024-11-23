@@ -3,7 +3,7 @@ import styles from "./ForgetPassword.module.scss";
 import CustomInput from "@/components/Custom/CustomInput";
 import ReturnButton from "@/components/Custom/ReturnButton/ReturnButton";
 import DrawerButton from "@/components/Custom/DrawerButton";
-import { postData } from "@/Servises/ApiClient";
+import { postData } from "@/Services/ApiClient";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/CustomToast/CustomToast";

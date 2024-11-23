@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar/Navbar";
 const PublicLayout = () => {
 	return (
 		<>
-			<div>
+			<div className="mt-12">
 				<Navbar />
 				<Outlet />
 			</div>
