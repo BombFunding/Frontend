@@ -49,7 +49,7 @@ const schema = yup.object().shape({
     .string()
     .nullable()
     .optional()
-    .matches(/^@[\w]+$|^$/, "آیدی تلگرام باید با @ شروع شود"),
+    .matches(/^[a-zA-Z][a-zA-Z0-9_]{4,31}$|^$/, "آدرس تلگرام معتبر وارد کنید"),
 
   linkedinAccount: yup
     .string()
@@ -62,7 +62,7 @@ const schema = yup.object().shape({
     .string()
     .nullable()
     .optional()
-    .matches(/^@[\w]+$|^$/, "آیدی توییتر (ایکس) باید با @ شروع شود"),
+    .matches(/^[a-zA-Z][a-zA-Z0-9_]{0,14}$|^$/, "آدرس توییتر معتبر وارد کنید"),
 
   website: yup
     .string()
@@ -70,7 +70,7 @@ const schema = yup.object().shape({
     .optional()
     .url("آدرس وب‌سایت معتبر وارد کنید")
     .matches(
-      /^https?:\/\/[\w\-\.]+\.[a-z]{2,}$|^$/,
+      /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/[^\s]*)?$|^$/,
       "فرمت آدرس وب‌سایت صحیح نیست"
     ),
 });
@@ -163,9 +163,13 @@ const EditProfile = () => {
       await postData("/startup/update_startup_profile/", bodyData)
         .then((data) => {
           console.log("Data posted successfully:", data);
+          toast.success(
+            <ErrorMessage message={"پروفایل با موفقیت بروزرسانی شد"} />
+          );
         })
         .catch((error) => {
           console.log("Data posting FAILED:", error);
+          toast.success(<ErrorMessage message={"پروفایل بروزرسانی نشد"} />);
         });
     };
     updateData(bodyData);

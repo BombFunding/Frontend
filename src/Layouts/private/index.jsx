@@ -8,12 +8,12 @@ import SaveIcon from "@mui/icons-material/Save";
 import "react-toastify/dist/ReactToastify.css";
 
 const PrivateLayout = () => {
-  const TOKEN = useTokenStore((state) => state.accessToken);
-  console.log("token: " + TOKEN);
-  if (!TOKEN) {
-    console.log("token not setted!");
-    return <Navigate to="/login" replace />;
-  }
+  // const TOKEN = useTokenStore((state) => state.accessToken);
+  // console.log("token: " + TOKEN);
+  // if (!TOKEN) {
+  //   console.log("token not setted!");
+  //   return <Navigate to="/login" replace />;
+  // }
   return (
     <>
       <ToastContainer
