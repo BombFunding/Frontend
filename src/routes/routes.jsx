@@ -1,24 +1,51 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "../Layouts/Public";
 import Error from "../pages/Error";
-// import Login from "../pages/Login";
 import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
-import PrivateLayout from "../Layouts/Private";
 import App from "../App.jsx";
-import Home from "@/Pages/Landing";
-import Profile from "@/Pages/Profile";
+import PublicLayout from "@/Layouts/Public/PublicLayout";
+import Landing from "@/Pages/Landing/Landing";
+import Navbar from "@/components/Navbar/Navbar";
+import NoNavbarLayout from "@/Layouts/NoNavbarLayout/NoNavbarLayout";
+import PrivateLayout from "@/Layouts/Private/PrivateLayout";
+import EmailVerification from "@/Pages/EmailVerification/EmailVerification";
+import ForgetPassword from "@/Pages/ForgetPassword/ForgetPassword";
+import ChangePassword from "@/Pages/ChangePassword/ChangePassword";
 import EditProfile from "@/Pages/EditProfile/EditProfile";
+import Profile from "@/Pages/Profile";
+
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <PublicLayout />,
     errorElement: <Error />,
     children: [
       {
         index: true,
-        element: <App />,
+        element: <Landing />,
       },
+    ],
+  },
+  {
+    element: <PrivateLayout />,
+    children: [
+      {
+        path: "/test",
+        element: <Navbar />,
+      },
+      {
+        path: "/EditProfile",
+        element: <EditProfile />,
+      },
+      {
+        path: "/Profile/:username",
+        element: <Profile />,
+      },
+    ],
+  },
+  {
+    element: <NoNavbarLayout />,
+    children: [
       {
         path: "/login",
         element: <Login />,
@@ -27,22 +54,17 @@ export const router = createBrowserRouter([
         path: "/signup",
         element: <Signup />,
       },
-      // {
-      //   path: "/profile",
-      //   element: <Profile />,
-      // },
-    ],
-  },
-  {
-    element: <PrivateLayout />,
-    children: [
       {
-        path: "/Profile/:username",
-        element: <Profile />,
+        path: "/emailverification",
+        element: <EmailVerification />,
       },
       {
-        path: "/EditProfile",
-        element: <EditProfile />,
+        path: "/forgetpassword",
+        element: <ForgetPassword />,
+      },
+      {
+        path: "/reset-password/:uid/:token",
+        element: <ChangePassword />,
       },
     ],
   },

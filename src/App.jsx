@@ -46,16 +46,16 @@ function App() {
   //     }
   //   }, []);
 
-  useEffect(() => {
-    const bodyData = {
-      email: "a13w@gmail.com",
-      password: "!A1a2a3a4",
-    };
+  // useEffect(() => {
+  //   const bodyData = {
+  //     email: "a13w@gmail.com",
+  //     password: "!A1a2a3a4",
+  //   };
 
-    postData("/auth/login/", bodyData).then((response) => {
-      console.log("Data posted successfully:", response);
-    });
-  }, []);
+  //   postData("/auth/login/", bodyData).then((response) => {
+  //     console.log("Data posted successfully:", response);
+  //   });
+  // }, []);
 
   return (
     <>

@@ -1,21 +1,16 @@
-import logo from "@/assets/logo.png";
-
 import * as yup from "yup";
-
 import { useNavigate } from "react-router-dom";
-import { Label } from "@radix-ui/react-label";
 import CustomInput from "@/components/Custom/CustomInput";
 import PasswordInput from "@/components/Custom/PasswordInput/PasswordInput";
 import DrawerButton from "@/components/Custom/DrawerButton";
 import styles from "./SignupForm.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useSignupFormStore } from "@/stores/FormStore";
 import { postData } from "@/Services/ApiClient/index.js";
 import { RadioInput, RadioInputOption } from "@/components/Custom/RadioInput";
-import { Notification } from "@/components/NotificationCenter";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ToastifyT from "@/components/NotificationCenter/index2";
+import CustomToast from "@/components/CustomToast/CustomToast";
 
 const schema = yup.object().shape({
   username: yup
@@ -48,8 +43,7 @@ const schema = yup.object().shape({
 });
 
 function SignupForm() {
-	const navigate = useNavigate();
-	const [notifications, setNotifications] = useState([]);
+	const Navigate = useNavigate();
 	const {
 		username,
 		email,
@@ -68,17 +62,8 @@ function SignupForm() {
 	const formData = { username, email, password, confirmPassword, user_type };
 	const [errors, setErrors] = useState([]);
 
-	function addNotification(title, subtitles, actions, icon) {
-		setNotifications((prev) => [
-			...prev,
-			{ id: Math.random(), title, subtitles, actions, icon },
-		]);
-	}
-	const dismissNotification = (id) => {
-		setNotifications((prev) => prev.filter((note) => note.id !== id));
-	};
 	function onChangeRole(e) {
-		setRole(e.target.value);
+		updateUser_type(e.target.value);
 	}
 	function togglePasswordVisibility() {
 		setShowPassword(!showPassword);
@@ -88,124 +73,186 @@ function SignupForm() {
 			onSubmit(e);
 		}
 	}
-	// useEffect(() => {
-	// 	const Fields = {
-	// 		username: "نام کاربری",
-	// 		password: "رمز عبور",
-	// 		email: "ایمیل",
-	// 		confirmPassword: "تایید رمز عبور",
-	// 	};
-	// 	const X = ["username", "password", "email", "confirmPassword"];
-	// 	X.map((path) => {
-	// 		// console.log(path);
-	// 		const notificationErrors = [];
-	// 		errors[0]
-	// 			?.filter((err) => err.path === path)
-	// 			.map((err) => notificationErrors.push(err.message));
-	// 		errors[1]
-	// 			?.filter((err) => err.path === path)
-	// 			.map((err) => notificationErrors.push(err.message));
-	// 		if (notificationErrors.length > 0) {
-	// 			addNotification(
-	// 				Fields[path],
-	// 				notificationErrors,
-	// 				["اوکی"]
-	// 			);
-	// 		}
-	// 	});
-	// }, [errors]);
-	const onSubmit = async (e) => {
-		setNotifications([]);
-		setErrors([]);
-		// errors[0] = [];
-		// toast(<ToastifyT />);
-		// toast(<ToastifyT />);
-		// toast("Hi");
-		// toast("nigga");
-		// console.log("Form Submitted", e);
+	const onSubmit = async () => {
 		try {
-			await schema.validate(formData, { abortEarly: false });
+			console.log(username, password, email, confirmPassword, user_type);
+			// await schema.validate(formData, { abortEarly: false });
+			if (username === "") {
+				toast.error(
+					<CustomToast
+						Header="نام کاربری"
+						Message="نام کاربری خود را وارد کنید"
+					/>
+				);
+				return;
+			}
+			if (username.length < 3) {
+				toast.error(
+					<CustomToast
+						Header="نام کاربری"
+						Message="نام کاربری حداقل باید 3 حرف باشد"
+					/>
+				);
+				return;
+			}
+			if (password === "") {
+				toast.error(
+					<CustomToast
+						Header="رمز عبور"
+						Message="رمز عبور خود را وارد کنید"
+					/>
+				);
+				return;
+			}
+			if (password.length < 8) {
+				toast.error(
+					<CustomToast
+						Header="رمز عبور"
+						Message="رمز عبور حداقل باید دارای 8 کاراکتر باشد"
+					/>
+				);
+				return;
+			}
+			if (password.length > 50) {
+				toast.error(
+					<CustomToast
+						Header="رمز عبور"
+						Message="رمز عبور طولانی است"
+					/>
+				);
+				return;
+			}
+			if (
+				!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+					password
+				)
+			) {
+				toast.error(
+					<CustomToast
+						Header="رمز عبور"
+						Message="رمز عبور باید حداقل شامل یک حرف بزرگ، عدد و علامت باشد"
+					/>
+				);
+				return;
+			}
+			if (email === "") {
+				toast.error(
+					<CustomToast
+						Header="ایمیل"
+						Message="ایمیل خود را وارد کنید"
+					/>
+				);
+				return;
+			}
+			if (
+				!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
+			) {
+				toast.error(
+					<CustomToast
+						Header="ایمیل"
+						Message="فرمت ایمیل درست نمی‌باشد"
+					/>
+				);
+				return;
+			}
+			if (confirmPassword === "") {
+				toast.error(
+					<CustomToast
+						Header="تایید رمز عبور"
+						Message="تکرار رمز عبور خود را وارد کنید"
+					/>
+				);
+				return;
+			}
+			if (confirmPassword !== password) {
+				toast.error(
+					<CustomToast
+						Header="تایید رمز عبور"
+						Message="مقدار رمز عبور و تایید رمز عبور باید یکسان باشد"
+					/>
+				);
+				return;
+			}
+
+			console.log("hi");
 			const bodyData = {
-				username: username,
-				email: email,
-				password: password,
-				user_type: "basic",
+				username,
+				email,
+				password,
+				user_type,
 			};
 			await postData("/auth/register/", bodyData)
 				.then((response) => {
 					console.log("Data posted successfully:", response);
 				})
-				.catch((error) => {
-					if (error?.response?.data) {
-						const data = error?.response?.data;
-						if (data?.username) {
-							const err = {
-								message: "نام کاربری تکراری است",
-								path: "username",
-							};
-							const temp = errors;
-							temp[0].push(err);
-							setErrors((pre) => [temp]);
-						} else if (data?.email) {
-							const err = {
-								message: "ایمیل تکراری است",
-								path: "email",
-							};
-							const temp = errors;
-							temp[0].push(err);
-							setErrors((pre) => [temp]);
-						}
-					}
-				});
+				// .catch((error) => {
+				// 	if (error?.response?.data) {
+				// 		const data = error?.response?.data;
+				// 		if (data?.username) {
+				// 			const err = {
+				// 				message: "نام کاربری تکراری است",
+				// 				path: "username",
+				// 			};
+				// 			const temp = errors;
+				// 			temp[0].push(err);
+				// 			setErrors(() => [temp]);
+				// 		} else if (data?.email) {
+				// 			const err = {
+				// 				message: "ایمیل تکراری است",
+				// 				path: "email",
+				// 			};
+				// 			const temp = errors;
+				// 			temp[0].push(err);
+				// 			setErrors(() => [temp]);
+				// 		}
+				// 	}
+				// });
 		} catch (error) {
-			setErrors((pre) => [...pre, error.inner]);
-		} finally {
-			console.log("Eerrors: ", errors);
-			// setErrors()
-			// errors[0].map((err) => {
-			// 	toast(
-			// 		<div className="font-vazirmatn text-[10px]">
-			// 			{err.message}
-			// 		</div>
-			// 	);
-			// });
-
 			const Fields = {
 				username: "نام کاربری",
 				password: "رمز عبور",
 				email: "ایمیل",
 				confirmPassword: "تایید رمز عبور",
 			};
-			Object.keys(Fields).map((path) => {
-				// console.log(path);
-				const notificationErrors = [];
-				errors[0]
-					?.filter((err) => err.path === path)
-					.map((err) => notificationErrors.push(err.message));
-				// errors[1]
-				// 	?.filter((err) => err.path === path)
-				// 	.map((err) => notificationErrors.push(err.message));
-				if (notificationErrors.length > 0) {
-					toast(
-						<>
-							<h1 className="font-vazirmatn text-[20px]">
-								{Fields[path]}
-							</h1>
-							<div className="font-vazirmatn text-[10px]">
-								{notificationErrors.map((err) => (
-									<div key={err}>{err}</div>
-								))}
-							</div>
-						</>
-					);
-					// addNotification(Fields[path], notificationErrors, ["اوکی"]);
-				}
-			});
+			console.log("in:", error);
+			if (error?.inner) {
+				// console.log("in:", error.inner[0].message);
+				toast.error(
+					<CustomToast
+						Header={Fields[error.inner[0].path]}
+						Message={error.inner[0].message}
+					/>
+				);
+			}
+		} finally {
+			const Fields = {
+				username: "نام کاربری",
+				password: "رمز عبور",
+				email: "ایمیل",
+				confirmPassword: "تایید رمز عبور",
+			};
 		}
 	};
 
 	return (
 		<>
+			{/* <ToastContainer
+				toastStyle={{
+					backgroundColor: "#2C2727",
+					fontSize: "16px",
+					borderRadius: "8px",
+				}}
+				position="bottom-right"
+				autoClose={true}
+				hideProgressBar={true}
+				closeOnClick
+				draggable
+				theme="dark"
+				newestOnTop={true}
+				role="alert"
+				closeButton={false}
+				limit={4}
+			/> */}
 			<form
 				className={styles.form_style}
 				onSubmit={(e) => {
@@ -213,77 +260,49 @@ function SignupForm() {
 					onSubmit(e);
 				}}
 			>
-				{/* <img className={styles.logo} src={logo} alt="logo" /> */}
 				<div className={styles.welcome}>خوش آمدید</div>
 				<div className={styles.text}>
 					برای ثبت نام اطلاعات خود را وارد کنید
 				</div>
 				<div className={styles.form_even_justify}>
 					<div className={styles.input_row}>
-						<div>
-							<Label className={styles.Label}>نام کاربری</Label>
-							<CustomInput
-								placeholder="Username"
-								autofocus={true}
-								onKey={(e) => handleKeyDown(e)}
-								name="username"
-								errors={errors}
-								onChange={formState.updateUsername}
-								value={username}
-								showErrors={true}
-							/>
-						</div>
-						<div>
-							<Label className={styles.Label}>ایمیل</Label>
-							<CustomInput
-								placeholder="Email"
-								autofocus={true}
-								onKey={(e) => handleKeyDown(e)}
-								name="email"
-								onChange={formState.updateEmail}
-								value={email}
-								errors={errors}
-								showErrors={true}
-							/>
-						</div>
+						<CustomInput
+							placeholder="نام کاربری"
+							autofocus={true}
+							onKey={(e) => handleKeyDown(e)}
+							name="username"
+							onChange={e=>updateUsername(e)}
+							value={username}
+							showErrors={true}
+						/>
+						<CustomInput
+							placeholder="ایمیل"
+							autofocus={true}
+							onKey={(e) => handleKeyDown(e)}
+							name="email"
+							onChange={(e) => updateEmail(e)}
+							value={email}
+							showErrors={true}
+						/>
 					</div>
 					<div className={styles.input_row}>
-						<div>
-							<Label className={styles.Label}>
-								تایید رمز عبور
-							</Label>
-							<PasswordInput
-								handleKeyDown={handleKeyDown}
-								placeholder="Confirm Password"
-								errors={errors}
-								name="confirmPassword"
-								onChange={formState.updateConfirmPassword}
-								value={confirmPassword}
-								showPassword={showPassword}
-								togglePasswordVisibility={
-									togglePasswordVisibility
-								}
-								showErrors={true}
-							/>
-						</div>
-						<div>
-							<Label className={styles.Label}>رمز عبور</Label>
-							<PasswordInput
-								handleKeyDown={handleKeyDown}
-								placeholder="Password"
-								errors={errors}
-								name="password"
-								className=""
-								hasEye={true}
-								onChange={formState.updatePassword}
-								value={password}
-								showPassword={showPassword}
-								togglePasswordVisibility={
-									togglePasswordVisibility
-								}
-								showErrors={true}
-							/>
-						</div>
+						<PasswordInput
+							handleKeyDown={handleKeyDown}
+							placeholder="تایید رمز عبور"
+							name="confirmPassword"
+							onChange={(e) => updateConfirmPassword(e)}
+							showPassword={showPassword}
+							togglePasswordVisibility={togglePasswordVisibility}
+						/>
+						<PasswordInput
+							handleKeyDown={handleKeyDown}
+							placeholder="رمز عبور"
+							name="password"
+							hasEye={true}
+							onChange={(e) => updatePassword(e)}
+							showPassword={showPassword}
+							togglePasswordVisibility={togglePasswordVisibility}
+						/>
 					</div>
 				</div>
 				<div className="pt-2">
@@ -291,24 +310,24 @@ function SignupForm() {
 						<RadioInputOption
 							value={"basic"}
 							id="tab-1"
-							checked={role === "basic"}
-							onChange={onChangeRole}
+							checked={user_type === "basic"}
+							onChange={updateUser_type}
 						>
 							هیچکدام
 						</RadioInputOption>
 						<RadioInputOption
 							value={"startup"}
 							id="tab-2"
-							checked={role === "startup"}
-							onChange={onChangeRole}
+							checked={user_type === "startup"}
+							onChange={updateUser_type}
 						>
 							استارت‌آپ
 						</RadioInputOption>
 						<RadioInputOption
 							value={"investor"}
 							id="tab-3"
-							checked={role === "investor"}
-							onChange={onChangeRole}
+							checked={user_type === "investor"}
+							onChange={updateUser_type}
 						>
 							سرمایه‌گذار
 						</RadioInputOption>
@@ -316,7 +335,7 @@ function SignupForm() {
 				</div>
 				<div
 					onClick={() => {
-						navigate("/login");
+						Navigate("/login");
 						updateUsername("");
 						updatePassword("");
 						updateConfirmPassword("");
@@ -327,28 +346,8 @@ function SignupForm() {
 				>
 					قبلا ثبت نام کرده‌اید؟
 				</div>
-				<DrawerButton classNames="font-vazirmatn" onClick={onSubmit}>
-					ثبت نام
-				</DrawerButton>
+				<DrawerButton classNames="font-vazirmatn">ثبت نام</DrawerButton>
 			</form>
-			<ToastContainer
-				toastStyle={{
-					backgroundColor: "#2C2727",
-					fontSize: "16px",
-					borderRadius: "8px",
-
-				}}
-				position="bottom-right"
-				autoClose={false}
-				hideProgressBar={true}
-				closeOnClick
-				draggable
-				theme="dark"
-				newestOnTop={true}
-				role="alert"
-				closeButton={false}
-				limit={4}
-			/>
 			{/* <div className={styles.notification_box}>
 				<div className={styles.notification_box_flex}>
 					{notifications?.map((note) => (

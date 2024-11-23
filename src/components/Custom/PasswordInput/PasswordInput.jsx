@@ -15,7 +15,6 @@ function PasswordInput({
 	onChange,
 	showPassword,
 	togglePasswordVisibility,
-	showErrors,
 }) {
 	// const {showPassword, toggleShowPassword} = useSignupFormStore();
 	// const [showPassword, setShowPassword] = useState(false);
@@ -50,18 +49,14 @@ function PasswordInput({
 				placeholder={placeholder}
 				onKey={(e) => handleKeyDown(e)}
 				// className={`pr-20 ${className}`}
-				className={`${className}`}
+				className={`${className} ${hasEye ? "right-11" : ""}`}
 				name={name}
 				onChange={onChange}
-				value={value}
-				errors={errors}
-				showErrors={showErrors}
 			/>
 			{hasEye && (
 				<>
 					<button
 						type="button"
-						id="eyeball"
 						className={`${styles.eyeball}`}
 						onClick={togglePasswordVisibility}
 					>
@@ -72,7 +67,8 @@ function PasswordInput({
 						style={{
 							transform: `translateY(-50%) rotate(${beamDegrees})`,
 							backgroundColor: showPassword
-								? "#fe9149"
+								? // ? "#fe9149"
+								  "#fda469"
 								: "transparent",
 						}}
 						className={styles.beam}
