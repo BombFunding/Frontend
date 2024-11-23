@@ -3,7 +3,7 @@ import axios from "axios";
 
 const apiClient = axios.create({
   baseURL: "http://104.168.46.4:8000/",
-  timeout: 10000,
+  timeout: 20000,
   headers: {
     "Content-Type": "application/json",
     // Authorization:""
@@ -20,7 +20,7 @@ apiClient.interceptors.request.use(
     //  const token = localStorage.getItem('token');
     // const token = useTokenStore.getState().accessToken;
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyMjg1MzQ2LCJpYXQiOjE3MzIyODE3NDYsImp0aSI6IjJiMDNjZmMwNDU3MDRkYzViMDBmYjZjYjE0MTc5NWYyIiwidXNlcl9pZCI6MTJ9.hV6vMa5G_47ynbbL3pUErY_t8Lw5N-Y4Up4tfhBTrkg";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyMzM3Njg0LCJpYXQiOjE3MzIzMzQwODQsImp0aSI6IjVlOGI2NDc0MTdkMzQ4MjI4MDY5NTllMDNhYjk0YjdmIiwidXNlcl9pZCI6M30.fp-gVxBvqfaKM1jn13hDKLQ6lXAL0em1rWT0pBCAYks";
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
@@ -52,7 +52,15 @@ apiClient.interceptors.response.use(
   }
 );
 
-export const getData = async (endPoint) => {
+export const getData = async (endPoint, headers) => {
+  if (headers) {
+    try {
+      const response = await apiClient.get(endPoint, headers);
+      return response.data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
   try {
     const response = await apiClient.get(endPoint);
     return response.data;
@@ -64,6 +72,18 @@ export const getData = async (endPoint) => {
 export const postData = async (endPoint, data) => {
   try {
     const response = await apiClient.post(endPoint, data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const postImageData = async (endPoint, formData) => {
+  try {
+    const response = await apiClient.post(endPoint, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
     return response.data;
   } catch (error) {
     console.log(error);

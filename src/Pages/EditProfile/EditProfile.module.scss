@@ -5,7 +5,7 @@
 }
 
 .card_style {
-  @apply w-[75vw] h-auto mt-2 shadow-lg mb-4 overflow-hidden;
+  @apply w-[75vw] h-auto mt-2 shadow-lg mb-4 overflow-hidden relative;
 }
 
 .avatar_container {

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styles from "./EditButton.module.scss";
 import { Label } from "@/components/ui/label";
 const EditButton = ({
+  props,
   className,
   icon1,
   icon2,

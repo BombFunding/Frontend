@@ -9,7 +9,7 @@ import EditButton from "@/components/Custom/EditButton/EditButton";
 import EditIcon from "@mui/icons-material/Edit";
 import EditableInput from "@/components/Custom/EditableInput/EditableInput";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import VerifiableInput from "@/components/Custom/VerifiableInput/VerifiableInput";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
@@ -22,15 +22,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import SaveIcon from "@mui/icons-material/Save";
 import { Button } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ErrorMessage from "@/components/messages/ErrorMessage/ErrorMessage";
-import { getData, postData } from "@/Services/ApiClient";
+import { getData, postData, postImageData } from "@/Services/ApiClient";
 import Profile from "../Profile";
+import { Loading } from "@/components/Loading";
 
 // const schema = yup.object().shape({});
 const schema = yup.object().shape({
@@ -40,7 +41,7 @@ const schema = yup.object().shape({
     .string()
     .optional()
     .nullable()
-    .matches(/^09[0-9]{9}$/, "شماره تلفن معتبر وارد کنید"),
+    .matches(/^09[0-9]{9}$|^$/, "شماره تلفن معتبر وارد کنید"),
 
   bio: yup.string().max(300, "بیوگرافی نباید بیشتر از ۳۰۰ کاراکتر باشد"),
 
@@ -87,26 +88,41 @@ const EditProfile = () => {
   });
 
   const [profileInfo, setProfileInfo] = React.useState({});
+  const [bannerFile, setBannerFile] = React.useState(null);
+  const [avatarFile, setAvatarFile] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+  const [imageLoading, setImageLoading] = React.useState(false);
 
   useEffect(() => {
     const fetchDefaultValues = async () => {
+      setLoading(true);
+      // await getData("/startup/view_own_startup_profile/", {
+      //   headers: {
+      //     "Cache-Control": "no-cache",
+      //     Pragma: "no-cache",
+      //   },
+      // });
       await getData("/startup/view_own_startup_profile/")
         .then((data) => {
           console.log(data);
           const profile = data.startup_profile;
+          console.log("recived profile: ", profile);
+          setBannerFile(`http://104.168.46.4:8000${profile.header_picture}`);
+          setAvatarFile(`http://104.168.46.4:8000${profile.profile_picture}`);
           const profileInfo_ = {
-            firstName: profile.first_name,
-            lastName: profile.last_name,
-            phoneNumber: profile.phone,
-            bio: profile.bio,
-            telegramAccount: profile.socials?.telegram ?? null,
-            linkedinAccount: profile.socials?.linkedin ?? null,
-            twitterAccount: profile.socials?.twitter ?? null,
-            website: profile.socials?.website ?? null,
-            email: profile.email,
+            firstName: profile.first_name ?? "",
+            lastName: profile.last_name ?? "",
+            phoneNumber: profile.phone ?? "",
+            bio: profile.bio ?? "",
+            telegramAccount: profile.socials?.telegram ?? "",
+            linkedinAccount: profile.socials?.linkedin ?? "",
+            twitterAccount: profile.socials?.twitter ?? "",
+            website: profile.socials?.website ?? "",
+            email: profile.email ?? "",
           };
           setProfileInfo(profileInfo_);
           reset(profileInfo_);
+          setLoading(false);
         })
         .catch((error) => {
           console.log(error);
@@ -154,6 +170,64 @@ const EditProfile = () => {
     };
     updateData(bodyData);
   };
+
+  const fileInputRef = useRef(null);
+
+  const handleBannerClick = () => {
+    fileInputRef.current.click();
+  };
+
+  // Function to handle file input change
+  const handleBannerChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setBannerFile(reader.result);
+        const formData = new FormData();
+        formData.append("header_picture", file);
+        setImageLoading(true);
+        const toastId = toast.success(
+          <ErrorMessage message={"بنر در حال بروزرسانی ..."} />,
+          {
+            autoClose: 20000,
+          }
+        );
+        postImageData("startup/update_startup_profile/", formData)
+          .then((res) => {
+            console.log("Image posted successfully:", res);
+            setImageLoading(false);
+            toast.dismiss(toastId);
+            toast.success(
+              <ErrorMessage message={"بنر با موفقیت بروزرسانی شد"} />
+            );
+          })
+          .catch((err) => {
+            console.log("Image posting FAILED:", err);
+            setImageLoading(false);
+            toast.dismiss(toastId);
+            toast.error(<ErrorMessage message={"بنر بروزرسانی نشد"} />);
+          });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  // useEffect(() => {
+  //   // const formData = new FormData();
+  //   // formData.append("header_picture", new File([bannerFile], ".png"));
+  //   // console.log("bannerFile: ", bannerFile);
+  //   // console.log("formData: ", formData);
+  //   const formData = new FormData();
+  //   formData.append("imageFile", bannerFile);
+  //   postImageData("startup/update_startup_profile/", formData)
+  //     .then((res) => {
+  //       console.log("Image posted successfully:", res);
+  //     })
+  //     .catch((err) => {
+  //       console.log("Image posting FAILED:", err);
+  //     });
+  // }, [bannerFile]);
+  if (loading) return <Loading />;
   return (
     <>
       {/* <ToastContainer
@@ -167,25 +241,37 @@ const EditProfile = () => {
       {/* <button onClick={() => toast.error("hello")}>notify</button> */}
       <div className="font-vazirmatn mt-8 h-auto">
         <Label className=" text-black text-2xl">اطلاعات کاربری</Label>
+
         <Card className={styles.card_style}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.avatar_container}>
               <img
                 className="w-full object-cover absolute"
-                src={BANNER}
+                src={bannerFile}
                 alt="avatar"
               />
-              <AvatarWithFileUpload className={"m-4"} />
-              <EditButton
-                name1={"تغییر"}
-                name2={"کنسل"}
-                icon1={<EditIcon />}
-                icon2={<CloseIcon />}
-                className={"absolute bottom-2 left-3 "}
+              <AvatarWithFileUpload
+                avatarFileState={[avatarFile, setAvatarFile]}
+                className={"m-4"}
+              />
+              <button
+                className="absolute bottom-2 left-3 font-vazirmatn text-xs px-1 bg-gray-100 rounded-xl text-black text-gray-500 hover:text-bomborange transition-all duration-300 ease-in-out transform opacity-[93%] hover:opacity-100 hover:scale-110 bg-slate-50 shadow-md rounded-lg px-1 flex items-center h-4"
+                type="button"
+                onClick={handleBannerClick}
+              >
+                تغییر
+              </button>
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }} // Hide the file input element
+                ref={fileInputRef} // Attach input to useRef
+                onChange={handleBannerChange} // Handle file selection
               />
             </div>
             <div className="m-5">
               <Label className="z-10 text-xl colo">نام کاربری</Label>
+
               <Separator className="my-4" />
               <div className="flex flex-col gap-6">
                 <div className={styles.input_row}>
