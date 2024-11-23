@@ -31,7 +31,7 @@ function CustomInput({
 					autoFocus={autofocus}
 					onChange={(e) => {
 						setEmpty(e.target.value.length === 0);
-						onChange(e);
+						onChange(e.target.value);
 					}}
 					onKeyDown={(e) => onKey(e)}
 					className="peer block border-solid border-2 border-bomborange rounded-lg bg-gray-100 px-4 pb-2 pt-2.5

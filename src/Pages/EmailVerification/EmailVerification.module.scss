@@ -1,0 +1,29 @@
+.page {
+    @apply h-screen w-screen bg-bombblack place-content-center;
+}
+
+.container {
+    @apply px-8 font-vazirmatn rounded overflow-hidden w-[70vw] h-[90vh]  shadow-bomborange flex flex-col place-self-center place-content-center place-items-center align-middle;
+    transition: all 200ms ease-in-out 0s;
+    box-shadow: 0px 0px 10px 1px #FF7517;
+}
+
+.logo {
+    @apply w-1/4 mix-blend-multiply;
+}
+
+.bold_text {
+    @apply font-extrabold text-2xl;
+}
+
+.text {
+    @apply text-[20px] mt-2;
+}
+
+.return_button {
+    @apply bg-bomborange hover:bg-[#ff653e] mt-5 font-vazirmatn rounded-full w-1/2 h-[8vh] place-content-center text-center place-items-start align-middle place-self-center;
+}
+
+.edit_button {
+    @apply bg-bombblack hover:bg-bombgray border-solid border-[1px] border-gray-400 text-center mt-3 font-vazirmatn rounded-full w-1/2 h-[8vh] place-content-center place-items-start align-middle place-self-center;
+}

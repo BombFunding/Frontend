@@ -67,8 +67,8 @@ function PasswordInput({
 						style={{
 							transform: `translateY(-50%) rotate(${beamDegrees})`,
 							backgroundColor: showPassword
-								// ? "#fe9149"
-								? "#fda469"
+								? // ? "#fe9149"
+								  "#fda469"
 								: "transparent",
 						}}
 						className={styles.beam}
