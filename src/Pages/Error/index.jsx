@@ -8,7 +8,6 @@ const Error = () => {
 				<div className={styles.top}>
 					<h1 className={styles.error404}>404</h1>
 					<h3 className={styles.notfound}>صفحه پیدا نشد</h3>
-					{/* <h3 className={styles.notfound}>ورودی غلطه</h3> */}
 				</div>
 				<div className={styles.container}>
 					<div className={styles.ghost_copy}>
@@ -27,9 +26,6 @@ const Error = () => {
 					<div className={styles.shadow}></div>
 				</div>
 				<div className={styles.bottom}>
-					{/* <p className={styles.text}>
-						ورودی غلطه
-					</p> */}
 					<p className={styles.text}>
 						به نظر میاد یه روح این صفحه رو دزدیده
 					</p>

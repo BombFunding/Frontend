@@ -1,5 +1,4 @@
 import * as yup from "yup";
-
 import { useNavigate } from "react-router-dom";
 import CustomInput from "@/components/Custom/CustomInput";
 import PasswordInput from "@/components/Custom/PasswordInput/PasswordInput";
@@ -58,8 +57,10 @@ function SignupForm() {
 		updateUser_type,
 	} = useSignupFormStore((state) => state);
 	const [showPassword, setShowPassword] = useState(false);
-	// const formState = useSignupFormStore((state) => state);
-	// const formData = { username, email, password, confirmPassword, user_type };
+	const [role, setRole] = useState("basic");
+	const formState = useSignupFormStore((state) => state);
+	const formData = { username, email, password, confirmPassword, user_type };
+	const [errors, setErrors] = useState([]);
 
 	function onChangeRole(e) {
 		updateUser_type(e.target.value);
@@ -180,12 +181,33 @@ function SignupForm() {
 				password,
 				user_type,
 			};
-			// console.log(bodyData);
-			await postData("/auth/register", bodyData).then((response) => {
-				console.log("Data posted successfully:", response);
-			});
+			await postData("/auth/register/", bodyData)
+				.then((response) => {
+					console.log("Data posted successfully:", response);
+				})
+				// .catch((error) => {
+				// 	if (error?.response?.data) {
+				// 		const data = error?.response?.data;
+				// 		if (data?.username) {
+				// 			const err = {
+				// 				message: "نام کاربری تکراری است",
+				// 				path: "username",
+				// 			};
+				// 			const temp = errors;
+				// 			temp[0].push(err);
+				// 			setErrors(() => [temp]);
+				// 		} else if (data?.email) {
+				// 			const err = {
+				// 				message: "ایمیل تکراری است",
+				// 				path: "email",
+				// 			};
+				// 			const temp = errors;
+				// 			temp[0].push(err);
+				// 			setErrors(() => [temp]);
+				// 		}
+				// 	}
+				// });
 		} catch (error) {
-			console.log("wtf");
 			const Fields = {
 				username: "نام کاربری",
 				password: "رمز عبور",
@@ -214,6 +236,23 @@ function SignupForm() {
 
 	return (
 		<>
+			{/* <ToastContainer
+				toastStyle={{
+					backgroundColor: "#2C2727",
+					fontSize: "16px",
+					borderRadius: "8px",
+				}}
+				position="bottom-right"
+				autoClose={true}
+				hideProgressBar={true}
+				closeOnClick
+				draggable
+				theme="dark"
+				newestOnTop={true}
+				role="alert"
+				closeButton={false}
+				limit={4}
+			/> */}
 			<form
 				className={styles.form_style}
 				onSubmit={(e) => {

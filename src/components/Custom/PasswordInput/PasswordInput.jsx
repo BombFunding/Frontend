@@ -52,14 +52,11 @@ function PasswordInput({
 				className={`${className} ${hasEye ? "right-11" : ""}`}
 				name={name}
 				onChange={onChange}
-				value={value}
-				errors={errors}
 			/>
 			{hasEye && (
 				<>
 					<button
 						type="button"
-						id="eyeball"
 						className={`${styles.eyeball}`}
 						onClick={togglePasswordVisibility}
 					>

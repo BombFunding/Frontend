@@ -8,6 +8,9 @@ import Navbar from "@/components/Navbar/Navbar";
 import NoNavbarLayout from "@/Layouts/NoNavbarLayout/NoNavbarLayout";
 import PrivateLayout from "@/Layouts/private/PrivateLayout";
 import EmailVerification from "@/Pages/EmailVerification/EmailVerification";
+import ForgetPassword from "@/Pages/ForgetPassword/ForgetPassword";
+import ChangePassword from "@/Pages/ChangePassword/ChangePassword";
+
 export const router = createBrowserRouter([
 	{
 		path: "/",
@@ -43,6 +46,14 @@ export const router = createBrowserRouter([
 			{
 				path: "/emailverification",
 				element: <EmailVerification />,
+      },
+      {
+				path: "/forgetpassword",
+				element: <ForgetPassword />,
+			},
+			{
+				path: "/reset-password/:uid/:token",
+				element: <ChangePassword />,
 			},
 		],
 	},

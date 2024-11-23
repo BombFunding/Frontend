@@ -18,8 +18,6 @@ const schema = yup.object().shape({
 
 function LoginForm() {
 	const navigate = useNavigate();
-
-	const [notifications, setNotifications] = useState([]);
 	const [showPassword, setShowPassword] = useState(false);
 	const togglePasswordVisibility = () => {
 		setShowPassword(!showPassword);
@@ -94,7 +92,6 @@ function LoginForm() {
 			};
 			if (errors[0]?.length > 0) {
 				// console.log(errors[0][0].message, Fields[errors[0][0].path]);
-				console.log("meow")
 				toast.error(
 					<CustomToast
 						Header={Fields[errors[0][0].path]}
@@ -123,13 +120,11 @@ function LoginForm() {
 					autofocus={true}
 					onKey={(e) => handleKeyDown(e)}
 					name="usernameEmail"
-					errors={errors}
 					value={formData.usernameEmail}
 					onChange={formState.updateUsernameEmail}
 				/>
 				<PasswordInput
 					handleKeyDown={handleKeyDown}
-					errors={errors}
 					placeholder="رمز عبور"
 					name="password"
 					onChange={formState.updatePassword}
@@ -138,6 +133,18 @@ function LoginForm() {
 					showPassword={showPassword}
 					togglePasswordVisibility={togglePasswordVisibility}
 				/>
+
+				<div
+					onClick={() => {
+						updateUsernameEmail("");
+						updatePassword("");
+						navigate("/forgetpassword");
+					}}
+					className={styles.forget_password}
+				>
+					رمز عبور خود را فراموش کرده‌اید؟
+				</div>
+
 				<div
 					onClick={() => {
 						updateUsernameEmail("");
@@ -145,7 +152,7 @@ function LoginForm() {
 						navigate("/signup");
 					}}
 					className={styles.no_account}
-				>
+					>
 					حساب کاربری ندارید؟
 				</div>
 				<DrawerButton>ورود</DrawerButton>
