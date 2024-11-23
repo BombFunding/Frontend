@@ -242,7 +242,7 @@ const EditProfile = () => {
 	if (loading) return <Loading />;
 	return (
 		<>
-			<div className="font-vazirmatn mt-8 h-auto rtl text-left">
+			<div className="font-vazirmatn mt-8 h-auto rtl">
 				<Label className=" text-black text-2xl">اطلاعات کاربری</Label>
 
 				<Card className={styles.card_style}>

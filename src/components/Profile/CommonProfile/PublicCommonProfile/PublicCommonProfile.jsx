@@ -77,19 +77,14 @@ const PublicCommonProfile = ({ className }) => {
 					<Label className=" text-base">اطلاعات کاربری</Label>
 					<Separator className="my-2 bg-gray-300" />
 					<div className="flex flex-col justify-evenly mr-3 gap-1">
-						<Label className=" text-xs">
-							نام کاربری: {profileInfo.firstName}
-						</Label>
-						<Label className=" text-xs">
-							ایمیل: {profileInfo.email}
-						</Label>
-						<p className="text-xs text-right text-justify">
-							بیوگرافی:
-							<br />
-							{profileInfo.bio}
-						</p>
+						<Label>:نام کاربری</Label>
+						<p className="text-xs">{profileInfo.firstName}</p>
+						<Label>:ایمیل</Label>
+						<p className="text-xs">{profileInfo.email}</p>
+						<Label>:بیوگرافی</Label>
+						<p className="text-xs">{profileInfo.bio}</p>
 					</div>
-					<div className="flex justify-center items-center gap-6 ">
+					<div className="flex justify-center items-center gap-6 absolute">
 						{profileInfo.linkedinAccoun && (
 							<a href={profileInfo.linkedinAccount}>
 								{<LinkedInIcon />}
