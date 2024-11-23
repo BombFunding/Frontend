@@ -186,12 +186,7 @@ function SignupForm() {
 			};
 			await postData("/auth/register/", bodyData).then((response) => {
 				console.log("Data posted successfully:", response);
-				toast.error(
-					<CustomToast
-						Header={Fields[error.inner[0].path]}
-						Message={error.inner[0].message}
-					/>
-				);
+				Navigate("/emailverification");
 			});
 			// .catch((error) => {
 			// 	if (error?.response?.data) {
@@ -216,31 +211,35 @@ function SignupForm() {
 			// 	}
 			// });
 		} catch (error) {
-			const Fields = {
-				username: "نام کاربری",
-				password: "رمز عبور",
-				email: "ایمیل",
-				confirmPassword: "تایید رمز عبور",
-			};
-			console.log("in:", error);
-			if (error?.inner) {
-				// console.log("in:", error.inner[0].message);
+			// const Fields = {
+			// 	username: "نام کاربری",
+			// 	password: "رمز عبور",
+			// 	email: "ایمیل",
+			// 	confirmPassword: "تایید رمز عبور",
+			// };
+			// console.log("in:", error.response.data.email[0]);
+			if (error.response.data.email) {
+				toast.error(
+					<CustomToast Header="ایمیل" Message="ایمیل تکراری است" />
+				);
+			}
+			if (error.response.data.username) {
 				toast.error(
 					<CustomToast
-						Header={Fields[error.inner[0].path]}
-						Message={error.inner[0].message}
+						Header="نام کاربری"
+						Message="نام کاربری تکراری است"
 					/>
 				);
 			}
+			// if (error.response.data) {
+			// 	toast.error(
+			// 		<CustomToast
+			// 			Header={Fields[error.inner[0].path]}
+			// 			Message={error.inner[0].message}
+			// 		/>
+			// 	);
+			// }
 		}
-		// finally {
-		// 	const Fields = {
-		// 		username: "نام کاربری",
-		// 		password: "رمز عبور",
-		// 		email: "ایمیل",
-		// 		confirmPassword: "تایید رمز عبور",
-		// 	};
-		// }
 	};
 
 	return (

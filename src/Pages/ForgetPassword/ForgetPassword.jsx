@@ -42,7 +42,7 @@ function ForgetPassword() {
 				toast.success(
 					<CustomToast Header="لطفا ایمیل خود را بررسی کنید" />
 				);
-				setTimeout(() => Navigate("/"), 3000);
+				setTimeout(() => Navigate("/login"), 3000);
 			})
 			.catch((err) => {
 				console.log("Data posting FAILED:", err);
@@ -82,10 +82,7 @@ function ForgetPassword() {
 				autofocus={true}
 				onKey={(e) => handleKeyDown(e)}
 				name="email"
-				onChange={(e) => {
-					setEmail(e.target.value);
-					console.log(email);
-				}}
+				onChange={setEmail}
 			/>
 			<DrawerButton onClick={(e) => onSubmit(e)}>
 				ارسال ایمیل

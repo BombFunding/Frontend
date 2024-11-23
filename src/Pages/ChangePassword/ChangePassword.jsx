@@ -77,7 +77,7 @@ function ChangePassword() {
 			.then((res) => {
 				console.log("Data posted successfully:", res);
 				toast.success(
-					<CustomToast Header="رمز عبور شما با موفقیت تغییر داده شد." />
+					<CustomToast Header="رمز عبور شما با موفقیت تغییر داده شد" />
 				);
 				setTimeout(() => Navigate("/login"), 3000);
 			})
@@ -112,9 +112,7 @@ function ChangePassword() {
 				handleKeyDown={handleKeyDown}
 				placeholder="رمز عبور جدید"
 				name="password"
-				onChange={(e) => {
-					setPassword(e.target.value);
-				}}
+				onChange={setPassword}
 				hasEye={true}
 				showPassword={showPassword}
 				togglePasswordVisibility={togglePasswordVisibility}
@@ -123,9 +121,7 @@ function ChangePassword() {
 				handleKeyDown={handleKeyDown}
 				placeholder="تایید رمز عبور جدید"
 				name="confirmPassword"
-				onChange={(e) => {
-					setConfirmPassword(e.target.value);
-				}}
+				onChange={setConfirmPassword}
 				hasEye={true}
 				showPassword={showConfirmPassword}
 				togglePasswordVisibility={toggleConfirmPasswordVisibility}
