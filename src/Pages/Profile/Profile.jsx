@@ -1,13 +1,11 @@
-import PublicCommonProfile from "@/components/Profile/CommonProfile/Public";
-import { Card } from "@/components/ui/card";
-import React from "react";
+import PublicCommonProfile from "@/components/Profile/CommonProfile/PublicCommonProfile/PublicCommonProfile";
 
 const Profile = () => {
-  return (
-    <>
-    <PublicCommonProfile />
-    </>
-  );
+	return (
+		<>
+			<PublicCommonProfile className="w-[85vw]" />
+		</>
+	);
 };
 
 export default Profile;

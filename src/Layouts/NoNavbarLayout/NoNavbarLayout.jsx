@@ -1,10 +1,9 @@
-import styles from "./NoNavbarLayout.module.scss";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 const NoNavbarLayout = () => {
 	return (
-		<>
+		<div className="place-content-center place-self-center place-items-center relative">
 			<ToastContainer
 				toastStyle={{
 					backgroundColor: "#2C2727",
@@ -21,16 +20,8 @@ const NoNavbarLayout = () => {
 				closeButton={false}
 				limit={5}
 			/>
-			{/* <ToastContainer
-        position="bottom-right"
-        autoClose={3000} // Close after 3 seconds
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        pauseOnHover
-      /> */}
 			<Outlet />
-		</>
+		</div>
 	);
 };
 

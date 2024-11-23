@@ -1,55 +1,52 @@
-import logo from "@/assets/logo.png";
-
 import * as yup from "yup";
-
 import { useNavigate } from "react-router-dom";
-import { Label } from "@radix-ui/react-label";
 import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import PasswordInput from "@/components/Custom/PasswordInput/PasswordInput";
 import DrawerButton from "@/components/Custom/DrawerButton/DrawerButton";
 import styles from "./SignupForm.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useSignupFormStore } from "@/stores/FormStore";
-import { postData } from "@/Services/ApiClient/index.js";
+import { postData } from "@/Services/ApiClient/Services.js";
 import {
 	RadioInput,
 	RadioInputOption,
 } from "@/components/Custom/RadioInput/RadioInput";
-import { Notification } from "@/components/NotificationCenter/NotificationCenter";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 
-const schema = yup.object().shape({
-	username: yup
-		.string()
-		.required("این مورد اجباری است")
-		.min(3, "نام کاربری باید حداقل 3 کاراکتر باشد"),
-	password: yup
-		.string()
-		.required("این مورد اجباری است")
-		.min(8, "رمز عبور باید حداقل 8 کاراکتر باشد")
-		.max(50, "رمز عبور طولانی است")
-		.matches(
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-			"رمز عبور باید حداقل شامل یک حرف بزرگ، عدد و علامت باشد"
-		),
-	email: yup
-		.string()
-		.required("این مورد اجباری است")
-		.matches(
-			/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-			"فرمت ایمیل اشتباه است"
-		),
-	confirmPassword: yup
-		.string()
-		.required("این مورد اجباری است")
-		.oneOf(
-			[yup.ref("password")],
-			"مقادیر رمز عبور و تایید رمز عبور یکسان نیستند"
-		),
-});
+// const schema = yup.object().shape({
+// 	username: yup
+// 		.string()
+// 		.required("این مورد اجباری است")
+// 		.min(3, "نام کاربری باید حداقل 3 کاراکتر باشد"),
+// 	password: yup
+// 		.string()
+// 		.required("این مورد اجباری است")
+// 		.min(8, "رمز عبور باید حداقل 8 کاراکتر باشد")
+// 		.max(50, "رمز عبور طولانی است")
+// 		.matches(
+// 			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+// 			"رمز عبور باید حداقل شامل یک حرف بزرگ، عدد و علامت باشد"
+// 		),
+// 	email: yup
+// 		.string()
+// 		.required("این مورد اجباری است")
+// 		.matches(
+// 			/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+// 			"فرمت ایمیل اشتباه است"
+// 		),
+// 	confirmPassword: yup
+// 		.string()
+// 		.required("این مورد اجباری است")
+// 		.oneOf(
+// 			[yup.ref("password")],
+// 			"مقادیر رمز عبور و تایید رمز عبور یکسان نیستند"
+// 		),
+// });
 
 function SignupForm() {
-	const navigate = useNavigate();
-	const [notifications, setNotifications] = useState([]);
+	const Navigate = useNavigate();
 	const {
 		username,
 		email,
@@ -63,22 +60,13 @@ function SignupForm() {
 		updateUser_type,
 	} = useSignupFormStore((state) => state);
 	const [showPassword, setShowPassword] = useState(false);
-	const [role, setRole] = useState("1");
-	const formState = useSignupFormStore((state) => state);
-	const formData = { username, email, password, confirmPassword, user_type };
-	const [errors, setErrors] = useState([]);
+	// const [role, setRole] = useState("basic");
+	// const formState = useSignupFormStore((state) => state);
+	// const formData = { username, email, password, confirmPassword, user_type };
+	// const [errors, setErrors] = useState([]);
 
-	function addNotification(title, subtitles, actions, icon) {
-		setNotifications((prev) => [
-			...prev,
-			{ id: Math.random(), title, subtitles, actions, icon },
-		]);
-	}
-	const dismissNotification = (id) => {
-		setNotifications((prev) => prev.filter((note) => note.id !== id));
-	};
 	function onChangeRole(e) {
-		setRole(e.target.value);
+		updateUser_type(e.target.value);
 	}
 	function togglePasswordVisibility() {
 		setShowPassword(!showPassword);
@@ -88,96 +76,169 @@ function SignupForm() {
 			onSubmit(e);
 		}
 	}
-	// useEffect(() => {
-	// 	const Fields = {
-	// 		username: "نام کاربری",
-	// 		password: "رمز عبور",
-	// 		email: "ایمیل",
-	// 		confirmPassword: "تایید رمز عبور",
-	// 	};
-	// 	const X = ["username", "password", "email", "confirmPassword"];
-	// 	X.map((path) => {
-	// 		// console.log(path);
-	// 		const notificationErrors = [];
-	// 		errors[0]
-	// 			?.filter((err) => err.path === path)
-	// 			.map((err) => notificationErrors.push(err.message));
-	// 		errors[1]
-	// 			?.filter((err) => err.path === path)
-	// 			.map((err) => notificationErrors.push(err.message));
-	// 		if (notificationErrors.length > 0) {
-	// 			addNotification(
-	// 				Fields[path],
-	// 				notificationErrors,
-	// 				["اوکی"]
-	// 			);
-	// 		}
-	// 	});
-	// }, [errors]);
-	const onSubmit = async (e) => {
-		setNotifications([]);
-		setErrors([]);
-		// console.log("Form Submitted", e);
+	const onSubmit = async () => {
 		try {
-			await schema.validate(formData, { abortEarly: false });
-			const bodyData = {
-				username: username,
-				email: email,
-				password: password,
-				user_type: "basic",
-			};
-			// console.log("Form bodyData:", bodyData);
+			console.log(username, password, email, confirmPassword, user_type);
+			// await schema.validate(formData, { abortEarly: false });
+			if (username === "") {
+				toast.error(
+					<CustomToast
+						Header="نام کاربری"
+						Message="نام کاربری خود را وارد کنید"
+					/>
+				);
+				return;
+			}
+			if (username.length < 3) {
+				toast.error(
+					<CustomToast
+						Header="نام کاربری"
+						Message="نام کاربری حداقل باید 3 حرف باشد"
+					/>
+				);
+				return;
+			}
+			if (password === "") {
+				toast.error(
+					<CustomToast
+						Header="رمز عبور"
+						Message="رمز عبور خود را وارد کنید"
+					/>
+				);
+				return;
+			}
+			if (password.length < 8) {
+				toast.error(
+					<CustomToast
+						Header="رمز عبور"
+						Message="رمز عبور حداقل باید دارای 8 کاراکتر باشد"
+					/>
+				);
+				return;
+			}
+			if (password.length > 50) {
+				toast.error(
+					<CustomToast
+						Header="رمز عبور"
+						Message="رمز عبور طولانی است"
+					/>
+				);
+				return;
+			}
+			if (
+				!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+					password
+				)
+			) {
+				toast.error(
+					<CustomToast
+						Header="رمز عبور"
+						Message="رمز عبور باید حداقل شامل یک حرف بزرگ، عدد و علامت باشد"
+					/>
+				);
+				return;
+			}
+			if (email === "") {
+				toast.error(
+					<CustomToast
+						Header="ایمیل"
+						Message="ایمیل خود را وارد کنید"
+					/>
+				);
+				return;
+			}
+			if (
+				!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
+			) {
+				toast.error(
+					<CustomToast
+						Header="ایمیل"
+						Message="فرمت ایمیل درست نمی‌باشد"
+					/>
+				);
+				return;
+			}
+			if (confirmPassword === "") {
+				toast.error(
+					<CustomToast
+						Header="تایید رمز عبور"
+						Message="تکرار رمز عبور خود را وارد کنید"
+					/>
+				);
+				return;
+			}
+			if (confirmPassword !== password) {
+				toast.error(
+					<CustomToast
+						Header="تایید رمز عبور"
+						Message="مقدار رمز عبور و تایید رمز عبور باید یکسان باشد"
+					/>
+				);
+				return;
+			}
 
-			await postData("/auth/register/", bodyData)
-				.then((response) => {
-					console.log("Data posted successfully:", response);
-				})
-				.catch((error) => {
-					//   console.log(error);
-					if (error?.response?.data) {
-						const data = error?.response?.data;
-						if (data?.username) {
-							const err = {
-								message: "نام کاربری تکراری است",
-								path: "username",
-							};
-							const temp = errors;
-							temp[0].push(err);
-							setErrors((pre) => [temp]);
-						} else if (data?.email) {
-							const err = {
-								message: "ایمیل تکراری است",
-								path: "email",
-							};
-							const temp = errors;
-							temp[0].push(err);
-							setErrors((pre) => [temp]);
-						}
-					}
-				});
-		} catch (error) {
-			setErrors((pre) => [...pre, error.inner]);
-		} finally {
-			console.log("Eerrors: ", errors);
-			const Fields = {
-				username: "نام کاربری",
-				password: "رمز عبور",
-				email: "ایمیل",
-				confirmPassword: "تایید رمز عبور",
+			console.log("hi");
+			const bodyData = {
+				username,
+				email,
+				password,
+				user_type,
 			};
-			Object.keys(Fields).map((path) => {
-				// console.log(path);
-				const notificationErrors = [];
-				errors[0]
-					?.filter((err) => err.path === path)
-					.map((err) => notificationErrors.push(err.message));
-				// errors[1]
-				// 	?.filter((err) => err.path === path)
-				// 	.map((err) => notificationErrors.push(err.message));
-				if (notificationErrors.length > 0) {
-					addNotification(Fields[path], notificationErrors, ["اوکی"]);
-				}
+			await postData("/auth/register/", bodyData).then((response) => {
+				console.log("Data posted successfully:", response);
+				Navigate("/emailverification");
 			});
+			// .catch((error) => {
+			// 	if (error?.response?.data) {
+			// 		const data = error?.response?.data;
+			// 		if (data?.username) {
+			// 			const err = {
+			// 				message: "نام کاربری تکراری است",
+			// 				path: "username",
+			// 			};
+			// 			const temp = errors;
+			// 			temp[0].push(err);
+			// 			setErrors(() => [temp]);
+			// 		} else if (data?.email) {
+			// 			const err = {
+			// 				message: "ایمیل تکراری است",
+			// 				path: "email",
+			// 			};
+			// 			const temp = errors;
+			// 			temp[0].push(err);
+			// 			setErrors(() => [temp]);
+			// 		}
+			// 	}
+			// });
+		} catch (error) {
+			// const Fields = {
+			// 	username: "نام کاربری",
+			// 	password: "رمز عبور",
+			// 	email: "ایمیل",
+			// 	confirmPassword: "تایید رمز عبور",
+			// };
+			console.log("error:", error);
+			if (error.response?.data?.email) {
+				toast.error(
+					<CustomToast Header="ایمیل" Message="ایمیل تکراری است" />
+				);
+			}
+			if (error.response?.data?.username) {
+				toast.error(
+					<CustomToast
+						Header="نام کاربری"
+						Message="نام کاربری تکراری است"
+					/>
+				);
+			}
+			// if (error.response.data) {
+			// 	toast.error(
+			// 		<CustomToast
+			// 			Header={Fields[error.inner[0].path]}
+			// 			Message={error.inner[0].message}
+			// 		/>
+			// 	);
+			// }
 		}
 	};
 
@@ -190,102 +251,74 @@ function SignupForm() {
 					onSubmit(e);
 				}}
 			>
-				{/* <img className={styles.logo} src={logo} alt="logo" /> */}
 				<div className={styles.welcome}>خوش آمدید</div>
 				<div className={styles.text}>
 					برای ثبت نام اطلاعات خود را وارد کنید
 				</div>
 				<div className={styles.form_even_justify}>
 					<div className={styles.input_row}>
-						<div>
-							<Label className={styles.Label}>نام کاربری</Label>
-							<CustomInput
-								placeholder="Username"
-								autofocus={true}
-								onKey={(e) => handleKeyDown(e)}
-								name="username"
-								errors={errors}
-								onChange={formState.updateUsername}
-								value={username}
-								showErrors={true}
-							/>
-						</div>
-						<div>
-							<Label className={styles.Label}>ایمیل</Label>
-							<CustomInput
-								placeholder="Email"
-								autofocus={true}
-								onKey={(e) => handleKeyDown(e)}
-								name="email"
-								onChange={formState.updateEmail}
-								value={email}
-								errors={errors}
-								showErrors={true}
-							/>
-						</div>
+						<CustomInput
+							placeholder="نام کاربری"
+							autofocus={true}
+							onKey={(e) => handleKeyDown(e)}
+							name="username"
+							onChange={(e) => updateUsername(e)}
+							value={username}
+							showErrors={true}
+						/>
+						<CustomInput
+							placeholder="ایمیل"
+							autofocus={true}
+							onKey={(e) => handleKeyDown(e)}
+							name="email"
+							onChange={(e) => updateEmail(e)}
+							value={email}
+							showErrors={true}
+						/>
 					</div>
 					<div className={styles.input_row}>
-						<div>
-							<Label className={styles.Label}>
-								تایید رمز عبور
-							</Label>
-							<PasswordInput
-								handleKeyDown={handleKeyDown}
-								placeholder="Confirm Password"
-								errors={errors}
-								name="confirmPassword"
-								onChange={formState.updateConfirmPassword}
-								value={confirmPassword}
-								showPassword={showPassword}
-								togglePasswordVisibility={
-									togglePasswordVisibility
-								}
-								showErrors={true}
-							/>
-						</div>
-						<div>
-							<Label className={styles.Label}>رمز عبور</Label>
-							<PasswordInput
-								handleKeyDown={handleKeyDown}
-								placeholder="Password"
-								errors={errors}
-								name="password"
-								className=""
-								hasEye={true}
-								onChange={formState.updatePassword}
-								value={password}
-								showPassword={showPassword}
-								togglePasswordVisibility={
-									togglePasswordVisibility
-								}
-								showErrors={true}
-							/>
-						</div>
+						<PasswordInput
+							handleKeyDown={handleKeyDown}
+							placeholder="تایید رمز عبور"
+							name="confirmPassword"
+							onChange={(e) => updateConfirmPassword(e)}
+							showPassword={showPassword}
+							togglePasswordVisibility={togglePasswordVisibility}
+						/>
+						<PasswordInput
+							handleKeyDown={handleKeyDown}
+							placeholder="رمز عبور"
+							name="password"
+							hasEye={true}
+							onChange={(e) => updatePassword(e)}
+							showPassword={showPassword}
+							togglePasswordVisibility={togglePasswordVisibility}
+						/>
 					</div>
 				</div>
-				<div className="pt-5">
+				<div className="pt-2">
 					<RadioInput>
 						<RadioInputOption
-							value={"1"}
+							value={"basic"}
 							id="tab-1"
-							checked={role === "1"}
-							onChange={onChangeRole}
+							checked={user_type === "basic"}
+							onChange={updateUser_type}
 						>
 							هیچکدام
 						</RadioInputOption>
 						<RadioInputOption
-							value={"2"}
+							value={"startup"}
 							id="tab-2"
-							checked={role === "2"}
-							onChange={onChangeRole}
+							checked={user_type === "startup"}
+							onChange={updateUser_type}
 						>
 							استارت‌آپ
 						</RadioInputOption>
 						<RadioInputOption
-							value={"3"}
+							value={"investor"}
 							id="tab-3"
-							checked={role === "3"}
-							onChange={onChangeRole}
+							checked={user_type === "investor"}
+							onChange={updateUser_type}
 						>
 							سرمایه‌گذار
 						</RadioInputOption>
@@ -293,7 +326,7 @@ function SignupForm() {
 				</div>
 				<div
 					onClick={() => {
-						navigate("/login");
+						Navigate("/login");
 						updateUsername("");
 						updatePassword("");
 						updateConfirmPassword("");
@@ -304,22 +337,8 @@ function SignupForm() {
 				>
 					قبلا ثبت نام کرده‌اید؟
 				</div>
-				<DrawerButton classNames="font-vazirmatn" onClick={onSubmit}>
-					ثبت نام
-				</DrawerButton>
+				<DrawerButton classNames="font-vazirmatn">ثبت نام</DrawerButton>
 			</form>
-			<div className={styles.notification_box}>
-				<div className={styles.notification_box_flex}>
-					{notifications?.map((note) => (
-						<Notification
-							key={note.id}
-							{...note}
-							onDismiss={() => dismissNotification(note.id)}
-						/>
-					))}
-				</div>
-			</div>
-			{/* <NotificationCenter /> */}
 		</>
 	);
 }

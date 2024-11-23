@@ -14,7 +14,7 @@
 	top: 10%;
 	position: absolute;
 	border-radius: 50% 50% 0 0;
-	background: #EDEDED;
+	background: #ededed;
 	border: 1px solid #ffbe73;
 	border-bottom: none;
 	animation: float 2s ease-out infinite;
@@ -56,7 +56,7 @@
 }
 
 .eye_right {
-    right: 25%;
+	right: 25%;
 }
 
 .mouth {
@@ -158,7 +158,7 @@
 }
 
 .text {
-    @apply font-vazirmatn;
+	@apply font-vazirmatn;
 	user-select: none;
 	text-align: center;
 	color: #242424;
