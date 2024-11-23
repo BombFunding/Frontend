@@ -72,10 +72,19 @@ function LoginForm() {
 			// });
 		} catch (error) {
 			// setErrors((pre) => [...pre, error.inner]);
-			console.log(error.response.data);
-			toast.error(
-				<CustomToast Header="نام کاربری یا رمز عبور اشتباه است" />
-			);
+			console.log("er:", error.response.data.non_field_errors[0]);
+			if (
+				error.response.data?.non_field_errors[0] ===
+				"Email is not confirmed."
+			) {
+				toast.error(
+					<CustomToast Header="لطفا ایمیل خود را تایید کنید" />
+				);
+			} else {
+				toast.error(
+					<CustomToast Header="نام کاربری یا رمز عبور اشتباه است" />
+				);
+			}
 		}
 		//  finally {
 		// 	const Fields = {

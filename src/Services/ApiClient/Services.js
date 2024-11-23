@@ -18,7 +18,7 @@ apiClient.interceptors.request.use(
 	(config) => {
 		// Modify the config before the request is sent, e.g., attach token
 		//  const token = localStorage.getItem('token');
-		const token = useTokenStore.getState().accessToken;
+		const token = useTokenStore.getState()?.accessToken;
 		// const token =
 		//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyMzY3NDc1LCJpYXQiOjE3MzIzNjM4NzUsImp0aSI6IjI2NjU0YzMzMzIwMzQyYjhiOTVlZDhiNjkxZDBhOTg5IiwidXNlcl9pZCI6M30.53XrPqzf9jmSdZBnZwZP8_Ggk8GfN4HbSgPYe4-Hux4";
 		if (token) config.headers.Authorization = `Bearer ${token}`;

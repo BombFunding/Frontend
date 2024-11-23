@@ -217,13 +217,13 @@ function SignupForm() {
 			// 	email: "ایمیل",
 			// 	confirmPassword: "تایید رمز عبور",
 			// };
-			// console.log("in:", error.response.data.email[0]);
-			if (error.response.data.email) {
+			console.log("error:", error);
+			if (error.response?.data?.email) {
 				toast.error(
 					<CustomToast Header="ایمیل" Message="ایمیل تکراری است" />
 				);
 			}
-			if (error.response.data.username) {
+			if (error.response?.data?.username) {
 				toast.error(
 					<CustomToast
 						Header="نام کاربری"
