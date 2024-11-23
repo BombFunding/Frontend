@@ -92,7 +92,6 @@ function LoginForm() {
 			};
 			if (errors[0]?.length > 0) {
 				// console.log(errors[0][0].message, Fields[errors[0][0].path]);
-				console.log("meow");
 				toast.error(
 					<CustomToast
 						Header={Fields[errors[0][0].path]}

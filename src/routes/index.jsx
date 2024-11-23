@@ -9,6 +9,7 @@ import NoNavbarLayout from "@/Layouts/NoNavbarLayout/NoNavbarLayout";
 import PrivateLayout from "@/Layouts/private/PrivateLayout";
 import ForgetPassword from "@/Pages/ForgetPassword/ForgetPassword";
 import ChangePassword from "@/Pages/ChangePassword/ChangePassword";
+
 export const router = createBrowserRouter([
 	{
 		path: "/",
