@@ -17,15 +17,21 @@
 }
 
 .text {
-	@apply text-black m-4 text-xs text-center;
+	@apply text-black m-3 text-xs text-center;
 }
 
 .no_account {
-	@apply text-xs text-bombgray mt-4 cursor-pointer hover:text-bomborange hover:underline;
+
+	@apply text-xs text-bombgray cursor-pointer hover:text-bomborange hover:underline mt-3;
+}
+
+.forget_password {
+	@apply text-[18px] text-bombgray cursor-pointer hover:text-bomborange hover:underline place-self-start pl-2 pt-2;
 }
 
 .Label {
-	@apply text-black m-1.5 place-self-end pe-1 mb-1;
+	@apply text-black m-1 place-self-end pe-1.5;
+
 }
 
 .notification_box {

@@ -7,6 +7,9 @@ import Landing from "@/Pages/Landing/Landing";
 import Navbar from "@/components/Navbar/Navbar";
 import NoNavbarLayout from "@/Layouts/NoNavbarLayout/NoNavbarLayout";
 import PrivateLayout from "@/Layouts/private/PrivateLayout";
+import ForgetPassword from "@/Pages/ForgetPassword/ForgetPassword";
+import ChangePassword from "@/Pages/ChangePassword/ChangePassword";
+
 export const router = createBrowserRouter([
 	{
 		path: "/",
@@ -38,6 +41,20 @@ export const router = createBrowserRouter([
 			{
 				path: "/signup",
 				element: <Signup />,
+			},
+			{
+				path: "/forgetpassword",
+				element: <ForgetPassword />,
+			},
+			{
+				path: "/reset-password/:uid/:token",
+				element: <ChangePassword />,
+				children: [
+					{
+						path: "",
+						element: <ChangePassword />,
+					},
+				]
 			},
 		],
 	},

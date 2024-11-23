@@ -49,17 +49,14 @@ function PasswordInput({
 				placeholder={placeholder}
 				onKey={(e) => handleKeyDown(e)}
 				// className={`pr-20 ${className}`}
-				className={`${className} ${hasEye ? "right-10" : ""}`}
+				className={`${className} ${hasEye ? "right-11" : ""}`}
 				name={name}
 				onChange={onChange}
-				value={value}
-				errors={errors}
 			/>
 			{hasEye && (
 				<>
 					<button
 						type="button"
-						id="eyeball"
 						className={`${styles.eyeball}`}
 						onClick={togglePasswordVisibility}
 					>

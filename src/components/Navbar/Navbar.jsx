@@ -1,12 +1,11 @@
 import SearchBar from "../SearchBar/SearchBar";
 import Logo from "../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
-// import LogoutButton from "../Custom/LogoutButton/LogoutButton";
-// import HomeButton from "../Custom/HomeButton/HomeButton";
-import NavbarLogin from "../Custom/NavbarLogin/NavbarLogin";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 import useTokenStore from "@/stores/TokenStore";
 import styles from "./Navbar.module.scss";
+import PushyButton from "../Custom/PushyButton/PushyButton";
+import CustomButton from "../Custom/CustomButton";
 function Navbar() {
 	const Navigate = useNavigate();
 	const TOKEN = useTokenStore((state) => state.accessToken);
@@ -35,7 +34,9 @@ function Navbar() {
 					) : (
 						// <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg">Responsive</button>
 						// <CustomButton>Login</CustomButton>
-						<NavbarLogin />
+						<PushyButton onClick={() => Navigate("/login")}>
+							Login
+						</PushyButton>
 					)}
 				</div>
 			</div>
