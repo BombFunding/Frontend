@@ -1,0 +1,176 @@
+@mixin white-gradient {
+	background: linear-gradient(
+		to right,
+		rgba(255, 255, 255, 1) 0%,
+		rgba(255, 255, 255, 0) 100%
+	);
+}
+
+$animationSpeed: 5s;
+
+// Animation
+@keyframes scroll {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-100%);
+	}
+}
+
+// Styling
+.slider {
+	@apply w-screen border-solid border-2;
+	background: white;
+	box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.125);
+	height: 10rem;
+	margin: auto;
+	overflow: hidden;
+	position: relative;
+
+	&::before,
+	&::after {
+		@include white-gradient;
+		content: "";
+		height: 10rem;
+		position: absolute;
+		width: 200px;
+		z-index: 2;
+	}
+
+	&::after {
+		right: 0;
+		top: 0;
+		transform: rotateZ(180deg);
+	}
+
+	&::before {
+		left: 0;
+		top: 0;
+	}
+
+	.slide_track {
+		@apply place-items-end;
+		overflow: nowrap;
+		animation: scroll $animationSpeed linear infinite;
+		display: flex;
+		// width: calc(250px * 14);
+		// width: 72rem;
+	}
+}
+
+.slider2 {
+	@apply flex;
+	animation: $animationSpeed scroll infinite linear;
+	overflow: nowrap;
+	display: inline-flex;
+}
+
+.container {
+	@apply place-content-center;
+	white-space: nowrap;
+	box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.125);
+	height: 10rem;
+	position: relative;
+}
+
+.slide {
+	@apply px-6;
+	// padding: 60px 0px;
+	height: 8rem;
+}
+
+// @keyframes slide {
+// 	from {
+// 		transform: translateX(0);
+// 	}
+// 	to {
+// 		transform: translateX(-100%);
+// 	}
+// }
+
+// .logos {
+// 	overflow: hidden;
+// 	padding: 60px 0;
+// 	background: white;
+// 	white-space: nowrap;
+// 	position: relative;
+// }
+
+// .logos:before,
+// .logos:after {
+// 	position: absolute;
+// 	top: 0;
+// 	width: 250px;
+// 	height: 100%;
+// 	content: "";
+// 	z-index: 2;
+// }
+
+// .logos:before {
+// 	left: 0;
+// 	background: linear-gradient(to left, rgba(255, 255, 255, 0), white);
+// }
+
+// .logos:after {
+// 	right: 0;
+// 	background: linear-gradient(to right, rgba(255, 255, 255, 0), white);
+// }
+
+// .logos:hover .logos_slide {
+// 	animation-play-state: paused;
+// }
+
+// .logos_slide {
+// 	display: -webkit-inline-flex;
+// 	animation: 5s slide infinite linear;
+// }
+
+// .logos_slide img {
+// 	height: 8rem;
+// 	margin: 0 40px;
+// }
+
+// @keyframes scrolling {
+// 	0% {
+// 		transform: translateX(0);
+// 	}
+// 	100% {
+// 		transform: translateX(-100%);
+// 	}
+// }
+
+// .carousel {
+// 	margin: 0 auto;
+// 	padding: 20px 0;
+// 	overflow: hidden;
+// 	display: flex;
+//     // flex: 0 0 100%;
+// 	* {
+// 		flex: 0 0 100%;
+// 	}
+// }
+
+// .card {
+//     @apply h-72;
+// 	color: black;
+// 	border-radius: 24px;
+// 	box-shadow: rgba(0, 0, 0, 10%) 5px 5px 20px 0;
+// 	padding: 20px;
+// 	font-size: xx-large;
+// 	justify-content: center;
+// 	align-items: center;
+// }
+
+// .group {
+//     @apply border-solid border-2 border-bomborange;
+// 	display: flex;
+// 	gap: 20px;
+// 	padding-right: 20px;
+// 	will-change: transform;
+// 	animation: scrolling 2s linear infinite;
+// }
+
+// .logo {
+//     @apply no-underline;
+// }

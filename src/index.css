@@ -17,7 +17,8 @@
 	}
 	:root {
 		background-color: white !important;
-		@apply place-self-center
+		@apply place-self-center;
+		scrollbar-width: none;
 	}
 }
 
