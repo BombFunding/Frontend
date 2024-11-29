@@ -1,19 +1,24 @@
 import { Card } from "@/components/ui/card";
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Label } from "@radix-ui/react-label";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import XIcon from "@mui/icons-material/X";
 import WebIcon from "@mui/icons-material/Web";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getData } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
 import { Separator } from "@/components/ui/separator";
+import { toast } from "react-toastify";
+import CustomToast from "@/components/Custom/CustomToast/CustomToast";
+import Error from "@/Pages/Error/Error";
 
 const PublicCommonProfile = ({ className }) => {
+	const Navigate = useNavigate();
 	const { username } = useParams();
-	const [profileInfo, setProfileInfo] = React.useState({});
-	const [loading, setLoading] = React.useState(true);
+	const [profileInfo, setProfileInfo] = useState({});
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(false);
 	console.log("username: ", username);
 	useEffect(() => {
 		setLoading(true);
@@ -39,12 +44,19 @@ const PublicCommonProfile = ({ className }) => {
 				setLoading(false);
 			})
 			.catch((error) => {
-				console.log(error);
-				if (error.response) {
-					// Server responded with a status other than 2xx
-					if (error.response.status === 404) {
-						// navigate(");
-					}
+				setLoading(false);
+				setError(true);
+				console.log("ERROR: ", error);
+				// Server responded with a status other than 2xx
+				// if (error.response.status === 404) {
+				if (error.message.includes("404")) {
+					toast.error(
+						<CustomToast
+							Header="خطا"
+							Message="کاربری با این نام کاربری وجود ندارد"
+						/>
+					);
+					setTimeout(() => Navigate("/"), 3000);
 				}
 			});
 	}, []);
@@ -52,7 +64,9 @@ const PublicCommonProfile = ({ className }) => {
 	if (loading) {
 		return <Loading />;
 	}
-
+	if (error) {
+		return <></>;
+	}
 	return (
 		<Card
 			className={`${className} bg-slate-50 p-0 overflow-hidden h-[80vh] font-vazirmatn`}
