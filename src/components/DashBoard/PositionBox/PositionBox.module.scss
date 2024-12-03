@@ -1,0 +1,8 @@
+.position_box {
+  @apply flex flex-col justify-start items-center rounded-lg p-4 overflow-y-auto position_list !important;
+  border: 2px solid #ff7517 !important;
+}
+
+.position_list {
+  @apply flex flex-col justify-between items-center gap-2 !important;
+}

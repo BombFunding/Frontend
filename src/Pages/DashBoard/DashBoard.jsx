@@ -1,8 +1,13 @@
+import StartupDashBoard from "@/components/DashBoard/StartupDashBoard/StartupDashBoard";
 import React from "react";
-import styles from "./DashBoard"
+// import styles from "./DashBoard";
 
 const DashBoard = () => {
-  return <div>Dashboard</div>;
+  return (
+    <>
+      <StartupDashBoard />
+    </>
+  );
 };
 
 export default DashBoard;

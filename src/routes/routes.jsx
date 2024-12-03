@@ -12,59 +12,68 @@ import PrivateLayout from "@/Layouts/private/PrivateLayout";
 import EmailVerification from "@/Pages/EmailVerification/EmailVerification";
 import EditProfile from "@/Pages/EditProfile/EditProfile";
 import Profile from "@/Pages/Profile/Profile";
+import DashBoard from "@/Pages/DashBoard/DashBoard.jsx";
 
 export const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <PublicLayout />,
-		errorElement: <Error />,
-		children: [
-			{
-				index: true,
-				element: <Landing />,
-			},
-		],
-	},
-	{
-		element: <PrivateLayout />,
-		children: [
-			{
-				path: "/test",
-				element: <Navbar />,
-			},
-			{
-				path: "/EditProfile",
-				element: <EditProfile />,
-			},
-			{
-				path: "/Profile/:username",
-				element: <Profile />,
-			},
-		],
-	},
-	{
-		element: <NoNavbarLayout />,
-		children: [
-			{
-				path: "/login",
-				element: <Login />,
-			},
-			{
-				path: "/signup",
-				element: <Signup />,
-			},
-			{
-				path: "/emailverification",
-				element: <EmailVerification />,
-			},
-			{
-				path: "/forgetpassword",
-				element: <ForgetPassword />,
-			},
-			{
-				path: "/reset-password/:uid/:token",
-				element: <ChangePassword />,
-			},
-		],
-	},
+  {
+    path: "/",
+    element: <PublicLayout />,
+    errorElement: <Error />,
+    children: [
+      {
+        index: true,
+        element: <Landing />,
+      },
+      {
+        path: "/DashBoard",
+        element: <DashBoard />,
+      },
+    ],
+  },
+  {
+    element: <PrivateLayout />,
+    children: [
+      {
+        path: "/test",
+        element: <Navbar />,
+      },
+      {
+        path: "/EditProfile",
+        element: <EditProfile />,
+      },
+      {
+        path: "/Profile/:username",
+        element: <Profile />,
+      },
+      //   {
+      //     path: "/DashBoard",
+      //     element: <DashBoard />,
+      //   },
+    ],
+  },
+  {
+    element: <NoNavbarLayout />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+      {
+        path: "/emailverification",
+        element: <EmailVerification />,
+      },
+      {
+        path: "/forgetpassword",
+        element: <ForgetPassword />,
+      },
+      {
+        path: "/reset-password/:uid/:token",
+        element: <ChangePassword />,
+      },
+    ],
+  },
 ]);
