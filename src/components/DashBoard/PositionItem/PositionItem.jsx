@@ -9,27 +9,36 @@ import { Progress } from "@/components/ui/progress";
 const PositionItem = ({ positionData }) => {
   return (
     <Card className={styles.card_style}>
-      <div className="flex flex-col gap-2">
-        <Label>{positionData?.name}mmmd</Label>
-        <div className="flex justify-evenly items-center gap-3">
-          <div>
-            <label>سرمایه مورد نیاز: </label>
-            <label>{"10000"}$</label>
+      <div className={styles.col_box}>
+        <Label className="text-base font-bold">{positionData?.name}position 1</Label>
+        <div className="flex gap-28">
+          <div className="self-start ">
+            <Label>سرمایه مورد نیاز: </Label>
+            <Label>{positionData?.price}1000$</Label>
           </div>
-          <div>
-            <label>سرمایه دریافت شده: </label>
-            <label>{"300"}$</label>
+          <div className="self-start">
+            <Label>مقدار به دست آمده: </Label>
+            <Label>{positionData?.price}300$</Label>
           </div>
         </div>
+
         <Progress
-          value={30}
+          value={50}
+          className={styles.progress_bar}
           mainColor="bg-gray-50"
           ProgressColor="bg-bomborange"
-          className="w-full h-3 border-black border-solid border-2"
+        />
+        <div className="self-start">
+          <Label>زمان باقیمانده: </Label>
+          <Label>{positionData?.price}5d</Label>
+        </div>
+        <Progress
+          value={50}
+          className={styles.progress_bar}
+          mainColor="bg-gray-50"
+          ProgressColor="bg-bomborange"
         />
       </div>
-      <Separator orientation="vertical" className="mx-2" />
-      <div>dflnsdjfldsfnksn</div>
       <Separator orientation="vertical" className="mx-2" />
       <div className={styles.button_box}>
         <Button variant="default" className={styles.button_style}>
