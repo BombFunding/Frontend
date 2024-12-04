@@ -3,6 +3,11 @@ import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './LandingIntroduce.module.scss';
+import img0 from "../../assets/landing0.jpg";
+import img1 from "../../assets/landing1.jpg";
+import img2 from "../../assets/landing2.jpg";
+import img3 from "../../assets/landing3.jpg";
+import img4 from "../../assets/landing4.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,7 +22,6 @@ const App = () => {
 
     requestAnimationFrame(raf);
 
-    // Parallax effect on the header img
     gsap.to(`.${styles.intro} .${styles['bg-img']}`, {
       y: '80%',
       ease: 'none',
@@ -29,7 +33,6 @@ const App = () => {
       },
     });
 
-    // Gradually darken and blur the header img
     gsap.to(`.${styles.intro} .${styles['bg-img']}`, {
       filter: 'brightness(0.25) blur(16px)',
       ease: 'none',
@@ -40,7 +43,6 @@ const App = () => {
       },
     });
 
-    // The header title
     gsap.to(`.${styles.intro} .${styles.title}`, {
       y: '45vh',
       ease: 'none',
@@ -115,20 +117,14 @@ const App = () => {
     <>
       <header>
         <a href="https://greensock.com/scrolltrigger">
-          <img
-            className={styles['greensock-icon']}
-            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/scroll-trigger-logo-light.svg"
-            alt="ScrollTrigger Logo"
-            width="200"
-            height="64"
-          />
+          {/* <img */}
         </a>
       </header>
 
       <div className={styles.intro}>
         <div className={styles.visual}>
           <img
-            src="https://images.unsplash.com/photo-1478766191016-3cb2df3122ef"
+            src={img0}
             className={styles['bg-img']}
             alt="Intro Background"
           />
@@ -139,7 +135,7 @@ const App = () => {
       <div className={styles['slide-container']}>
         <section id="slide-1" className={`${styles.slide} ${styles['slide-odd']}`}>
           <img
-            src="https://images.unsplash.com/photo-1530143584546-02191bc84eb5"
+            src={img1}
             className={styles['bg-img']}
             alt="Slide 1 Background"
           />
@@ -148,7 +144,7 @@ const App = () => {
 
         <section id="slide-2" className={`${styles.slide} ${styles['slide-even']}`}>
           <img
-            src="https://images.unsplash.com/photo-1503669678209-c68d00b3765d"
+            src={img2}
             className={styles['bg-img']}
             alt="Slide 2 Background"
           />
@@ -157,7 +153,7 @@ const App = () => {
 
         <section id="slide-3" className={`${styles.slide} ${styles['slide-odd']}`}>
           <img
-            src="https://images.unsplash.com/photo-1496147539180-13929f8aa03a"
+            src={img3}
             className={styles['bg-img']}
             alt="Slide 3 Background"
           />
@@ -166,7 +162,7 @@ const App = () => {
 
         <section id="slide-4" className={`${styles.slide} ${styles['slide-even']}`}>
           <img
-            src="https://images.unsplash.com/photo-1497515098781-e965764ab601"
+            src={img4}
             className={styles['bg-img']}
             alt="Slide 4 Background"
           />

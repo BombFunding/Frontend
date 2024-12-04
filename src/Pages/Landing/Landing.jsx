@@ -12,28 +12,28 @@ import logo9 from "../../assets/logo9.png";
 import logo10 from "../../assets/logo10.png";
 import { Label } from "@radix-ui/react-label";
 const Landing = () => {
-	return (
-		<>
-		
-			<div>
-				<LandingIntroduce /> {/* استفاده از کامپوننت LandingIntroduce */}
-				<InfiniteCarousel />
-
-				<Label className="text-black font-vazirmatn text-2xl pr-20 top-10">
-					پربازدیدترینها
-				</Label>
-				<InfiniteCarousel />
-				<Label className="text-black font-vazirmatn text-2xl pr-20 mt-10">
-					محبوب‌ترینها
-				</Label>
-				<InfiniteCarousel />
-				<Label className="text-black font-vazirmatn text-2xl pr-20 mt-10">
-					جدیدترینها
-				</Label>
-				<InfiniteCarousel />
-			</div>
-		</>
-	);
+  return (
+    <>
+      <div>
+        <LandingIntroduce />
+      </div>
+      <div>
+        <InfiniteCarousel key="carousel1" />
+        <Label className="text-black font-vazirmatn text-2xl pr-20 top-10">
+          پربازدیدترینها
+        </Label>
+        <InfiniteCarousel key="carousel2" />
+        <Label className="text-black font-vazirmatn text-2xl pr-20 mt-10">
+          محبوب‌ترینها
+        </Label>
+        <InfiniteCarousel key="carousel3" />
+        <Label className="text-black font-vazirmatn text-2xl pr-20 mt-10">
+          جدیدترینها
+        </Label>
+        <InfiniteCarousel key="carousel4" />
+      </div>
+    </>
+  );
 };
 
 export default Landing;
