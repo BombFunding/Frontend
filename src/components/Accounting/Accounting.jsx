@@ -6,9 +6,9 @@ function Accounting() {
 				<img src={Accouting} className="h-[2.75vw] place-self-center" />
 				<div className="h-[3vw] place-self-center">حسابداری</div>
 			</h1>
-			<p className="p-[2vw] rtl">
+			<div className="p-[2vw] rtl">
 				420000 تومان
-			</p>
+			</div>
 			<button className="btn bg-bomborange text-black hover:text-white m-[2vw]">
 				افزایش موجودی
 			</button>
