@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./StartupDashBoard.module.scss";
 import { Card } from "@/components/ui/card";
 import PositionBox from "../PositionBox/PositionBox";

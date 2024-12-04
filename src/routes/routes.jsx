@@ -13,6 +13,7 @@ import EmailVerification from "@/Pages/EmailVerification/EmailVerification";
 import EditProfile from "@/Pages/EditProfile/EditProfile";
 import Profile from "@/Pages/Profile/Profile";
 import DashBoard from "@/Pages/DashBoard/DashBoard.jsx";
+import ChargeAccount from "@/Pages/ChargeAccount/ChargeAccount";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: "/DashBoard",
         element: <DashBoard />,
+      },
+      {
+        path: "/ChargeAccount",
+        element: <ChargeAccount />,
       },
     ],
   },
