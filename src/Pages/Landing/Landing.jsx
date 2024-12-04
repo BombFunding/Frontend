@@ -1,4 +1,5 @@
 import InfiniteCarousel from "@/components/InfiniteCarousel/InfiniteCarousel";
+import LandingIntroduce from "@/components/LandingIntroduce/LandingIntroduce";
 import logo1 from "../../assets/logo1.png";
 import logo2 from "../../assets/logo2.png";
 import logo3 from "../../assets/logo3.png";
@@ -13,8 +14,11 @@ import { Label } from "@radix-ui/react-label";
 const Landing = () => {
 	return (
 		<>
+		
 			<div>
-				{/* <img src={Background} className="h-[150vh]" /> */}
+				<LandingIntroduce /> {/* استفاده از کامپوننت LandingIntroduce */}
+				<InfiniteCarousel />
+
 				<Label className="text-black font-vazirmatn text-2xl pr-20 top-10">
 					پربازدیدترینها
 				</Label>
