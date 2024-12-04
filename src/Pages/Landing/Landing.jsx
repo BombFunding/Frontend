@@ -28,9 +28,9 @@ const Landing = () => {
 					<div className="text-black font-vazirmatn text-[1.5vw] px-[6vw] text-center align-middle place-self-center">
 						پلتفرم ما برای کمک به استارتاپ‌ها، هنرمندان، و
 						کارآفرینان طراحی شده است تا از طریق جذب سرمایه جمعی،
-						رویاهایشان را محقق کنند. چه یک ایده بزرگ داشته باشید، چه
+						رویاهایشان را محقق کنند. چه ایده بزرگی داشته باشی، چه
 						علاقه به سرمایه‌گذاری در پروژه‌های نوآورانه، اینجا جایی
-						برای شماست.
+						برای توست
 					</div>
 				</section>
 				<img
@@ -42,8 +42,12 @@ const Landing = () => {
 			
 			<div className="flex place-items-center place-content-center p-[1vw] justify-evenly">
 				<section>
+					<h2 className="text-white font-vazirmatn text-[0.75vw] p-[1vw] text-center">
+					بببولسبللللللللللللللللللللللللللللللللفففففففففففبببولسبللللللللللللللللللللللللللللللللفففففففففففبببولسبللللللللللللللللللللللللللللللللفففففففففففبببولسبللللللللللللللللللللللللللللللللففففففففففف
+					</h2>
+
 					<h2 className="text-black font-vazirmatn text-[3vw] p-[1vw] text-center">
-						چطور از پلتفرم ما استفاده کنید؟
+					چطور یک استارتاپ را شروع کنیم و به دنبال جذب سرمایه بگردیم؟
 					</h2>
 					<p className="text-black font-vazirmatn text-[1.5vw] p-[1vw] text-center align-middle place-self-center rtl">
 						فقط با سه مرحله ساده می‌توانید از پلتفرم ما استفاده
@@ -78,7 +82,7 @@ const Landing = () => {
 					<Label className="text-black font-vazirmatn text-2xl pr-10 top-10 place-content-center">
 						پربازدیدترین استارت‌آپ‌ها
 					</Label>
-					<button className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
+					<button className="text-black font-vazirmatn place-content-center text-[1.1vw]"
 					onClick={()=>{}}>
 						دیدن بیشتر...
 					</button>
@@ -90,7 +94,7 @@ const Landing = () => {
 					<Label className="text-black font-vazirmatn text-2xl pr-10 top-10 place-content-center">
 					محبوب‌ترین استارت‌آپ‌ها
 					</Label>
-					<button className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
+					<button className="text-black font-vazirmatn place-content-center text-[1.1vw]"
 					onClick={()=>{}}>
 						دیدن بیشتر...
 					</button>
@@ -102,7 +106,7 @@ const Landing = () => {
 					<Label className="text-black font-vazirmatn text-2xl pr-10 top-10 place-content-center">
 						جدیدترین استارت‌آپ‌ها
 					</Label>
-					<button className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
+					<button className="text-black font-vazirmatn place-content-center text-[1.1vw]"
 					onClick={()=>{}}>
 						دیدن بیشتر...
 					</button>

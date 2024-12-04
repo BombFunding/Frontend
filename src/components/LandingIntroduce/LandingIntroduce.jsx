@@ -138,7 +138,7 @@ const App = () => {
     </p>
     <p className="font-vazirmatn text-[1.2vw] mt-4 text-right">
             بمب فاندینگ، پلتفرمی برای ارتباط با سرمایه گذاران ، کارآفرینان و حمایت کنندگان.
-      چه ایده بزرگی داشته باشید چه کوچک، اینجا جایی برای شماست...      
+      چه ایده بزرگی داشته باشی چه کوچک، اینجا جایی برای توست...      
           </p>
     <div className="mt-8 flex gap-4 flex-wrap">
       <button className="btn font-vazirmatn text-black bg-bomborange hover:text-white text-[0.9vw] w-[10vw] h-[2vw]">
