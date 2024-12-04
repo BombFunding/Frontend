@@ -24,7 +24,7 @@ const images = [
 	logo10,
 ];
 
-const InfiniteCarousel = () => {
+const InfiniteCarousel = ({ children }) => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.slider}>
@@ -35,6 +35,12 @@ const InfiniteCarousel = () => {
 							<p className={styles.text}>nigga{index}</p>
 						</div>
 					))}
+					{/* {children.concat(children).map((item, index) => {
+						<div className={styles.slide} key={index}>
+							<img src={item} className={styles.image} alt="" />
+							<p className={styles.text}>nigga{index}</p>
+						</div>;
+					})} */}
 				</div>
 			</div>
 		</div>
