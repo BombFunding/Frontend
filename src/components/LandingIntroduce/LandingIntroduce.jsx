@@ -194,9 +194,6 @@ const App = () => {
         </div>
       </div>
 
-      <footer>
-        <h2>THE END</h2>
-      </footer>
     </>
   );
 };

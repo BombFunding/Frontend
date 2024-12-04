@@ -1,5 +1,7 @@
 import InfiniteCarousel from "@/components/InfiniteCarousel/InfiniteCarousel";
 import LandingIntroduce from "@/components/LandingIntroduce/LandingIntroduce";
+import landing5 from "../../assets/landing5.png"
+import landing6 from "../../assets/landing6.png"
 import logo1 from "../../assets/logo1.png";
 import logo2 from "../../assets/logo2.png";
 import logo3 from "../../assets/logo3.png";
@@ -10,10 +12,6 @@ import logo7 from "../../assets/logo7.png";
 import logo8 from "../../assets/logo8.png";
 import logo9 from "../../assets/logo9.png";
 import logo10 from "../../assets/logo10.png";
-import shakinghands from "../../assets/shakinghands.png";
-import handshaking from "../../assets/handshaking.png";
-import teamwork1 from "../../assets/teamwork1.png";
-import howtouse from "../../assets/howtouse.png";
 import { Label } from "@radix-ui/react-label";
 import styles from "./Landing.module.scss";
 const Landing = () => {
@@ -22,42 +20,6 @@ const Landing = () => {
 			      <div>
         <LandingIntroduce />
       </div>
-			<div className="flex p-10">
-				<img
-					src={teamwork1}
-					className="w-5/12 place-self-center object-contain"
-				/>
-				<section className="place-items-center place-content-center">
-					<div className="text-black font-vazirmatn text-[3vw] p-[3vw] text-center align-middle place-self-center">
-						جایی که ایده‌ها زنده می‌شوند
-					</div>
-					<div className="text-black font-vazirmatn text-[1.8vw] p-[3vw] text-center align-middle place-self-center">
-						به جامعه‌ای از نوآوران، سرمایه‌گذاران و حمایت‌کنندگان
-						بپیوندید تا دنیای بهتری بسازید
-					</div>
-					<div className="place-self-center flex gap-5">
-						<button className="btn font-vazirmatn text-black bg-bomborange hover:text-white text-[0.9vw] w-[10vw] h-[2vw]">
-							ایجاد موقعیت جدید
-						</button>
-						<button className="btn font-vazirmatn text-black bg-bomborange hover:text-white text-[0.9vw] w-[8vw] h-[3vw]">
-							کشف پروژه‌ها
-						</button>
-					</div>
-				</section>
-			</div>
-			<div className="flex px-10">
-				<section className="place-items-center place-content-center">
-					<div
-						className={`text-black font-vazirmatn text-[3vw] p-[5vw] text-center align-middle place-self-center ${styles.bigtext}`}
-					>
-						با ما دسترسی به سرمایه آسان‌تر از همیشه است
-					</div>
-				</section>
-				<img
-					src={shakinghands}
-					className="w-1/2 place-self-center object-contain"
-				/>
-			</div>
 			<div className="flex justify-evenly place-items-center place-content-center rtl">
 				<section>
 					<div className="text-black font-vazirmatn text-[4vw] p-[3vw] text-center align-middle place-self-center">
@@ -72,10 +34,12 @@ const Landing = () => {
 					</div>
 				</section>
 				<img
-					src={handshaking}
+					src={landing6}
 					className="w-5/12 place-self-center object-contain"
 				/>
 			</div>
+			
+			
 			<div className="flex place-items-center place-content-center p-[1vw] justify-evenly">
 				<section>
 					<h2 className="text-black font-vazirmatn text-[3vw] p-[1vw] text-center">
@@ -103,10 +67,12 @@ const Landing = () => {
 					</ol>
 				</section>
 				<img
-					src={howtouse}
+					src={landing5}
 					className="w-5/12 place-self-center object-contain"
 				/>
 			</div>
+
+
 			<div className="py-20">
 				<div className="rtl flex justify-between px-5">
 					<Label className="text-black font-vazirmatn text-2xl pr-10 top-10 place-content-center">

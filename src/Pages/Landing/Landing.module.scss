@@ -25,3 +25,21 @@
     filter: hue-rotate(180deg);
 	text-align: center;
 }
+
+.image-text-container {
+  display: flex;
+  justify-content: space-between; // متن سمت چپ و تصویر سمت راست
+  align-items: center; // عمودی وسط چین
+  padding: 1vw;
+
+  section {
+    flex: 1; // بخش متن کل فضای سمت چپ را بگیرد
+  }
+
+  img {
+    width: 150px; // سایز مربعی کوچک
+    height: 150px;
+    object-fit: cover; // تناسب تصویر حفظ شود
+    margin-left: 1rem; // فاصله‌ای بین متن و تصویر
+  }
+}
