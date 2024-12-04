@@ -11,17 +11,17 @@ import { CgProfile } from "react-icons/cg";
 
 const routes = [
   {
-    title: "Home",
+    title: "خانه",
     href: "/",
     Icon: BiHomeAlt2,
   },
   {
-    title: "Profile",
+    title: "پروفایل",
     href: "EditProfile",
     Icon: CgProfile,
   },
   {
-    title: "Explore",
+    title: "جستجو",
     href: "",
     Icon: FiSearch,
   },
@@ -80,8 +80,8 @@ function HamburgerMenu({ isOpen, setOpen, mode }) {
                       }
                       href={route.href}
                     >
-                      <span className="flex gap-1 text-lg">{route.title}</span>
                       <Icon className="text-xl" />
+                      <span className="flex gap-1 text-lg">{route.title}</span>
                     </a>
                   </motion.li>
                 );
