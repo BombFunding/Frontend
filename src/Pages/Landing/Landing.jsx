@@ -2,6 +2,7 @@ import InfiniteCarousel from "@/components/InfiniteCarousel/InfiniteCarousel";
 import LandingIntroduce from "@/components/LandingIntroduce/LandingIntroduce";
 import landing5 from "../../assets/landing5.png"
 import landing6 from "../../assets/landing6.png"
+import landing7 from "../../assets/landing7.png"
 import logo1 from "../../assets/logo1.png";
 import logo2 from "../../assets/logo2.png";
 import logo3 from "../../assets/logo3.png";
@@ -22,8 +23,8 @@ const Landing = () => {
       </div>
 			<div className="flex justify-evenly place-items-center place-content-center rtl">
 				<section>
-					<div className="text-black font-vazirmatn text-[4vw] p-[3vw] text-center align-middle place-self-center">
-						ما چه کار می‌کنیم؟
+					<div className="text-black font-vazirmatn text-[2vw] p-[3vw] text-center align-middle place-self-center">
+					چطور یک استارتاپ موفق را شروع کنیم؟
 					</div>
 					<div className="text-black font-vazirmatn text-[1.5vw] px-[6vw] text-center align-middle place-self-center">
 						پلتفرم ما برای کمک به استارتاپ‌ها، هنرمندان، و
@@ -46,8 +47,8 @@ const Landing = () => {
 					بببولسبللللللللللللللللللللللللللللللللفففففففففففبببولسبللللللللللللللللللللللللللللللللفففففففففففبببولسبللللللللللللللللللللللللللللللللفففففففففففبببولسبللللللللللللللللللللللللللللللللففففففففففف
 					</h2>
 
-					<h2 className="text-black font-vazirmatn text-[3vw] p-[1vw] text-center">
-					چطور یک استارتاپ را شروع کنیم و به دنبال جذب سرمایه بگردیم؟
+					<h2 className="text-black font-vazirmatn text-[2vw] p-[1vw] text-center">
+					چطور یک سرمایه گذاری موفق را شروع کنیم؟
 					</h2>
 					<p className="text-black font-vazirmatn text-[1.5vw] p-[1vw] text-center align-middle place-self-center rtl">
 						فقط با سه مرحله ساده می‌توانید از پلتفرم ما استفاده
@@ -75,7 +76,6 @@ const Landing = () => {
 					className="w-5/12 place-self-center object-contain"
 				/>
 			</div>
-
 
 			<div className="py-20">
 				<div className="rtl flex justify-between px-5">
@@ -115,7 +115,15 @@ const Landing = () => {
 					<div>{[logo1, logo2, logo4, logo7, logo10, logo3, logo9, logo6, logo5, logo8]}</div>
 				</InfiniteCarousel>
 			</div>
+
+			<div style={{ width: '100vw', height: 'auto', overflow: 'hidden' }}>
+			<img src={landing7} alt="Landing Image" style={{ width: '100%', height: 'auto' }} />
+			</div>
+
+			
 		</>
+
+		
 	);
 };
 
