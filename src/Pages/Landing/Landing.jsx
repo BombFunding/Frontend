@@ -1,4 +1,5 @@
 import InfiniteCarousel from "@/components/InfiniteCarousel/InfiniteCarousel";
+import LandingIntroduce from "@/components/LandingIntroduce/LandingIntroduce";
 import logo1 from "../../assets/logo1.png";
 import logo2 from "../../assets/logo2.png";
 import logo3 from "../../assets/logo3.png";
@@ -18,6 +19,9 @@ import styles from "./Landing.module.scss";
 const Landing = () => {
 	return (
 		<>
+			      <div>
+        <LandingIntroduce />
+      </div>
 			<div className="flex p-10">
 				<img
 					src={teamwork1}
