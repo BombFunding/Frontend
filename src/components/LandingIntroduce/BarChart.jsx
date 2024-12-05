@@ -45,100 +45,134 @@ const BarChart = () => {
   }, []);
 
   return (
-    <figure>
-      <div className={styles["y-axis"]}>
-        <h3>Y-Axis Title</h3>
+    <div className={styles.container}>
+      <div className={styles['description']}>
+        <p>
+          نمودار مربوط به توزیع کتگوری های مختلف استارتاپ های سایت
+        </p>
       </div>
 
-      <div className={styles.graphic}>
-        {/* Row 1 */}
-        <div className={styles.row}>
-          <h6>Bar One</h6>
-          <div className={styles.chart}>
-            <span className={styles.block} title="57%">
-              <span className={styles.value}>57%</span>
-            </span>
-            <span className={styles.block} title="13%">
-              <span className={styles.value}>13%</span>
-            </span>
-            <span className={styles.block} title="8%">
-              <span className={styles.value}>8%</span>
-            </span>
-            <span className={styles.block} title="2%">
-              <span className={styles.value}>2%</span>
-            </span>
-            <span className={styles.block} title="17%">
-              <span className={styles.value}>17%</span>
-            </span>
-            <span className={styles.block} title="3%">
-              <span className={styles.value}>3%</span>
-            </span>
+      <div className={styles['chart-wrapper']}>
+        <figure>
+          <div className={styles["y-axis"]}>
+            <h3>Y-Axis Title</h3>
           </div>
-        </div>
 
-        {/* Row 2 */}
-        <div className={styles.row}>
-          <h6>Bar Two</h6>
-          <div className={styles.chart}>
-            <span className={styles.block} title="29%">
-              <span className={styles.value}>29%</span>
-            </span>
-            <span className={styles.block} title="21%">
-              <span className={styles.value}>21%</span>
-            </span>
-            <span className={styles.block} title="19%">
-              <span className={styles.value}>19%</span>
-            </span>
-            <span className={styles.block} title="6%">
-              <span className={styles.value}>6%</span>
-            </span>
-            <span className={styles.block} title="19%">
-              <span className={styles.value}>19%</span>
-            </span>
-            <span className={styles.block} title="6%">
-              <span className={styles.value}>6%</span>
-            </span>
+          <div className={styles.graphic}>
+            {/* Row 1 */}
+            <div className={styles.row}>
+              <h6>Bar One</h6>
+              <div className={styles.chart}>
+                <span className={styles.block} title="57%">
+                  <span className={styles.value}>57%</span>
+                </span>
+                <span className={styles.block} title="13%">
+                  <span className={styles.value}>13%</span>
+                </span>
+                <span className={styles.block} title="8%">
+                  <span className={styles.value}>8%</span>
+                </span>
+                <span className={styles.block} title="2%">
+                  <span className={styles.value}>2%</span>
+                </span>
+                <span className={styles.block} title="17%">
+                  <span className={styles.value}>17%</span>
+                </span>
+                <span className={styles.block} title="3%">
+                  <span className={styles.value}>3%</span>
+                </span>
+              </div>
+            </div>
+
+            {/* Row 2 */}
+            <div className={styles.row}>
+              <h6>Bar Two</h6>
+              <div className={styles.chart}>
+                <span className={styles.block} title="29%">
+                  <span className={styles.value}>29%</span>
+                </span>
+                <span className={styles.block} title="21%">
+                  <span className={styles.value}>21%</span>
+                </span>
+                <span className={styles.block} title="19%">
+                  <span className={styles.value}>19%</span>
+                </span>
+                <span className={styles.block} title="6%">
+                  <span className={styles.value}>6%</span>
+                </span>
+                <span className={styles.block} title="19%">
+                  <span className={styles.value}>19%</span>
+                </span>
+                <span className={styles.block} title="6%">
+                  <span className={styles.value}>6%</span>
+                </span>
+              </div>
+            </div>
+
+            {/* Row 3 */}
+            <div className={styles.row}>
+              <h6>Bar Three</h6>
+              <div className={styles.chart}>
+                <span className={styles.block} title="8%">
+                  <span className={styles.value}>8%</span>
+                </span>
+                <span className={styles.block} title="11%">
+                  <span className={styles.value}>11%</span>
+                </span>
+                <span className={styles.block} title="34%">
+                  <span className={styles.value}>34%</span>
+                </span>
+                <span className={styles.block} title="2%">
+                  <span className={styles.value}>2%</span>
+                </span>
+                <span className={styles.block} title="32%">
+                  <span className={styles.value}>32%</span>
+                </span>
+                <span className={styles.block} title="13%">
+                  <span className={styles.value}>13%</span>
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Row 3 */}
-        <div className={styles.row}>
-          <h6>Bar Three</h6>
-          <div className={styles.chart}>
-            <span className={styles.block} title="8%">
-              <span className={styles.value}>8%</span>
-            </span>
-            <span className={styles.block} title="11%">
-              <span className={styles.value}>11%</span>
-            </span>
-            <span className={styles.block} title="34%">
-              <span className={styles.value}>34%</span>
-            </span>
-            <span className={styles.block} title="2%">
-              <span className={styles.value}>2%</span>
-            </span>
-            <span className={styles.block} title="32%">
-              <span className={styles.value}>32%</span>
-            </span>
-            <span className={styles.block} title="13%">
-              <span className={styles.value}>13%</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div className={styles["x-axis"]}>
+<div className={styles["x-axis"]}>
         <h3>X-Axis Title</h3>
         <ul className={styles.legend}>
-          <li>Category A</li>
-          <li>Category B</li>
-          <li>Category C</li>
-          <li>Category D</li>
-          <li>Category E</li>
-          <li>Category F</li>
+          <li>تکنولوژی</li>
+          <li>غذایی</li>
+          <li>آرایشی</li>
+          <li>هنری</li>
+          <li>سلامت</li>
+          <li>گردشگری</li>
+          <li>آموزش</li>
+          <li>مالی</li>
         </ul>
       </div>
-    </figure>
+
+      {/* Description section */}
+      <div className={styles.descriptionBox}>
+        <h1 className={styles.title}>نمودار مربوط به توزیع کتگوری های مختلف استارتاپ های سایت</h1>
+        <p className={styles.subtitle}>
+          استارتاپ های این سایت در 7 دسته قرار میگیرند که به شرح زیر است:
+          <br />
+          تکنولوژی، غذایی، آرایشی، هنری، سلامت، گردشگری، آموزش، مالی
+        </p>
+        <p className={styles.examples}>
+          مثال‌های بیزینسی برای هر دسته: <br />
+          - تکنولوژی: شرکت A، شرکت B <br />
+          - غذایی: شرکت C، شرکت D <br />
+          - آرایشی: شرکت E، شرکت F <br />
+          - هنری: شرکت G، شرکت H <br />
+          - سلامت: شرکت I، شرکت J <br />
+          - گردشگری: شرکت K، شرکت L <br />
+          - آموزش: شرکت M، شرکت N <br />
+          - مالی: شرکت O، شرکت P
+        </p>
+      </div>
+        </figure>
+        
+      </div>
+    </div>
   );
 };
 

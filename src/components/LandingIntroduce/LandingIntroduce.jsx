@@ -96,7 +96,6 @@ const App = () => {
       slidesTL.add(tl, isFirst ? undefined : '-=0.1');
     });
 
-    // تریگر اصلی برای مدیریت همه اسلایدها
     ScrollTrigger.create({
       animation: slidesTL,
       trigger: `.${styles['slide-container']}`,
@@ -117,7 +116,7 @@ ScrollTrigger.create({
     if (typeof window.BarChart !== 'undefined' && typeof window.BarChart.startAnimation === 'function') {
       setTimeout(() => {
         window.BarChart.startAnimation();
-      }, 2000);
+      }, 3000);
     } else {
       console.error('BarChart.startAnimation is not defined.');
     }
@@ -224,7 +223,7 @@ ScrollTrigger.create({
             className={styles['bg-img']}
             alt="Slide 2 Background"
           />
-          <BarChart /> {/* کامپوننت BarChart در اینجا استفاده شده است */}
+          <BarChart />
         </section>
 
         <section id="slide-3" className={`${styles.slide} ${styles['slide-odd']}`}>

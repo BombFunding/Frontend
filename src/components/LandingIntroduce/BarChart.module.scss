@@ -129,3 +129,28 @@ figure {
 		width: 50%;
 	}
 }
+
+.descriptionBox {
+  background-color: #ff9900; /* کادر نارنجی کمرنگ */
+  border: 1px solid #ffa500; /* حاشیه نارنجی */
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.title {
+  color: white; /* رنگ متن سفید */
+  font-size: 24px; /* فونت بزرگ */
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: white;
+  font-size: 16px; /* فونت کوچک‌تر */
+  margin-bottom: 10px;
+}
+
+.examples {
+  color: white;
+  font-size: 14px; /* فونت کوچکتر برای مثال‌ها */
+}
