@@ -8,6 +8,7 @@ import img1 from "../../assets/landing1.jpg";
 import img2 from "../../assets/landing2.jpg";
 import img3 from "../../assets/landing3.jpg";
 import img4 from "../../assets/landing4.jpg";
+import img7 from "../../assets/landing7.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -68,18 +69,27 @@ const App = () => {
 
       if (!isFirst) {
         tl.from(slide, { xPercent: 100 });
-        tl.from(slide.querySelector('h2'), {
-          duration: 0.25,
-          opacity: 0,
-          x: 100,
-        }, 0.2);
+        tl.from(
+          slide.querySelector('h2'),
+          {
+            duration: 0.25,
+            opacity: 0,
+            x: 100,
+          },
+          0.2
+        );
       }
 
-      tl.fromTo(slide.querySelector(`.${styles['bg-img']}`), {
-        xPercent: isFirst ? 0 : 8,
-      }, {
-        xPercent: -8,
-      }, 0);
+      tl.fromTo(
+        slide.querySelector(`.${styles['bg-img']}`),
+        {
+          xPercent: isFirst ? 0 : 8,
+        },
+        {
+          xPercent: -8,
+        },
+        0
+      );
 
       slidesTL.add(tl, isFirst ? undefined : '-=0.1');
     });
@@ -108,8 +118,26 @@ const App = () => {
       },
     });
 
+  function counter(id, start, end, duration) {
+    let obj = document.getElementById(id),
+      current = start,
+      range = end - start,
+      increment = end > start ? 1 : -1,
+      step = Math.abs(Math.floor(duration / range)),
+      timer = setInterval(() => {
+        current += increment;
+        obj.innerHTML = `${current}<span class="plus-sign">+</span>`;
+        if (current === end) {
+          clearInterval(timer);
+        }
+      }, step);
+  }
+    counter("count1", 0, 400, 3000);
+    counter("count2", 100, 50, 2500);
+    counter("count3", 0, 40, 3000);
+
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
@@ -152,15 +180,39 @@ const App = () => {
 </div>
 
 
-      <div className={styles['slide-container']}>
-        <section id="slide-1" className={`${styles.slide} ${styles['slide-odd']}`}>
-          <img
-            src={img2}
-            className={styles['bg-img']}
-            alt="Slide 1 Background"
-          />
-          <h2 className={styles['slide-title']}>slide 1</h2>
-        </section>
+<div className={styles['slide-container']}>
+  <section id="slide-1" className={`${styles.slide} ${styles['slide-odd']}`}>
+    <img
+      src={img2}
+      className={styles['bg-img']}
+      alt="Slide 1 Background"
+    />
+    <div className={styles['overlay']}>
+      <h1 className={styles['title']}>تعداد کاربران و موقعیت های سایت</h1>
+      <div className={`${styles['counters']} row justify-content-center text-center`}>
+        <div className="col-md-4">
+          <span id="count1" className={styles['counter']}></span>
+          <p className={styles['counter-label']}>
+            تعداد پوزیشن <span className={styles['plus-sign']}>+</span>
+          </p>
+        </div>
+        <div className="col-md-4">
+          <span id="count2" className={styles['counter']}></span>
+          <p className={styles['counter-label']}>
+            تعداد کاربران عادی <span className={styles['plus-sign']}>+</span>
+          </p>
+        </div>
+        <div className="col-md-4">
+          <span id="count3" className={styles['counter']}></span>
+          <p className={styles['counter-label']}>
+            تعداد کاربران استارتاپ <span className={styles['plus-sign']}>+</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
 
         <section id="slide-2" className={`${styles.slide} ${styles['slide-even']}`}>
           <img
