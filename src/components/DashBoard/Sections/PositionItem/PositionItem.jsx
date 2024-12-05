@@ -5,6 +5,10 @@ import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
+import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import AddPositionForm from "@/components/Forms/DashBoardForms/AddPositionForm/AddPositionForm";
+import { Edit } from "lucide-react";
+import EditPositionForm from "@/components/Forms/DashBoardForms/EditPositionForm/EditPositionForm";
 
 const PositionItem = ({ positionData }) => {
   return (
@@ -41,9 +45,19 @@ const PositionItem = ({ positionData }) => {
       </div>
       <Separator orientation="vertical" className="mx-2" />
       <div className={styles.button_box}>
-        <Button variant="default" className={styles.button_style}>
-          ویرایش
-        </Button>
+        <Drawer>
+          <DrawerTrigger>
+            <Button variant="default" className={styles.button_style}>
+              ویرایش
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <EditPositionForm />
+            <DrawerClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DrawerClose>
+          </DrawerContent>
+        </Drawer>
         <Separator className="my-1" />
         <Button variant="default" className={styles.button_style}>
           بستن
