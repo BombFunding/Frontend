@@ -111,7 +111,7 @@ const App = () => {
     });
 
 ScrollTrigger.create({
-  trigger: slides[1],
+  trigger: slides[2],
   start: 'center center',
   onEnter: () => {
     if (typeof window.BarChart !== 'undefined' && typeof window.BarChart.startAnimation === 'function') {
@@ -220,29 +220,20 @@ ScrollTrigger.create({
 
         <section id="slide-2" className={`${styles.slide} ${styles['slide-even']}`}>
           <img
+            src={img4}
+            className={styles['bg-img']}
+            alt="Slide 2 Background"
+          />
+          <h2 className={styles['slide-title']}>slide 4</h2>
+        </section>
+
+        <section id="slide-3" className={`${styles.slide} ${styles['slide-even']}`}>
+          <img
             src={img9}
             className={styles['bg-img']}
             alt="Slide 2 Background"
           />
           <BarChart />
-        </section>
-
-        <section id="slide-3" className={`${styles.slide} ${styles['slide-odd']}`}>
-          <img
-            src={img3}
-            className={styles['bg-img']}
-            alt="Slide 3 Background"
-          />
-          <h2 className={styles['slide-title']}>slide 3</h2>
-        </section>
-
-        <section id="slide-4" className={`${styles.slide} ${styles['slide-even']}`}>
-          <img
-            src={img4}
-            className={styles['bg-img']}
-            alt="Slide 4 Background"
-          />
-          <h2 className={styles['slide-title']}>slide 4</h2>
         </section>
 
       </div>
