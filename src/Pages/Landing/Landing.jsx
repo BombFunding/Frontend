@@ -104,7 +104,7 @@ const Landing = () => {
 				</InfiniteCarousel>
 				<div className="rtl flex justify-between px-5">
 					<Label className="text-black font-vazirmatn text-2xl pr-10 top-10 place-content-center">
-						جدیدترین استارت‌آپ‌ها
+						پردرآمدترین استارت‌آپ‌ها
 					</Label>
 					<button className="text-black font-vazirmatn place-content-center text-[1.1vw]"
 					onClick={()=>{}}>
