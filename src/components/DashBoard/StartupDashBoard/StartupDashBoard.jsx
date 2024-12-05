@@ -5,12 +5,29 @@ import Accounting from "@/components/Accounting/Accounting";
 import StartupProfiles from "@/components/StartupProfiles/StartupProfiles";
 import CommentSection from "@/components/CommentSection/CommentSection";
 import PersonalInfo from "@/components/PersonalInfo/PersonalInfo";
-import defaultpfp from "../../../assets/defaultpfp.png";
+import { useEffect, useState } from "react";
+import { getData } from "@/Services/ApiClient/Services";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 const StartupDashBoard = () => {
+	const [loading, setLoading] = useState(false);
+	const { setFullname, setUsername, setBio, setAvatar } = useProfileStore();
+	useEffect(() => {
+		setLoading(true);
+		getData("/startup/view_own_startup_profile/").then((data) => {
+			console.log(data.startup_profile);
+			setFullname(data.startup_profile.first_name + " " + data.startup_profile.last_name)
+			setUsername(data.startup_profile.name);
+			setBio(data.startup_profile.bio);
+			setAvatar(
+				`http://104.168.46.4:8000${data.startup_profile.profile_picture}`
+			);
+			setLoading(false);
+		});
+	}, []);
 	return (
 		<>
 			<Card className={styles.card_style}>
-				<PersonalInfo pfp={defaultpfp} />
+				<PersonalInfo loading={loading} />
 				<PositionBox />
 				<Accounting />
 				<div className={styles.position_box}>Team</div>

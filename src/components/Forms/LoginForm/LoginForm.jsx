@@ -72,9 +72,9 @@ function LoginForm() {
 			// });
 		} catch (error) {
 			// setErrors((pre) => [...pre, error.inner]);
-			console.log("er:", error.response.data.non_field_errors[0]);
+			console.log("er:", error.response?.data?.non_field_errors[0]);
 			if (
-				error.response.data?.non_field_errors[0] ===
+				error.response?.data?.non_field_errors[0] ===
 				"Email is not confirmed."
 			) {
 				toast.error(
