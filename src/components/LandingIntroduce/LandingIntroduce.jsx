@@ -10,6 +10,7 @@ import img3 from "../../assets/landing3.jpg";
 import img4 from "../../assets/landing4.jpg";
 import img7 from "../../assets/landing7.png";
 import img8 from "../../assets/landing8.png";
+import img9 from "../../assets/landing9.jpg";
 import BarChart from './BarChart';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -116,7 +117,7 @@ ScrollTrigger.create({
     if (typeof window.BarChart !== 'undefined' && typeof window.BarChart.startAnimation === 'function') {
       setTimeout(() => {
         window.BarChart.startAnimation();
-      }, 3000);
+      }, 2600);
     } else {
       console.error('BarChart.startAnimation is not defined.');
     }
@@ -219,7 +220,7 @@ ScrollTrigger.create({
 
         <section id="slide-2" className={`${styles.slide} ${styles['slide-even']}`}>
           <img
-            src={img8}
+            src={img9}
             className={styles['bg-img']}
             alt="Slide 2 Background"
           />

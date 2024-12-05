@@ -55,13 +55,12 @@ const BarChart = () => {
       <div className={styles['chart-wrapper']}>
         <figure>
           <div className={styles["y-axis"]}>
-            <h3>Y-Axis Title</h3>
           </div>
 
           <div className={styles.graphic}>
             {/* Row 1 */}
             <div className={styles.row}>
-              <h6>Bar One</h6>
+              <h6>بیشترین لایک</h6>
               <div className={styles.chart}>
                 <span className={styles.block} title="57%">
                   <span className={styles.value}>57%</span>
@@ -86,7 +85,7 @@ const BarChart = () => {
 
             {/* Row 2 */}
             <div className={styles.row}>
-              <h6>Bar Two</h6>
+              <h6>بیشترین درآمد</h6>
               <div className={styles.chart}>
                 <span className={styles.block} title="29%">
                   <span className={styles.value}>29%</span>
@@ -109,40 +108,14 @@ const BarChart = () => {
               </div>
             </div>
 
-            {/* Row 3 */}
-            <div className={styles.row}>
-              <h6>Bar Three</h6>
-              <div className={styles.chart}>
-                <span className={styles.block} title="8%">
-                  <span className={styles.value}>8%</span>
-                </span>
-                <span className={styles.block} title="11%">
-                  <span className={styles.value}>11%</span>
-                </span>
-                <span className={styles.block} title="34%">
-                  <span className={styles.value}>34%</span>
-                </span>
-                <span className={styles.block} title="2%">
-                  <span className={styles.value}>2%</span>
-                </span>
-                <span className={styles.block} title="32%">
-                  <span className={styles.value}>32%</span>
-                </span>
-                <span className={styles.block} title="13%">
-                  <span className={styles.value}>13%</span>
-                </span>
-              </div>
-            </div>
           </div>
 
 <div className={styles["x-axis"]}>
-        <h3>X-Axis Title</h3>
+        <h3>دسته بندی</h3>
         <ul className={styles.legend}>
           <li>تکنولوژی</li>
           <li>غذایی</li>
-          <li>آرایشی</li>
           <li>هنری</li>
-          <li>سلامت</li>
           <li>گردشگری</li>
           <li>آموزش</li>
           <li>مالی</li>
@@ -151,23 +124,21 @@ const BarChart = () => {
 
       {/* Description section */}
       <div className={styles.descriptionBox}>
-        <h1 className={styles.title}>نمودار مربوط به توزیع کتگوری های مختلف استارتاپ های سایت</h1>
-        <p className={styles.subtitle}>
-          استارتاپ های این سایت در 7 دسته قرار میگیرند که به شرح زیر است:
-          <br />
-          تکنولوژی، غذایی، آرایشی، هنری، سلامت، گردشگری، آموزش، مالی
-        </p>
-        <p className={styles.examples}>
-          مثال‌های بیزینسی برای هر دسته: <br />
-          - تکنولوژی: شرکت A، شرکت B <br />
-          - غذایی: شرکت C، شرکت D <br />
-          - آرایشی: شرکت E، شرکت F <br />
-          - هنری: شرکت G، شرکت H <br />
-          - سلامت: شرکت I، شرکت J <br />
-          - گردشگری: شرکت K، شرکت L <br />
-          - آموزش: شرکت M، شرکت N <br />
-          - مالی: شرکت O، شرکت P
-        </p>
+            <h1 className="font-bold text-3xl text-orange-400 mb-4">
+            بمب فاندینگ بستری برای تمام حوزه ها
+          </h1>
+        <p className="text-lg mb-1.7">
+      
+              استارتاپ های این سایت در 6 دسته زیر قرار میگیرند:
+            </p>
+        <p className="text-xl font-bold mb-1.7">
+            تکنولوژی،صنایع غذایی، هنری،صنعت گردشگری، آموزش، حوزه مالی
+
+            </p>
+        <p className="text-lg mb-1.7">
+              بمب فاندینگ استارتاپ هایی از 7 دسته بندی مختلف را شامل میشود که در بخش فیلتر میتوانید محبوب ترین و بیشترین جذب سرمایه در آن دسته را مشاهده کنید<div className=""></div>
+            </p>
+        
       </div>
         </figure>
         
