@@ -8,13 +8,14 @@ import PersonalInfo from "@/components/PersonalInfo/PersonalInfo";
 import { useEffect, useState } from "react";
 import { getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import TeamBox from "../Sections/TeamBox/TeamBox";
 const StartupDashBoard = () => {
 	const [loading, setLoading] = useState(false);
 	const { setFullname, setUsername, setBio, setAvatar } = useProfileStore();
 	useEffect(() => {
 		setLoading(true);
 		getData("/startup/view_own_startup_profile/").then((data) => {
-			console.log(data.startup_profile);
+			console.log("Startup data: ", data.startup_profile);
 			setFullname(
 				data.startup_profile.first_name +
 					" " +
@@ -33,6 +34,7 @@ const StartupDashBoard = () => {
 			<Card className={styles.card_style}>
 				<PersonalInfo loading={loading} />
 				<PositionBox />
+				<TeamBox />
 				<Accounting />
 				<div className={styles.position_box}>Team</div>
 				{/* <div className={styles.team_row}></div> */}

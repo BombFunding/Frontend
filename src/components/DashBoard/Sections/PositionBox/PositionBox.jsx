@@ -21,7 +21,7 @@ const PositionBox = () => {
           <DrawerContent>
             <AddPositionForm />
             <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button className="font-vazirmatn" variant="outline">بازگشت</Button>
             </DrawerClose>
           </DrawerContent>
         </Drawer>

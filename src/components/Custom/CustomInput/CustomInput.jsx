@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import styles from './CustomInput.module.scss'
 function CustomInput({
 	placeholder,
 	autofocus,
@@ -22,15 +22,15 @@ function CustomInput({
 						onChange(e.target.value);
 					}}
 					onKeyDown={(e) => onKey(e)}
-					className="peer block border-solid border-2 border-bomborange rounded-lg bg-gray-100 px-4 pb-2 pt-2.5
-                    text-black text-left transition duration-150 ease-in-out focus:outline-none focus:border-bomborange"
+					className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
+                    text-black text-left transition duration-150 ease-in-out focus:outline-none focus:border-bomborange`}
 				/>
 				<label
 					className={`${
 						!empty && "-translate-y-[35px] px-[5px]"
 					} absolute rounded-full right-4 peer-focus:px-[5px] pointer-events-none text-sm top-3
                     text-gray-500 transition-all peer-focus:-translate-y-[35px] peer-focus:right-1 
-                    peer-focus:scale-[70%] peer-valid:bg-gray-100 peer-focus:text-gray-500 ${className}`}
+                    peer-focus:scale-[70%] peer-valid:bg-white peer-focus:text-gray-500 ${className}`}
 				>
 					{placeholder}
 				</label>
