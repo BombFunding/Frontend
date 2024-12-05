@@ -9,9 +9,10 @@ import img2 from "../../assets/landing2.jpg";
 import img3 from "../../assets/landing3.jpg";
 import img4 from "../../assets/landing4.jpg";
 import img7 from "../../assets/landing7.png";
+import img8 from "../../assets/landing8.png";
+import BarChart from './BarChart';
 
 gsap.registerPlugin(ScrollTrigger);
-
 const App = () => {
   useEffect(() => {
     const lenis = new Lenis();
@@ -91,10 +92,19 @@ const App = () => {
         0
       );
 
+      // Check for Slide 2 and start BarChart animation after its timeline completes
+      if (slide.id === "slide-2") {
+        tl.call(() => {
+          if (typeof BarChart.startAnimation === "function") {
+            BarChart.startAnimation();
+          }
+        });
+      }
+
       slidesTL.add(tl, isFirst ? undefined : '-=0.1');
     });
 
-    ScrollTrigger.create({
+ ScrollTrigger.create({
       animation: slidesTL,
       trigger: `.${styles['slide-container']}`,
       start: 'top top',
@@ -107,6 +117,19 @@ const App = () => {
       },
     });
 
+    // Trigger BarChart animation after Slide 2 animation finishes
+    ScrollTrigger.create({
+      trigger: slides[2], // Slide 2
+      start: 'center center', // Adjust based on when you want the BarChart to start
+      onEnter: () => {
+        // Call the BarChart animation function
+        if (typeof BarChart.startAnimation === 'function') {
+          BarChart.startAnimation();
+        } else {
+          console.error('BarChart.startAnimation is not defined.');
+        }
+      },
+    });
     gsap.from('footer h2', {
       opacity: 0,
       y: 100,
@@ -118,20 +141,21 @@ const App = () => {
       },
     });
 
-  function counter(id, start, end, duration) {
-    let obj = document.getElementById(id),
-      current = start,
-      range = end - start,
-      increment = end > start ? 1 : -1,
-      step = Math.abs(Math.floor(duration / range)),
-      timer = setInterval(() => {
-        current += increment;
-        obj.innerHTML = `${current}<span class="plus-sign">+</span>`;
-        if (current === end) {
-          clearInterval(timer);
-        }
-      }, step);
-  }
+    function counter(id, start, end, duration) {
+      let obj = document.getElementById(id),
+        current = start,
+        range = end - start,
+        increment = end > start ? 1 : -1,
+        step = Math.abs(Math.floor(duration / range)),
+        timer = setInterval(() => {
+          current += increment;
+          obj.innerHTML = `${current}<span class="plus-sign">+</span>`;
+          if (current === end) {
+            clearInterval(timer);
+          }
+        }, step);
+    }
+
     counter("count1", 0, 400, 3000);
     counter("count2", 100, 50, 2500);
     counter("count3", 0, 40, 3000);
@@ -214,15 +238,15 @@ const App = () => {
 
 
 
-        <section id="slide-2" className={`${styles.slide} ${styles['slide-even']}`}>
-          <img
-            src={img2}
-            className={styles['bg-img']}
-            alt="Slide 2 Background"
-          />
-          <h2 className={styles['slide-title']}>slide 2</h2>
+    <section id="slide-2" className={`${styles.slide} ${styles['slide-even']}`}>
+      <img
+        src={img8}
+        className={styles['bg-img']}
+        alt="Slide 2 Background"
+      />
+      <BarChart /> {/* کامپوننت BarChart در اینجا استفاده شده است */}
         </section>
-
+        
         <section id="slide-3" className={`${styles.slide} ${styles['slide-odd']}`}>
           <img
             src={img3}
