@@ -1,6 +1,6 @@
 import styles from "./StartupDashBoard.module.scss";
 import { Card } from "@/components/ui/card";
-import PositionBox from "../PositionBox/PositionBox";
+import PositionBox from "../Sections/PositionBox/PositionBox";
 import Accounting from "@/components/Accounting/Accounting";
 import StartupProfiles from "@/components/StartupProfiles/StartupProfiles";
 import CommentSection from "@/components/CommentSection/CommentSection";
@@ -15,7 +15,11 @@ const StartupDashBoard = () => {
 		setLoading(true);
 		getData("/startup/view_own_startup_profile/").then((data) => {
 			console.log(data.startup_profile);
-			setFullname(data.startup_profile.first_name + " " + data.startup_profile.last_name)
+			setFullname(
+				data.startup_profile.first_name +
+					" " +
+					data.startup_profile.last_name
+			);
 			setUsername(data.startup_profile.name);
 			setBio(data.startup_profile.bio);
 			setAvatar(
