@@ -117,11 +117,13 @@ ScrollTrigger.create({
     if (typeof window.BarChart !== 'undefined' && typeof window.BarChart.startAnimation === 'function') {
       setTimeout(() => {
         window.BarChart.startAnimation();
-      }, 2600);
+      }, 3300);
     } else {
       console.error('BarChart.startAnimation is not defined.');
     }
   },
+
+  
 });
 
     function counter(id, start, end, duration) {
@@ -224,14 +226,14 @@ ScrollTrigger.create({
             className={styles['bg-img']}
             alt="Slide 2 Background"
           />
-          <h2 className={styles['slide-title']}>slide 4</h2>
+          <h2 className={styles['slide-title']}>نمودار توزیع کتگوری های استارتاپ ها احتمالا</h2>
         </section>
 
         <section id="slide-3" className={`${styles.slide} ${styles['slide-even']}`}>
           <img
             src={img9}
             className={styles['bg-img']}
-            alt="Slide 2 Background"
+            alt="Slide 3 Background"
           />
           <BarChart />
         </section>
