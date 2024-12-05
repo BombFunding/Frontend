@@ -13,6 +13,7 @@ import img8 from "../../assets/landing8.png";
 import BarChart from './BarChart';
 
 gsap.registerPlugin(ScrollTrigger);
+
 const App = () => {
   useEffect(() => {
     const lenis = new Lenis();
@@ -92,19 +93,11 @@ const App = () => {
         0
       );
 
-      // Check for Slide 2 and start BarChart animation after its timeline completes
-      if (slide.id === "slide-2") {
-        tl.call(() => {
-          if (typeof BarChart.startAnimation === "function") {
-            BarChart.startAnimation();
-          }
-        });
-      }
-
       slidesTL.add(tl, isFirst ? undefined : '-=0.1');
     });
 
- ScrollTrigger.create({
+    // تریگر اصلی برای مدیریت همه اسلایدها
+    ScrollTrigger.create({
       animation: slidesTL,
       trigger: `.${styles['slide-container']}`,
       start: 'top top',
@@ -117,27 +110,16 @@ const App = () => {
       },
     });
 
-    // Trigger BarChart animation after Slide 2 animation finishes
+    // تریگر انیمیشن پس از اسلاید 2
     ScrollTrigger.create({
-      trigger: slides[2], // Slide 2
-      start: 'center center', // Adjust based on when you want the BarChart to start
+      trigger: slides[1], // اسلاید 2
+      start: 'center center',
       onEnter: () => {
-        // Call the BarChart animation function
-        if (typeof BarChart.startAnimation === 'function') {
-          BarChart.startAnimation();
+        if (typeof window.BarChart !== 'undefined' && typeof window.BarChart.startAnimation === 'function') {
+          window.BarChart.startAnimation();
         } else {
           console.error('BarChart.startAnimation is not defined.');
         }
-      },
-    });
-    gsap.from('footer h2', {
-      opacity: 0,
-      y: 100,
-      duration: 0.6,
-      scrollTrigger: {
-        trigger: 'footer',
-        toggleActions: 'play none none reset',
-        start: 'center bottom',
       },
     });
 
@@ -174,79 +156,76 @@ const App = () => {
       </header>
 
       <div className={styles.intro}>
-  <div className={styles.visual}>
-    <img
-      src={img1}
+        <div className={styles.visual}>
+          <img
+            src={img1}
             className={`${styles['bg-img']} ${styles['bg-overlay']}`}
-      alt="Intro Background"
-    />
-  </div>
-  <div className={styles.content}>
-    <h1 className={`${styles.title} font-vazirmatn text-[3vw] text-right`}>
-جایی که ایده ها زنده میشوند...
-    </h1>
-    <p className="font-vazirmatn text-[1.2vw] mt-4 text-right">
-      همین امروز بیزینس خودتو شروع کن و به جمع صدها استارتاپ موفق در بمب فاندینگ بپیوند.
-    </p>
-    <p className="font-vazirmatn text-[1.2vw] mt-4 text-right">
+            alt="Intro Background"
+          />
+        </div>
+        <div className={styles.content}>
+          <h1 className={`${styles.title} font-vazirmatn text-[3vw] text-right`}>
+            جایی که ایده ها زنده میشوند...
+          </h1>
+          <p className="font-vazirmatn text-[1.2vw] mt-4 text-right">
+            همین امروز بیزینس خودتو شروع کن و به جمع صدها استارتاپ موفق در بمب فاندینگ بپیوند.
+          </p>
+          <p className="font-vazirmatn text-[1.2vw] mt-4 text-right">
             بمب فاندینگ، پلتفرمی برای ارتباط با سرمایه گذاران ، کارآفرینان و حمایت کنندگان.
-      چه ایده بزرگی داشته باشی چه کوچک، اینجا جایی برای توست...      
+            چه ایده بزرگی داشته باشی چه کوچک، اینجا جایی برای توست...
           </p>
-    <div className="mt-8 flex gap-4 flex-wrap">
-      <button className="btn font-vazirmatn text-black bg-bomborange hover:text-white text-[0.9vw] w-[10vw] h-[2vw]">
-        ایجاد موقعیت جدید
-      </button>
-      <button className="btn font-vazirmatn text-black bg-bomborange hover:text-white text-[0.9vw] w-[8vw] h-[3vw]">
-        کشف پروژه‌ها
-      </button>
-    </div>
-  </div>
-</div>
-
-
-<div className={styles['slide-container']}>
-  <section id="slide-1" className={`${styles.slide} ${styles['slide-odd']}`}>
-    <img
-      src={img2}
-      className={styles['bg-img']}
-      alt="Slide 1 Background"
-    />
-    <div className={styles['overlay']}>
-      <h1 className={styles['title']}>تعداد کاربران و موقعیت های سایت</h1>
-      <div className={`${styles['counters']} row justify-content-center text-center`}>
-        <div className="col-md-4">
-          <span id="count1" className={styles['counter']}></span>
-          <p className={styles['counter-label']}>
-            تعداد پوزیشن <span className={styles['plus-sign']}>+</span>
-          </p>
-        </div>
-        <div className="col-md-4">
-          <span id="count2" className={styles['counter']}></span>
-          <p className={styles['counter-label']}>
-            تعداد کاربران عادی <span className={styles['plus-sign']}>+</span>
-          </p>
-        </div>
-        <div className="col-md-4">
-          <span id="count3" className={styles['counter']}></span>
-          <p className={styles['counter-label']}>
-            تعداد کاربران استارتاپ <span className={styles['plus-sign']}>+</span>
-          </p>
+          <div className="mt-8 flex gap-4 flex-wrap">
+            <button className="btn font-vazirmatn text-black bg-bomborange hover:text-white text-[0.9vw] w-[10vw] h-[2vw]">
+              ایجاد موقعیت جدید
+            </button>
+            <button className="btn font-vazirmatn text-black bg-bomborange hover:text-white text-[0.9vw] w-[8vw] h-[3vw]">
+              کشف پروژه‌ها
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
 
-
-
-    <section id="slide-2" className={`${styles.slide} ${styles['slide-even']}`}>
-      <img
-        src={img8}
-        className={styles['bg-img']}
-        alt="Slide 2 Background"
-      />
-      <BarChart /> {/* کامپوننت BarChart در اینجا استفاده شده است */}
+      <div className={styles['slide-container']}>
+        <section id="slide-1" className={`${styles.slide} ${styles['slide-odd']}`}>
+          <img
+            src={img2}
+            className={styles['bg-img']}
+            alt="Slide 1 Background"
+          />
+          <div className={styles['overlay']}>
+            <h1 className={styles['title']}>تعداد کاربران و موقعیت های سایت</h1>
+            <div className={`${styles['counters']} row justify-content-center text-center`}>
+              <div className="col-md-4">
+                <span id="count1" className={styles['counter']}></span>
+                <p className={styles['counter-label']}>
+                  تعداد پوزیشن <span className={styles['plus-sign']}>+</span>
+                </p>
+              </div>
+              <div className="col-md-4">
+                <span id="count2" className={styles['counter']}></span>
+                <p className={styles['counter-label']}>
+                  تعداد کاربران عادی <span className={styles['plus-sign']}>+</span>
+                </p>
+              </div>
+              <div className="col-md-4">
+                <span id="count3" className={styles['counter']}></span>
+                <p className={styles['counter-label']}>
+                  تعداد کاربران استارتاپ <span className={styles['plus-sign']}>+</span>
+                </p>
+              </div>
+            </div>
+          </div>
         </section>
-        
+
+        <section id="slide-2" className={`${styles.slide} ${styles['slide-even']}`}>
+          <img
+            src={img8}
+            className={styles['bg-img']}
+            alt="Slide 2 Background"
+          />
+          <BarChart /> {/* کامپوننت BarChart در اینجا استفاده شده است */}
+        </section>
+
         <section id="slide-3" className={`${styles.slide} ${styles['slide-odd']}`}>
           <img
             src={img3}
@@ -265,11 +244,7 @@ const App = () => {
           <h2 className={styles['slide-title']}>slide 4</h2>
         </section>
 
-        <div className={styles['slide-progress']}>
-          <span className={styles['progress-thumb']} />
-        </div>
       </div>
-
     </>
   );
 };
