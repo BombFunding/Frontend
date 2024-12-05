@@ -6,6 +6,7 @@ import useTokenStore from "@/stores/TokenStore";
 import styles from "./Navbar.module.scss";
 import PushyButton from "../Custom/PushyButton/PushyButton";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu.jsx";
+import NavbarDropDown from "../NavbarDropdown/NavbarDropDown";
 import { useState } from "react";
 function Navbar() {
   const Navigate = useNavigate();
@@ -13,10 +14,10 @@ function Navbar() {
   const TOKEN = useTokenStore((state) => state.accessToken);
   return (
     <nav
-      className={`bg-${
-        !isOpen ? "bomborange" : "neutral-950"
-      } flex justify-around w-screen h-12 top-0 fixed right-0 z-50`}
+      className={`flex justify-around bg-bomborange
+ w-screen h-24 top-0 fixed right-0 z-50 gap-1`}
     >
+<div className="flex bg-bomborange w-screen h-12 fixed">
       <div className="container px-4 py-6 flex justify-between items-center">
         <div
           className="flex text-white hover:cursor-pointer"
@@ -44,6 +45,9 @@ function Navbar() {
           )}
         </div>
         <HamburgerMenu isOpen={isOpen} setOpen={setOpen} mode={"sm:hidden"} />
+ </div>
+      <div className="h-12">
+        <NavbarDropDown />
       </div>
     </nav>
   );
