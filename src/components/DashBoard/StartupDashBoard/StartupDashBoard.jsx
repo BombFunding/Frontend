@@ -4,10 +4,13 @@ import PositionBox from "../PositionBox/PositionBox";
 import Accounting from "@/components/Accounting/Accounting";
 import StartupProfiles from "@/components/StartupProfiles/StartupProfiles";
 import CommentSection from "@/components/CommentSection/CommentSection";
+import PersonalInfo from "@/components/PersonalInfo/PersonalInfo";
+import defaultpfp from "../../../assets/defaultpfp.png";
 const StartupDashBoard = () => {
 	return (
 		<>
 			<Card className={styles.card_style}>
+				<PersonalInfo pfp={defaultpfp} />
 				<PositionBox />
 				<Accounting />
 				<div className={styles.position_box}>Team</div>
