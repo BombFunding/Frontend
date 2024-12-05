@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 function NavbarDropDown() {
   return (
-    <div className="flex h-12 w-full justify-start bg-bomborange pt-14 text-neutral-200 md:justify-center">
+    <div className="flex h-12 w-full justify-center bg-bomborange pt-2 text-neutral-200 md:justify-center">
       <Tabs />
     </div>
   );
