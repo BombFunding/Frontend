@@ -16,7 +16,9 @@ const PositionBox = () => {
       <div className={styles.create_position}>
         <Drawer>
           <DrawerTrigger>
-            <Button variant="default" className="m-2">ساخت پوزیشن جدید</Button>
+            <Button variant="default" className="m-2">
+              ساخت پوزیشن جدید
+            </Button>
           </DrawerTrigger>
           <DrawerContent>
             <AddPositionForm />
