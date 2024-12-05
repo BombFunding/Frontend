@@ -110,18 +110,19 @@ const App = () => {
       },
     });
 
-    // تریگر انیمیشن پس از اسلاید 2
-    ScrollTrigger.create({
-      trigger: slides[1], // اسلاید 2
-      start: 'center center',
-      onEnter: () => {
-        if (typeof window.BarChart !== 'undefined' && typeof window.BarChart.startAnimation === 'function') {
-          window.BarChart.startAnimation();
-        } else {
-          console.error('BarChart.startAnimation is not defined.');
-        }
-      },
-    });
+ScrollTrigger.create({
+  trigger: slides[1],
+  start: 'center center',
+  onEnter: () => {
+    if (typeof window.BarChart !== 'undefined' && typeof window.BarChart.startAnimation === 'function') {
+      setTimeout(() => {
+        window.BarChart.startAnimation();
+      }, 2000);
+    } else {
+      console.error('BarChart.startAnimation is not defined.');
+    }
+  },
+});
 
     function counter(id, start, end, duration) {
       let obj = document.getElementById(id),

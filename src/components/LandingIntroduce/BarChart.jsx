@@ -33,6 +33,7 @@ const BarChart = () => {
     blocks.forEach((block) => {
       block.setAttribute('title', block.getAttribute('title'));
     });
+
   }, []);
 
   // Attach animation functions to the global scope for the ScrollTrigger
