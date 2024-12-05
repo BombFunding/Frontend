@@ -111,11 +111,11 @@ footer {
 
 .intro {
   position: relative;
-  height: 90vh; /* ارتفاع برای کل صفحه */
+  height: 90vh; 
   display: flex;
-  align-items: flex-start; /* بالاتر از مرکز */
-  justify-content: flex-start; /* در سمت چپ صفحه */
-  padding: 10% 5%; /* فاصله از بالا و طرفین */
+  align-items: flex-start; 
+  justify-content: flex-start;
+  padding: 10% 5%; 
 }
 
 .visual {
@@ -180,12 +180,12 @@ button:hover {
 
 .centered-text {
   position: absolute;
-  top: 50%; /* قرار دادن متن در وسط عمودی */
-  left: 50%; /* قرار دادن متن در وسط افقی */
-  transform: translate(-50%, -50%); /* تراز کردن مرکز */
-  color: white; /* رنگ متن */
-  text-align: center; /* متن را وسط‌چین می‌کند */
-  z-index: 2; /* مطمئن می‌شود متن بالاتر از تصویر پس‌زمینه است */
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  color: white; 
+  text-align: center; 
+  z-index: 2;
 }
 
 
