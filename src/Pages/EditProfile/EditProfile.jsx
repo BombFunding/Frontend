@@ -23,6 +23,8 @@ import {
 	postImageData,
 } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import useTokenStore from "@/stores/TokenStore";
 
 const schema = yup.object().shape({
 	firstName: yup.string().optional().nullable(),
@@ -72,6 +74,7 @@ const schema = yup.object().shape({
 });
 
 const EditProfile = () => {
+	const userType = useTokenStore((state) => state.userType);
 	const {
 		register,
 		handleSubmit,
@@ -98,35 +101,37 @@ const EditProfile = () => {
 			//     Pragma: "no-cache",
 			//   },
 			// });
-			await getData("/startup/view_own_startup_profile/")
-				.then((data) => {
-					console.log(data);
-					const profile = data.startup_profile;
-					console.log("recived profile: ", profile);
-					setBannerFile(
-						`http://104.168.46.4:8000${profile.header_picture}`
-					);
-					setAvatarFile(
-						`http://104.168.46.4:8000${profile.profile_picture}`
-					);
-					const profileInfo_ = {
-						firstName: profile.first_name ?? "",
-						lastName: profile.last_name ?? "",
-						phoneNumber: profile.phone ?? "",
-						bio: profile.bio ?? "",
-						telegramAccount: profile.socials?.telegram ?? "",
-						linkedinAccount: profile.socials?.linkedin ?? "",
-						twitterAccount: profile.socials?.twitter ?? "",
-						website: profile.socials?.website ?? "",
-						email: profile.email ?? "",
-					};
-					setProfileInfo(profileInfo_);
-					reset(profileInfo_);
-					setLoading(false);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
+			if (userType === "startup") {
+				await getData("/auth/view_own_baseuser_profile/")
+					.then((data) => {
+						console.log("data: ", data);
+						const profile = data.base_profile;
+						console.log("recived profile: ", profile);
+						setBannerFile(
+							`http://104.168.46.4:8000${profile.header_picture}`
+						);
+						setAvatarFile(
+							`http://104.168.46.4:8000${profile.profile_picture}`
+						);
+						const profileInfo_ = {
+							firstName: profile.first_name ?? "",
+							lastName: profile.last_name ?? "",
+							phoneNumber: profile.phone ?? "",
+							bio: profile.bio ?? "",
+							telegramAccount: profile.socials?.telegram ?? "",
+							linkedinAccount: profile.socials?.linkedin ?? "",
+							twitterAccount: profile.socials?.twitter ?? "",
+							website: profile.socials?.website ?? "",
+							email: profile.email ?? "",
+						};
+						setProfileInfo(profileInfo_);
+						reset(profileInfo_);
+						setLoading(false);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			}
 		};
 
 		fetchDefaultValues();

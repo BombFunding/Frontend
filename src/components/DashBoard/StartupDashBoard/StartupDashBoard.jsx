@@ -10,28 +10,29 @@ import { getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import TeamBox from "../Sections/TeamBox/TeamBox";
 import { Label } from "@/components/ui/label";
-import PromotionBox from "../Sections/PromotionBox/PromotionBox";
 import { Loading } from "@/components/Loading/Loading";
 const StartupDashBoard = () => {
 	const [loading, setLoading] = useState(false);
-	const { setFullname, setUsername, setBio, setAvatar, setHeader } =
+	const { username, setFullname, setUsername, setBio, setAvatar, setHeader } =
 		useProfileStore();
+	console.log(useProfileStore());
 	useEffect(() => {
 		setLoading(true);
-		getData("/startup/view_own_startup_profile/").then((data) => {
-			console.log("Startup data: ", data.startup_profile);
+		// getData("/startup/view_own_startup_profile/").then((data) => {
+		getData(`/auth/view_own_baseuser_profile/`).then((data) => {
+			console.log("Startup data: ", data.base_profile);
 			setFullname(
-				data.startup_profile.first_name +
+				data.base_profile.first_name +
 					" " +
-					data.startup_profile.last_name
+					data.base_profile.last_name
 			);
-			setUsername(data.startup_profile.name);
-			setBio(data.startup_profile.bio);
+			setUsername(data.base_profile.name);
+			setBio(data.base_profile.bio);
 			setAvatar(
-				`http://104.168.46.4:8000${data.startup_profile.profile_picture}`
+				`http://104.168.46.4:8000${data.base_profile.profile_picture}`
 			);
 			setHeader(
-				`http://104.168.46.4:8000${data.startup_profile.header_picture}`
+				`http://104.168.46.4:8000${data.base_profile.header_picture}`
 			);
 			setLoading(false);
 		});
