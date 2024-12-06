@@ -1,0 +1,13 @@
+.position_box {
+	@apply h-[350px] flex flex-col justify-start items-center rounded-lg p-0 overflow-y-auto !important;
+	border: 2px solid #ff7517 !important;
+}
+
+.position_list {
+	@apply flex flex-col justify-between items-center gap-2 mt-2 !important;
+}
+
+.create_position
+{
+  @apply sticky top-0 bg-white w-full z-20 h-full text-center;
+}

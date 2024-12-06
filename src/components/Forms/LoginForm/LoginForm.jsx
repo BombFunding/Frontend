@@ -45,6 +45,7 @@ function LoginForm() {
 			await postData("/auth/login/", bodyData).then((response) => {
 				TokenManager.updateAccessToken(response.access_token);
 				TokenManager.updateRefreshToken(response.refresh_token);
+				TokenManager.updateUserType(response.user_type);
 				toast.success(
 					<CustomToast Header="با موفقیت وارد سایت شدید" />
 				);
