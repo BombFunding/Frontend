@@ -17,74 +17,64 @@ import ChargeAccount from "@/Pages/ChargeAccount/ChargeAccount";
 import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
 
 export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <PublicLayout />,
-    errorElement: <Error />,
-    children: [
-      {
-        index: true,
-        element: <Landing />,
-      },
-      {
-        path: "/DashBoard",
-        element: <DashBoard />,
-      },
-      {
-        path: "/DashBoard/invest",
-        element: <InvestorDashBoard />,
-      },
-
-      {
-        path: "/ChargeAccount",
-        element: <ChargeAccount />,
-      },
-    ],
-  },
-  {
-    element: <PrivateLayout />,
-    children: [
-      {
-        path: "/test",
-        element: <Navbar />,
-      },
-      {
-        path: "/EditProfile",
-        element: <EditProfile />,
-      },
-      {
-        path: "/Profile/:username",
-        element: <Profile />,
-      },
-      //   {
-      //     path: "/DashBoard",
-      //     element: <DashBoard />,
-      //   },
-    ],
-  },
-  {
-    element: <NoNavbarLayout />,
-    children: [
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/signup",
-        element: <Signup />,
-      },
-      {
-        path: "/emailverification",
-        element: <EmailVerification />,
-      },
-      {
-        path: "/forgetpassword",
-        element: <ForgetPassword />,
-      },
-      {
-        path: "/reset-password/:uid/:token",
-        element: <ChangePassword />,
-      },
-    ],
-  },
+	{
+		path: "/",
+		element: <PublicLayout />,
+		errorElement: <Error />,
+		children: [
+			{
+				index: true,
+				element: <Landing />,
+			},
+			{
+				path: "/Profile/:username",
+				element: <Profile />,
+			},
+			{
+				path: "/login",
+				element: <Login />,
+			},
+			{
+				path: "/signup",
+				element: <Signup />,
+			},
+			{
+				path: "/emailverification",
+				element: <EmailVerification />,
+			},
+			{
+				path: "/forgetpassword",
+				element: <ForgetPassword />,
+			},
+			{
+				path: "/reset-password/:uid/:token",
+				element: <ChangePassword />,
+			},
+		],
+	},
+	{
+		element: <PrivateLayout />,
+		children: [
+			{
+				path: "/test",
+				element: <Navbar />,
+			},
+			{
+				path: "/EditProfile",
+				element: <EditProfile />,
+			},
+			{
+				path: "/DashBoard",
+				element: <DashBoard />,
+			},
+			{
+				path: "/ChargeAccount",
+				element: <ChargeAccount />,
+			},
+		],
+	},
+	{
+		element: <NoNavbarLayout />,
+		children: [],
+	},
 ]);
