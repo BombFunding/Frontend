@@ -1,0 +1,79 @@
+.container {
+	@apply my-10;
+	align-items: center;
+	background: #e3e3e3;
+	display: flex;
+	overflow: hidden;
+	justify-content: center;
+}
+
+@mixin white-gradient {
+	background: linear-gradient(
+		to right,
+		rgba(255, 255, 255, 1) 0%,
+		rgba(255, 255, 255, 0) 100%
+	);
+}
+
+$animationSpeed: 8s;
+$count: 10;
+$w: 10rem;
+
+@keyframes scroll {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(calc(-1 * $w * $count));
+	}
+}
+
+.slider {
+	@apply w-screen;
+	background: white;
+	box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.125);
+	height: 12rem;
+	overflow: hidden;
+	position: relative;
+
+	&::before,
+	&::after {
+		@include white-gradient;
+		content: "";
+		height: 12rem;
+		position: absolute;
+		width: 8rem;
+		z-index: 2;
+	}
+
+	&::after {
+		right: 0;
+		top: 0;
+		transform: rotateZ(180deg);
+	}
+
+	&::before {
+		left: 0;
+		top: 0;
+	}
+
+	.slide_track {
+		@apply place-self-start;
+		animation: scroll $animationSpeed linear infinite;
+		display: flex;
+		width: calc($w * 2 * $count);
+	}
+
+	.slide {
+		@apply place-content-center align-middle place-items-center items-center;
+	}
+
+	.image {
+		@apply rounded-full p-[1vw];
+		width: $w;
+		height: $w;
+	}
+	.text {
+		color: black;
+	}
+}

@@ -73,16 +73,13 @@ function LoginForm() {
 			// });
 		} catch (error) {
 			// setErrors((pre) => [...pre, error.inner]);
-			// console.log("er:", error.response?.data.error[0]);
-
+			// console.log("er:", error.response?.data?.non_field_errors[0]);
 			if (error.response?.data?.non_field_errors) {
 				toast.error(
 					<CustomToast Header="لطفا ایمیل خود را تایید کنید" />
 				);
 			} else if (error.response?.data?.error) {
-				toast.error(
-					<CustomToast Header="این حساب کاربری وجود ندارد" />
-				);
+				toast.error(<CustomToast Header="حساب کاربری وجود ندارد" />);
 			} else {
 				toast.error(
 					<CustomToast Header="نام کاربری یا رمز عبور اشتباه است" />
