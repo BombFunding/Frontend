@@ -69,7 +69,9 @@ $w: 10rem;
 	}
 
 	.image {
+		@apply rounded-full p-[1vw];
 		width: $w;
+		height: $w;
 	}
 	.text {
 		color: black;

@@ -15,7 +15,24 @@ import teamwork1 from "../../assets/teamwork1.png";
 import howtouse from "../../assets/howtouse.png";
 import { Label } from "@radix-ui/react-label";
 import styles from "./Landing.module.scss";
+import { useEffect, useState } from "react";
+import { getData } from "@/Services/ApiClient/Services";
 const Landing = () => {
+	const [topFunded, setTopFunded] = useState([]);
+	const [topVisited, setTopVisited] = useState([]);
+	useEffect(() => {
+		getData("/landing/get_statistics/").then((data) => {
+			console.log(data);
+		});
+		getData("/landing/top_funded_startups/").then((data) => {
+			console.log("topFunded: ", data);
+			setTopFunded(data);
+		});
+		getData("/landing/top_visited_startups/").then((data) => {
+			console.log("topVisited: ", data);
+			setTopVisited(data);
+		});
+	}, []);
 	return (
 		<>
 			<div className="flex p-10">
@@ -108,38 +125,53 @@ const Landing = () => {
 					<Label className="text-black font-vazirmatn text-2xl pr-10 top-10 place-content-center">
 						پربازدیدترین استارت‌آپ‌ها
 					</Label>
-					<button className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
-					onClick={()=>{}}>
+					<button
+						className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
+						onClick={() => {}}
+					>
+						دیدن بیشتر...
+					</button>
+				</div>
+				<InfiniteCarousel items={topVisited} />
+				{/* <div className="rtl flex justify-between px-5">
+					<Label className="text-black font-vazirmatn text-2xl pr-10 top-10 place-content-center">
+						محبوب‌ترین استارت‌آپ‌ها
+					</Label>
+					<button
+						className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
+						onClick={() => {}}
+					>
 						دیدن بیشتر...
 					</button>
 				</div>
 				<InfiniteCarousel>
-				<div>{[logo1, logo2, logo4, logo7, logo10, logo3, logo9, logo6, logo5, logo8]}</div>
-				</InfiniteCarousel>
+					<div>
+						{[
+							logo1,
+							logo2,
+							logo4,
+							logo7,
+							logo10,
+							logo3,
+							logo9,
+							logo6,
+							logo5,
+							logo8,
+						]}
+					</div>
+				</InfiniteCarousel> */}
 				<div className="rtl flex justify-between px-5">
 					<Label className="text-black font-vazirmatn text-2xl pr-10 top-10 place-content-center">
-					محبوب‌ترین استارت‌آپ‌ها
+						جذاب‌ترین استارت‌آپ‌ها
 					</Label>
-					<button className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
-					onClick={()=>{}}>
+					<button
+						className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
+						onClick={() => {}}
+					>
 						دیدن بیشتر...
 					</button>
 				</div>
-				<InfiniteCarousel>
-				<div>{[logo1, logo2, logo4, logo7, logo10, logo3, logo9, logo6, logo5, logo8]}</div>
-				</InfiniteCarousel>
-				<div className="rtl flex justify-between px-5">
-					<Label className="text-black font-vazirmatn text-2xl pr-10 top-10 place-content-center">
-						جدیدترین استارت‌آپ‌ها
-					</Label>
-					<button className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
-					onClick={()=>{}}>
-						دیدن بیشتر...
-					</button>
-				</div>
-				<InfiniteCarousel>
-					<div>{[logo1, logo2, logo4, logo7, logo10, logo3, logo9, logo6, logo5, logo8]}</div>
-				</InfiniteCarousel>
+				<InfiniteCarousel items={topFunded} />
 			</div>
 		</>
 	);

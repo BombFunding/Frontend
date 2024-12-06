@@ -72,13 +72,14 @@ function LoginForm() {
 			// });
 		} catch (error) {
 			// setErrors((pre) => [...pre, error.inner]);
-			console.log("er:", error.response.data.non_field_errors[0]);
-			if (
-				error.response.data?.non_field_errors[0] ===
-				"Email is not confirmed."
-			) {
+			// console.log("er:", error.response?.data?.non_field_errors[0]);
+			if (error.response?.data?.non_field_errors) {
 				toast.error(
 					<CustomToast Header="لطفا ایمیل خود را تایید کنید" />
+				);
+			} else if (error.response?.data?.error) {
+				toast.error(
+					<CustomToast Header="این حساب کاربری وجود ندارد" />
 				);
 			} else {
 				toast.error(
