@@ -179,10 +179,10 @@ ScrollTrigger.create({
           </p>
           <div className="mt-8 flex gap-4 flex-wrap">
             <button className="btn font-vazirmatn text-black bg-bomborange hover:text-white text-[0.9vw] w-[10vw] h-[2vw]">
-              ایجاد موقعیت جدید
+              کشف پروژه‌ها
             </button>
             <button className="btn font-vazirmatn text-black bg-bomborange hover:text-white text-[0.9vw] w-[8vw] h-[3vw]">
-              کشف پروژه‌ها
+              ثبت نام
             </button>
           </div>
         </div>
