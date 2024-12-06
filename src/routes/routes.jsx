@@ -15,6 +15,7 @@ import Profile from "@/Pages/Profile/Profile";
 import DashBoard from "@/Pages/DashBoard/DashBoard.jsx";
 import ChargeAccount from "@/Pages/ChargeAccount/ChargeAccount";
 import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
+import StartupProfile from "@/components/Profile/Startup/Startup";
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: "/ChargeAccount",
         element: <ChargeAccount />,
+      },
+      {
+        path: "/temp",
+        element: <StartupProfile />,
       },
     ],
   },
