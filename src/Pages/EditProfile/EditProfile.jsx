@@ -165,7 +165,7 @@ const EditProfile = () => {
 		};
 		const updateData = async (bodyData) => {
 			console.log("bodyData: ", bodyData);
-			await postData("/startup/update_startup_profile/", bodyData)
+			await postData("/auth/update_baseuser_profile/", bodyData)
 				.then((data) => {
 					console.log("Data posted successfully:", data);
 					toast.success(
@@ -176,7 +176,7 @@ const EditProfile = () => {
 				})
 				.catch((error) => {
 					console.log("Data posting FAILED:", error);
-					toast.success(
+					toast.error(
 						<ErrorMessage message={"پروفایل بروزرسانی نشد"} />
 					);
 				});

@@ -42,7 +42,6 @@ function PersonalInfo({ loading }) {
 						@{username}
 					</h1>
 					<h1 className={`text-[2vw]`}>
-						{/* غلامرضا کریمی تبار اصل ترکاشون اصطلخ زیر */}
 						{fullname}
 					</h1>
 				</div>

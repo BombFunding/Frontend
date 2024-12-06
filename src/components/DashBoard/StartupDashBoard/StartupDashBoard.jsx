@@ -59,7 +59,7 @@ const StartupDashBoard = () => {
 				{/* <div className={styles.position_box}>profiles</div> */}
 				<StartupProfiles />
 				{/* <CommentSection /> */}
-				<div className={styles.position_box}>history</div>
+				<div className={styles.position_box}>stats</div>
 			</Card>
 		</>
 	);
