@@ -72,7 +72,7 @@ function LoginForm() {
 			// });
 		} catch (error) {
 			// setErrors((pre) => [...pre, error.inner]);
-			// console.log("er:", error.response.data.non_field_errors[0]);
+			// console.log("er:", error.response?.data?.non_field_errors[0]);
 			if (error.response?.data?.non_field_errors) {
 				toast.error(
 					<CustomToast Header="لطفا ایمیل خود را تایید کنید" />

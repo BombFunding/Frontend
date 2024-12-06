@@ -3,7 +3,7 @@ import styles from "./Loading.module.scss";
 export const Loading = ({ className }) => {
 	return (
 		<>
-			<div className={className}>
+			<div className={`${className}`}>
 				<svg
 					className={styles.p1}
 					viewBox="0 0 176 160"

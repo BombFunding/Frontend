@@ -7,18 +7,18 @@
   }
 }
 @layer base {
-  * {
-    @apply text-right;
-    /* @apply text-right rtl; */
-  }
-  * {
-    border: 0px;
-    box-sizing: border-box;
-  }
-  :root {
-    background-color: white !important;
-    @apply place-self-center;
-  }
+	* {
+		@apply text-right;
+		/* @apply text-right rtl; */
+	}
+	* {
+		border: 0px;
+		box-sizing: border-box;
+	}
+	:root {
+		background-color: white !important;
+		@apply place-self-center;
+	}
 }
 
 :root {
