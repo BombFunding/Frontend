@@ -78,9 +78,7 @@ function LoginForm() {
 					<CustomToast Header="لطفا ایمیل خود را تایید کنید" />
 				);
 			} else if (error.response?.data?.error) {
-				toast.error(
-					<CustomToast Header="این حساب کاربری وجود ندارد" />
-				);
+				toast.error(<CustomToast Header="حساب کاربری وجود ندارد" />);
 			} else {
 				toast.error(
 					<CustomToast Header="نام کاربری یا رمز عبور اشتباه است" />

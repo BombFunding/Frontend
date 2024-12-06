@@ -4,7 +4,7 @@ const Error = () => {
 	return (
 		<div>
 			<Navbar />
-			<div className="w-[100vw] h-[94vh] bg-bomborange mt-[6vh]">
+			<div className="w-[100vw] h-[40vw] bg-bomborange mt-[6vw]">
 				<div className={styles.top}>
 					<h1 className={styles.error404}>404</h1>
 					<h3 className={styles.notfound}>صفحه پیدا نشد</h3>
