@@ -1,6 +1,7 @@
 import { useState } from "react";
-import styles from "./CustomInput.module.scss";
-function CustomInput({
+import styles from "./CustomTextArea.module.scss";
+import { Textarea } from "@/components/ui/textarea";
+function CustomTextArea({
   placeholder,
   autofocus,
   type,
@@ -16,7 +17,7 @@ function CustomInput({
     <>
       <div className="relative group mt-6">
         {register ? (
-          <input
+          <textarea
             {...register(name)}
             type={type}
             name={name}
@@ -27,10 +28,10 @@ function CustomInput({
             }}
             onKeyDown={(e) => onKey(e)}
             className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
-                    text-black text-left transition duration-150 ease-in-out focus:outline-none focus:border-bomborange ${inputClassName}`}
+                    text-black text-left transition duration-150 ease-in-out focus:outline-none focus:ring-0 focus:border-bomborange ${inputClassName}`}
           />
         ) : (
-          <input
+          <textarea
             type={type}
             name={name}
             autoFocus={autofocus}
@@ -40,7 +41,7 @@ function CustomInput({
             }}
             onKeyDown={(e) => onKey(e)}
             className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
-                    text-black text-left transition duration-150 ease-in-out focus:outline-none focus:border-bomborange ${inputClassName}`}
+                    text-black text-left transition duration-150 ease-in-out focus:outline-none focus:ring-0 focus:border-bomborange ${inputClassName}`}
           />
         )}
         <label
@@ -57,4 +58,4 @@ function CustomInput({
   );
 }
 
-export default CustomInput;
+export default CustomTextArea;
