@@ -3,11 +3,29 @@ import styles from "./EditPositionForm.module.scss";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 
 const EditPositionForm = () => {
   return (
     <form className="flex flex-col gap-4 items-center font-vazirmatn m-5">
-      <div className={styles.input_box}>
+      <CustomInput
+        inputClassName={"w-[60vw] text-right"}
+        placeholder="نام پوزیشن"
+      />
+      <CustomInput
+        inputClassName={"w-[60vw] text-right"}
+        placeholder="توضیحات"
+      />
+      <CustomInput
+        inputClassName={"w-[60vw] text-right"}
+        placeholder="سرمایه مورد نیاز"
+      />
+      <CustomInput
+        inputClassName={"w-[60vw] text-right"}
+        placeholder="زمان (روز)"
+        type={"number"}
+      />
+      {/* <div className={styles.input_box}>
         <Label className={styles.label_style}>نام پوزیشن</Label>
         <Input className={styles.input_style}></Input>
       </div>
@@ -22,8 +40,8 @@ const EditPositionForm = () => {
           className={styles.input_style}
           defaultValue={0}
         ></Input>
-      </div>
-      <Button>ثبت پوزیشن</Button>
+      </div> */}
+      <Button>ویرایش پوزیشن</Button>
     </form>
   );
 };

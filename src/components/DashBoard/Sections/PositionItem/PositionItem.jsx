@@ -54,7 +54,7 @@ const PositionItem = ({ positionData }) => {
           <DrawerContent>
             <EditPositionForm />
             <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline">بازگشت</Button>
             </DrawerClose>
           </DrawerContent>
         </Drawer>
