@@ -3,6 +3,7 @@ import useTokenStore from "@/stores/TokenStore";
 import Error from "../Error/Error";
 import StartupProfile from "@/components/Profile/Startup/Startup";
 import InvestorProfile from "@/components/Profile/Investor/Investor";
+import BaseUserProfile from "@/components/Profile/BaseUser/BaseUser";
 
 const Profile = () => {
   const userType = useTokenStore((state) => state.userType);
@@ -27,7 +28,7 @@ const Profile = () => {
       return (
         <>
           <PublicCommonProfile className="w-[85vw]" />
-          <BasicProfile />
+          <BaseUserProfile />
         </>
       );
       break;
