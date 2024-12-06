@@ -1,6 +1,8 @@
 import PublicCommonProfile from "@/components/Profile/CommonProfile/PublicCommonProfile/PublicCommonProfile";
 import useTokenStore from "@/stores/TokenStore";
 import Error from "../Error/Error";
+import StartupProfile from "@/components/Profile/Startup/Startup";
+import InvestorProfile from "@/components/Profile/Investor/Investor";
 
 const Profile = () => {
   const userType = useTokenStore((state) => state.userType);
