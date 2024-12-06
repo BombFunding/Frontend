@@ -7,22 +7,18 @@ import Error from "../Error/Error";
 // import styles from "./DashBoard";
 
 const DashBoard = () => {
-  const userType = useTokenStore((state) => state.userType);
+	const userType = useTokenStore((state) => state.userType);
 
-  switch (userType) {
-    case "startup":
-      return <StartupDashBoard />;
-      break;
-    case "investor":
-      return <InvestorDashBoard />;
-      break;
-    case "basic":
-      return <BaseUserDashBoard />;
-      break;
-    default:
-      return <Error />;
-      break;
-  }
+	switch (userType) {
+		case "startup":
+			return <StartupDashBoard />;
+		case "investor":
+			return <InvestorDashBoard />;
+		case "basic":
+			return <BaseUserDashBoard />;
+		default:
+			return <Error />;
+	}
 };
 
 export default DashBoard;
