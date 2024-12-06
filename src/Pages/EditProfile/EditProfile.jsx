@@ -92,12 +92,7 @@ const EditProfile = () => {
 	useEffect(() => {
 		const fetchDefaultValues = async () => {
 			setLoading(true);
-			// await getData("/startup/view_own_startup_profile/", {
-			//   headers: {
-			//     "Cache-Control": "no-cache",
-			//     Pragma: "no-cache",
-			//   },
-			// });
+
 			await getData("/auth/view_own_baseuser_profile/")
 				.then((data) => {
 					console.log(data);
@@ -224,21 +219,6 @@ const EditProfile = () => {
 			reader.readAsDataURL(file);
 		}
 	};
-	// useEffect(() => {
-	//   // const formData = new FormData();
-	//   // formData.append("header_picture", new File([bannerFile], ".png"));
-	//   // console.log("bannerFile: ", bannerFile);
-	//   // console.log("formData: ", formData);
-	//   const formData = new FormData();
-	//   formData.append("imageFile", bannerFile);
-	//   postImageData("startup/update_startup_profile/", formData)
-	//     .then((res) => {
-	//       console.log("Image posted successfully:", res);
-	//     })
-	//     .catch((err) => {
-	//       console.log("Image posting FAILED:", err);
-	//     });
-	// }, [bannerFile]);
 	if (loading) return <Loading />;
 	return (
 		<>
