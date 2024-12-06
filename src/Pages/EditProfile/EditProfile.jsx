@@ -16,13 +16,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import SaveIcon from "@mui/icons-material/Save";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ErrorMessage from "@/components/messages/ErrorMessage/ErrorMessage";
+// import ErrorMessage from "@/components/messages/ErrorMessage/ErrorMessage";
 import {
 	getData,
 	postData,
 	postImageData,
 } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
+import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 
 const schema = yup.object().shape({
 	firstName: yup.string().optional().nullable(),
@@ -133,7 +134,8 @@ const EditProfile = () => {
 			Object.values(errors).map((err) => {
 				// console.log(err.message);
 				// toast.error(err.message);
-				toast.error(<ErrorMessage message={err.message} />);
+				// toast.error(<ErrorMessage message={err.message} />);
+				toast.error(<CustomToast Header={err.message} />);
 			});
 		}
 	}, [errors]);
@@ -159,15 +161,20 @@ const EditProfile = () => {
 				.then((data) => {
 					console.log("Data posted successfully:", data);
 					toast.success(
-						<ErrorMessage
-							message={"پروفایل با موفقیت بروزرسانی شد"}
-						/>
+						// <ErrorMessage
+						// 	message={"پروفایل با موفقیت بروزرسانی شد"}
+						// />
+						<CustomToast Header="پروفایل با موفقیت بروزرسانی شد" />
 					);
 				})
 				.catch((error) => {
 					console.log("Data posting FAILED:", error);
-					toast.error(
-						<ErrorMessage message={"پروفایل بروزرسانی نشد"} />
+					toast.success(
+						// <ErrorMessage message={"پروفایل بروزرسانی نشد"} />
+						<CustomToast
+							Header="خطا"
+							Message="پروفایل با موفقیت بروزرسانی شد"
+						/>
 					);
 				});
 		};
@@ -191,7 +198,8 @@ const EditProfile = () => {
 				formData.append("header_picture", file);
 				setImageLoading(true);
 				const toastId = toast.success(
-					<ErrorMessage message={"بنر در حال بروزرسانی ..."} />,
+					// <ErrorMessage message={"بنر در حال بروزرسانی ..."} />,
+					<CustomToast Header="بنر در حال بروزرسانی ..." />,
 					{
 						autoClose: 20000,
 					}
@@ -202,9 +210,10 @@ const EditProfile = () => {
 						setImageLoading(false);
 						toast.dismiss(toastId);
 						toast.success(
-							<ErrorMessage
-								message={"بنر با موفقیت بروزرسانی شد"}
-							/>
+							// <ErrorMessage
+							// 	message={"بنر با موفقیت بروزرسانی شد"}
+							// />
+							<CustomToast Header="بنر با موفقیت بروزرسانی شد" />
 						);
 					})
 					.catch((err) => {
@@ -212,7 +221,8 @@ const EditProfile = () => {
 						setImageLoading(false);
 						toast.dismiss(toastId);
 						toast.error(
-							<ErrorMessage message={"بنر بروزرسانی نشد"} />
+							// <ErrorMessage message={"بنر بروزرسانی نشد"} />
+							<CustomToast Header="بنر بروزرسانی نشد" />
 						);
 					});
 			};
