@@ -15,9 +15,9 @@ function Navbar() {
   return (
     <nav
       className={`flex justify-around bg-bomborange
- w-screen h-24 top-0 fixed right-0 z-50 gap-1`}
+ w-screen h-[7vw] top-0 fixed right-0 z-10 gap-1`}
     >
-      <div className="flex bg-bomborange w-screen h-12 fixed">
+      <div className="flex bg-bomborange w-screen h-[4vw] fixed">
         <div className="container px-4 py-6 flex justify-between items-center">
           <div
             className="flex text-white hover:cursor-pointer"
@@ -49,7 +49,7 @@ function Navbar() {
           <HamburgerMenu isOpen={isOpen} setOpen={setOpen} mode={"sm:hidden"} />
         </div>
       </div>
-      <div className="h-12">
+      <div className="mt-[4vw] h-[2vw] w-[100vw] z-[-20]">
         <NavbarDropDown />
       </div>
     </nav>
