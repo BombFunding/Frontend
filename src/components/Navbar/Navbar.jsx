@@ -17,35 +17,38 @@ function Navbar() {
       className={`flex justify-around bg-bomborange
  w-screen h-24 top-0 fixed right-0 z-50 gap-1`}
     >
-<div className="flex bg-bomborange w-screen h-12 fixed">
-      <div className="container px-4 py-6 flex justify-between items-center">
-        <div
-          className="flex text-white hover:cursor-pointer"
-          onClick={() => Navigate("/")}
-        >
-          {!isOpen && (
-            <>
-              <img
-                src={Logo}
-                alt="Bomb Funding"
-                className="rounded-full w-10 h-10 place-self-center mix-blend-multiply"
-              />
-              <a className="font-extrabold text-xs text-left px-0 place-self-center w-10 text-bombblack">
-                Bomb Funding
-              </a>
-            </>
-          )}
+      <div className="flex bg-bomborange w-screen h-12 fixed">
+        <div className="container px-4 py-6 flex justify-between items-center">
+          <div
+            className="flex text-white hover:cursor-pointer"
+            onClick={() => Navigate("/")}
+          >
+            {!isOpen && (
+              <>
+                <img
+                  src={Logo}
+                  alt="Bomb Funding"
+                  className="rounded-full w-10 h-10 place-self-center mix-blend-multiply"
+                />
+                <a className="font-extrabold text-xs text-left px-0 place-self-center w-10 text-bombblack">
+                  Bomb Funding
+                </a>
+              </>
+            )}
+          </div>
+          <SearchBar className={`${styles.SearchBar}`} />
+          <div className={`${styles.mobile} flex`}>
+            {TOKEN ? (
+              <ProfileDropDown />
+            ) : (
+              <PushyButton onClick={() => Navigate("/login")}>
+                Login
+              </PushyButton>
+            )}
+          </div>
+          <HamburgerMenu isOpen={isOpen} setOpen={setOpen} mode={"sm:hidden"} />
         </div>
-        <SearchBar className={`${styles.SearchBar}`} />
-        <div className={`${styles.mobile} flex`}>
-          {TOKEN ? (
-            <ProfileDropDown />
-          ) : (
-            <PushyButton onClick={() => Navigate("/login")}>Login</PushyButton>
-          )}
-        </div>
-        <HamburgerMenu isOpen={isOpen} setOpen={setOpen} mode={"sm:hidden"} />
- </div>
+      </div>
       <div className="h-12">
         <NavbarDropDown />
       </div>
