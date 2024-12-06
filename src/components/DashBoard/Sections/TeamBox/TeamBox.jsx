@@ -24,7 +24,7 @@ const TeamBox = ({ className }) => {
           <DrawerContent>
             <AddTeamForm />
             <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline">بازگشت</Button>
             </DrawerClose>
           </DrawerContent>
         </Drawer>
