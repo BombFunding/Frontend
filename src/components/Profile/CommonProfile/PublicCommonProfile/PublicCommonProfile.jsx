@@ -17,10 +17,10 @@ const PublicCommonProfile = ({ className }) => {
 	console.log("username: ", username);
 	useEffect(() => {
 		setLoading(true);
-		getData(`/startup/startup_search_by_name/${username}/`)
+		getData(`/auth/baseuser_search_by_name/${username}/`)
 			.then((data) => {
 				console.log(data);
-				const profile = data.startup_profile;
+				const profile = data.baseuser_profile;
 				console.log("recived profile: ", profile);
 				const profileInfo_ = {
 					firstName: profile.first_name ?? "",
@@ -77,8 +77,8 @@ const PublicCommonProfile = ({ className }) => {
 					<Label className=" text-base">اطلاعات کاربری</Label>
 					<Separator className="my-2 bg-gray-300" />
 					<div className="flex flex-col justify-evenly mr-3 gap-1">
-						<Label>:نام کاربری</Label>
-						<p className="text-xs">{profileInfo.firstName}</p>
+						<Label>:نام</Label>
+						<p className="text-xs">{profileInfo.firstName + " " + profileInfo.lastName}</p>
 						<Label>:ایمیل</Label>
 						<p className="text-xs">{profileInfo.email}</p>
 						<Label>:بیوگرافی</Label>

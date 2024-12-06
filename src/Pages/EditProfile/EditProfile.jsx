@@ -98,10 +98,10 @@ const EditProfile = () => {
 			//     Pragma: "no-cache",
 			//   },
 			// });
-			await getData("/startup/view_own_startup_profile/")
+			await getData("/auth/view_own_baseuser_profile/")
 				.then((data) => {
 					console.log(data);
-					const profile = data.startup_profile;
+					const profile = data.base_profile;
 					console.log("recived profile: ", profile);
 					setBannerFile(
 						`http://104.168.46.4:8000${profile.header_picture}`
@@ -160,7 +160,7 @@ const EditProfile = () => {
 		};
 		const updateData = async (bodyData) => {
 			console.log("bodyData: ", bodyData);
-			await postData("/startup/update_startup_profile/", bodyData)
+			await postData("/auth/update_baseuser_profile/", bodyData)
 				.then((data) => {
 					console.log("Data posted successfully:", data);
 					toast.success(
@@ -171,7 +171,7 @@ const EditProfile = () => {
 				})
 				.catch((error) => {
 					console.log("Data posting FAILED:", error);
-					toast.success(
+					toast.error(
 						<ErrorMessage message={"پروفایل بروزرسانی نشد"} />
 					);
 				});
@@ -201,7 +201,7 @@ const EditProfile = () => {
 						autoClose: 20000,
 					}
 				);
-				postImageData("startup/update_startup_profile/", formData)
+				postImageData("/auth/update_baseuser_profile/", formData)
 					.then((res) => {
 						console.log("Image posted successfully:", res);
 						setImageLoading(false);
