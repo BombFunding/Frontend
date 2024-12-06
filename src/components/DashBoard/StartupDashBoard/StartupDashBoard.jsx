@@ -11,9 +11,11 @@ import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import TeamBox from "../Sections/TeamBox/TeamBox";
 import { Label } from "@/components/ui/label";
 import PromotionBox from "../Sections/PromotionBox/PromotionBox";
+import { Loading } from "@/components/Loading/Loading";
 const StartupDashBoard = () => {
 	const [loading, setLoading] = useState(false);
-	const { setFullname, setUsername, setBio, setAvatar } = useProfileStore();
+	const { setFullname, setUsername, setBio, setAvatar, setHeader } =
+		useProfileStore();
 	useEffect(() => {
 		setLoading(true);
 		getData("/startup/view_own_startup_profile/").then((data) => {
@@ -28,9 +30,13 @@ const StartupDashBoard = () => {
 			setAvatar(
 				`http://104.168.46.4:8000${data.startup_profile.profile_picture}`
 			);
+			setHeader(
+				`http://104.168.46.4:8000${data.startup_profile.header_picture}`
+			);
 			setLoading(false);
 		});
 	}, []);
+	if (loading) return <Loading />;
 	return (
 		<>
 			<Card className={styles.card_style}>

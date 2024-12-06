@@ -3,9 +3,9 @@ import styles from "./Loading.module.scss";
 export const Loading = ({ className }) => {
 	return (
 		<>
-			<div className={className}>
+			<div className={`${className} absolute place-self-center place-content-center place-items-center w-[0vw] mt-[13vw]`}>
 				<svg
-					className={styles.p1}
+					className={styles.pl}
 					viewBox="0 0 176 160"
 					width="176px"
 					height="160px"

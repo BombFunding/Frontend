@@ -6,14 +6,14 @@ import defaultpfp from "../../assets/defaultpfp.png";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
-function PersonalInfo({ header, loading }) {
+function PersonalInfo({ loading }) {
 	const x = true;
-	const { fullname, username, bio, avatar } = useProfileStore();
+	const { fullname, username, bio, avatar, header } = useProfileStore();
 	const Navigate = useNavigate();
 	return (
 		<>
 			<img
-				src={headerpic}
+				src={header ? header : headerpic}
 				className="w-[88vw] h-[15vw] mt-[1vh] rounded-lg object-cover"
 			/>
 			<img
@@ -25,7 +25,7 @@ function PersonalInfo({ header, loading }) {
 				} ring-bomborange`}
 			/>
 			<Button
-				className="absolute border-solid border-2 bg-bomborange hover:bg-white translate-x-[1vw] translate-y-[1vw]"
+				className="absolute border-solid border-2 bg-bomborange hover:bg-white translate-x-[0.5vw] mt-[1vw]"
 				onClick={() => Navigate("/editprofile")}
 			>
 				ویرایش اطلاعات

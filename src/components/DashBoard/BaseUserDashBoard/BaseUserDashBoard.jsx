@@ -5,6 +5,7 @@ import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { getData } from "@/Services/ApiClient/Services";
 import { Card } from "@/components/ui/card";
 import styles from "./BaseUserDashBoard.module.scss";
+import { Loading } from "@/components/Loading/Loading";
 const BaseUserDashBoard = () => {
 	const [loading, setLoading] = useState(false);
 	const { setFullname, setUsername, setBio, setAvatar } = useProfileStore();
@@ -25,6 +26,7 @@ const BaseUserDashBoard = () => {
 			setLoading(false);
 		});
 	}, []);
+	if (loading) return <Loading />;
 	return (
 		<>
 			<Card className={styles.card_style}>
