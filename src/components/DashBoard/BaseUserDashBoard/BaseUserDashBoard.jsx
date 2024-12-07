@@ -8,7 +8,7 @@ import styles from "./BaseUserDashBoard.module.scss";
 import { Loading } from "@/components/Loading/Loading";
 const BaseUserDashBoard = () => {
 	const [loading, setLoading] = useState(false);
-	const { setFullname, setUsername, setBio, setAvatar } = useProfileStore();
+	const { setFirstname, setUsername, setBio, setAvatar } = useProfileStore();
 	useEffect(() => {
 		setLoading(true);
 		getData("/startup/view_own_startup_profile/").then((data) => {
