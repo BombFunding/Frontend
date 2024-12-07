@@ -14,29 +14,29 @@ import PromotionBox from "../Sections/PromotionBox/PromotionBox";
 import { Loading } from "@/components/Loading/Loading";
 const StartupDashBoard = () => {
 	const [loading, setLoading] = useState(false);
-	const { setFullname, setUsername, setBio, setAvatar, setHeader } =
-		useProfileStore();
-	useEffect(() => {
-		setLoading(true);
-		getData("/startup/view_own_startup_profile/").then((data) => {
-			console.log("Startup data: ", data.startup_profile);
-			setFullname(
-				data.startup_profile.first_name +
-					" " +
-					data.startup_profile.last_name
-			);
-			setUsername(data.startup_profile.name);
-			setBio(data.startup_profile.bio);
-			setAvatar(
-				`http://104.168.46.4:8000${data.startup_profile.profile_picture}`
-			);
-			setHeader(
-				`http://104.168.46.4:8000${data.startup_profile.header_picture}`
-			);
-			setLoading(false);
-		});
-	}, []);
-	if (loading) return <Loading />;
+	// const { setFullname, setUsername, setBio, setAvatar, setHeader } =
+	// 	useProfileStore();
+	// useEffect(() => {
+	// 	setLoading(true);
+	// 	getData("/startup/view_own_startup_profile/").then((data) => {
+	// 		console.log("Startup data: ", data.startup_profile);
+	// 		setFullname(
+	// 			data.startup_profile.first_name +
+	// 				" " +
+	// 				data.startup_profile.last_name
+	// 		);
+	// 		setUsername(data.startup_profile.name);
+	// 		setBio(data.startup_profile.bio);
+	// 		setAvatar(
+	// 			`http://104.168.46.4:8000${data.startup_profile.profile_picture}`
+	// 		);
+	// 		setHeader(
+	// 			`http://104.168.46.4:8000${data.startup_profile.header_picture}`
+	// 		);
+	// 		setLoading(false);
+	// 	});
+	// }, []);
+	// if (loading) return <Loading />;
 	return (
 		<>
 			<Card className={styles.card_style}>

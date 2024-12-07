@@ -1,12 +1,12 @@
 .team_box {
-  @apply h-[265px] flex flex-col justify-start items-center rounded-lg p-0 overflow-y-auto !important;
+  @apply h-[375px] flex flex-col justify-start items-center rounded-lg p-3 !important;
   border: 2px solid #ff7517 !important;
 }
 
 .team_list {
-  @apply flex flex-col justify-between items-center gap-2 mt-2 !important;
+  @apply flex flex-row justify-start items-center gap-2 mt-2 py-2 overflow-x-auto w-[100%] !important;
 }
 
 .create_member {
-  @apply sticky top-0 bg-white w-full z-20 h-full text-center;
+  @apply sticky top-0 bg-white w-full z-20 h-14 text-center;
 }

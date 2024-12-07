@@ -5,10 +5,11 @@ import styles from "./LoginForm.module.scss";
 import DrawerButton from "@/components/Custom/DrawerButton/DrawerButton";
 import { useState } from "react";
 import { useLoginFormStore } from "@/stores/FormStore";
-import { postData } from "@/Services/ApiClient/Services.js";
+import { getData, postData } from "@/Services/ApiClient/Services.js";
 import useTokenStore from "@/stores/TokenStore";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 function LoginForm() {
   const Navigate = useNavigate();
@@ -24,6 +25,7 @@ function LoginForm() {
   const { usernameEmail, password, updateUsernameEmail, updatePassword } =
     useLoginFormStore((state) => state);
   const TokenManager = useTokenStore((state) => state);
+  const profileManager = useProfileStore((state) => state);
   const formData = { usernameEmail, password };
   const formState = useLoginFormStore((state) => state);
   const onSubmit = async (e) => {
@@ -46,6 +48,12 @@ function LoginForm() {
         TokenManager.updateRefreshToken(response.refresh_token);
         TokenManager.updateUserType(response.user_type);
         toast.success(<CustomToast Header="با موفقیت وارد سایت شدید" />);
+        getData(`startup/get_startup_profile/${response.username}/`).then(
+          (res) => {
+            console.log(res);
+            profileManager.setProfileInfo(res.profile);
+          }
+        );
         setTimeout(() => {
           Navigate("/");
         }, 3000);

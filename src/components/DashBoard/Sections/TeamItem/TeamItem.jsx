@@ -12,40 +12,56 @@ import {
   DrawerContent,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import AddTeamForm from "@/components/Forms/DashBoardForms/AddTeamForm/AddTeamForm";
-import { Edit } from "lucide-react";
 import EditTeamForm from "@/components/Forms/DashBoardForms/EditTeamForm/EditTeamForm";
+import { getData } from "@/Services/ApiClient/Services";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
-const TeamItem = () => {
+const TeamItem = ({ memberData, className }) => {
+  const [profileData, setProfileData] = React.useState(null);
+  const formattedDescription = memberData.description.split("\n");
+  console.log("memberData: ", memberData);
+  React.useEffect(() => {
+    if (memberData?.username) {
+      getData(`/startup/profile/${memberData?.username}/`).then((res) => {
+        setProfileData(res.profile);
+      });
+    }
+  }, []);
   return (
-    <Card className={styles.card_style}>
+    <Card className={`${styles.card_style} ${className}`}>
       <div className="flex flex-col justify-center items-center gap-2">
         <Avatar>
           <AvatarImage
             className="w-[60px] aspect-square rounded-full"
-            src={AVATAR}
+            src={memberData.profile_pic}
           />
         </Avatar>
-        <Label>UserName</Label>
-        <Label>Role</Label>
+        <Label>{memberData.username}</Label>
+        <Label>{memberData.role}</Label>
       </div>
-      <Separator orientation="vertical" />
-      <div>
-        <Label>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus
-          numquam amet quia, commodi totam accusamus quisquam id aliquid?
-          Deleniti praesentium perferendis deserunt qui vero cum fuga dolorum
-          voluptatum numquam tenetur?
-        </Label>
+      <Separator />
+      <div className="flex justify-center items-center">
+        <Dialog>
+          <DialogTrigger>
+            <Button className={styles.button_style}>توضیحات</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <div className="p-5">
+              {formattedDescription.map((item, index) => (
+                <p key={index}>{item}</p>
+              ))}
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
-      <Separator orientation="vertical" />
-      <div className="flex flex-col items-center justify-center gap-4">
+      <Separator />
+      <div className="flex flex-row items-center justify-center gap-2">
         <Drawer>
           <DrawerTrigger>
             <Button className={styles.button_style}>ویرایش</Button>
           </DrawerTrigger>
           <DrawerContent>
-            <EditTeamForm />
+            <EditTeamForm memberData={memberData} />
             <DrawerClose asChild>
               <Button variant="outline">بازگشت</Button>
             </DrawerClose>

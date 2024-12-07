@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./TeamBox.module.scss";
 import TeamItem from "../TeamItem/TeamItem";
 import {
@@ -10,8 +10,19 @@ import {
 import AddPositionForm from "@/components/Forms/DashBoardForms/AddPositionForm/AddPositionForm";
 import { Button } from "@/components/ui/button";
 import AddTeamForm from "@/components/Forms/DashBoardForms/AddTeamForm/AddTeamForm";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import { getData } from "@/Services/ApiClient/Services";
+import { v4 as uuidv4 } from "uuid";
 
 const TeamBox = ({ className }) => {
+  const ProfileManager = useProfileStore((state) => state.profileInfo);
+  const [members, setMembers] = useState([]);
+  useEffect(() => {
+    getData(`/startup/profile/${ProfileManager.id}/team/list`).then((res) => {
+      console.log("team list: ", res);
+      setMembers(res);
+    });
+  }, []);
   return (
     <div className={`${styles.team_box} ${className}`}>
       <div className={styles.create_member}>
@@ -30,10 +41,27 @@ const TeamBox = ({ className }) => {
         </Drawer>
       </div>
       <div className={styles.team_list}>
-        <TeamItem />
-        <TeamItem />
-        <TeamItem />
-        <TeamItem />
+        {members.map((member) => (
+          <TeamItem
+            key={uuidv4()}
+            memberData={member}
+            className={"flex-shrink-0"}
+          />
+        ))}
+        {members.map((member) => (
+          <TeamItem
+            key={uuidv4()}
+            memberData={member}
+            className={"flex-shrink-0"}
+          />
+        ))}
+        {members.map((member) => (
+          <TeamItem
+            key={uuidv4()}
+            memberData={member}
+            className={"flex-shrink-0"}
+          />
+        ))}
       </div>
     </div>
   );
