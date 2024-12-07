@@ -4,7 +4,7 @@ function Accounting({ className }) {
   const Navigate = useNavigate();
   return (
     <section
-      className={`border-solid border-2 rounded-lg border-bomborange p-[1vw] flex flex-col items-center justify-evenly ${className}`}
+      className={`border-solid h-full border-2 rounded-lg border-bomborange p-[1vw] flex flex-col items-center justify-evenly ${className}`}
     >
       <h1 className="flex gap-[1vw] p-[2vw] self-center">
         <img src={Accouting} className="h-[2.75vw] place-self-center" />

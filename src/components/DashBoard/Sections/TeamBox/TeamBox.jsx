@@ -28,7 +28,7 @@ const TeamBox = ({ className }) => {
 			<div className={styles.create_member}>
 				<Drawer>
 					<DrawerTrigger>
-						<Button variant="default" className="m-2">
+						<Button variant="default" className="btn bg-bomborange hover:text-white hover:bg-black m-2">
 							اضافه کردن عضو جدید
 						</Button>
 					</DrawerTrigger>
@@ -41,20 +41,7 @@ const TeamBox = ({ className }) => {
 				</Drawer>
 			</div>
 			<div className={styles.team_list}>
-				{members.map((member) => (
-					<TeamItem
-						key={uuidv4()}
-						memberData={member}
-						className={"flex-shrink-0"}
-					/>
-				))}
-				{members.map((member) => (
-					<TeamItem
-						key={uuidv4()}
-						memberData={member}
-						className={"flex-shrink-0"}
-					/>
-				))}
+				{/* {members.concat(members).concat(members).map((member) => ( */}
 				{members.map((member) => (
 					<TeamItem
 						key={uuidv4()}

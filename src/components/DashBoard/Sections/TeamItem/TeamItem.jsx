@@ -46,7 +46,7 @@ const TeamItem = ({ memberData, className }) => {
             <Button className={styles.button_style}>توضیحات</Button>
           </DialogTrigger>
           <DialogContent>
-            <div className="p-5">
+            <div className="font-vazirmatn p-5">
               {formattedDescription.map((item, index) => (
                 <p key={index}>{item}</p>
               ))}

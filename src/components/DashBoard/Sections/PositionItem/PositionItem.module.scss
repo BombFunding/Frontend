@@ -1,6 +1,6 @@
 .card_style
 {
-    @apply w-full h-[160px] rounded-lg shadow-md p-4 text-black flex  gap-3 overflow-hidden rtl !important;
+    @apply w-full h-[28vh] rounded-lg shadow-md p-4 text-black flex  gap-3 overflow-hidden rtl !important;
 }
 
 .button_box
@@ -11,7 +11,8 @@
 
 
 .button_style{
-    @apply bg-gray-100 w-24 h-6 text-black;
+    @apply bg-gray-100 w-24 h-6 text-black !important;
+    @apply btn h-6;
 }
 
 

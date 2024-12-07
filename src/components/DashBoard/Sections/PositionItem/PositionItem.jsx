@@ -12,9 +12,27 @@ import {
 	DrawerTrigger,
 } from "@/components/ui/drawer";
 import EditPositionForm from "@/components/Forms/DashBoardForms/EditPositionForm/EditPositionForm";
+import { deleteData } from "@/Services/ApiClient/Services";
+import { toast } from "react-toastify";
+import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 
 const PositionItem = ({ positionData }) => {
 	console.log("positionData: ", positionData);
+	const deletePosition = () => {
+		deleteData(`/startup/position/delete/${positionData.id}/`)
+			.then((data) => {
+				console.log(data);
+				toast.success(<CustomToast Header="پوزیشن با موفقیت حذف شد" />);
+			})
+			.catch((err) => {
+				toast.error(
+					<CustomToast
+						Header="خطا"
+						Message="مشکلی در حذف پوزیشن وجود دارد"
+					/>
+				);
+			});
+	};
 	return (
 		<Card className={styles.card_style}>
 			<div className={styles.col_box}>
@@ -61,16 +79,50 @@ const PositionItem = ({ positionData }) => {
 						</Button>
 					</DrawerTrigger>
 					<DrawerContent>
-						<EditPositionForm />
+						<EditPositionForm positionData={positionData} />
 						<DrawerClose asChild>
-							<Button variant="outline">بازگشت</Button>
+							<Button
+								variant="outline"
+								className="font-vazirmatn"
+							>
+								بازگشت
+							</Button>
 						</DrawerClose>
 					</DrawerContent>
 				</Drawer>
 				<Separator className="my-1" />
-				<Button variant="default" className={styles.button_style}>
+				{/* <Button variant="default" className={styles.button_style}>
 					بستن
-				</Button>
+				</Button> */}
+				<Drawer>
+					<DrawerTrigger>
+						<Button
+							variant="default"
+							className={styles.button_style}
+						>
+							بستن
+						</Button>
+					</DrawerTrigger>
+					<DrawerContent>
+						<Label className="text-black place-self-center mt-[2vw] font-vazirmatn">
+							آیا مطمئن هستید؟
+						</Label>
+						<Button
+							className="my-[3vw] text-black font-vazirmatn btn place-self-center bg-bomborange hover:text-bomborange hover:bg-black"
+							onClick={() => deletePosition()}
+						>
+							بله، پوزیشن را حذف کن
+						</Button>
+						<DrawerClose asChild>
+							<Button
+								variant="outline"
+								className="font-vazirmatn"
+							>
+								بازگشت
+							</Button>
+						</DrawerClose>
+					</DrawerContent>
+				</Drawer>
 				<Separator className="my-1" />
 				<Button variant="default" className={styles.button_style}>
 					تمدید

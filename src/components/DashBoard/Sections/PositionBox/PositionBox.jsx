@@ -19,7 +19,7 @@ const PositionBox = () => {
 			<div className={styles.create_position}>
 				<Drawer>
 					<DrawerTrigger>
-						<Button variant="default" className="m-2">
+						<Button variant="default" className="btn bg-bomborange hover:text-white hover:bg-black m-2">
 							ساخت پوزیشن جدید
 						</Button>
 					</DrawerTrigger>
@@ -37,7 +37,6 @@ const PositionBox = () => {
 				</Drawer>
 			</div>
 			<div className={styles.position_list}>
-				{console.log("positions in map: ", positions)}
 				{positions.map((position, index) => (
 					<PositionItem positionData={position} key={index} />
 				))}
