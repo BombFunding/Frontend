@@ -10,20 +10,20 @@ const AddPositionForm = () => {
     e.preventDefault();
     const data = {
       name: "Ali",
-      bio: "daaaaa",
+      description: "daaaaa",
       end_time: "2024-12-12T02:01:14",
       funded: 0,
       start_time: "2024-12-10T02:01:14",
       total: 10,
     };
-    postData("/startup/create_update_position/", data).then((data) => {
+    postData("/startup/position/create/", data).then((data) => {
       console.log(data);
     });
   };
   return (
     <form
       // className="flex flex-col gap-4 items-center font-vazirmatn m-5"
-      className="font-vazirmatn place-items-center"
+      className="font-vazirmatn place-items-center rtl"
       onSubmit={(e) => addPosition(e)}
     >
       <div className="flex flex-col gap-2 justify-evenly items-center">

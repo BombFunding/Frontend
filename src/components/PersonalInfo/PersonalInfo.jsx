@@ -8,7 +8,7 @@ import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
 function PersonalInfo({ loading }) {
 	const x = true;
-	const { fullname, username, bio, avatar, header } = useProfileStore();
+	const { likeCount, fullname, username, bio, avatar, header } = useProfileStore();
 	const Navigate = useNavigate();
 	return (
 		<>
@@ -30,7 +30,7 @@ function PersonalInfo({ loading }) {
 			>
 				ویرایش اطلاعات
 			</Button>
-			<Likes className="absolute mt-[11.2vw] ml-[1.5vw]" />
+			<Likes count={2} className="absolute mt-[11.2vw] ml-[1.5vw]" />
 			<section
 				className={`${
 					x ?? "border-solid border-2 border-bomborange "
@@ -41,9 +41,7 @@ function PersonalInfo({ loading }) {
 					<h1 className="text-gray-500 text-[1.25vw] place-self-center">
 						@{username}
 					</h1>
-					<h1 className={`text-[2vw]`}>
-						{fullname}
-					</h1>
+					<h1 className={`text-[2vw]`}>{fullname}</h1>
 				</div>
 				<div className="flex gap-[0.75vw]">
 					<img src={calendarIcon} className="h-[2vw]" />

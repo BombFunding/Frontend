@@ -18,6 +18,7 @@ const StartupDashBoard = () => {
 	console.log(useProfileStore());
 	useEffect(() => {
 		setLoading(true);
+
 		// getData("/startup/view_own_startup_profile/").then((data) => {
 		getData(`/auth/view_own_baseuser_profile/`).then((data) => {
 			console.log("Startup data: ", data.base_profile);
@@ -34,6 +35,7 @@ const StartupDashBoard = () => {
 			setHeader(
 				`http://104.168.46.4:8000${data.base_profile.header_picture}`
 			);
+			// getData('/startup/profile/{startup_profile_id}/vote/')
 			setLoading(false);
 		});
 	}, []);
