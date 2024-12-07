@@ -7,29 +7,30 @@
   }
 }
 @layer base {
-  * {
-    @apply text-right;
-    /* @apply text-right rtl; */
-  }
-  * {
-    border: 0px;
-    box-sizing: border-box;
-  }
-  :root {
-    background-color: white !important;
-    @apply place-self-center;
-  }
+	* {
+		@apply text-right;
+		/* @apply text-right rtl; */
+	}
+	* {
+		border: 0px;
+		box-sizing: border-box;
+	}
+	:root {
+		background-color: white !important;
+		@apply place-self-center;
+	}
 }
 
 :root {
-	@apply font-vazirmatn;
-	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-	line-height: 1.5;
-	font-weight: 400;
+  @apply font-vazirmatn;
+  scrollbar-width: none; 
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
 
-  /* color-scheme: light dark; */
+  color-scheme: light dark;
   /* color: rgba(255, 255, 255, 0.87); */
-  background-color: #242424;
+  /* background-color: #242424; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -40,10 +41,6 @@
 body {
   margin: 0;
   display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }

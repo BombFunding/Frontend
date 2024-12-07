@@ -26,7 +26,7 @@ const AddTeamForm = () => {
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
-  const ProfileManager = useProfileStore((state) => state.profileInfo);
+  const { profileId } = useProfileStore((state) => state);
   const onSubmit = (data) => {
     console.log(data);
     const bodyData = {
@@ -35,15 +35,13 @@ const AddTeamForm = () => {
       description: data.description,
     };
     console.log("bodyData: ", bodyData);
-    console.log("ProfileManager: ", ProfileManager);
-    postData(`/startup/profile/${ProfileManager.id}/team/add/`, bodyData)
+    // console.log("ProfileManager: ", ProfileManager);
+    postData(`/startup/profile/${profileId}/team/add/`, bodyData)
       .then((res) => {
         console.log(res);
-        getData(`/startup/profile/${ProfileManager.id}/team/list`).then(
-          (res) => {
-            console.log("team list: ", res);
-          }
-        );
+        getData(`/startup/profile/${profileId}/team/list`).then((res) => {
+          console.log("team list: ", res);
+        });
       })
       .catch((err) => {
         console.log(err);

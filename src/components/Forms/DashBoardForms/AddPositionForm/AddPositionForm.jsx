@@ -42,7 +42,7 @@ const AddPositionForm = () => {
     const endTime = futureDate.toISOString().slice(0, 19);
     const bodyData = {
       name: data.position_name,
-      bio: data.description,
+      description: data.description,
       end_time: endTime,
       funded: 0,
       start_time: currentTime,
