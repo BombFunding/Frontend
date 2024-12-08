@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./TeamItem.module.scss";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -19,6 +19,8 @@ import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 import { toast } from "react-toastify";
 
 const TeamItem = ({ profileId, memberData, className }) => {
+	const [deleteMemberOpen, setDeleteMemberOpen] = useState(false);
+	const [editMemberOpen, setEditMemberOpen] = useState(false);
 	const [profileData, setProfileData] = React.useState(null);
 	const formattedDescription = memberData.description.split("\n");
 	console.log("memberData: ", memberData);
@@ -37,6 +39,7 @@ const TeamItem = ({ profileId, memberData, className }) => {
 			.then((data) => {
 				console.log(data);
 				toast.success(<CustomToast Header="عضو با موفقیت حذف شد" />);
+				setTimeout(() => setDeleteMemberOpen(false), 3000);
 			})
 			.catch((err) => {
 				toast.error(
@@ -76,16 +79,25 @@ const TeamItem = ({ profileId, memberData, className }) => {
 			</div>
 			<Separator />
 			<div className="flex flex-row items-center justify-center gap-2">
-				<Drawer>
+				<Drawer open={editMemberOpen}>
 					<DrawerTrigger>
-						<Button className={styles.button_style}>ویرایش</Button>
+						<Button
+							className={styles.button_style}
+							onClick={() => setEditMemberOpen(true)}
+						>
+							ویرایش
+						</Button>
 					</DrawerTrigger>
 					<DrawerContent>
-						<EditTeamForm memberData={memberData} />
+						<EditTeamForm
+							memberData={memberData}
+							setEditMemberOpen={setEditMemberOpen}
+						/>
 						<DrawerClose asChild>
 							<Button
 								variant="outline"
 								className="font-vazirmatn"
+								onClick={() => setEditMemberOpen(false)}
 							>
 								بازگشت
 							</Button>
@@ -93,9 +105,14 @@ const TeamItem = ({ profileId, memberData, className }) => {
 					</DrawerContent>
 				</Drawer>
 				{/* <Button className={styles.button_style}>حذف</Button> */}
-				<Drawer>
+				<Drawer open={deleteMemberOpen}>
 					<DrawerTrigger>
-						<Button className={styles.button_style}>حذف</Button>
+						<Button
+							className={styles.button_style}
+							onClick={() => setDeleteMemberOpen(true)}
+						>
+							حذف
+						</Button>
 					</DrawerTrigger>
 					<DrawerContent>
 						<Label className="text-black place-self-center mt-[2vw] font-vazirmatn">
@@ -111,6 +128,7 @@ const TeamItem = ({ profileId, memberData, className }) => {
 							<Button
 								variant="outline"
 								className="font-vazirmatn"
+								onClick={() => setDeleteMemberOpen(false)}
 							>
 								بازگشت
 							</Button>

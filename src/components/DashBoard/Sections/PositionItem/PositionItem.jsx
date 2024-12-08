@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./PositionItem.module.scss";
 import { Card } from "@/components/ui/card";
 import { Label } from "@radix-ui/react-label";
@@ -17,12 +17,20 @@ import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 
 const PositionItem = ({ positionData }) => {
+	const [editFormOpen, setEditFormOpen] = useState(false);
+	const [deletePositionOpen, setDeletePositionOpen] = useState(false);
+	let day_duration = 1000 * 60 * 60 * 24;
 	console.log("positionData: ", positionData);
+	const start = new Date(positionData?.start_time);
+	const end = new Date(positionData?.end_time);
+	const now = new Date();
+	console.log("Hereeeeeeeeeeeeeeeeee: ", Date.now(), end.toISOString());
 	const deletePosition = () => {
 		deleteData(`/startup/position/delete/${positionData.id}/`)
 			.then((data) => {
 				console.log(data);
 				toast.success(<CustomToast Header="پوزیشن با موفقیت حذف شد" />);
+				setTimeout(() => setDeletePositionOpen(false), 3000);
 			})
 			.catch((err) => {
 				toast.error(
@@ -51,17 +59,26 @@ const PositionItem = ({ positionData }) => {
 				</div>
 
 				<Progress
-					value={50}
+					value={
+						(now.getTime() - start.getTime()) /
+						(end.getTime() - start.getTime())
+					}
 					className={styles.progress_bar}
 					mainColor="bg-gray-50"
 					ProgressColor="bg-bomborange"
 				/>
 				<div className="self-start">
-					<Label>زمان اتمام: </Label>
-					<Label>{positionData?.end_time}5d</Label>
+					<Label>زمان باقیمانده: </Label>
+					<Label>
+						{Math.round(
+							(end.getTime() - now.getTime()) / day_duration
+						)}
+					</Label>
 				</div>
 				<Progress
-					value={50}
+					value={Math.round(
+						positionData?.funded / positionData?.total
+					)}
 					className={styles.progress_bar}
 					mainColor="bg-gray-50"
 					ProgressColor="bg-bomborange"
@@ -69,21 +86,26 @@ const PositionItem = ({ positionData }) => {
 			</div>
 			<Separator orientation="vertical" className="mx-2" />
 			<div className={styles.button_box}>
-				<Drawer>
+				<Drawer open={editFormOpen}>
 					<DrawerTrigger>
 						<Button
 							variant="default"
 							className={styles.button_style}
+							onClick={() => setEditFormOpen(true)}
 						>
 							ویرایش
 						</Button>
 					</DrawerTrigger>
 					<DrawerContent>
-						<EditPositionForm positionData={positionData} />
+						<EditPositionForm
+							positionData={positionData}
+							setEditFormOpen={setEditFormOpen}
+						/>
 						<DrawerClose asChild>
 							<Button
 								variant="outline"
 								className="font-vazirmatn"
+								onClick={() => setEditFormOpen(false)}
 							>
 								بازگشت
 							</Button>
@@ -94,11 +116,12 @@ const PositionItem = ({ positionData }) => {
 				{/* <Button variant="default" className={styles.button_style}>
 					بستن
 				</Button> */}
-				<Drawer>
+				<Drawer open={deletePositionOpen}>
 					<DrawerTrigger>
 						<Button
 							variant="default"
 							className={styles.button_style}
+							onClick={() => setDeletePositionOpen(true)}
 						>
 							بستن
 						</Button>
@@ -117,6 +140,7 @@ const PositionItem = ({ positionData }) => {
 							<Button
 								variant="outline"
 								className="font-vazirmatn"
+								onClick={() => setDeletePositionOpen(false)}
 							>
 								بازگشت
 							</Button>

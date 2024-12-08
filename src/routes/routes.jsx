@@ -15,6 +15,7 @@ import Profile from "@/Pages/Profile/Profile";
 import DashBoard from "@/Pages/DashBoard/DashBoard.jsx";
 import ChargeAccount from "@/Pages/ChargeAccount/ChargeAccount";
 import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
+import { Loading } from "@/components/Loading/Loading";
 
 export const router = createBrowserRouter([
 	{
@@ -57,7 +58,7 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: "/test",
-				element: <Navbar />,
+				element: <Loading />,
 			},
 			{
 				path: "/EditProfile",

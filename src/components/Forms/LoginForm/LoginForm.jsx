@@ -17,11 +17,7 @@ function LoginForm() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  function handleKeyDown(e) {
-    if (e.key === "Enter") {
-      onSubmit();
-    }
-  }
+
   const { usernameEmail, password, updateUsernameEmail, updatePassword } =
     useLoginFormStore((state) => state);
   const TokenManager = useTokenStore((state) => state);
@@ -118,13 +114,11 @@ function LoginForm() {
         <CustomInput
           placeholder="ایمیل یا نام کاربری"
           autofocus={true}
-          onKey={(e) => handleKeyDown(e)}
           name="usernameEmail"
           value={formData.usernameEmail}
           onChange={formState.updateUsernameEmail}
         />
         <PasswordInput
-          handleKeyDown={handleKeyDown}
           placeholder="رمز عبور"
           name="password"
           onChange={formState.updatePassword}

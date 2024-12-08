@@ -14,21 +14,29 @@ import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 const PositionBox = () => {
 	const { positions } = useProfileStore();
+	const [open, setOpen] = useState(false);
 	return (
 		<div className={styles.position_box}>
 			<div className={styles.create_position}>
-				<Drawer>
+				<Drawer open={open}>
 					<DrawerTrigger>
-						<Button variant="default" className="btn bg-bomborange hover:text-white hover:bg-black m-2">
+						<Button
+							variant="default"
+							className="btn bg-bomborange hover:text-white hover:bg-black m-2"
+							onClick={() => {
+								setOpen(true);
+							}}
+						>
 							ساخت پوزیشن جدید
 						</Button>
 					</DrawerTrigger>
 					<DrawerContent>
-						<AddPositionForm />
+						<AddPositionForm setOpen={setOpen} />
 						<DrawerClose asChild>
 							<Button
 								className="font-vazirmatn"
 								variant="outline"
+								onClick={() => setOpen(false)}
 							>
 								بازگشت
 							</Button>

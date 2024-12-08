@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./EditPositionForm.module.scss";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -7,7 +7,7 @@ import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { postData } from "@/Services/ApiClient/Services";
+import { patchData } from "@/Services/ApiClient/Services";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 
@@ -15,11 +15,9 @@ const validationSchema = Yup.object().shape({
 	position_name: Yup.string().required("این مورد اجباری است"),
 	description: Yup.string().required("این مورد اجباری است"),
 	total: Yup.string().required("این مورد اجباری است"),
-	duration: Yup.string().required("این مورد اجباری است"),
 });
 
-const EditPositionForm = ({ positionData }) => {
-	console.log("positionData: ", positionData.name);
+const EditPositionForm = ({ positionData, setEditFormOpen }) => {
 	const {
 		register,
 		handleSubmit,
@@ -28,6 +26,14 @@ const EditPositionForm = ({ positionData }) => {
 		resolver: yupResolver(validationSchema),
 	});
 
+	const [name, setName] = useState(positionData?.name);
+	const [description, setDescription] = useState(positionData?.description);
+	const [total, setTotal] = useState(positionData?.total);
+	// const now = new Date();
+	// const currentTime = now.toISOString().slice(0, 19);
+	// const futureDate = new Date(now);
+	// futureDate.setDate(now.getDate() + parseInt(positionData.duration, 10));
+	// const endTime = futureDate.toISOString().slice(0, 19);
 	useEffect(() => {
 		if (errors.length) {
 			console.log(errors);
@@ -37,15 +43,24 @@ const EditPositionForm = ({ positionData }) => {
 				total: "سرمایه مورد نیاز",
 				duration: "زمان",
 			};
-			Object.keys(Fields).forEach((key) => {
-				// let tempStr = `${errors[key].message}`;
-				toast.error(
-					<CustomToast
-						Header={Fields[key]}
-						Message={errors[key].message}
-					/>
-				);
-			});
+			toast.error(
+				<CustomToast
+					// Header={Fields[key]}
+					// Message={errors[key].message}
+					Header={"خطا"}
+					Message={"مشکلی در ویرایش پوزیشن وجود دارد"}
+				/>
+			);
+			// Object.keys(Fields).map((key) => {
+			// 	toast.error(
+			// 		<CustomToast
+			// 			// Header={Fields[key]}
+			// 			// Message={errors[key].message}
+			// 			Header={"خطا"}
+			// 			Message={"مشکلی در ویرایش پوزیشن وجود دارد"}
+			// 		/>
+			// 	);
+			// });
 		}
 	}, [errors]);
 	const onSubmit = (data) => {
@@ -59,30 +74,31 @@ const EditPositionForm = ({ positionData }) => {
 		//   start_time: "2024-12-10T02:01:14",
 		//   total: 10,
 		// };
-		const now = new Date();
-		const currentTime = now.toISOString().slice(0, 19);
-		const futureDate = new Date(now);
-		futureDate.setDate(now.getDate() + parseInt(data.duration, 10));
-		const endTime = futureDate.toISOString().slice(0, 19);
 		const bodyData = {
 			name: data.position_name,
 			description: data.description,
-			end_time: endTime,
-			funded: 0,
-			start_time: currentTime,
+			end_time: positionData?.end_time,
+			funded: positionData?.funded,
+			start_time: positionData?.start_time,
 			total: data.total,
 		};
+		// console.log("Date: ", endTime);
 		console.log("bodyData: ", bodyData);
-		postData("/startup/position/create/", bodyData)
+		patchData(`/startup/position/update/${positionData?.id}/`, bodyData)
 			.then((res) => {
 				console.log(res);
 				toast.success(
 					<CustomToast Header="پوزیشن با موفقیت ویرایش شد" />
 				);
+				setTimeout(() => {
+					setEditFormOpen(false);
+				}, 3000);
 			})
 			.catch((err) => {
 				console.log(err);
-				toast.error(<CustomToast Header="خطا" Message={"oxh"} />);
+				toast.error(
+					<CustomToast Header="خطا" Message={err.response?.data} />
+				);
 			});
 	};
 
@@ -96,14 +112,16 @@ const EditPositionForm = ({ positionData }) => {
 				placeholder="نام پوزیشن"
 				register={register}
 				name={"position_name"}
-				value={positionData.name}
+				value={name}
+				onChange={setName}
 			/>
 			<CustomInput
 				inputClassName={"w-[60vw] text-right rtl"}
 				placeholder="توضیحات"
 				register={register}
 				name={"description"}
-				value={positionData.description}
+				value={description}
+				onChange={setDescription}
 			/>
 			<CustomInput
 				inputClassName={"w-[60vw] text-right rtl"}
@@ -111,15 +129,17 @@ const EditPositionForm = ({ positionData }) => {
 				register={register}
 				name={"total"}
 				type="number"
-				value={positionData.total}
+				value={total}
+				onChange={setTotal}
 			/>
-			<CustomInput
+			{/* <CustomInput
 				inputClassName={"w-[60vw] text-right rtl"}
 				placeholder="زمان (روز)"
 				type={"number"}
 				register={register}
 				name={"duration"}
-			/>
+				value={endTime}
+			/> */}
 			{/* <div className={styles.input_box}>
         <Label className={styles.label_style}>نام پوزیشن</Label>
         <Input className={styles.input_style}></Input>
@@ -136,7 +156,9 @@ const EditPositionForm = ({ positionData }) => {
           defaultValue={0}
         ></Input>
       </div> */}
-			<Button className="btn">ویرایش پوزیشن</Button>
+			<Button className="btn bg-bomborange hover:text-bomborange hover:bg-black m-[2vw]">
+				ویرایش پوزیشن
+			</Button>
 		</form>
 	);
 };

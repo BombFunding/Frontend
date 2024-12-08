@@ -17,7 +17,7 @@ const validationSchema = Yup.object().shape({
 	duration: Yup.string().required("Email is required"),
 });
 
-const AddPositionForm = () => {
+const AddPositionForm = ({ setOpen }) => {
 	const {
 		register,
 		handleSubmit,
@@ -54,7 +54,12 @@ const AddPositionForm = () => {
 		postData("/startup/position/create/", bodyData)
 			.then((res) => {
 				console.log(res);
-				toast.success(<CustomToast Header="پوزیشن با موفقیت ساخته شد" />);
+				toast.success(
+					<CustomToast Header="پوزیشن با موفقیت ساخته شد" />
+				);
+				setTimeout(() => {
+					setOpen(false);
+				}, 3000);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -62,20 +67,6 @@ const AddPositionForm = () => {
 			});
 	};
 
-	const addPosition = (e) => {
-		e.preventDefault();
-		const data = {
-			name: "Ali",
-			description: "daaaaa",
-			end_time: "2024-12-12T02:01:14",
-			funded: 0,
-			start_time: "2024-12-10T02:01:14",
-			total: 10,
-		};
-		postData("/startup/position/create/", data).then((data) => {
-			console.log(data);
-		});
-	};
 	return (
 		<form
 			// className="flex flex-col gap-4 items-center font-vazirmatn m-5"
@@ -109,7 +100,10 @@ const AddPositionForm = () => {
 					register={register}
 					name={"duration"}
 				/>
-				<Button type="submit" className="m-[3vw]">
+				<Button
+					type="submit"
+					className="m-[3vw] btn bg-bomborange hover:text-white hover:bg-black"
+				>
 					ثبت پوزیشن
 				</Button>
 			</div>

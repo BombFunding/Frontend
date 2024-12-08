@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./TeamBox.module.scss";
 import TeamItem from "../TeamItem/TeamItem";
 import {
@@ -7,7 +7,6 @@ import {
 	DrawerContent,
 	DrawerTrigger,
 } from "@/components/ui/drawer";
-import AddPositionForm from "@/components/Forms/DashBoardForms/AddPositionForm/AddPositionForm";
 import { Button } from "@/components/ui/button";
 import AddTeamForm from "@/components/Forms/DashBoardForms/AddTeamForm/AddTeamForm";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
@@ -15,6 +14,7 @@ import { getData } from "@/Services/ApiClient/Services";
 import { v4 as uuidv4 } from "uuid";
 
 const TeamBox = ({ className }) => {
+	const [formOpen, setFormOpen] = useState(false);
 	const { profileId } = useProfileStore();
 	const [members, setMembers] = useState([]);
 	useEffect(() => {
@@ -26,21 +26,23 @@ const TeamBox = ({ className }) => {
 	return (
 		<div className={`${styles.team_box} ${className}`}>
 			<div className={styles.create_member}>
-				<Drawer>
+				<Drawer open={formOpen}>
 					<DrawerTrigger>
 						<Button
 							variant="default"
 							className="btn bg-bomborange hover:text-white hover:bg-black m-2"
+							onClick={() => setFormOpen(true)}
 						>
 							اضافه کردن عضو جدید
 						</Button>
 					</DrawerTrigger>
 					<DrawerContent>
-						<AddTeamForm />
+						<AddTeamForm setFormOpen={setFormOpen} />
 						<DrawerClose asChild>
 							<Button
 								variant="outline"
 								className="font-vazirmatn"
+								onClick={() => setFormOpen(false)}
 							>
 								بازگشت
 							</Button>

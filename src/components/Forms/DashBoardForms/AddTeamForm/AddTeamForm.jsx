@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./AddTeamForm.module.scss";
 import formStyles from "../DashBoardForm.module.scss";
 import { Label } from "@/components/ui/label";
@@ -20,7 +20,7 @@ const validationSchema = Yup.object().shape({
 	description: Yup.string().required("Name is required"),
 	role: Yup.string().required("Email is required"),
 });
-const AddTeamForm = () => {
+const AddTeamForm = ({ setFormOpen }) => {
 	const {
 		register,
 		handleSubmit,
@@ -47,6 +47,9 @@ const AddTeamForm = () => {
 						toast.success(
 							<CustomToast Header="عضو جدید تیم اضافه شد" />
 						);
+						setTimeout(() => {
+							() => setFormOpen(false);
+						}, 3000);
 					}
 				);
 			})
@@ -54,7 +57,10 @@ const AddTeamForm = () => {
 				console.log("E: ", err.response.data.error);
 				if (err.response?.data?.error === "User already in team") {
 					toast.error(
-						<CustomToast Header="خطا" Message="کاربر در تیم وجود دارد" />
+						<CustomToast
+							Header="خطا"
+							Message="کاربر در تیم وجود دارد"
+						/>
 					);
 				} else {
 					toast.error(
@@ -99,7 +105,9 @@ const AddTeamForm = () => {
         <Label className={formStyles.label_style}>توضیحات</Label>
         <Textarea className={formStyles.input_style}></Textarea>
       </div> */}
-			<Button>اضافه کردن</Button>
+			<Button className="btn bg-bomborange hover:text-white hover:bg-black">
+				اضافه کردن
+			</Button>
 		</form>
 	);
 };
