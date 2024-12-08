@@ -55,7 +55,7 @@ const PublicCommonProfile = ({ className }) => {
 
 	return (
 		<Card
-			className={`${className} bg-slate-50 p-0 overflow-hidden h-[80vh] font-vazirmatn`}
+			className={`${className} bg-slate-50 overflow-hidden h-[80vh] font-vazirmatn w-[80vw] `}
 		>
 			<div className={`h-1/3 overflow-hidden relative`}>
 				<img
