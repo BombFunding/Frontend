@@ -1,0 +1,17 @@
+.Input::-webkit-outer-spin-button,
+.Input::-webkit-inner-spin-button {
+    @apply ring-0 border-0;
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.Input[type="number"] {
+	-moz-appearance: textfield;
+	appearance: none;
+}
+
+.container {
+	@apply bg-gray-100 mt-[15vh] font-vazirmatn rounded overflow-hidden w-[70vw] h-[80vh] shadow-bomborange flex flex-col place-self-center place-content-center place-items-center align-middle;
+	transition: all 200ms ease-in-out 0s;
+	box-shadow: 0px 0px 10px 1px #ff7517;
+}

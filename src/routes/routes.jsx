@@ -12,6 +12,10 @@ import PrivateLayout from "@/Layouts/private/PrivateLayout";
 import EmailVerification from "@/Pages/EmailVerification/EmailVerification";
 import EditProfile from "@/Pages/EditProfile/EditProfile";
 import Profile from "@/Pages/Profile/Profile";
+import DashBoard from "@/Pages/DashBoard/DashBoard.jsx";
+import ChargeAccount from "@/Pages/ChargeAccount/ChargeAccount";
+import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
+import { Loading } from "@/components/Loading/Loading";
 
 export const router = createBrowserRouter([
 	{
@@ -23,6 +27,19 @@ export const router = createBrowserRouter([
 				index: true,
 				element: <Landing />,
 			},
+			{
+				path: "/Profile/:username",
+				element: <Profile />,
+			},
+
+			{
+				path: "/reset-password/:uid/:token",
+				element: <ChangePassword />,
+			},
+			{
+				path: "/profile/:username",
+				element: <Profile />,
+			}
 		],
 	},
 	{
@@ -30,15 +47,19 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: "/test",
-				element: <Navbar />,
+				element: <Loading />,
 			},
 			{
 				path: "/EditProfile",
 				element: <EditProfile />,
 			},
 			{
-				path: "/Profile/:username",
-				element: <Profile />,
+				path: "/DashBoard",
+				element: <DashBoard />,
+			},
+			{
+				path: "/ChargeAccount",
+				element: <ChargeAccount />,
 			},
 		],
 	},
@@ -60,10 +81,6 @@ export const router = createBrowserRouter([
 			{
 				path: "/forgetpassword",
 				element: <ForgetPassword />,
-			},
-			{
-				path: "/reset-password/:uid/:token",
-				element: <ChangePassword />,
 			},
 		],
 	},

@@ -9,3 +9,14 @@
 // .NotEmpty {
 //     @apply -translate-y-[35px] px-[5px];
 // }
+
+.CustomInput::-webkit-outer-spin-button,
+.CustomInput::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+}
+
+/* Firefox */
+.CustomInput[type="number"] {
+	-moz-appearance: textfield;
+	appearance: none;
+}

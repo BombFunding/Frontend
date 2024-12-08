@@ -1,40 +1,40 @@
 @media (min-width: 768px) {
-	.form_style {
-		@apply w-1/2;
-	}
+  .form_style {
+    @apply w-1/2;
+  }
 }
 
 .form_style {
-	@apply content-center p-12 place-items-center grid my-4;
+  @apply content-center p-12 place-items-center grid my-4;
 }
 
 .welcome {
-	@apply text-black text-xl;
+  @apply text-black text-xl;
 }
 
 .logo {
-	@apply mix-blend-darken h-0;
+  @apply mix-blend-darken h-0;
 }
 
 .text {
-	@apply text-black m-3 text-xs text-center;
+  @apply text-black m-3 text-xs text-center;
 }
 
 .no_account {
-	@apply text-[0.9rem] text-bombgray cursor-pointer hover:text-bomborange hover:underline mt-3;
+  @apply text-[0.9rem] text-bombgray cursor-pointer hover:text-bomborange hover:underline mt-3;
 }
 
 .forget_password {
-	@apply text-[0.8rem] text-bombgray cursor-pointer hover:text-bomborange hover:underline place-self-start pl-2 pt-2;
+  @apply text-[0.8rem] text-bombgray cursor-pointer hover:text-bomborange hover:underline justify-self-center pl-2 pt-2 my-3;
 }
 
 .Label {
-	@apply text-black m-1 place-self-end pe-1.5;
+  @apply text-black m-1 place-self-end pe-1.5;
 }
 
 .notification_box {
-	@apply fixed left-3 bottom-3;
+  @apply fixed left-3 bottom-3;
 }
 .notification_box_flex {
-	@apply flex flex-col items-end gap-1;
+  @apply flex flex-col items-end gap-1;
 }

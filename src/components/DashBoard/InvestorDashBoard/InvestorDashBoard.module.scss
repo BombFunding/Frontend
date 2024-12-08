@@ -1,0 +1,19 @@
+.card_style {
+  @apply w-[90vw] h-full rounded-lg shadow-md p-4 text-black flex flex-col gap-3 font-vazirmatn !important;
+}
+
+.team_box {
+  @apply w-4/5 flex flex-col justify-between items-center rounded-lg p-4 !important;
+  border: 2px solid #ff7517 !important;
+}
+.account_box {
+  @apply w-1/5 flex flex-col justify-between items-center rounded-lg p-4 !important;
+  border: 2px solid #ff7517 !important;
+}
+.team_row {
+  @apply flex flex-row justify-between items-center !important;
+}
+
+.label_style {
+  @apply text-black text-lg font-bold;
+}

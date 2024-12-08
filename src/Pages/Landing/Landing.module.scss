@@ -1,0 +1,27 @@
+.steps {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+}
+
+.step {
+	@apply place-self-start;
+	font-size: 1.25vw;
+	display: flex;
+	align-items: center;
+	text-align: left;
+	gap: 1vw;
+	background: #fff;
+	// border: 1px solid #ddd;
+	// border-radius: 8px;
+	// padding-: 20px;
+	// box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.step_icon {
+    @apply select-none;
+    // @apply text-bomborange;
+	font-size: 1.5vw;
+    filter: hue-rotate(180deg);
+	text-align: center;
+}

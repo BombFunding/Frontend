@@ -31,7 +31,7 @@ const AvatarWithFileUpload = ({
 						autoClose: 20000,
 					}
 				);
-				postImageData("startup/update_startup_profile/", formData)
+				postImageData("/auth/update_baseuser_profile/", formData)
 					.then((res) => {
 						console.log("Image posted successfully:", res);
 						setImageLoading(false);

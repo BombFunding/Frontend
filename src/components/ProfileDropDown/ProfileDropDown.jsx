@@ -23,7 +23,7 @@ function ProfileDropDown() {
 			<DropdownMenuContent className={styles.content}>
 
 
-				<DropdownMenuItem className={styles.item} onClick={()=>Navigate("/profile")}>
+				<DropdownMenuItem className={styles.item} onClick={()=>Navigate("/dashboard")}>
 					داشبورد
 				</DropdownMenuItem>
 				<DropdownMenuItem className={styles.item}>
