@@ -7,6 +7,12 @@ import {
   FiPieChart,
 } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
+import TeamPic from "../../assets/TeamPic.jpg";
+import Inv1 from "../../assets/Investor1.jpg";
+import Inv2 from "../../assets/Investor2.jpg";
+import Inv3 from "../../assets/Investor3.jpg";
+import Inv4 from "../../assets/Investor4.jpg";
+import { Avatar } from "../ui/avatar";
 
 function NavbarDropDown() {
   return (
@@ -162,47 +168,53 @@ const Nub = ({ selected }) => {
 const Startups = () => {
   return (
     <div>
-      <div className="flex gap-4">
+      <div className="flex flex-row gap-10 ml-2">
         <div>
-          <h3 className="mb-2 text-sm font-medium">Startup</h3>
+          <h3 className="mb-2 text-sm font-medium">آرایشی بهداشتی</h3>
           <a href="#" className="mb-1 block text-sm text-neutral-400">
-            Bookkeeping
+            اکستنشن تهرانی
           </a>
           <a href="#" className="block text-sm text-neutral-400">
-            Invoicing
+            آقایی
+          </a>
+          <a href="#" className="block text-sm text-neutral-400">
+            سفیر
+          </a>
+          <a href="#" className="block text-sm text-neutral-400">
+            روژا
           </a>
         </div>
         <div>
-          <h3 className="mb-2 text-sm font-medium">Scaleup</h3>
+          <h3 className="mb-2 text-sm font-medium">تکنولوژی</h3>
           <a href="#" className="mb-1 block text-sm text-neutral-400">
-            Live Coaching
+            پارسا الکترونیکز
           </a>
           <a href="#" className="mb-1 block text-sm text-neutral-400">
-            Reviews
+            تکنولایف
           </a>
           <a href="#" className="block text-sm text-neutral-400">
-            Tax/VAT
+            مقداد آی تی
           </a>
         </div>
         <div>
-          <h3 className="mb-2 text-sm font-medium">Enterprise</h3>
+          <h3 className="mb-2 text-sm font-medium">خرید و فروش</h3>
           <a href="#" className="mb-1 block text-sm text-neutral-400">
-            White glove
+            ترب
           </a>
           <a href="#" className="mb-1 block text-sm text-neutral-400">
-            SOX Compliance
+            دیوار
           </a>
           <a href="#" className="block text-sm text-neutral-400">
-            Staffing
+            شیپور
           </a>
           <a href="#" className="block text-sm text-neutral-400">
-            More
+            باسلام
           </a>
         </div>
       </div>
 
       <button className="ml-auto mt-4 flex items-center gap-1 text-sm text-indigo-300">
-        <span>View more</span>
+        <span>نمایش بیشتر</span>
         <FiArrowRight />
       </button>
     </div>
@@ -211,58 +223,75 @@ const Startups = () => {
 
 const Investors = () => {
   return (
-    <div className="grid grid-cols-3 gap-4 divide-x divide-neutral-700">
+    <div className="h-32 gap-4 divide-x divide-neutral-700 flex flex-row ">
       <a
         href="#"
-        className="flex w-full flex-col items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50"
+        className="flex flex-col w-1/4 h-full items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50"
       >
-        <FiHome className="mb-2 text-xl text-indigo-300" />
-        <span className="text-xs">Startup</span>
+        <img src={Inv1} className="object-hidden rounded-md" />
+        <span className="text-xs mt-2">پویا</span>
       </a>
       <a
         href="#"
-        className="flex w-full flex-col items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50"
+        className="flex flex-col w-1/4 h-full items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50"
       >
-        <FiBarChart2 className="mb-2 text-xl text-indigo-300" />
-        <span className="text-xs">Scaleup</span>
+        <img src={Inv2} className="object-hidden rounded-md" />
+        {/* <Avatar ref={Inv2} /> */}
+        <span className="text-xs mt-2">طاها</span>
       </a>
       <a
+        href="#"
+        className="flex flex-col w-1/4 h-full items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50"
+      >
+        <img src={Inv3} className="object-hidden rounded-md" />
+        {/* <Avatar ref={Inv2} /> */}
+        <span className="text-xs mt-2">ایمان</span>
+      </a>
+      <a
+        href="#"
+        className="flex flex-col w-1/4 h-full items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50"
+      >
+        <img src={Inv4} className="object-hidden rounded-md" />
+        {/* <Avatar ref={Inv2} /> */}
+        <span className="text-xs mt-2">سعید</span>
+      </a>
+      {/* <a
         href="#"
         className="flex w-full flex-col items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50"
       >
         <FiPieChart className="mb-2 text-xl text-indigo-300" />
         <span className="text-xs">Enterprise</span>
-      </a>
+      </a> */}
     </div>
   );
 };
 
-const Blog = () => {
+const AboutUs = () => {
   return (
     <div>
       <div className="grid grid-cols-2 gap-2">
-        <a href="#">
+        <a href="#" className="">
           <img
             className="mb-2 h-14 w-full rounded object-cover"
-            src="/imgs/blog/4.png"
-            alt="Placeholder image"
+            src={TeamPic}
+            alt="Team members image"
           />
-          <h4 className="mb-0.5 text-sm font-medium">Lorem ipsum dolor</h4>
+          <h4 className="mb-0.5 text-sm font-medium">تیم لایق فرانت</h4>
           <p className="text-xs text-neutral-400">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet illo
-            quidem eos.
+            تیم لایق و زحمتکش جلو-انتها که مداوم با تلاش های روزافزون در راستای
+            تکمیل وظایف محول شده در اسپرینت به انجام آنها پرداختند
           </p>
         </a>
-        <a href="#">
+        <a href="#" className="">
           <img
             className="mb-2 h-14 w-full rounded object-cover"
-            src="/imgs/blog/5.png"
-            alt="Placeholder image"
+            src={TeamPic}
+            alt="Team members image"
           />
-          <h4 className="mb-0.5 text-sm font-medium">Lorem ipsum dolor</h4>
+          <h4 className="mb-0.5 text-sm font-medium">تیم کارکن بک</h4>
           <p className="text-xs text-neutral-400">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet illo
-            quidem eos.
+            تیم بک که شامل میلاد زارعی و ترانه عبداللهی می باشد به مقدار زیادی
+            کار می کنند
           </p>
         </a>
       </div>
@@ -276,7 +305,7 @@ const Blog = () => {
 
 const TABS = [
   {
-    title: "درباره ما",
+    title: "استارت آپ ها",
     Component: Startups,
   },
   {
@@ -284,7 +313,7 @@ const TABS = [
     Component: Investors,
   },
   {
-    title: "استارت آپ",
-    Component: Blog,
+    title: "درباره ما",
+    Component: AboutUs,
   },
 ].map((n, idx) => ({ ...n, id: idx + 1 }));
