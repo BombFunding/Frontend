@@ -8,7 +8,7 @@ import Error from "../Error/Error";
 
 const DashBoard = () => {
 	const userType = useTokenStore((state) => state.userType);
-
+	console.log(userType);
 	switch (userType) {
 		case "startup":
 			return <StartupDashBoard />;
