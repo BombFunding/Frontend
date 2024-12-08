@@ -31,22 +31,7 @@ export const router = createBrowserRouter([
 				path: "/Profile/:username",
 				element: <Profile />,
 			},
-			{
-				path: "/login",
-				element: <Login />,
-			},
-			{
-				path: "/signup",
-				element: <Signup />,
-			},
-			{
-				path: "/emailverification",
-				element: <EmailVerification />,
-			},
-			{
-				path: "/forgetpassword",
-				element: <ForgetPassword />,
-			},
+
 			{
 				path: "/reset-password/:uid/:token",
 				element: <ChangePassword />,
@@ -76,6 +61,23 @@ export const router = createBrowserRouter([
 	},
 	{
 		element: <NoNavbarLayout />,
-		children: [],
+		children: [
+			{
+				path: "/login",
+				element: <Login />,
+			},
+			{
+				path: "/signup",
+				element: <Signup />,
+			},
+			{
+				path: "/emailverification",
+				element: <EmailVerification />,
+			},
+			{
+				path: "/forgetpassword",
+				element: <ForgetPassword />,
+			},
+		],
 	},
 ]);

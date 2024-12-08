@@ -1,6 +1,6 @@
 @media (max-width: 768px) {
 	.form_style {
-		@apply w-full p-4;
+		@apply w-full p-4 ;
 	}
 	.input_row {
 		@apply flex flex-row items-center gap-3 !important;
@@ -17,7 +17,7 @@
 
 .form_style {
 	// @apply content-center place-items-center flex flex-col w-full;
-	@apply content-center place-items-center flex flex-col justify-between py-2 p-4 w-full max-h-min !important;
+	@apply content-center place-items-center align-middle place-self-center gap-[1vw] flex flex-col justify-between py-2 p-4 w-full max-h-min !important;
 }
 
 .Label {
