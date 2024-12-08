@@ -16,13 +16,16 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import SaveIcon from "@mui/icons-material/Save";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ErrorMessage from "@/components/messages/ErrorMessage/ErrorMessage";
+// import ErrorMessage from "@/components/messages/ErrorMessage/ErrorMessage";
 import {
 	getData,
 	postData,
 	postImageData,
 } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import useTokenStore from "@/stores/TokenStore";
+import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 
 const schema = yup.object().shape({
 	firstName: yup.string().optional().nullable(),
@@ -72,6 +75,7 @@ const schema = yup.object().shape({
 });
 
 const EditProfile = () => {
+	const userType = useTokenStore((state) => state.userType);
 	const {
 		register,
 		handleSubmit,
@@ -98,35 +102,37 @@ const EditProfile = () => {
 			//     Pragma: "no-cache",
 			//   },
 			// });
-			await getData("/startup/view_own_startup_profile/")
-				.then((data) => {
-					console.log(data);
-					const profile = data.startup_profile;
-					console.log("recived profile: ", profile);
-					setBannerFile(
-						`http://104.168.46.4:8000${profile.header_picture}`
-					);
-					setAvatarFile(
-						`http://104.168.46.4:8000${profile.profile_picture}`
-					);
-					const profileInfo_ = {
-						firstName: profile.first_name ?? "",
-						lastName: profile.last_name ?? "",
-						phoneNumber: profile.phone ?? "",
-						bio: profile.bio ?? "",
-						telegramAccount: profile.socials?.telegram ?? "",
-						linkedinAccount: profile.socials?.linkedin ?? "",
-						twitterAccount: profile.socials?.twitter ?? "",
-						website: profile.socials?.website ?? "",
-						email: profile.email ?? "",
-					};
-					setProfileInfo(profileInfo_);
-					reset(profileInfo_);
-					setLoading(false);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
+			if (userType === "startup") {
+				await getData("/auth/view_own_baseuser_profile/")
+					.then((data) => {
+						console.log("data: ", data);
+						const profile = data.base_profile;
+						console.log("recived profile: ", profile);
+						setBannerFile(
+							`http://104.168.46.4:8000${profile.header_picture}`
+						);
+						setAvatarFile(
+							`http://104.168.46.4:8000${profile.profile_picture}`
+						);
+						const profileInfo_ = {
+							firstName: profile.first_name ?? "",
+							lastName: profile.last_name ?? "",
+							phoneNumber: profile.phone ?? "",
+							bio: profile.bio ?? "",
+							telegramAccount: profile.socials?.telegram ?? "",
+							linkedinAccount: profile.socials?.linkedin ?? "",
+							twitterAccount: profile.socials?.twitter ?? "",
+							website: profile.socials?.website ?? "",
+							email: profile.email ?? "",
+						};
+						setProfileInfo(profileInfo_);
+						reset(profileInfo_);
+						setLoading(false);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			}
 		};
 
 		fetchDefaultValues();
@@ -138,7 +144,8 @@ const EditProfile = () => {
 			Object.values(errors).map((err) => {
 				// console.log(err.message);
 				// toast.error(err.message);
-				toast.error(<ErrorMessage message={err.message} />);
+				// toast.error(<ErrorMessage message={err.message} />);
+				toast.error(<CustomToast Header={err.message} />);
 			});
 		}
 	}, [errors]);
@@ -160,19 +167,24 @@ const EditProfile = () => {
 		};
 		const updateData = async (bodyData) => {
 			console.log("bodyData: ", bodyData);
-			await postData("/startup/update_startup_profile/", bodyData)
+			await postData("/auth/update_baseuser_profile/", bodyData)
 				.then((data) => {
 					console.log("Data posted successfully:", data);
 					toast.success(
-						<ErrorMessage
-							message={"پروفایل با موفقیت بروزرسانی شد"}
-						/>
+						// <ErrorMessage
+						// 	message={"پروفایل با موفقیت بروزرسانی شد"}
+						// />
+						<CustomToast Header="پروفایل با موفقیت بروزرسانی شد" />
 					);
 				})
 				.catch((error) => {
 					console.log("Data posting FAILED:", error);
-					toast.success(
-						<ErrorMessage message={"پروفایل بروزرسانی نشد"} />
+					toast.error(
+						// <ErrorMessage message={"پروفایل بروزرسانی نشد"} />
+						<CustomToast
+							Header="خطا"
+							Message="پروفایل بروزرسانی نشد"
+						/>
 					);
 				});
 		};
@@ -196,20 +208,22 @@ const EditProfile = () => {
 				formData.append("header_picture", file);
 				setImageLoading(true);
 				const toastId = toast.success(
-					<ErrorMessage message={"بنر در حال بروزرسانی ..."} />,
+					// <ErrorMessage message={"بنر در حال بروزرسانی ..."} />,
+					<CustomToast Header="بنر در حال بروزرسانی ..." />,
 					{
 						autoClose: 20000,
 					}
 				);
-				postImageData("startup/update_startup_profile/", formData)
+				postImageData("/auth/update_baseuser_profile/", formData)
 					.then((res) => {
 						console.log("Image posted successfully:", res);
 						setImageLoading(false);
 						toast.dismiss(toastId);
 						toast.success(
-							<ErrorMessage
-								message={"بنر با موفقیت بروزرسانی شد"}
-							/>
+							// <ErrorMessage
+							// 	message={"بنر با موفقیت بروزرسانی شد"}
+							// />
+							<CustomToast Header="بنر با موفقیت بروزرسانی شد" />
 						);
 					})
 					.catch((err) => {
@@ -217,28 +231,14 @@ const EditProfile = () => {
 						setImageLoading(false);
 						toast.dismiss(toastId);
 						toast.error(
-							<ErrorMessage message={"بنر بروزرسانی نشد"} />
+							// <ErrorMessage message={"بنر بروزرسانی نشد"} />
+							<CustomToast Header="بنر بروزرسانی نشد" />
 						);
 					});
 			};
 			reader.readAsDataURL(file);
 		}
 	};
-	// useEffect(() => {
-	//   // const formData = new FormData();
-	//   // formData.append("header_picture", new File([bannerFile], ".png"));
-	//   // console.log("bannerFile: ", bannerFile);
-	//   // console.log("formData: ", formData);
-	//   const formData = new FormData();
-	//   formData.append("imageFile", bannerFile);
-	//   postImageData("startup/update_startup_profile/", formData)
-	//     .then((res) => {
-	//       console.log("Image posted successfully:", res);
-	//     })
-	//     .catch((err) => {
-	//       console.log("Image posting FAILED:", err);
-	//     });
-	// }, [bannerFile]);
 	if (loading) return <Loading />;
 	return (
 		<>

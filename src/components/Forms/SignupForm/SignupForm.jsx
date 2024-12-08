@@ -71,11 +71,6 @@ function SignupForm() {
 	function togglePasswordVisibility() {
 		setShowPassword(!showPassword);
 	}
-	function handleKeyDown(e) {
-		if (e.key === "Enter") {
-			onSubmit(e);
-		}
-	}
 	const onSubmit = async () => {
 		try {
 			console.log(username, password, email, confirmPassword, user_type);
@@ -260,7 +255,6 @@ function SignupForm() {
 						<CustomInput
 							placeholder="نام کاربری"
 							autofocus={true}
-							onKey={(e) => handleKeyDown(e)}
 							name="username"
 							onChange={(e) => updateUsername(e)}
 							value={username}
@@ -269,7 +263,6 @@ function SignupForm() {
 						<CustomInput
 							placeholder="ایمیل"
 							autofocus={true}
-							onKey={(e) => handleKeyDown(e)}
 							name="email"
 							onChange={(e) => updateEmail(e)}
 							value={email}
@@ -278,7 +271,6 @@ function SignupForm() {
 					</div>
 					<div className={styles.input_row}>
 						<PasswordInput
-							handleKeyDown={handleKeyDown}
 							placeholder="تایید رمز عبور"
 							name="confirmPassword"
 							onChange={(e) => updateConfirmPassword(e)}
@@ -286,7 +278,6 @@ function SignupForm() {
 							togglePasswordVisibility={togglePasswordVisibility}
 						/>
 						<PasswordInput
-							handleKeyDown={handleKeyDown}
 							placeholder="رمز عبور"
 							name="password"
 							hasEye={true}

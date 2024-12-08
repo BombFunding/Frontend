@@ -5,10 +5,11 @@ import styles from "./LoginForm.module.scss";
 import DrawerButton from "@/components/Custom/DrawerButton/DrawerButton";
 import { useState } from "react";
 import { useLoginFormStore } from "@/stores/FormStore";
-import { postData } from "@/Services/ApiClient/Services.js";
+import { getData, postData } from "@/Services/ApiClient/Services.js";
 import useTokenStore from "@/stores/TokenStore";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 function LoginForm() {
   const Navigate = useNavigate();
@@ -16,14 +17,11 @@ function LoginForm() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  function handleKeyDown(e) {
-    if (e.key === "Enter") {
-      onSubmit();
-    }
-  }
+
   const { usernameEmail, password, updateUsernameEmail, updatePassword } =
     useLoginFormStore((state) => state);
   const TokenManager = useTokenStore((state) => state);
+  const profileManager = useProfileStore((state) => state);
   const formData = { usernameEmail, password };
   const formState = useLoginFormStore((state) => state);
   const onSubmit = async (e) => {
@@ -46,6 +44,12 @@ function LoginForm() {
         TokenManager.updateRefreshToken(response.refresh_token);
         TokenManager.updateUserType(response.user_type);
         toast.success(<CustomToast Header="با موفقیت وارد سایت شدید" />);
+        getData(`startup/get_startup_profile/${response.username}/`).then(
+          (res) => {
+            console.log("res:", res);
+            profileManager.setProfileId(res.profile.id);
+          }
+        );  
         setTimeout(() => {
           Navigate("/");
         }, 3000);
@@ -71,10 +75,10 @@ function LoginForm() {
     } catch (error) {
       // setErrors((pre) => [...pre, error.inner]);
       console.log("er:", error.response?.data?.non_field_errors[0]);
-      if (
-        error.response?.data?.non_field_errors[0] === "Email is not confirmed."
-      ) {
+      if (error.response?.data?.non_field_errors) {
         toast.error(<CustomToast Header="لطفا ایمیل خود را تایید کنید" />);
+      } else if (error.response?.data?.error) {
+        toast.error(<CustomToast Header="حساب کاربری وجود ندارد" />);
       } else {
         toast.error(<CustomToast Header="نام کاربری یا رمز عبور اشتباه است" />);
       }
@@ -110,13 +114,11 @@ function LoginForm() {
         <CustomInput
           placeholder="ایمیل یا نام کاربری"
           autofocus={true}
-          onKey={(e) => handleKeyDown(e)}
           name="usernameEmail"
           value={formData.usernameEmail}
           onChange={formState.updateUsernameEmail}
         />
         <PasswordInput
-          handleKeyDown={handleKeyDown}
           placeholder="رمز عبور"
           name="password"
           onChange={formState.updatePassword}

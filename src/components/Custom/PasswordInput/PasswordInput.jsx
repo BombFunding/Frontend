@@ -4,7 +4,6 @@ import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 
 function PasswordInput({
 	update,
-	handleKeyDown,
 	className,
 	name,
 	placeholder,
@@ -39,7 +38,6 @@ function PasswordInput({
 				type={showPassword ? "text" : "password"}
 				update={update}
 				placeholder={placeholder}
-				onKey={(e) => handleKeyDown(e)}
 				className={`${className} ${hasEye ? "right-[2.5rem]" : ""}`}
 				name={name}
 				onChange={onChange}

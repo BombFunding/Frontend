@@ -1,5 +1,5 @@
 import styles from "./Likes.module.scss";
-function Likes({ className }) {
+function Likes({ count, className }) {
 	return (
 		<button className={`${styles.Btn} ${className}`}>
 			<span className={`${styles.leftContainer}`}>
@@ -8,7 +8,7 @@ function Likes({ className }) {
 				</svg>
 				<span className={`${styles.like}`}>Likes</span>
 			</span>
-			<span className={`${styles.likeCount}`}>2,050</span>
+			<span className={`${styles.likeCount}`}>{count}</span>
 		</button>
 	);
 }

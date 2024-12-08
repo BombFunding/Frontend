@@ -10,19 +10,3 @@
 	@apply flex flex-col gap-2 w-3/5;
 }
 
-.input_style::-webkit-outer-spin-button,
-.input_style::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
-}
-
-.input_style[type="number"] {
-	-moz-appearance: textfield;
-	appearance: none;
-}
-
-.container {
-	@apply grid grid-cols-4 place-items-center gap-10 font-vazirmatn rtl;
-	// display: flex;
-	// grid-template-columns: repeat(2, 1fr);
-}
