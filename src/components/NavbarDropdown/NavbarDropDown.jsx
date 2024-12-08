@@ -168,41 +168,47 @@ const Nub = ({ selected }) => {
 const Startups = () => {
   return (
     <div>
-      <div className="flex gap-4">
+      <div className="flex flex-row gap-10 ml-2">
         <div>
-          <h3 className="mb-2 text-sm font-medium">Startup</h3>
+          <h3 className="mb-2 text-sm font-medium">آرایشی بهداشتی</h3>
           <a href="#" className="mb-1 block text-sm text-neutral-400">
-            Bookkeeping
+            اکستنشن تهرانی
           </a>
           <a href="#" className="block text-sm text-neutral-400">
-            Invoicing
+            آقایی
+          </a>
+          <a href="#" className="block text-sm text-neutral-400">
+            سفیر
+          </a>
+          <a href="#" className="block text-sm text-neutral-400">
+            روژا
           </a>
         </div>
         <div>
-          <h3 className="mb-2 text-sm font-medium">Scaleup</h3>
+          <h3 className="mb-2 text-sm font-medium">تکنولوژی</h3>
           <a href="#" className="mb-1 block text-sm text-neutral-400">
-            Live Coaching
+            پارسا الکترونیکز
           </a>
           <a href="#" className="mb-1 block text-sm text-neutral-400">
-            Reviews
+            تکنولایف
           </a>
           <a href="#" className="block text-sm text-neutral-400">
-            Tax/VAT
+            مقداد آی تی
           </a>
         </div>
         <div>
-          <h3 className="mb-2 text-sm font-medium">Enterprise</h3>
+          <h3 className="mb-2 text-sm font-medium">خرید و فروش</h3>
           <a href="#" className="mb-1 block text-sm text-neutral-400">
-            White glove
+            ترب
           </a>
           <a href="#" className="mb-1 block text-sm text-neutral-400">
-            SOX Compliance
+            دیوار
           </a>
           <a href="#" className="block text-sm text-neutral-400">
-            Staffing
+            شیپور
           </a>
           <a href="#" className="block text-sm text-neutral-400">
-            More
+            باسلام
           </a>
         </div>
       </div>
