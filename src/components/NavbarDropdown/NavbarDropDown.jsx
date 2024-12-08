@@ -214,7 +214,7 @@ const Startups = () => {
       </div>
 
       <button className="ml-auto mt-4 flex items-center gap-1 text-sm text-indigo-300">
-        <span>View more</span>
+        <span>نمایش بیشتر</span>
         <FiArrowRight />
       </button>
     </div>
@@ -229,7 +229,7 @@ const Investors = () => {
         className="flex flex-col w-1/4 h-full items-center justify-center py-2 text-neutral-400 transition-colors hover:text-neutral-50"
       >
         <img src={Inv1} className="object-hidden rounded-md" />
-        <span className="text-xs mt-2">Pouya</span>
+        <span className="text-xs mt-2">پویا</span>
       </a>
       <a
         href="#"
@@ -237,7 +237,7 @@ const Investors = () => {
       >
         <img src={Inv2} className="object-hidden rounded-md" />
         {/* <Avatar ref={Inv2} /> */}
-        <span className="text-xs mt-2">Taha Bk</span>
+        <span className="text-xs mt-2">طاها</span>
       </a>
       <a
         href="#"
@@ -245,7 +245,7 @@ const Investors = () => {
       >
         <img src={Inv3} className="object-hidden rounded-md" />
         {/* <Avatar ref={Inv2} /> */}
-        <span className="text-xs mt-2">Iman</span>
+        <span className="text-xs mt-2">ایمان</span>
       </a>
       <a
         href="#"
@@ -253,7 +253,7 @@ const Investors = () => {
       >
         <img src={Inv4} className="object-hidden rounded-md" />
         {/* <Avatar ref={Inv2} /> */}
-        <span className="text-xs mt-2">Saeed</span>
+        <span className="text-xs mt-2">سعید</span>
       </a>
       {/* <a
         href="#"
@@ -270,28 +270,28 @@ const AboutUs = () => {
   return (
     <div>
       <div className="grid grid-cols-2 gap-2">
-        <a href="#">
+        <a href="#" className="">
           <img
             className="mb-2 h-14 w-full rounded object-cover"
             src={TeamPic}
             alt="Team members image"
           />
-          <h4 className="mb-0.5 text-sm font-medium">Lorem ipsum dolor</h4>
+          <h4 className="mb-0.5 text-sm font-medium">تیم لایق فرانت</h4>
           <p className="text-xs text-neutral-400">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet illo
-            quidem eos.
+            تیم لایق و زحمتکش جلو-انتها که مداوم با تلاش های روزافزون در راستای
+            تکمیل وظایف محول شده در اسپرینت به انجام آنها پرداختند
           </p>
         </a>
-        <a href="#">
+        <a href="#" className="">
           <img
             className="mb-2 h-14 w-full rounded object-cover"
             src={TeamPic}
             alt="Team members image"
           />
-          <h4 className="mb-0.5 text-sm font-medium">Lorem ipsum dolor</h4>
+          <h4 className="mb-0.5 text-sm font-medium">تیم کارکن بک</h4>
           <p className="text-xs text-neutral-400">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet illo
-            quidem eos.
+            تیم بک که شامل میلاد زارعی و ترانه عبداللهی می باشد به مقدار زیادی
+            کار می کنند
           </p>
         </a>
       </div>
