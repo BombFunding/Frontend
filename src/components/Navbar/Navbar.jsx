@@ -35,18 +35,20 @@ function Navbar() {
               </>
             )}
           </div>
+          <SearchBar className={`${styles.SearchBar}`} />
+          <div className={`${styles.mobile} flex`}>
+            {TOKEN ? (
+              <ProfileDropDown />
+            ) : (
+              <PushyButton onClick={() => Navigate("/login")}>
+                Login
+              </PushyButton>
+            )}
+          </div>
+          <HamburgerMenu isOpen={isOpen} setOpen={setOpen} mode={"sm:hidden"} />
         </div>
-        <SearchBar className={`${styles.SearchBar}`} />
-        <div className={`${styles.mobile} flex`}>
-          {TOKEN ? (
-            <ProfileDropDown />
-          ) : (
-            <PushyButton onClick={() => Navigate("/login")}>Login</PushyButton>
-          )}
-        </div>
-        <HamburgerMenu isOpen={isOpen} setOpen={setOpen} mode={"sm:hidden"} />
       </div>
-      <div className="h-12">
+      <div className="mt-[4vw] h-[2vw] w-[100vw] z-[-20]">
         <NavbarDropDown />
       </div>
     </nav>

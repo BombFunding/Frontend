@@ -16,7 +16,7 @@ import { Avatar } from "../ui/avatar";
 
 function NavbarDropDown() {
   return (
-    <div className="flex h-12 w-full justify-center bg-bomborange pt-2 text-neutral-200 md:justify-center">
+    <div className="relative w-full h-full z-[-30] justify-start bg-bomborang text-neutral-200 md:justify-end place-items-center">
       <Tabs />
     </div>
   );
@@ -41,7 +41,7 @@ const Tabs = () => {
   return (
     <div
       onMouseLeave={() => handleSetSelected(null)}
-      className="relative flex flex-row h-fit gap-10"
+      className="relative flex flex-row z-[-20] gap-10 font-vazirmatn"
     >
       {TABS.map((t) => {
         return (
@@ -69,8 +69,8 @@ const Tab = ({ children, tab, handleSetSelected, selected }) => {
       id={`shift-tab-${tab}`}
       onMouseEnter={() => handleSetSelected(tab)}
       onClick={() => handleSetSelected(tab)}
-      className={`flex items-center gap-1 font-vazirmatn rounded-lg px-3 py-1.5 text-sm transition-colors ${
-        selected === tab ? " bg-[#FF7517] text-neutral-100" : "text-neutral-800"
+      className={`flex items-center z-[-10] gap-1 font-vazirmatn h-full align-middle place-self-center rounded-lg px-3 py-1.5 text-sm transition-colors ${
+        selected === tab ? " bg-bomborange text-neutral-100" : "text-neutral-800"
       }`}
     >
       <span>{children}</span>
