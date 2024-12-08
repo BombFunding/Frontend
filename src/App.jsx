@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
+import Footer from "./components/Footer/Footer.jsx"
 import "./App.css";
 // import { Button } from "./components/ui/button";
 import { Loading } from "./components/Loading";
@@ -67,8 +68,8 @@ function App() {
 					button
 				</Button>
 				<Form /> */}
-
         <Loading />
+
       </div>
     </>
   );

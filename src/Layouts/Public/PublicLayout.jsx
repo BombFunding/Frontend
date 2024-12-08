@@ -3,6 +3,7 @@ import styles from "./PublicLayout.module.scss";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Navbar from "@/components/Navbar/Navbar";
+import Footer from "/src/components/Footer/Footer.jsx"
 
 const PublicLayout = () => {
 	return (
@@ -10,6 +11,7 @@ const PublicLayout = () => {
 			<div>
 				<Navbar />
 				<Outlet />
+				<Footer />
 			</div>
 			<ToastContainer
 				position="bottom-right"
