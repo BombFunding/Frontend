@@ -13,8 +13,15 @@ import { Label } from "@/components/ui/label";
 import { Loading } from "@/components/Loading/Loading";
 const StartupDashBoard = () => {
 	const [loading, setLoading] = useState(false);
-	const { username, setFullname, setUsername, setBio, setAvatar, setHeader } =
-		useProfileStore();
+	const {
+		username,
+		setPositions,
+		setFullname,
+		setUsername,
+		setBio,
+		setAvatar,
+		setHeader,
+	} = useProfileStore();
 	console.log(useProfileStore());
 	useEffect(() => {
 		setLoading(true);
@@ -22,11 +29,11 @@ const StartupDashBoard = () => {
 		getData(`/auth/view_own_baseuser_profile/`).then((data) => {
 			console.log("Startup data: ", data.base_profile);
 			setFullname(
-				data.base_profile.first_name +
-					" " +
-					data.base_profile.last_name
+				data.base_profile.first_name + " " + data.base_profile.last_name
 			);
 			setUsername(data.base_profile.name);
+
+			console.log("username: ", username);
 			setBio(data.base_profile.bio);
 			setAvatar(
 				`http://104.168.46.4:8000${data.base_profile.profile_picture}`
@@ -34,7 +41,13 @@ const StartupDashBoard = () => {
 			setHeader(
 				`http://104.168.46.4:8000${data.base_profile.header_picture}`
 			);
-			setLoading(false);
+			getData(`/startup/get_startup_profile/${username}/`).then(
+				(data) => {
+					console.log("positions: ", data.profile.positions);
+					setPositions(data.profile.positions);
+					setLoading(false);
+				}
+			);
 		});
 	}, []);
 	if (loading) return <Loading />;
@@ -57,9 +70,9 @@ const StartupDashBoard = () => {
 				{/* <div className={styles.position_box}>Team</div> */}
 				{/* <div className={styles.team_row}></div> */}
 				{/* <div className={styles.position_box}>profiles</div> */}
-				<StartupProfiles />
+				{/* <StartupProfiles /> */}
 				{/* <CommentSection /> */}
-				<div className={styles.position_box}>stats</div>
+				{/* <div className={styles.position_box}>stats</div> */}
 			</Card>
 		</>
 	);

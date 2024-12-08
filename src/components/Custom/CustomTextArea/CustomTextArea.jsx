@@ -26,7 +26,6 @@ function CustomTextArea({
               setEmpty(e.target.value.length === 0);
               onChange(e.target.value);
             }}
-            onKeyDown={(e) => onKey(e)}
             className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
                     text-black text-left transition duration-150 ease-in-out focus:outline-none focus:ring-0 focus:border-bomborange ${inputClassName}`}
           />
@@ -39,7 +38,6 @@ function CustomTextArea({
               setEmpty(e.target.value.length === 0);
               onChange(e.target.value);
             }}
-            onKeyDown={(e) => onKey(e)}
             className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
                     text-black text-left transition duration-150 ease-in-out focus:outline-none focus:ring-0 focus:border-bomborange ${inputClassName}`}
           />

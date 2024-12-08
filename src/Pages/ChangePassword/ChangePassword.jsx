@@ -21,11 +21,6 @@ function ChangePassword() {
 	const toggleConfirmPasswordVisibility = () => {
 		setShowConfirmPassword(!showConfirmPassword);
 	};
-	function handleKeyDown(e) {
-		if (e.key === "Enter") {
-			onSubmit();
-		}
-	}
 	const onSubmit = async (e) => {
 		const passwordRegex =
 			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -109,7 +104,6 @@ function ChangePassword() {
 				رمز عبور جدید خود را وارد کنید
 			</Label>
 			<PasswordInput
-				handleKeyDown={handleKeyDown}
 				placeholder="رمز عبور جدید"
 				name="password"
 				onChange={setPassword}
@@ -118,7 +112,6 @@ function ChangePassword() {
 				togglePasswordVisibility={togglePasswordVisibility}
 			/>
 			<PasswordInput
-				handleKeyDown={handleKeyDown}
 				placeholder="تایید رمز عبور جدید"
 				name="confirmPassword"
 				onChange={setConfirmPassword}

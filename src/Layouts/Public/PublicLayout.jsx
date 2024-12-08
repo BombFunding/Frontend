@@ -21,7 +21,7 @@ const PublicLayout = () => {
 				closeButton={false}
 				limit={5}
 			/>
-			<div className="mt-12">
+			<div className="mt-32">
 				<Navbar />
 				<Outlet />
 			</div>

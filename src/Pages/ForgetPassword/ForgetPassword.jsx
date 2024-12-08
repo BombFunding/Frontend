@@ -12,11 +12,6 @@ import { useNavigate } from "react-router";
 function ForgetPassword() {
 	const [email, setEmail] = useState("");
 	const Navigate = useNavigate();
-	function handleKeyDown(e) {
-		if (e.key === "Enter") {
-			onSubmit();
-		}
-	}
 	const onSubmit = async (e) => {
 		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 		let bodyData;
@@ -80,7 +75,6 @@ function ForgetPassword() {
 			<CustomInput
 				placeholder="ایمیل"
 				autofocus={true}
-				onKey={(e) => handleKeyDown(e)}
 				name="email"
 				onChange={setEmail}
 			/>
