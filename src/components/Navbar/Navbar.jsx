@@ -14,11 +14,10 @@ function Navbar() {
   const TOKEN = useTokenStore((state) => state.accessToken);
   return (
     <nav
-      className={`flex justify-around bg-bomborange
- w-screen h-[7vw] top-0 fixed right-0 z-10 gap-1`}
+      className={`flex flex-col justify-around bg-bomborange w-full h-24 top-0 fixed right-0 z-40 gap-1`}
     >
-      <div className="flex bg-bomborange w-screen h-[4vw] fixed">
-        <div className="container px-4 py-6 flex justify-between items-center">
+      <div className="flex flex-row bg-bomborange w-full h-12 justify-between items-center px-6">
+        <div className="px-4 py-6 flex justify-between items-center">
           <div
             className="flex text-white hover:cursor-pointer"
             onClick={() => Navigate("/")}

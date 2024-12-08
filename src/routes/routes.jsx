@@ -12,6 +12,10 @@ import PrivateLayout from "@/Layouts/private/PrivateLayout";
 import EmailVerification from "@/Pages/EmailVerification/EmailVerification";
 import EditProfile from "@/Pages/EditProfile/EditProfile";
 import Profile from "@/Pages/Profile/Profile";
+import DashBoard from "@/Pages/DashBoard/DashBoard.jsx";
+import ChargeAccount from "@/Pages/ChargeAccount/ChargeAccount";
+import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
+import { Loading } from "@/components/Loading/Loading";
 
 export const router = createBrowserRouter([
 	{
@@ -23,28 +27,10 @@ export const router = createBrowserRouter([
 				index: true,
 				element: <Landing />,
 			},
-		],
-	},
-	{
-		element: <PrivateLayout />,
-		children: [
-			{
-				path: "/test",
-				element: <Navbar />,
-			},
-			{
-				path: "/EditProfile",
-				element: <EditProfile />,
-			},
 			{
 				path: "/Profile/:username",
 				element: <Profile />,
 			},
-		],
-	},
-	{
-		element: <NoNavbarLayout />,
-		children: [
 			{
 				path: "/login",
 				element: <Login />,
@@ -66,5 +52,30 @@ export const router = createBrowserRouter([
 				element: <ChangePassword />,
 			},
 		],
+	},
+	{
+		element: <PrivateLayout />,
+		children: [
+			{
+				path: "/test",
+				element: <Loading />,
+			},
+			{
+				path: "/EditProfile",
+				element: <EditProfile />,
+			},
+			{
+				path: "/DashBoard",
+				element: <DashBoard />,
+			},
+			{
+				path: "/ChargeAccount",
+				element: <ChargeAccount />,
+			},
+		],
+	},
+	{
+		element: <NoNavbarLayout />,
+		children: [],
 	},
 ]);
