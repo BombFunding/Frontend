@@ -30,7 +30,7 @@ function PersonalInfo({ loading }) {
 			>
 				ویرایش اطلاعات
 			</Button>
-			<Likes count={2} className="absolute mt-[11.2vw] ml-[1.5vw]" />
+			{/* <Likes count={2} className="absolute mt-[11.2vw] ml-[1.5vw]" /> */}
 			<section
 				className={`${
 					x ?? "border-solid border-2 border-bomborange "
@@ -43,12 +43,12 @@ function PersonalInfo({ loading }) {
 					</h1>
 					<h1 className={`text-[2vw]`}>{fullname}</h1>
 				</div>
-				<div className="flex gap-[0.75vw]">
+				{/* <div className="flex gap-[0.75vw]">
 					<img src={calendarIcon} className="h-[2vw]" />
 					<div className="text-[1.5vw] place-self-center place-content-center align-middle">
 						عضویت از 2024/12/5
 					</div>
-				</div>
+				</div> */}
 				<p className="rtl text-[1.5vw] border-solid border-2 my-[1vw] p-[2vw] rounded-lg">
 					{bio}
 				</p>

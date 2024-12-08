@@ -1,11 +1,11 @@
 .card_style
 {
-    @apply w-full h-[28vh] rounded-lg shadow-md p-4 text-black flex  gap-3 overflow-hidden rtl !important;
+    @apply w-full h-[23vh] rounded-lg shadow-md p-4 text-black flex  gap-3 overflow-hidden rtl !important;
 }
 
 .button_box
 {
-    @apply flex flex-col justify-between items-center  p-0 text-black !important;
+    @apply flex flex-col justify-between items-center p-0 text-black !important;
     // border: 2px solid #ff7517 !important;
 }
 

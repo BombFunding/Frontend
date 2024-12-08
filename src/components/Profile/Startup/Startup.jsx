@@ -1,5 +1,5 @@
 const StartupProfile = () => {
-	return <div>StartupProfile</div>;
+	return <div></div>;
 };
 
 export default StartupProfile;

@@ -65,7 +65,7 @@ $w: 10rem;
 	}
 
 	.slide {
-		@apply place-content-center align-middle place-items-center items-center;
+		@apply place-content-center align-middle place-items-center items-center hover:cursor-pointer;
 	}
 
 	.image {

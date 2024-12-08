@@ -123,10 +123,10 @@ const PositionItem = ({ positionData }) => {
 						</DrawerClose>
 					</DrawerContent>
 				</Drawer>
-				<Separator className="my-1" />
+				{/* <Separator className="my-1" />
 				<Button variant="default" className={styles.button_style}>
 					تمدید
-				</Button>
+				</Button> */}
 			</div>
 		</Card>
 	);

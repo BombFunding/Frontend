@@ -28,14 +28,22 @@ const TeamBox = ({ className }) => {
 			<div className={styles.create_member}>
 				<Drawer>
 					<DrawerTrigger>
-						<Button variant="default" className="btn bg-bomborange hover:text-white hover:bg-black m-2">
+						<Button
+							variant="default"
+							className="btn bg-bomborange hover:text-white hover:bg-black m-2"
+						>
 							اضافه کردن عضو جدید
 						</Button>
 					</DrawerTrigger>
 					<DrawerContent>
 						<AddTeamForm />
 						<DrawerClose asChild>
-							<Button variant="outline">بازگشت</Button>
+							<Button
+								variant="outline"
+								className="font-vazirmatn"
+							>
+								بازگشت
+							</Button>
 						</DrawerClose>
 					</DrawerContent>
 				</Drawer>
@@ -44,6 +52,7 @@ const TeamBox = ({ className }) => {
 				{/* {members.concat(members).concat(members).map((member) => ( */}
 				{members.map((member) => (
 					<TeamItem
+						profileId={profileId}
 						key={uuidv4()}
 						memberData={member}
 						className={"flex-shrink-0"}
