@@ -58,11 +58,15 @@ const StartupDashBoard = () => {
 				<Label className={styles.label_style}>پوزیشن‌ها</Label>
 				<PositionBox />
 				<div className="flex flex-row justify-between gap-2 mt-2">
-					<div className="flex flex-col w-2/6 gap-2">
+					{/* <div className="flex flex-col w-2/6 gap-2">
 						<Label className={styles.label_style}>حساب</Label>
 						<Accounting className={"h-[265px]"} />
 					</div>
 					<div className="flex flex-col w-4/6 gap-2">
+						<Label className={styles.label_style}>اعضا</Label>
+						<TeamBox />
+					</div> */}
+					<div className="flex flex-col w-full gap-2">
 						<Label className={styles.label_style}>اعضا</Label>
 						<TeamBox />
 					</div>

@@ -32,7 +32,7 @@ const PrivateLayout = () => {
 				closeButton={false}
 				limit={5}
 			/>
-			<div className="mt-32">
+			<div className="mt-24">
 				<Navbar />
 				<Outlet />
 			</div>

@@ -47,9 +47,9 @@ const AddTeamForm = ({ setFormOpen }) => {
 						toast.success(
 							<CustomToast Header="عضو جدید تیم اضافه شد" />
 						);
-						setTimeout(() => {
-							() => setFormOpen(false);
-						}, 3000);
+						setTimeout(
+							() => setFormOpen(false)
+						, 3000);
 					}
 				);
 			})

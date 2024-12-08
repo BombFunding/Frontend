@@ -148,6 +148,7 @@ function SearchBar({ className }) {
           styling={{
             backgroundColor: "#2C2727",
             padding: "10px",
+            height: "40px",
             color: "white",
             textalign: "right",
             // padding: "5px",

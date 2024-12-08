@@ -6,36 +6,37 @@ import InvestorProfile from "@/components/Profile/Investor/Investor";
 import BaseUserProfile from "@/components/Profile/BaseUser/BaseUser";
 
 const Profile = () => {
-  const userType = useTokenStore((state) => state.userType);
-  switch (userType) {
-    case "startup":
-      return (
-        <>
-          <PublicCommonProfile className="w-[85vw]" />
-          <StartupProfile />
-        </>
-      );
-      break;
-    case "investor":
-      return (
-        <>
-          <PublicCommonProfile className="w-[85vw]" />
-          <InvestorProfile />
-        </>
-      );
-      break;
-    case "basic":
-      return (
-        <>
-          <PublicCommonProfile className="w-[85vw]" />
-          <BaseUserProfile />
-        </>
-      );
-      break;
-    default:
-      return <Error />;
-      break;
-  }
+	return <PublicCommonProfile />;
+	// const userType = useTokenStore((state) => state.userType);
+	// switch (userType) {
+	//   case "startup":
+	//     return (
+	//       <>
+	//         <PublicCommonProfile className="w-[85vw]" />
+	//         <StartupProfile />
+	//       </>
+	//     );
+	//     break;
+	//   case "investor":
+	//     return (
+	//       <>
+	//         <PublicCommonProfile className="w-[85vw]" />
+	//         <InvestorProfile />
+	//       </>
+	//     );
+	//     break;
+	//   case "basic":
+	//     return (
+	//       <>
+	//         <PublicCommonProfile className="w-[85vw]" />
+	//         <BaseUserProfile />
+	//       </>
+	//     );
+	//     break;
+	//   default:
+	//     return <Error />;
+	//     break;
+	// }
 };
 
 export default Profile;
