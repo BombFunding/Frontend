@@ -3,7 +3,7 @@ import React from 'react';
 export default function Footer() {
   return (
     <footer
-      className="bg-neutral-100 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200 lg:text-left">
+      className="bg-neutral-100 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200 lg:text-left font-vazirmatn">
       <div
         className="flex items-center justify-center border-b-2 border-neutral-200 p-6 dark:border-neutral-500 lg:justify-between">
         {/* <div className="mr-12 hidden lg:block">
@@ -78,7 +78,7 @@ export default function Footer() {
 
       {/* <!-- Main container div: holds the entire content of the footer, including four sections (TW Elements, Products, Useful links, and Contact), with responsive styling and appropriate padding/margins. --> */}
       <div className="mx-6 py-10 text-center md:text-right">
-        <div className="grid-1 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid-1 grid gap-6 md:grid-cols-2 text-xs lg:grid-cols-4">
           {/* <!-- TW Elements section --> */}
           <div className=" translate-y-[-60px] translate-x-[120px]">
             <h6
