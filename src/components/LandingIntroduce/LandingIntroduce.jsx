@@ -111,13 +111,13 @@ const App = () => {
     });
 
 ScrollTrigger.create({
-  trigger: slides[3],
+  trigger: slides[2],
   start: 'center center',
   onEnter: () => {
     if (typeof window.BarChart !== 'undefined' && typeof window.BarChart.startAnimation === 'function') {
       setTimeout(() => {
         window.BarChart.startAnimation();
-      }, 2000);
+      }, 3500);
     } else {
       console.error('BarChart.startAnimation is not defined.');
     }
