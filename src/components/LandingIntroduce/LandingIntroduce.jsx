@@ -226,7 +226,7 @@ ScrollTrigger.create({
             className={styles['bg-img']}
             alt="Slide 2 Background"
           />
-          <h2 className={styles['slide-title']}>نمودار توزیع کتگوری های استارتاپ ها احتمالا</h2>
+          <h2 className={styles['slide-title']}>pie chart</h2>
         </section>
 
         <section id="slide-3" className={`${styles.slide} ${styles['slide-even']}`}>
