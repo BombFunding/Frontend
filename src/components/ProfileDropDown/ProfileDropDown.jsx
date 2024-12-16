@@ -21,13 +21,23 @@ function ProfileDropDown() {
 				/>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className={styles.content}>
-
-
-				<DropdownMenuItem className={styles.item} onClick={()=>Navigate("/dashboard")}>
+				<DropdownMenuItem
+					className={styles.item}
+					onClick={() => Navigate("/dashboard")}
+				>
 					داشبورد
 				</DropdownMenuItem>
-				<DropdownMenuItem className={styles.item}>
-					تنظیمات
+				<DropdownMenuItem
+					className={styles.item}
+					onClick={() => Navigate("/starboard")}
+				>
+					استار بورد
+				</DropdownMenuItem>
+				<DropdownMenuItem
+					className={styles.item}
+					onClick={() => Navigate("/invesboard")}
+				>
+					اینوس بورد
 				</DropdownMenuItem>
 				<DropdownMenuItem className={styles.logout}>
 					<LogoutButton />

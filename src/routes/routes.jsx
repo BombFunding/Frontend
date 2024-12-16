@@ -16,6 +16,7 @@ import DashBoard from "@/Pages/DashBoard/DashBoard.jsx";
 import ChargeAccount from "@/Pages/ChargeAccount/ChargeAccount";
 import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
 import { Loading } from "@/components/Loading/Loading";
+import StarBoard from "@/Pages/StarBoard/StarBoard";
 
 export const router = createBrowserRouter([
 	{
@@ -39,7 +40,11 @@ export const router = createBrowserRouter([
 			{
 				path: "/profile/:username",
 				element: <Profile />,
-			}
+			},
+			{
+				path: "/starboard",
+				element: <StarBoard />,
+			},
 		],
 	},
 	{
