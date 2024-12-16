@@ -94,6 +94,14 @@ export const postImageData = async (endPoint, formData) => {
 		throw error;
 	}
 };
+export const patchData = async (endPoint, data) => {
+	try {
+		const response = await apiClient.patch(endPoint, data);
+		return response.data;
+	} catch (error) {
+		throw new Error(error);
+	}
+};
 export const putData = async (endPoint, data) => {
 	try {
 		const response = await apiClient.put(endPoint, data);
