@@ -5,6 +5,8 @@ import prof03 from "../../assets/baner.jpg";
 import prof04 from "../../assets/defaultpfp.png";
 import prof05 from "../../assets/logo.png";
 import "./scrollBox.css";
+import { getData } from "@/Services/ApiClient/Services";
+import { useEffect, useState } from "react";
 // import p from "../../assets/";
 
 const children = [
@@ -40,15 +42,23 @@ const children = [
   },
 ];
 
-function ProfileTeamBox() {
+function ProfileTeamBox({ startUpID }) {
+  const [profiles, setProfiles] = useState([]);
+  useEffect(() => {
+    getData(`/startup/profile/${startUpID}/team/list/`).then((res) => {
+      console.log("team list: ", res);
+      setProfiles(res);
+    });
+  }, []);
+
   return (
     <div className="hide-scrollbar place-items-center rounded-lg flex flex-row overflow-hidden overflow-x-scroll hide-scrollbar w-[90vw] py-5 px-5 bg-neutral-100 mt-24 text-yellow-500 gap-7">
-      {children.map((child, i) => (
+      {profiles.map((child, i) => (
         <ProfileTeamItem
-          name={child.name}
-          role={child.role}
-          details={child.details}
-          profile={child.profile}
+          name={child.username ?? ""}
+          role={child.role ?? ""}
+          details={child.description ?? ""}
+          profile={`http://104.168.46.4:8000${child.profile_pic}`}
           key={i}
         />
       ))}
