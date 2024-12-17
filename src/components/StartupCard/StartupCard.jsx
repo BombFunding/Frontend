@@ -6,6 +6,7 @@ import styles from "./StartupCard.module.scss";
 import defaultpfp from "../../assets/defaultpfp.png";
 import Bookmark from "../Bookmark/Bookmark";
 import Tags from "../Tags/Tags";
+import Like from "../Like/Like";
 function StartupCard() {
 	return (
 		<div className={`${styles.container}`}>
@@ -23,7 +24,8 @@ function StartupCard() {
 				<h1 className="text-[1.2vw] place-self-center">
 					این یک پوزیشن است؟ فکر کنم لورم ایپسام ایپسام ایپسام
 				</h1>
-				<Bookmark className="px-[2vw] place-self-center" />
+				<Like className="pr-[1vw] pl-[1vw] place-self-center" />
+				<Bookmark className="pl-[1.5vw] place-self-center" />
 			</div>
 			<div className="flex m-[1vw] place-content-center rtl justify-around px-[3vw]">
 				<div className={`flex ${styles.hover_trigger}`}>
