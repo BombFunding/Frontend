@@ -1,0 +1,21 @@
+.progress_bar {
+	@apply w-full h-[1vw] top-[-0.6vw] z-[-10];
+}
+
+.hover_content {
+	display: none;
+}
+
+.hover_trigger:hover + .hover_content {
+	display: flex;
+}
+
+.image {
+    @apply rounded-t-lg;
+	aspect-ratio: 16/9;
+	object-fit: cover;
+}
+
+.container {
+    @apply rounded-lg shadow-lg w-[30vw] mb-[1.5vw];
+}

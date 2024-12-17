@@ -12,7 +12,7 @@ function Footer() {
 				</nav>
 				<nav>
 					<h6 className={styles.top}>استارت‌آپ‌ها</h6>
-					<a className={styles.option}>هنمای استارت‌آپ‌ها</a>
+					<a className={styles.option}>راهنمای استارت‌آپ‌ها</a>
 					<a className={styles.option}>پروژه‌های موفق</a>
 					<a className={styles.option}>قوانین و مقررات استارت‌آپ‌ها</a>
 				</nav>
