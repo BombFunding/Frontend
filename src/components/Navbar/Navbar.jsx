@@ -1,5 +1,5 @@
 import SearchBar from "../SearchBar/SearchBar";
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/logo2.png";
 import { useNavigate } from "react-router-dom";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 import useTokenStore from "@/stores/TokenStore";
@@ -27,9 +27,9 @@ function Navbar() {
 								<img
 									src={Logo}
 									alt="Bomb Funding"
-									className="rounded-full w-10 h-10 place-self-center mix-blend-multiply"
+									className="rounded-full w-10 h-10 place-self-center mix-blend-multiply mx-[0.5vw]"
 								/>
-								<a className="font-extrabold text-xs text-left px-0 place-self-center w-10 text-bombblack">
+								<a className="font-extrabold text-[1.5vw] text-left px-0 place-self-center text-bombblack">
 									Bomb Funding
 								</a>
 							</>
