@@ -27,7 +27,7 @@ function Navbar() {
 								<img
 									src={Logo}
 									alt="Bomb Funding"
-									className="rounded-full w-10 h-10 place-self-center mix-blend-multiply mx-[0.5vw]"
+									className="rounded-full w-[2.5vw] h-[2.5vw] place-self-center mix-blend-multiply mx-[0.5vw]"
 								/>
 								<a className="font-extrabold text-[1.5vw] text-left px-0 place-self-center text-bombblack">
 									Bomb Funding
@@ -48,7 +48,7 @@ function Navbar() {
 					<HamburgerMenu
 						isOpen={isOpen}
 						setOpen={setOpen}
-						mode={"sm:hidden"}
+						mode={"sm:hidden font-vazirmatn"}
 					/>
 				</div>
 			</div>
