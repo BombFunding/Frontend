@@ -20,30 +20,48 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import MoreInfo from "@/components/Forms/DashBoardForms/MoreInfoForm/MoreInfoForm";
+import { Separator } from "@/components/ui/separator";
+
+const mockup = {
+  ssn: "4444444444",
+  legal: "5555555555",
+  shaba: "55555555555555555555",
+  tax: "labod dige",
+  address:
+    "نبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکا",
+  // address: null,
+};
 
 const InvestorDashBoard = () => {
   const [loading, setLoading] = useState(false);
   const { setFullname, setUsername, setBio, setAvatar } = useProfileStore();
+  console.log("Investor dashboard");
   useEffect(() => {
     setLoading(true);
-    getData("/startup/view_own_startup_profile/").then((data) => {
-      console.log("Startup data: ", data.startup_profile);
+    getData("/auth/view_own_baseuser_profile/").then((data) => {
+      console.log("Startup data: ", data.base_profile);
       setFullname(
-        data.startup_profile.first_name + " " + data.startup_profile.last_name
+        data.base_profile.first_name + " " + data.base_profile.last_name
       );
-      setUsername(data.startup_profile.name);
-      setBio(data.startup_profile.bio);
-      setAvatar(
-        `http://104.168.46.4:8000${data.startup_profile.profile_picture}`
-      );
+      setUsername(data.base_profile.name);
+      setBio(data.base_profile.bio);
+      setAvatar(`http://104.168.46.4:8000${data.base_profile.profile_picture}`);
       setLoading(false);
     });
   }, []);
+  const check =
+    mockup.ssn && mockup.legal && mockup.shaba && mockup.tax && mockup.address;
+  console.log(check);
   return (
     <>
       <Card className={styles.card_style}>
+        {/* <PersonalInfo loading={loading} /> */}
         <PersonalInfo loading={loading} />
-        <Card className="bg-bomborange text-white px-5 py-3 flex gap-2 justify-end items-center">
+        <Card
+          className={`bg-bomborange text-white px-5 py-3 flex gap-2 justify-end items-center ${
+            !check ? "" : "hidden"
+          }`}
+        >
           <Drawer>
             <DrawerTrigger>
               <Button variant="default" className="bg-white h-8">
@@ -59,6 +77,44 @@ const InvestorDashBoard = () => {
           </Drawer>
           <Label>:لطفا اطلاعات خود را تکمیل کنید</Label>
         </Card>
+        <div className="grid grid-rows-2 rounded-lg bg-white gap-2 items-end mr-1 text-black border-solid font-vazirmatn border-2 h-fit border-bomborange">
+          <div className="grid grid-rows-[auto,auto,1fr] grid-cols-2 divide-x-2">
+            {/* Item 1 */}
+            <div className={styles.extra_item}>
+              {mockup.ssn}
+              <div className="">
+                <label className="">کد ملی</label>
+              </div>
+            </div>
+
+            {/* Item 2 */}
+            <div className={styles.extra_item}>
+              {mockup.legal}
+              <div className="">
+                <label className="">کد حقوقی</label>
+              </div>
+            </div>
+
+            {/* Item 3 */}
+            <div className={styles.extra_item}>
+              {mockup.shaba}
+              <div className="place-self-end">شماره شبا</div>
+            </div>
+
+            {/* Item 4 */}
+            <div className={styles.extra_item}>
+              {mockup.tax}
+              <label className="">شماره مالیاتی</label>
+            </div>
+          </div>
+
+          {/* Item 5 */}
+          <div className={`self-start py-3 px-[5vw] gap-10 text-right`}>
+            <label className="font-bold">آدرس</label>
+            <div className="mt-1 text-right">{mockup.address}</div>
+          </div>
+        </div>
+
         <Label className={styles.label_style}>پوزیشن ها</Label>
         <PositionBox />
         <div className="flex flex-row justify-between gap-2 mt-2">
