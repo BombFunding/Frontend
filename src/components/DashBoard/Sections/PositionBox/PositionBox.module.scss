@@ -1,6 +1,6 @@
 .position_box {
 	@apply border-solid border-2 border-black;
-	@apply h-[30vw] flex flex-col items-center rounded-lg p-0 overflow-y-auto !important;
+	@apply h-[30vw] flex flex-col items-center rounded-lg py-[2vw] overflow-y-auto !important;
 	border: 2px solid #ff7517 !important;
 }
 
@@ -9,7 +9,6 @@
 	@apply flex flex-col justify-between rounded-lg items-center gap-[2vw] mt-2 !important;
 }
 
-.create_position
-{
-  @apply sticky bg-white w-full z-20 text-center;
+.create_position {
+	@apply sticky bg-white w-full z-20 text-center;
 }

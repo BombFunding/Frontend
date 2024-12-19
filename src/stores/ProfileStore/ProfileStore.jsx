@@ -29,6 +29,7 @@ const useProfileStore = create(
 			header: null,
 			likeCount: 0,
 			positions: [],
+			loading: false,
 			socialMedias: {},
 			balance: 0,
 			setProfileId: (profileId) =>
@@ -49,6 +50,8 @@ const useProfileStore = create(
 				set((pre) => ({ ...pre, profileInfo: profileInfo })),
 			setBalance: (balance) =>
 				set((pre) => ({ ...pre, balance: balance })),
+			setLoading: (loading) =>
+				set((pre) => ({ ...pre, loading: loading })),
 		}),
 		{
 			name: "profile-storage",

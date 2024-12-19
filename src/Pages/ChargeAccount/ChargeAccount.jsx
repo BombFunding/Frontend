@@ -19,6 +19,7 @@ function ChargeAccount() {
 				setTimeout(() => Navigate("/dashboard"), 3000);
 			})
 			.catch((err) => {
+				console.log(err);
 				toast.error(
 					<CustomToast
 						Header="خطا"

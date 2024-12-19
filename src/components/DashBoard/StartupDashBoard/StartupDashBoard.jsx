@@ -12,10 +12,10 @@ import TeamBox from "../Sections/TeamBox/TeamBox";
 import { Label } from "@/components/ui/label";
 import { Loading } from "@/components/Loading/Loading";
 const StartupDashBoard = () => {
-	const [loading, setLoading] = useState(false);
 	const {
 		username,
-		setPositions,
+		loading,
+		setLoading,
 		setFullname,
 		setUsername,
 		setBio,
@@ -45,13 +45,15 @@ const StartupDashBoard = () => {
 			getData(`/balance/balance/`).then((data) =>
 				setBalance(data.balance)
 			);
-			getData(`/startup/get_startup_profile/${username}/`).then(
-				(data) => {
-					console.log("positions: ", data.profile.positions);
-					setPositions(data.profile.positions);
-					setLoading(false);
-				}
-			);
+			
+			// getData(`/startup/get_startup_profile/${username}/`).then(
+			// 	(data) => {
+			// 		console.log("positions: ", data.profile.positions);
+			// 		setPositions(data.profile.positions);
+			// 		setLoading(false);
+			// 	}
+			// );
+			setLoading(false);
 		});
 	}, []);
 	if (loading)
