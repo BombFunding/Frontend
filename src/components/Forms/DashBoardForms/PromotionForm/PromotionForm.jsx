@@ -6,7 +6,9 @@ import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 import { useNavigate } from "react-router-dom";
 import startup from "../../../../assets/startup.png";
 import investor from "../../../../assets/investor.png";
+import useTokenStore from "@/stores/TokenStore";
 function PromotionForm() {
+	const { deleteToken } = useTokenStore();
 	const Navigate = useNavigate();
 	const PromoteToInvestor = (e) => {
 		e.preventDefault();
@@ -16,7 +18,8 @@ function PromotionForm() {
 					<CustomToast Header="حساب کاربری شما با موفقیت به سرمایه گذار تبدیل شد" />
 				);
 				setTimeout(() => {
-					window.location.reload();
+					deleteToken();
+					Navigate("/login");
 				}, 3000);
 			})
 			.catch((err) => {
@@ -36,7 +39,8 @@ function PromotionForm() {
 					<CustomToast Header="حساب کاربری شما با موفقیت به استارت آپ تبدیل شد" />
 				);
 				setTimeout(() => {
-					window.location.reload();
+					deleteToken();
+					Navigate("/login");
 				}, 3000);
 			})
 			.catch((err) => {
@@ -56,8 +60,13 @@ function PromotionForm() {
 					onClick={PromoteToStartup}
 				>
 					<div className="flex gap-4">
-                        <img className="place-self-center w-12 h-12" src={startup} />
-						<div className="text-[2vw] py-[2vw] mt-2">استارت آپ</div>
+						<img
+							className="place-self-center w-12 h-12"
+							src={startup}
+						/>
+						<div className="text-[2vw] py-[2vw] mt-2">
+							استارت آپ
+						</div>
 					</div>
 					<div className="rtl place-self-end px-[3vw] text-xl mb-3">
 						امکانات:
@@ -95,8 +104,13 @@ function PromotionForm() {
 					onClick={PromoteToInvestor}
 				>
 					<div className="flex gap-4">
-                        <img className="place-self-center w-12 h-12" src={investor} />
-						<div className="text-[2vw] py-[2vw] mt-2">سرمایه گذار</div>
+						<img
+							className="place-self-center w-12 h-12"
+							src={investor}
+						/>
+						<div className="text-[2vw] py-[2vw] mt-2">
+							سرمایه گذار
+						</div>
 					</div>
 					<div className="rtl place-self-end px-[3vw] text-xl mb-3">
 						امکانات:
