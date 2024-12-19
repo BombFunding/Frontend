@@ -14,15 +14,14 @@ import { getData, postData } from "@/Services/ApiClient/Services";
 import CustomTextArea from "@/components/Custom/CustomTextArea/CustomTextArea";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
-import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
 	username: Yup.string().required("Name is required"),
 	description: Yup.string().required("Name is required"),
 	role: Yup.string().required("Email is required"),
 });
-const AddTeamForm = ({ setFormOpen }) => {
-	const Navigate = useNavigate();
+const AddTeamForm = ({ setFormOpen, setMembers }) => {
+	const { username } = useProfileStore();
 	const {
 		register,
 		handleSubmit,
@@ -37,25 +36,20 @@ const AddTeamForm = ({ setFormOpen }) => {
 			role: data.role,
 			description: data.description,
 		};
-		console.log("bodyData: ", bodyData);
-		// console.log("ProfileManager: ", ProfileManager);
 
 		postData(`/startup/profile/team/add/`, bodyData)
-			.then((res) => {
-				console.log(res);
-				toast.success(<CustomToast Header="عضو جدید تیم اضافه شد" />);
-				setTimeout(() => window.location.reload(false), 3000);
-				// getData(`/startup/profile/${profileId}/team/list`).then(
-				// 	(res) => {
-				// 		console.log("team list: ", res);
-				// 		toast.success(
-				// 			<CustomToast Header="عضو جدید تیم اضافه شد" />
-				// 		);
-				// 		setTimeout(
-				// 			() => setFormOpen(false)
-				// 		, 3000);
-				// 	}
-				// );
+			.then((data) => {
+				getData(`/startup/profile/team/list/${username}/`).then(
+					(res) => {
+						toast.success(
+							<CustomToast Header="عضو جدید تیم اضافه شد" />
+						);
+						setTimeout(() => {
+							setMembers(res);
+							setFormOpen(false);
+						}, 3000);
+					}
+				);
 			})
 			.catch((err) => {
 				console.log("E: ", err);

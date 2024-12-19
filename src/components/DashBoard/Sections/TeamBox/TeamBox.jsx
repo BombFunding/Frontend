@@ -37,7 +37,10 @@ const TeamBox = ({ className }) => {
 						</Button>
 					</DrawerTrigger>
 					<DrawerContent>
-						<AddTeamForm setFormOpen={setFormOpen} />
+						<AddTeamForm
+							setFormOpen={setFormOpen}
+							setMembers={setMembers}
+						/>
 						<DrawerClose asChild>
 							<Button
 								variant="outline"
@@ -54,7 +57,7 @@ const TeamBox = ({ className }) => {
 				{/* {members.concat(members).concat(members).map((member) => ( */}
 				{members.map((member) => (
 					<TeamItem
-						username={username}
+						setMembers={setMembers}
 						key={uuidv4()}
 						memberData={member}
 						className={"flex-shrink-0"}

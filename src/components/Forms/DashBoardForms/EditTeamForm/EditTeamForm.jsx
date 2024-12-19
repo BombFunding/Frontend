@@ -19,7 +19,7 @@ const validationSchema = Yup.object().shape({
 	role: Yup.string().required("Email is required"),
 });
 
-const EditTeamForm = ({ memberData, setEditMemberOpen }) => {
+const EditTeamForm = ({ memberData, setMembers, setEditMemberOpen }) => {
 	const [role, setRole] = useState(memberData?.role);
 	const [description, setDescription] = useState(memberData?.description);
 	const {
@@ -29,7 +29,7 @@ const EditTeamForm = ({ memberData, setEditMemberOpen }) => {
 	} = useForm({
 		resolver: yupResolver(validationSchema),
 	});
-	const { profileId } = useProfileStore((state) => state);
+	const { username } = useProfileStore((state) => state);
 	// console.log("profileManeger: ", ProfileManager);
 	const onSubmit = (data) => {
 		console.log(data);
@@ -39,25 +39,20 @@ const EditTeamForm = ({ memberData, setEditMemberOpen }) => {
 		};
 		console.log("bodyData: ", bodyData);
 		// console.log("ProfileManager: ", ProfileManager);
-		putData(
-			`/startup/profile/team/update/${memberData.user}/`,
-			bodyData
-		)
+		putData(`/startup/profile/team/update/${memberData.user}/`, bodyData)
 			.then((res) => {
 				console.log(res);
-				toast.success(
-					<CustomToast Header="عضو تیم با موفقیت ویرایش شد" />
+				getData(`/startup/profile/team/list/${username}/`).then(
+					(res) => {
+						toast.success(
+							<CustomToast Header="عضو تیم با موفقیت ویرایش شد" />
+						);
+						setTimeout(() => {
+							setMembers(res);
+							setEditMemberOpen(false);
+						}, 3000);
+					}
 				);
-				setTimeout(() => setEditMemberOpen(false), 3000);
-				// getData(`/startup/profile/${profileId}/team/list`).then(
-				// 	(res) => {
-				// 		console.log("team list: ", res);
-				// 		toast.success(
-				// 			<CustomToast Header="عضو تیم با موفقیت ویرایش شد" />
-				// 		);
-				// 		setTimeout(() => setEditMemberOpen(false), 3000);
-				// 	}
-				// );
 			})
 			.catch((err) => {
 				console.log(err);
