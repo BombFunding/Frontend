@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import Voting from "@/components/Voting/Voting";
+// import Voting from "@/components/Voting/Voting";
 import Comment from "@/components/Comment/Comment";
-import BarChart1 from "../components/BarChart/BarChart1"
-import { BarChart2 } from "../components/BarChart/‌Barchart2";
+import { BarChart1 } from "@/components/BarChart/BarChart1";
+import BarChart2 from "@/components/BarChart/BarChart2";
 
 
 
