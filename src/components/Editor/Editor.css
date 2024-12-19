@@ -1,0 +1,7 @@
+.cdx-block {
+  @apply rtl;
+}
+
+.codex-editor--narrow .ce-toolbar__actions {
+  left: 5px !important;
+}

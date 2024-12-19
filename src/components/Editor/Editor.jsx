@@ -10,6 +10,9 @@ import FaTranslation from "./FaTranslation.js";
 import { useEffect } from "react";
 import useEditorStore from "@/stores/EditorStore/EditorStore";
 import SaveIcon from "@mui/icons-material/Save";
+import { Card } from "../ui/card";
+import { Label } from "../ui/label";
+import "./Editor.css";
 
 const Editor = () => {
   const { data, updateData } = useEditorStore();
@@ -34,7 +37,8 @@ const Editor = () => {
           class: editorjsColumns,
           config: {
             EditorJsLibrary: EditorJS, // Pass Editor.js instance
-            tools: columnTools, // Pass tools to be used inside columns
+            tools: columnTools,
+            i18n: FaTranslation(), // Pass tools to be used inside columns
           },
         },
       },
@@ -59,7 +63,8 @@ const Editor = () => {
 
   return (
     <>
-      <div id="editorjs" className={styles.editor} />
+      <Label className="p-8 text-3xl"> ویرایشگر</Label>
+      <Card id="editorjs" className={styles.editor} />
 
       <button className={styles.save_btn} onClick={handelSave}>
         <SaveIcon className={styles.save_icon} />
