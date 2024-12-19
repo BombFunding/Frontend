@@ -16,6 +16,7 @@ const validationSchema = Yup.object().shape({
 	position_name: Yup.string().required("این مورد اجباری است"),
 	description: Yup.string().required("این مورد اجباری است"),
 	total: Yup.string().required("این مورد اجباری است"),
+	funded: Yup.string().required("این مورد اجباری است"),
 });
 
 const EditPositionForm = ({ positionData, setPositions, setEditFormOpen }) => {
@@ -31,6 +32,7 @@ const EditPositionForm = ({ positionData, setPositions, setEditFormOpen }) => {
 	const [name, setName] = useState(positionData?.name);
 	const [description, setDescription] = useState(positionData?.description);
 	const [total, setTotal] = useState(positionData?.total);
+	const [funded, setFunded] = useState(positionData?.funded);
 	// const now = new Date();
 	// const currentTime = now.toISOString().slice(0, 19);
 	// const futureDate = new Date(now);
@@ -137,30 +139,16 @@ const EditPositionForm = ({ positionData, setPositions, setEditFormOpen }) => {
 				value={total}
 				onChange={setTotal}
 			/>
-			{/* <CustomInput
+			<CustomInput
 				inputClassName={"w-[60vw] text-right rtl"}
-				placeholder="زمان (روز)"
-				type={"number"}
+				placeholder="مقدار به دست آمده"
 				register={register}
-				name={"duration"}
-				value={endTime}
-			/> */}
-			{/* <div className={styles.input_box}>
-        <Label className={styles.label_style}>نام پوزیشن</Label>
-        <Input className={styles.input_style}></Input>
-      </div>
-      <div className={styles.input_box}>
-        <Label className={styles.label_style}>سرمایه مورد نیاز</Label>
-        <Input className={styles.input_style}></Input>
-      </div>
-      <div className={styles.input_box}>
-        <Label className={styles.label_style}>{"مدت زمان (روز)"}</Label>
-        <Input
-          type="number"
-          className={styles.input_style}
-          defaultValue={0}
-        ></Input>
-      </div> */}
+				name={"funded"}
+				type="number"
+				value={funded}
+				onChange={setFunded}
+			/>
+
 			<Button className="btn bg-bomborange hover:text-bomborange hover:bg-black m-[2vw]">
 				ویرایش پوزیشن
 			</Button>

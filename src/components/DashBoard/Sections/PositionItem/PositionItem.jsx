@@ -68,7 +68,7 @@ const PositionItem = ({ positionData, setPositions }) => {
 					</div>
 				</div>
 				<Progress
-					value={positionData?.funded / positionData?.total}
+					value={(positionData?.funded / positionData?.total) * 100}
 					className={styles.progress_bar}
 					mainColor="bg-gray-50"
 					ProgressColor="bg-bomborange"
@@ -85,8 +85,9 @@ const PositionItem = ({ positionData, setPositions }) => {
 				</div>
 				<Progress
 					value={
-						(now.getTime() - start.getTime()) /
-						(end.getTime() - start.getTime())
+						((now.getTime() - start.getTime()) /
+							(end.getTime() - start.getTime())) *
+						100
 					}
 					className={styles.progress_bar}
 					mainColor="bg-gray-50"
