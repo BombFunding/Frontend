@@ -16,6 +16,7 @@ import DashBoard from "@/Pages/DashBoard/DashBoard.jsx";
 import ChargeAccount from "@/Pages/ChargeAccount/ChargeAccount";
 import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
 import { Loading } from "@/components/Loading/Loading";
+import StarBoard from "@/Pages/StarBoard/StarBoard";
 import BaseUserDashBoard from "@/components/DashBoard/BaseUserDashBoard/BaseUserDashBoard";
 
 export const router = createBrowserRouter([
@@ -32,7 +33,6 @@ export const router = createBrowserRouter([
         path: "/Profile/:username",
         element: <Profile />,
       },
-
       {
         path: "/reset-password/:uid/:token",
         element: <ChangePassword />,

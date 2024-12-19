@@ -11,6 +11,7 @@ import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import TeamBox from "../Sections/TeamBox/TeamBox";
 import { Label } from "@/components/ui/label";
 import { Loading } from "@/components/Loading/Loading";
+import Likes from "@/components/Likes/Likes";
 const StartupDashBoard = () => {
 	const {
 		username,
@@ -42,17 +43,16 @@ const StartupDashBoard = () => {
 			setHeader(
 				`http://104.168.46.4:8000${data.base_profile.header_picture}`
 			);
+			getData(`/startup/get_startup_profile/${username}/`).then(
+				(data) => {
+					console.log("positions: ", data.profile.positions);
+					setPositions(data.profile.positions);
+					setLoading(false);
+				}
+			);
 			getData(`/balance/balance/`).then((data) =>
 				setBalance(data.balance)
 			);
-			
-			// getData(`/startup/get_startup_profile/${username}/`).then(
-			// 	(data) => {
-			// 		console.log("positions: ", data.profile.positions);
-			// 		setPositions(data.profile.positions);
-			// 		setLoading(false);
-			// 	}
-			// );
 			setLoading(false);
 		});
 	}, []);
@@ -73,12 +73,17 @@ const StartupDashBoard = () => {
 				<PersonalInfo loading={loading} />
 				<Label className={styles.label_style}>پوزیشن‌ها</Label>
 				<PositionBox />
+				{/* <Likes className="translate-x-[1vw] translate-y-[11.5vw]" count={2}/> */}
 				<div className="flex flex-row justify-between gap-2 mt-2">
-					<div className="flex flex-col w-2/6 gap-2">
+					{/* <div className="flex flex-col w-2/6 gap-2">
 						<Label className={styles.label_style}>حساب</Label>
 						<Accounting className={"h-[265px]"} />
 					</div>
 					<div className="flex flex-col w-4/6 gap-2">
+						<Label className={styles.label_style}>اعضا</Label>
+						<TeamBox />
+					</div> */}
+					<div className="flex flex-col w-full gap-2">
 						<Label className={styles.label_style}>اعضا</Label>
 						<TeamBox />
 					</div>
