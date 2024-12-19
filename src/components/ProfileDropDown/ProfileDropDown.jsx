@@ -8,14 +8,16 @@ import {
 	DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import LogoutButton from "../Custom/LogoutButton/LogoutButton";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 function ProfileDropDown() {
+	const { avatar } = useProfileStore();
 	const Navigate = useNavigate();
 	return (
 		<DropdownMenu className="z-30">
 			<DropdownMenuTrigger className={styles.trigger}>
 				<img
-					src={profile}
+					src={avatar}
 					alt="Avatar"
 					className={styles.ProfileNavbar}
 				/>

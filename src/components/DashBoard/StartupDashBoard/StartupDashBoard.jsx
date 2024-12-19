@@ -13,15 +13,16 @@ import { Label } from "@/components/ui/label";
 import { Loading } from "@/components/Loading/Loading";
 import Likes from "@/components/Likes/Likes";
 const StartupDashBoard = () => {
-	const [loading, setLoading] = useState(false);
 	const {
 		username,
-		setPositions,
+		loading,
+		setLoading,
 		setFullname,
 		setUsername,
 		setBio,
 		setAvatar,
 		setHeader,
+		setBalance,
 	} = useProfileStore();
 	console.log(useProfileStore());
 	useEffect(() => {
@@ -49,6 +50,10 @@ const StartupDashBoard = () => {
 					setLoading(false);
 				}
 			);
+			getData(`/balance/balance/`).then((data) =>
+				setBalance(data.balance)
+			);
+			setLoading(false);
 		});
 	}, []);
 	if (loading)
@@ -58,7 +63,7 @@ const StartupDashBoard = () => {
 					"flex justify-center items-center w-[100vw] h[100vh]"
 				}
 			>
-				<Loading />
+				<Loading />;
 			</div>
 		);
 

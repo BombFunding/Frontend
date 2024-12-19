@@ -13,8 +13,14 @@ import { getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 const PositionBox = () => {
-	const { positions } = useProfileStore();
 	const [open, setOpen] = useState(false);
+	const [positions, setPositions] = useState([]);
+	const { username } = useProfileStore();
+	useEffect(() => {
+		getData(`/position/list/${username}/`).then((data) => {
+			setPositions(data);
+		});
+	}, []);
 	return (
 		<div className={styles.position_box}>
 			<div className={styles.create_position}>
@@ -31,7 +37,11 @@ const PositionBox = () => {
 						</Button>
 					</DrawerTrigger>
 					<DrawerContent>
-						<AddPositionForm setOpen={setOpen} />
+						<AddPositionForm
+							setOpen={setOpen}
+							positions={positions}
+							setPositions={setPositions}
+						/>
 						<DrawerClose asChild>
 							<Button
 								className="font-vazirmatn"
@@ -46,12 +56,12 @@ const PositionBox = () => {
 			</div>
 			<div className={styles.position_list}>
 				{positions.map((position, index) => (
-					<PositionItem positionData={position} key={index} />
+					<PositionItem
+						positionData={position}
+						setPositions={setPositions}
+						key={index}
+					/>
 				))}
-				{/* <PositionItem />
-				<PositionItem />
-				<PositionItem />
-				<PositionItem /> */}
 			</div>
 		</div>
 	);
