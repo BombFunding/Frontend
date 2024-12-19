@@ -45,9 +45,9 @@ const PositionBox = () => {
 				</Drawer>
 			</div>
 			<div className={styles.position_list}>
-				{positions.map((position, index) => (
+				{/* {positions.map((position, index) => (
 					<PositionItem positionData={position} key={index} />
-				))}
+				))} */}
 				{/* <PositionItem />
 				<PositionItem />
 				<PositionItem />
