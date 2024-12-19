@@ -6,6 +6,7 @@ import { getData, patchData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
+import { number } from "yup";
 function ExtendPositionForm({
 	setPositions,
 	positionData,
@@ -15,7 +16,9 @@ function ExtendPositionForm({
 	const { username } = useProfileStore();
 	const onSubmit = (e) => {
 		e.preventDefault();
-		patchData(`/position/renew/${positionData?.id}`, { days: days })
+		patchData(`/position/renew/${positionData?.id}/`, {
+			days: Number(days),
+		})
 			.then((res) => {
 				console.log(res);
 				getData(`/position/list/${username}/`).then((data) => {

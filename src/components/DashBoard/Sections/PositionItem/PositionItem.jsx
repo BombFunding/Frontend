@@ -67,16 +67,13 @@ const PositionItem = ({ positionData, setPositions }) => {
 						<Label>{positionData?.funded}</Label>
 					</div>
 				</div>
-
 				<Progress
-					value={
-						(now.getTime() - start.getTime()) /
-						(end.getTime() - start.getTime())
-					}
+					value={positionData?.funded / positionData?.total}
 					className={styles.progress_bar}
 					mainColor="bg-gray-50"
 					ProgressColor="bg-bomborange"
 				/>
+
 				<div className="self-start">
 					<Label>زمان باقیمانده: </Label>
 					<Label>
@@ -87,9 +84,10 @@ const PositionItem = ({ positionData, setPositions }) => {
 					</Label>
 				</div>
 				<Progress
-					value={Math.round(
-						positionData?.funded / positionData?.total
-					)}
+					value={
+						(now.getTime() - start.getTime()) /
+						(end.getTime() - start.getTime())
+					}
 					className={styles.progress_bar}
 					mainColor="bg-gray-50"
 					ProgressColor="bg-bomborange"
