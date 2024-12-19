@@ -1,17 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis, Tooltip } from "recharts";
-import { CenterFocusStrong } from "@mui/icons-material";
-
-const chartData = [
-    { day: "شنبه", view: 300, like: 150 },
-    { day: "یکشنبه", view: 250, like: 130 },
-    { day: "دوشنبه", view: 120, like: 45 },
-    { day: "سه شنبه", view: 150, like: 70 },
-    { day: "چهارشنبه", view: 200, like: 95 },
-    { day: "پنجشنبه", view: 180, like: 80 },
-    { day: "جمعه", view: 220, like: 110 },
-  ];
 
 const chartConfig = {
   view: {
@@ -45,10 +34,34 @@ function ChartTooltipContent({ payload, label }) {
 }
 
 export default function BarChart2() {
+  const [chartData, setChartData] = useState([]);
+
+  useEffect(() => {
+    // Fetch the data from the API
+    fetch("http://104.168.46.4:8000/profile_statics/last-7-days/?username=tara", {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "X-CSRFTOKEN": "51VoasHbfJ0uJb2wtmNJ08Qg7RYYBDZRZGSmZ4u3eZ0kTq0DjcLGlebc8HlYPLle",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const formattedData = data.map((item) => ({
+          day: item.day,
+          view: item.view,
+          like: item.like,
+        }));
+        setChartData(formattedData);
+      })
+      .catch((error) => {
+        console.error("Error fetching chart data:", error);
+      });
+  }, []);
+
   return (
     <div className="card">
-      <div className="card-header">
-      </div>
+      <div className="card-header"></div>
       <div className="card-content">
         <div style={{ width: "100%", height: 300 }}>
           <BarChart width={500} height={300} data={chartData}>
@@ -77,11 +90,11 @@ export default function BarChart2() {
       </div>
       <div className="card-footer" style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "4px", fontWeight: "bold" }}>
-        {/* <p dir="rtl">
-        افزایش بازدید در هفته اخیر 
-            <span dir="ltr">۵.۲٪</span>
-        </p>
-        <TrendingUp size={16} /> */}
+          {/* <p dir="rtl">
+          افزایش بازدید در هفته اخیر 
+              <span dir="ltr">۵.۲٪</span>
+          </p>
+          <TrendingUp size={16} /> */}
         </div>
         {/* <p style={{ color: "#6c757d" }}>
          بازدید کنندگان هفته اخیر
