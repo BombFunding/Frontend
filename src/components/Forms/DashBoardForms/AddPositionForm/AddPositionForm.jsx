@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 const validationSchema = Yup.object().shape({
 	position_name: Yup.string().required("Name is required"),
@@ -16,6 +17,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const AddPositionForm = ({ setOpen, positions, setPositions }) => {
+	const { username, setBalance } = useProfileStore();
 	const {
 		register,
 		handleSubmit,
@@ -44,27 +46,49 @@ const AddPositionForm = ({ setOpen, positions, setPositions }) => {
 			name: data.position_name,
 			description: data.description,
 			end_time: endTime,
+			is_done: false,
 			funded: 0,
 			start_time: currentTime,
 			total: data.total,
 		};
 		console.log("bodyData: ", bodyData);
-		postData("/startup/position/create/", bodyData)
+		postData("/position/create/", bodyData)
 			.then((res) => {
 				console.log(res);
-				getData("/startup/position/list/").then((data) => {
+				getData(`/position/list/${username}/`).then((data) => {
 					toast.success(
 						<CustomToast Header="پوزیشن با موفقیت ساخته شد" />
 					);
-					setTimeout(() => {
-						setPositions(data);
-						setOpen(false);
-					}, 3000);
+					getData(`/balance/balance/`).then((res) => {
+						setTimeout(() => {
+							setBalance(res.balance);
+							setPositions(data);
+							setOpen(false);
+						}, 3000);
+					});
 				});
 			})
 			.catch((err) => {
 				console.log(err);
-				toast.error(<CustomToast Header="خطا" Message={err.message} />);
+				if (err.response?.data?.error) {
+					toast.error(
+						<CustomToast
+							Header="خطا"
+							Message={`برای ساخت این پوزیشن موجودی شما باید حداقل ${
+								err.response?.data?.error.split(" ")[6]
+							} تومان باشد`}
+						/>
+					);
+				} else {
+					toast.error(
+						<CustomToast
+							Header="خطا"
+							Message={
+								"در هنگام ساخت پوزیشن جدید خطایی به وجود آمد"
+							}
+						/>
+					);
+				}
 			});
 	};
 
