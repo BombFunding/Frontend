@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styles from "./Editor.module.scss";
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
@@ -8,16 +8,23 @@ import Paragraph from "@editorjs/paragraph";
 import editorjsColumns from "@calumk/editorjs-columns";
 import FaTranslation from "./FaTranslation.js";
 import { useEffect } from "react";
+import useEditorStore from "@/stores/EditorStore/EditorStore";
+import SaveIcon from "@mui/icons-material/Save";
 
 const Editor = () => {
+  const { data, updateData } = useEditorStore();
+  console.log(data);
+  const editorRef = useRef(null);
   const columnTools = {
     header: Header,
     paragraph: Paragraph,
     image: ImageTool,
   };
   useEffect(() => {
+    console.log("effectdata: ", data);
     const editor = new EditorJS({
       holder: "editorjs",
+      data: data ?? { blocks: [], time: Date.now() },
       tools: {
         header: Header,
         list: List,
@@ -31,16 +38,33 @@ const Editor = () => {
           },
         },
       },
-      data: {
-        time: Date.now(),
-      },
       i18n: FaTranslation(),
     });
-  }, []);
+
+    editorRef.current = editor;
+
+    return () => {
+      editor.isReady
+        .then(() => editor.destroy())
+        .catch((error) => console.log(error));
+    };
+  }, [data]);
+
+  const handelSave = async () => {
+    const savedData = await editorRef.current.save();
+    //   editorRef.current.destroy();
+    await updateData(savedData);
+    console.log(savedData);
+  };
 
   return (
     <>
       <div id="editorjs" className={styles.editor} />
+
+      <button className={styles.save_btn} onClick={handelSave}>
+        <SaveIcon className={styles.save_icon} />
+        <span className={styles.save_txt}>ذخیره</span>
+      </button>
     </>
   );
 };
