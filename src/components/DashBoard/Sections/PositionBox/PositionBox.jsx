@@ -15,9 +15,9 @@ import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 const PositionBox = () => {
 	const [open, setOpen] = useState(false);
 	const [positions, setPositions] = useState([]);
-	// const { setLoading } = useProfileStore();
+	const { username } = useProfileStore();
 	useEffect(() => {
-		getData("/startup/position/list/").then((data) => {
+		getData(`/position/list/${username}/`).then((data) => {
 			setPositions(data);
 		});
 	}, []);
@@ -62,10 +62,6 @@ const PositionBox = () => {
 						key={index}
 					/>
 				))}
-				{/* <PositionItem />
-				<PositionItem />
-				<PositionItem />
-				<PositionItem /> */}
 			</div>
 		</div>
 	);
