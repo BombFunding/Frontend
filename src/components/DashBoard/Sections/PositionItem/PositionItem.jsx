@@ -12,25 +12,35 @@ import {
 	DrawerTrigger,
 } from "@/components/ui/drawer";
 import EditPositionForm from "@/components/Forms/DashBoardForms/EditPositionForm/EditPositionForm";
-import { deleteData } from "@/Services/ApiClient/Services";
+import { deleteData, getData } from "@/Services/ApiClient/Services";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
+import ExtendPositionForm from "@/components/Forms/DashBoardForms/ExtendPositionForm/ExtendPositionForm";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
-const PositionItem = ({ positionData }) => {
+const PositionItem = ({ positionData, setPositions }) => {
 	const [editFormOpen, setEditFormOpen] = useState(false);
 	const [deletePositionOpen, setDeletePositionOpen] = useState(false);
+	const [extendPositionOpen, setExtendPositionOpen] = useState(false);
+	const { username } = useProfileStore();
 	let day_duration = 1000 * 60 * 60 * 24;
 	console.log("positionData: ", positionData);
 	const start = new Date(positionData?.start_time);
 	const end = new Date(positionData?.end_time);
 	const now = new Date();
-	console.log("Hereeeeeeeeeeeeeeeeee: ", Date.now(), end.toISOString());
 	const deletePosition = () => {
-		deleteData(`/startup/position/delete/${positionData.id}/`)
+		deleteData(`/position/delete/${positionData.id}/`)
 			.then((data) => {
 				console.log(data);
-				toast.success(<CustomToast Header="پوزیشن با موفقیت حذف شد" />);
-				setTimeout(() => setDeletePositionOpen(false), 3000);
+				getData(`/position/list/${username}/`).then((data) => {
+					toast.success(
+						<CustomToast Header="پوزیشن با موفقیت حذف شد" />
+					);
+					setTimeout(() => {
+						setPositions(data);
+						setDeletePositionOpen(false);
+					}, 3000);
+				});
 			})
 			.catch((err) => {
 				toast.error(
@@ -57,28 +67,28 @@ const PositionItem = ({ positionData }) => {
 						<Label>{positionData?.funded}</Label>
 					</div>
 				</div>
-
 				<Progress
-					value={
-						(now.getTime() - start.getTime()) /
-						(end.getTime() - start.getTime())
-					}
+					value={(positionData?.funded / positionData?.total) * 100}
 					className={styles.progress_bar}
 					mainColor="bg-gray-50"
 					ProgressColor="bg-bomborange"
 				/>
+
 				<div className="self-start">
 					<Label>زمان باقیمانده: </Label>
 					<Label>
 						{Math.round(
 							(end.getTime() - now.getTime()) / day_duration
-						)}
+						)}{" "}
+						روز
 					</Label>
 				</div>
 				<Progress
-					value={Math.round(
-						positionData?.funded / positionData?.total
-					)}
+					value={
+						((now.getTime() - start.getTime()) /
+							(end.getTime() - start.getTime())) *
+						100
+					}
 					className={styles.progress_bar}
 					mainColor="bg-gray-50"
 					ProgressColor="bg-bomborange"
@@ -99,6 +109,7 @@ const PositionItem = ({ positionData }) => {
 					<DrawerContent>
 						<EditPositionForm
 							positionData={positionData}
+							setPositions={setPositions}
 							setEditFormOpen={setEditFormOpen}
 						/>
 						<DrawerClose asChild>
@@ -113,9 +124,36 @@ const PositionItem = ({ positionData }) => {
 					</DrawerContent>
 				</Drawer>
 				<Separator className="my-1" />
-				{/* <Button variant="default" className={styles.button_style}>
-					بستن
-				</Button> */}
+
+				<Drawer open={extendPositionOpen}>
+					<DrawerTrigger>
+						<Button
+							variant="default"
+							className={styles.button_style}
+							onClick={() => setExtendPositionOpen(true)}
+						>
+							تمدید
+						</Button>
+					</DrawerTrigger>
+					<DrawerContent>
+						<ExtendPositionForm
+							setPositions={setPositions}
+							positionData={positionData}
+							setExtendPositionOpen={setExtendPositionOpen}
+						/>
+						<DrawerClose asChild>
+							<Button
+								variant="outline"
+								className="font-vazirmatn"
+								onClick={() => setExtendPositionOpen(false)}
+							>
+								بازگشت
+							</Button>
+						</DrawerClose>
+					</DrawerContent>
+				</Drawer>
+				<Separator className="my-1" />
+
 				<Drawer open={deletePositionOpen}>
 					<DrawerTrigger>
 						<Button
@@ -147,10 +185,6 @@ const PositionItem = ({ positionData }) => {
 						</DrawerClose>
 					</DrawerContent>
 				</Drawer>
-				{/* <Separator className="my-1" />
-				<Button variant="default" className={styles.button_style}>
-					تمدید
-				</Button> */}
 			</div>
 		</Card>
 	);
