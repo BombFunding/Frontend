@@ -9,60 +9,58 @@ import HamburgerMenu from "../HamburgerMenu/HamburgerMenu.jsx";
 import NavbarDropDown from "../NavbarDropdown/NavbarDropDown";
 import { useState } from "react";
 function Navbar() {
-	const Navigate = useNavigate();
-	const [isOpen, setOpen] = useState(false);
-	const TOKEN = useTokenStore((state) => state.accessToken);
-	return (
-		<nav
-			className={`flex flex-col justify-around bg-bomborange h-24 top-0 fixed right-0 z-40 w-[100vw] gap-1`}
-		>
-			<div className="flex flex-row bg-bomborange w-full h-12 justify-between items-center px-6">
-				<div className="px-4 py-6 flex justify-between items-center w-full">
-					<div
-						className="flex text-white hover:cursor-pointer"
-						onClick={() => Navigate("/")}
-					>
-						{!isOpen && (
-							<>
-								<img
-									src={Logo}
-									alt="Bomb Funding"
-									className="rounded-full w-10 h-10 place-self-center mix-blend-multiply"
-								/>
-								<a className="font-extrabold text-xs text-left px-0 place-self-center w-10 text-bombblack">
-									Bomb Funding
-								</a>
-							</>
-						)}
-					</div>
-					<SearchBar className={`${styles.SearchBar}`} />
-					<div className={`${styles.mobile} flex`}>
-						{TOKEN ? (
-							<ProfileDropDown />
-						) : (
-							<PushyButton onClick={() => Navigate("/login")}>
-								Login
-							</PushyButton>
-						)}
-					</div>
-					<HamburgerMenu
-						isOpen={isOpen}
-						setOpen={setOpen}
-						mode={"sm:hidden"}
-					/>
-				</div>
-			</div>
-			<div className="mt-[4vw] h-[2vw] w-[100vw] z-[-20]">
-				<NavbarDropDown />
-			</div>
-		</nav>
-	);
+  const Navigate = useNavigate();
+  const [isOpen, setOpen] = useState(false);
+  const TOKEN = useTokenStore((state) => state.accessToken);
+  return (
+    <nav
+      className={`flex flex-col justify-around ${
+        isOpen ? "bg-black" : "bg-bomborange"
+      } h-fit top-0 fixed right-0 z-40 w-screen gap-1`}
+    >
+      <div className="flex flex-row w-full h-12 justify-between mb-2 items-center px-6">
+        <div className="px-4 py-6 flex justify-between items-center w-full">
+          <div
+            className="flex text-white hover:cursor-pointer"
+            onClick={() => Navigate("/")}
+          >
+            {!isOpen && (
+              <>
+                <img
+                  src={Logo}
+                  alt="Bomb Funding"
+                  className="rounded-full w-10 h-10 place-self-center mix-blend-multiply"
+                />
+                <a className="font-extrabold text-xs text-left px-0 place-self-center w-10 text-bombblack">
+                  Bomb Funding
+                </a>
+              </>
+            )}
+          </div>
+          <SearchBar className={`${styles.SearchBar}`} />
+          <div className={`${styles.mobile} flex`}>
+            {TOKEN ? (
+              <ProfileDropDown />
+            ) : (
+              <PushyButton onClick={() => Navigate("/login")}>
+                Login
+              </PushyButton>
+            )}
+          </div>
+          <HamburgerMenu isOpen={isOpen} setOpen={setOpen} mode={"sm:hidden"} />
+        </div>
+      </div>
+      <div className={`${styles.dropdown} mt-[4vw] h-[2vh] w-screen z-[-20]`}>
+        <NavbarDropDown />
+      </div>
+    </nav>
+  );
 }
 
 export default Navbar;
 
 {
-	/* <>
+  /* <>
   <div class="relative">
     <div class="flex justify-between items-center">
       <div class="flex-1 BaseLayoutSearch_BaseLayoutSearch__QHPTB">

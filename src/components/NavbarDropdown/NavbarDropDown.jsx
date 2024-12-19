@@ -16,7 +16,7 @@ import { Avatar } from "../ui/avatar";
 
 function NavbarDropDown() {
   return (
-    <div className="relative w-full z-[-30] justify-start top-[-3.8vw] bg-bomborang place-items-center">
+    <div className="relative w-full z-[-30] justify-start top-[-3.8vh] bg-bomborang place-items-center">
       <Tabs />
     </div>
   );
