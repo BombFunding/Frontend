@@ -7,7 +7,7 @@ import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { patchData } from "@/Services/ApiClient/Services";
+import { getData, patchData } from "@/Services/ApiClient/Services";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 
@@ -17,7 +17,7 @@ const validationSchema = Yup.object().shape({
 	total: Yup.string().required("این مورد اجباری است"),
 });
 
-const EditPositionForm = ({ positionData, setEditFormOpen }) => {
+const EditPositionForm = ({ positionData, setPositions, setEditFormOpen }) => {
 	const {
 		register,
 		handleSubmit,
@@ -87,12 +87,15 @@ const EditPositionForm = ({ positionData, setEditFormOpen }) => {
 		patchData(`/startup/position/update/${positionData?.id}/`, bodyData)
 			.then((res) => {
 				console.log(res);
-				toast.success(
-					<CustomToast Header="پوزیشن با موفقیت ویرایش شد" />
-				);
-				setTimeout(() => {
-					setEditFormOpen(false);
-				}, 3000);
+				getData("/startup/position/list/").then((data) => {
+					toast.success(
+						<CustomToast Header="پوزیشن با موفقیت ویرایش شد" />
+					);
+					setTimeout(() => {
+						setPositions(data);
+						setEditFormOpen(false);
+					}, 3000);
+				});
 			})
 			.catch((err) => {
 				console.log(err);

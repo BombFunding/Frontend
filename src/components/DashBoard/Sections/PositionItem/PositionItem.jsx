@@ -12,11 +12,11 @@ import {
 	DrawerTrigger,
 } from "@/components/ui/drawer";
 import EditPositionForm from "@/components/Forms/DashBoardForms/EditPositionForm/EditPositionForm";
-import { deleteData } from "@/Services/ApiClient/Services";
+import { deleteData, getData } from "@/Services/ApiClient/Services";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 
-const PositionItem = ({ positionData }) => {
+const PositionItem = ({ positionData, setPositions }) => {
 	const [editFormOpen, setEditFormOpen] = useState(false);
 	const [deletePositionOpen, setDeletePositionOpen] = useState(false);
 	let day_duration = 1000 * 60 * 60 * 24;
@@ -24,13 +24,19 @@ const PositionItem = ({ positionData }) => {
 	const start = new Date(positionData?.start_time);
 	const end = new Date(positionData?.end_time);
 	const now = new Date();
-	console.log("Hereeeeeeeeeeeeeeeeee: ", Date.now(), end.toISOString());
 	const deletePosition = () => {
 		deleteData(`/startup/position/delete/${positionData.id}/`)
 			.then((data) => {
 				console.log(data);
-				toast.success(<CustomToast Header="پوزیشن با موفقیت حذف شد" />);
-				setTimeout(() => setDeletePositionOpen(false), 3000);
+				getData("/startup/position/list/").then((data) => {
+					toast.success(
+						<CustomToast Header="پوزیشن با موفقیت حذف شد" />
+					);
+					setTimeout(() => {
+						setPositions(data);
+						setDeletePositionOpen(false);
+					}, 3000);
+				});
 			})
 			.catch((err) => {
 				toast.error(
@@ -99,6 +105,7 @@ const PositionItem = ({ positionData }) => {
 					<DrawerContent>
 						<EditPositionForm
 							positionData={positionData}
+							setPositions={setPositions}
 							setEditFormOpen={setEditFormOpen}
 						/>
 						<DrawerClose asChild>

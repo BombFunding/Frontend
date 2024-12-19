@@ -54,7 +54,11 @@ const PositionBox = () => {
 			</div>
 			<div className={styles.position_list}>
 				{positions.map((position, index) => (
-					<PositionItem positionData={position} key={index} />
+					<PositionItem
+						positionData={position}
+						setPositions={setPositions}
+						key={index}
+					/>
 				))}
 				{/* <PositionItem />
 				<PositionItem />
