@@ -36,7 +36,7 @@ const Comment = () => {
     <div className={styles.comment}>
 
       {/* Display existing comments */}
-      <div className={'${styles.commentsList} font-vazirmatn'}>
+      <div className={`${styles.commentsList} font-vazirmatn`}>
         {comments.length > 0 ? (
           comments.map((c, index) => (
             <div key={index} className={styles.commentItem}>
@@ -49,12 +49,11 @@ const Comment = () => {
       </div>
       <div className={styles.commentInput}>
       <CustomTextArea
-          placeholder="... کامنت اضافه کن"
+          placeholder="...کامنت اضافه کن"
           onChange={handleCommentChange}
           name="comment"
           inputClassName={`${styles.textarea} w-full`}
           style={{ direction: direction, textAlign: direction === "rtl" ? "right" : "left" }}
-          className={`${styles['custom-placeholder-label']}`}
           value={comment}
         />
         <button onClick={handleCommentSubmit} className={styles.button}>
