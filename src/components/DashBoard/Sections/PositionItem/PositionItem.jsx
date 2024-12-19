@@ -82,7 +82,8 @@ const PositionItem = ({ positionData, setPositions }) => {
 					<Label>
 						{Math.round(
 							(end.getTime() - now.getTime()) / day_duration
-						)}
+						)}{" "}
+						روز
 					</Label>
 				</div>
 				<Progress
@@ -136,7 +137,11 @@ const PositionItem = ({ positionData, setPositions }) => {
 						</Button>
 					</DrawerTrigger>
 					<DrawerContent>
-						<ExtendPositionForm setPositions={setPositions} />
+						<ExtendPositionForm
+							setPositions={setPositions}
+							positionData={positionData}
+							setExtendPositionOpen={setExtendPositionOpen}
+						/>
 						<DrawerClose asChild>
 							<Button
 								variant="outline"

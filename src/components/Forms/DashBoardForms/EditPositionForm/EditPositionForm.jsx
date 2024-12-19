@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import { getData, patchData } from "@/Services/ApiClient/Services";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 const validationSchema = Yup.object().shape({
 	position_name: Yup.string().required("این مورد اجباری است"),
@@ -26,6 +27,7 @@ const EditPositionForm = ({ positionData, setPositions, setEditFormOpen }) => {
 		resolver: yupResolver(validationSchema),
 	});
 
+	const { username } = useProfileStore();
 	const [name, setName] = useState(positionData?.name);
 	const [description, setDescription] = useState(positionData?.description);
 	const [total, setTotal] = useState(positionData?.total);
@@ -84,10 +86,10 @@ const EditPositionForm = ({ positionData, setPositions, setEditFormOpen }) => {
 		};
 		// console.log("Date: ", endTime);
 		console.log("bodyData: ", bodyData);
-		patchData(`/startup/position/update/${positionData?.id}/`, bodyData)
+		patchData(`/position/update/${positionData?.id}/`, bodyData)
 			.then((res) => {
 				console.log(res);
-				getData("/startup/position/list/").then((data) => {
+				getData(`/position/list/${username}/`).then((data) => {
 					toast.success(
 						<CustomToast Header="پوزیشن با موفقیت ویرایش شد" />
 					);
