@@ -15,10 +15,12 @@ import EditPositionForm from "@/components/Forms/DashBoardForms/EditPositionForm
 import { deleteData, getData } from "@/Services/ApiClient/Services";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
+import ExtendPositionForm from "@/components/Forms/DashBoardForms/ExtendPositionForm/ExtendPositionForm";
 
 const PositionItem = ({ positionData, setPositions }) => {
 	const [editFormOpen, setEditFormOpen] = useState(false);
 	const [deletePositionOpen, setDeletePositionOpen] = useState(false);
+	const [extendPositionOpen, setExtendPositionOpen] = useState(false);
 	let day_duration = 1000 * 60 * 60 * 24;
 	console.log("positionData: ", positionData);
 	const start = new Date(positionData?.start_time);
@@ -120,9 +122,32 @@ const PositionItem = ({ positionData, setPositions }) => {
 					</DrawerContent>
 				</Drawer>
 				<Separator className="my-1" />
-				{/* <Button variant="default" className={styles.button_style}>
-					بستن
-				</Button> */}
+
+				<Drawer open={extendPositionOpen}>
+					<DrawerTrigger>
+						<Button
+							variant="default"
+							className={styles.button_style}
+							onClick={() => setExtendPositionOpen(true)}
+						>
+							تمدید
+						</Button>
+					</DrawerTrigger>
+					<DrawerContent>
+						<ExtendPositionForm setPositions={setPositions} />
+						<DrawerClose asChild>
+							<Button
+								variant="outline"
+								className="font-vazirmatn"
+								onClick={() => setExtendPositionOpen(false)}
+							>
+								بازگشت
+							</Button>
+						</DrawerClose>
+					</DrawerContent>
+				</Drawer>
+				<Separator className="my-1" />
+
 				<Drawer open={deletePositionOpen}>
 					<DrawerTrigger>
 						<Button
@@ -154,10 +179,6 @@ const PositionItem = ({ positionData, setPositions }) => {
 						</DrawerClose>
 					</DrawerContent>
 				</Drawer>
-				{/* <Separator className="my-1" />
-				<Button variant="default" className={styles.button_style}>
-					تمدید
-				</Button> */}
 			</div>
 		</Card>
 	);

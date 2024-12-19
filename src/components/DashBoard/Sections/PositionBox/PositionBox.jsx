@@ -10,10 +10,12 @@ import {
 import { Button } from "@/components/ui/button";
 import AddPositionForm from "@/components/Forms/DashBoardForms/AddPositionForm/AddPositionForm";
 import { getData } from "@/Services/ApiClient/Services";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 const PositionBox = () => {
 	const [open, setOpen] = useState(false);
 	const [positions, setPositions] = useState([]);
+	// const { setLoading } = useProfileStore();
 	useEffect(() => {
 		getData("/startup/position/list/").then((data) => {
 			setPositions(data);

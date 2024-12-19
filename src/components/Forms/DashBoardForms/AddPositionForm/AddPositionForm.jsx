@@ -1,7 +1,5 @@
 import styles from "./AddPositionForm.module.scss";
-import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { getData, postData } from "@/Services/ApiClient/Services";
 import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import { useForm } from "react-hook-form";
@@ -72,7 +70,6 @@ const AddPositionForm = ({ setOpen, positions, setPositions }) => {
 
 	return (
 		<form
-			// className="flex flex-col gap-4 items-center font-vazirmatn m-5"
 			className="font-vazirmatn place-items-center"
 			onSubmit={handleSubmit(onSubmit)}
 		>
@@ -90,7 +87,7 @@ const AddPositionForm = ({ setOpen, positions, setPositions }) => {
 					name={"description"}
 				/>
 				<CustomInput
-					inputClassName={"w-[60vw] text-right"}
+					inputClassName={"w-[60vw]"}
 					placeholder="سرمایه مورد نیاز"
 					type="number"
 					register={register}
@@ -110,18 +107,6 @@ const AddPositionForm = ({ setOpen, positions, setPositions }) => {
 					ثبت پوزیشن
 				</Button>
 			</div>
-			{/* <div className={styles.input_box}>
-				<Label className={styles.label_style}>نام پوزیشن</Label>
-				<Input className={styles.input_style}></Input>
-			</div> */}
-			{/* <div className={styles.input_box}>
-				<Label className={styles.label_style}>سرمایه مورد نیاز</Label>
-				<Input type="number" className={styles.input_style}></Input>
-			</div> */}
-			{/* <div className={styles.input_box}>
-				<Label className={styles.label_style}>{"مدت زمان (روز)"}</Label>
-				<Input type="number" className={styles.input_style}></Input>
-			</div> */}
 		</form>
 	);
 };

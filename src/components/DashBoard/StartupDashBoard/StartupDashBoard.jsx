@@ -12,10 +12,10 @@ import TeamBox from "../Sections/TeamBox/TeamBox";
 import { Label } from "@/components/ui/label";
 import { Loading } from "@/components/Loading/Loading";
 const StartupDashBoard = () => {
-	const [loading, setLoading] = useState(false);
 	const {
 		username,
-		setPositions,
+		loading,
+		setLoading,
 		setFullname,
 		setUsername,
 		setBio,
