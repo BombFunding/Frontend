@@ -10,6 +10,16 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"@calumk/editorjs-columns": "^0.3.2",
+		"@editorjs/checklist": "^1.6.0",
+		"@editorjs/editorjs": "^2.30.7",
+		"@editorjs/header": "^2.8.8",
+		"@editorjs/image": "^2.10.1",
+		"@editorjs/link": "^2.6.2",
+		"@editorjs/list": "^2.0.2",
+		"@editorjs/paragraph": "^2.11.7",
+		"@editorjs/raw": "^2.5.1",
+		"@editorjs/simple-image": "^1.6.0",
 		"@emotion/react": "^11.13.5",
 		"@emotion/styled": "^11.13.5",
 		"@hookform/resolvers": "^3.9.1",
