@@ -20,69 +20,73 @@ import StarBoard from "@/Pages/StarBoard/StarBoard";
 import BaseUserDashBoard from "@/components/DashBoard/BaseUserDashBoard/BaseUserDashBoard";
 
 export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <PublicLayout />,
-    errorElement: <Error />,
-    children: [
-      {
-        index: true,
-        element: <Landing />,
-      },
-      {
-        path: "/Profile/:username",
-        element: <Profile />,
-      },
-      {
-        path: "/reset-password/:uid/:token",
-        element: <ChangePassword />,
-      },
-      {
-        path: "/profile/:username",
-        element: <Profile />,
-      },
-    ],
-  },
-  {
-    element: <PrivateLayout />,
-    children: [
-      {
-        path: "/test",
-        element: <BaseUserDashBoard />,
-      },
-      {
-        path: "/EditProfile",
-        element: <EditProfile />,
-      },
-      {
-        path: "/DashBoard",
-        element: <DashBoard />,
-      },
-      {
-        path: "/ChargeAccount",
-        element: <ChargeAccount />,
-      },
-    ],
-  },
-  {
-    element: <NoNavbarLayout />,
-    children: [
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/signup",
-        element: <Signup />,
-      },
-      {
-        path: "/emailverification",
-        element: <EmailVerification />,
-      },
-      {
-        path: "/forgetpassword",
-        element: <ForgetPassword />,
-      },
-    ],
-  },
+	{
+		path: "/",
+		element: <PublicLayout />,
+		errorElement: <Error />,
+		children: [
+			{
+				index: true,
+				element: <Landing />,
+			},
+			{
+				path: "/Profile/:username",
+				element: <Profile />,
+			},
+			{
+				path: "/reset-password/:uid/:token",
+				element: <ChangePassword />,
+			},
+			{
+				path: "/profile/:username",
+				element: <Profile />,
+			},
+			{
+				path: "/starboard",
+				element: <StarBoard />,
+			},
+		],
+	},
+	{
+		element: <PrivateLayout />,
+		children: [
+			{
+				path: "/test",
+				element: <BaseUserDashBoard />,
+			},
+			{
+				path: "/EditProfile",
+				element: <EditProfile />,
+			},
+			{
+				path: "/DashBoard",
+				element: <DashBoard />,
+			},
+			{
+				path: "/ChargeAccount",
+				element: <ChargeAccount />,
+			},
+		],
+	},
+	{
+		element: <NoNavbarLayout />,
+		children: [
+			{
+				path: "/login",
+				element: <Login />,
+			},
+			{
+				path: "/signup",
+				element: <Signup />,
+			},
+			{
+				path: "/emailverification",
+				element: <EmailVerification />,
+			},
+			{
+				path: "/forgetpassword",
+				element: <ForgetPassword />,
+			},
+		],
+	},
 ]);
