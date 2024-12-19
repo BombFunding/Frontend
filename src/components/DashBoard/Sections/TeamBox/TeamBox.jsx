@@ -15,10 +15,10 @@ import { v4 as uuidv4 } from "uuid";
 
 const TeamBox = ({ className }) => {
 	const [formOpen, setFormOpen] = useState(false);
-	const { profileId } = useProfileStore();
+	const { username } = useProfileStore();
 	const [members, setMembers] = useState([]);
 	useEffect(() => {
-		getData(`/startup/profile/${profileId}/team/list`).then((res) => {
+		getData(`/startup/profile/team/list/${username}`).then((res) => {
 			console.log("team list: ", res);
 			setMembers(res);
 		});
@@ -54,7 +54,7 @@ const TeamBox = ({ className }) => {
 				{/* {members.concat(members).concat(members).map((member) => ( */}
 				{members.map((member) => (
 					<TeamItem
-						profileId={profileId}
+						username={username}
 						key={uuidv4()}
 						memberData={member}
 						className={"flex-shrink-0"}

@@ -40,20 +40,24 @@ const EditTeamForm = ({ memberData, setEditMemberOpen }) => {
 		console.log("bodyData: ", bodyData);
 		// console.log("ProfileManager: ", ProfileManager);
 		putData(
-			`/startup/profile/${profileId}/team/update/${memberData.user}/`,
+			`/startup/profile/team/update/${memberData.user}/`,
 			bodyData
 		)
 			.then((res) => {
 				console.log(res);
-				getData(`/startup/profile/${profileId}/team/list`).then(
-					(res) => {
-						console.log("team list: ", res);
-						toast.success(
-							<CustomToast Header="عضو تیم با موفقیت ویرایش شد" />
-						);
-						setTimeout(() => setEditMemberOpen(false), 3000);
-					}
+				toast.success(
+					<CustomToast Header="عضو تیم با موفقیت ویرایش شد" />
 				);
+				setTimeout(() => setEditMemberOpen(false), 3000);
+				// getData(`/startup/profile/${profileId}/team/list`).then(
+				// 	(res) => {
+				// 		console.log("team list: ", res);
+				// 		toast.success(
+				// 			<CustomToast Header="عضو تیم با موفقیت ویرایش شد" />
+				// 		);
+				// 		setTimeout(() => setEditMemberOpen(false), 3000);
+				// 	}
+				// );
 			})
 			.catch((err) => {
 				console.log(err);

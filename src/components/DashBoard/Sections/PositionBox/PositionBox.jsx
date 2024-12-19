@@ -10,11 +10,15 @@ import {
 import { Button } from "@/components/ui/button";
 import AddPositionForm from "@/components/Forms/DashBoardForms/AddPositionForm/AddPositionForm";
 import { getData } from "@/Services/ApiClient/Services";
-import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 const PositionBox = () => {
-	const { positions } = useProfileStore();
 	const [open, setOpen] = useState(false);
+	const [positions, setPositions] = useState([]);
+	useEffect(() => {
+		getData("/startup/position/list/").then((data) => {
+			setPositions(data);
+		});
+	}, []);
 	return (
 		<div className={styles.position_box}>
 			<div className={styles.create_position}>
@@ -31,7 +35,11 @@ const PositionBox = () => {
 						</Button>
 					</DrawerTrigger>
 					<DrawerContent>
-						<AddPositionForm setOpen={setOpen} />
+						<AddPositionForm
+							setOpen={setOpen}
+							positions={positions}
+							setPositions={setPositions}
+						/>
 						<DrawerClose asChild>
 							<Button
 								className="font-vazirmatn"

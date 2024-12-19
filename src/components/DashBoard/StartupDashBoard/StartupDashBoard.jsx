@@ -45,13 +45,15 @@ const StartupDashBoard = () => {
 			getData(`/balance/balance/`).then((data) =>
 				setBalance(data.balance)
 			);
-			getData(`/startup/get_startup_profile/${username}/`).then(
-				(data) => {
-					console.log("positions: ", data.profile.positions);
-					setPositions(data.profile.positions);
-					setLoading(false);
-				}
-			);
+			
+			// getData(`/startup/get_startup_profile/${username}/`).then(
+			// 	(data) => {
+			// 		console.log("positions: ", data.profile.positions);
+			// 		setPositions(data.profile.positions);
+			// 		setLoading(false);
+			// 	}
+			// );
+			setLoading(false);
 		});
 	}, []);
 	if (loading)

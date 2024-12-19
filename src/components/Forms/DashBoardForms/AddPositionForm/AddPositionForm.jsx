@@ -2,7 +2,7 @@ import styles from "./AddPositionForm.module.scss";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { postData } from "@/Services/ApiClient/Services";
+import { getData, postData } from "@/Services/ApiClient/Services";
 import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,7 +17,7 @@ const validationSchema = Yup.object().shape({
 	duration: Yup.string().required("Email is required"),
 });
 
-const AddPositionForm = ({ setOpen }) => {
+const AddPositionForm = ({ setOpen, positions, setPositions }) => {
 	const {
 		register,
 		handleSubmit,
@@ -54,12 +54,15 @@ const AddPositionForm = ({ setOpen }) => {
 		postData("/startup/position/create/", bodyData)
 			.then((res) => {
 				console.log(res);
-				toast.success(
-					<CustomToast Header="پوزیشن با موفقیت ساخته شد" />
-				);
-				setTimeout(() => {
-					setOpen(false);
-				}, 3000);
+				getData("/startup/position/list/").then((data) => {
+					toast.success(
+						<CustomToast Header="پوزیشن با موفقیت ساخته شد" />
+					);
+					setTimeout(() => {
+						setPositions(data);
+						setOpen(false);
+					}, 3000);
+				});
 			})
 			.catch((err) => {
 				console.log(err);

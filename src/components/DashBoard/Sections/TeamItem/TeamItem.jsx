@@ -18,7 +18,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 import { toast } from "react-toastify";
 
-const TeamItem = ({ profileId, memberData, className }) => {
+const TeamItem = ({ username, memberData, className }) => {
 	const [deleteMemberOpen, setDeleteMemberOpen] = useState(false);
 	const [editMemberOpen, setEditMemberOpen] = useState(false);
 	const [profileData, setProfileData] = React.useState(null);
@@ -34,7 +34,7 @@ const TeamItem = ({ profileId, memberData, className }) => {
 	}, []);
 	const deleteMember = () => {
 		deleteData(
-			`/startup/profile/${profileId}/team/remove/${memberData?.user}/`
+			`/startup/profile/team/remove/${memberData?.user}/`
 		)
 			.then((data) => {
 				console.log(data);

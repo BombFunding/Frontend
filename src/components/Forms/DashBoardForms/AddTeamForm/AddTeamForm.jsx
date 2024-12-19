@@ -14,6 +14,7 @@ import { getData, postData } from "@/Services/ApiClient/Services";
 import CustomTextArea from "@/components/Custom/CustomTextArea/CustomTextArea";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
 	username: Yup.string().required("Name is required"),
@@ -21,6 +22,7 @@ const validationSchema = Yup.object().shape({
 	role: Yup.string().required("Email is required"),
 });
 const AddTeamForm = ({ setFormOpen }) => {
+	const Navigate = useNavigate();
 	const {
 		register,
 		handleSubmit,
@@ -28,7 +30,6 @@ const AddTeamForm = ({ setFormOpen }) => {
 	} = useForm({
 		resolver: yupResolver(validationSchema),
 	});
-	const { profileId } = useProfileStore((state) => state);
 	const onSubmit = (data) => {
 		console.log(data);
 		const bodyData = {
@@ -38,23 +39,26 @@ const AddTeamForm = ({ setFormOpen }) => {
 		};
 		console.log("bodyData: ", bodyData);
 		// console.log("ProfileManager: ", ProfileManager);
-		postData(`/startup/profile/${profileId}/team/add/`, bodyData)
+
+		postData(`/startup/profile/team/add/`, bodyData)
 			.then((res) => {
 				console.log(res);
-				getData(`/startup/profile/${profileId}/team/list`).then(
-					(res) => {
-						console.log("team list: ", res);
-						toast.success(
-							<CustomToast Header="عضو جدید تیم اضافه شد" />
-						);
-						setTimeout(
-							() => setFormOpen(false)
-						, 3000);
-					}
-				);
+				toast.success(<CustomToast Header="عضو جدید تیم اضافه شد" />);
+				setTimeout(() => window.location.reload(false), 3000);
+				// getData(`/startup/profile/${profileId}/team/list`).then(
+				// 	(res) => {
+				// 		console.log("team list: ", res);
+				// 		toast.success(
+				// 			<CustomToast Header="عضو جدید تیم اضافه شد" />
+				// 		);
+				// 		setTimeout(
+				// 			() => setFormOpen(false)
+				// 		, 3000);
+				// 	}
+				// );
 			})
 			.catch((err) => {
-				console.log("E: ", err.response.data.error);
+				console.log("E: ", err);
 				if (err.response?.data?.error === "User already in team") {
 					toast.error(
 						<CustomToast
