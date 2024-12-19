@@ -16,7 +16,7 @@ function StartupCard() {
 				className={styles.progress_bar}
 				ProgressColor="bg-bomborange"
 			/>
-			<div className="flex">
+			<div className="flex px-[1vw]">
 				<img
 					src={defaultpfp}
 					className="rounded-full w-[4vw] m-[1vw]"
@@ -24,8 +24,8 @@ function StartupCard() {
 				<h1 className="text-[1.2vw] place-self-center">
 					این یک پوزیشن است؟ فکر کنم لورم ایپسام ایپسام ایپسام
 				</h1>
-				<Like className="pr-[1vw] pl-[1vw] place-self-center" />
-				<Bookmark className="pl-[1.5vw] place-self-center" />
+				{/* <Like className="pr-[1vw] pl-[1vw] place-self-center" />
+				<Bookmark className="pl-[1.5vw] place-self-center" /> */}
 			</div>
 			<div className="flex m-[1vw] place-content-center rtl justify-around px-[3vw]">
 				<div className={`flex ${styles.hover_trigger}`}>

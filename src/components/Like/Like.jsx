@@ -1,13 +1,10 @@
 import styles from "./Like.module.scss";
-function Like({ className }) {
+function Like({ className, active }) {
 	return (
 		<label className={`${styles.ui_like} ${className}`}>
 			<input type="checkbox" />
-			<div className={styles.like}>
-				<svg
-					viewBox="0 0 24 24"
-					fill=""
-				>
+			<div className={`${styles.like}`}>
+				<svg viewBox="0 0 24 24" fill="" className={``}>
 					<g className={styles.g} id="SVGRepo_bgCarrier"></g>
 					<g id="SVGRepo_tracerCarrier"></g>
 					<g id="SVGRepo_iconCarrier">
