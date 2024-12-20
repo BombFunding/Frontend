@@ -15,10 +15,10 @@ const Landing = () => {
 		getData("/landing/get_statistics/").then((data) => {
 			console.log(data);
 		});
-		getData("/landing/top_funded_startups/").then((data) => {
-			console.log("topFunded: +++++++++++++++++++++++++++++", data);
-			setTopFunded(data);
-		});
+		// getData("/landing/top_funded_startups/").then((data) => {
+		// 	console.log("topFunded: +++++++++++++++++++++++++++++", data);
+		// 	setTopFunded(data);
+		// });
 		getData("/landing/top_visited_startups/").then((data) => {
 			console.log("topVisited: ", data);
 			setTopVisited(data);

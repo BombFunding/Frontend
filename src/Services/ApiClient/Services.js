@@ -4,20 +4,28 @@ import { jwtDecode } from "jwt-decode";
 
 const isTokenExpired = () => {
 	const { accessToken } = useTokenStore.getState();
-	const { exp } = jwtDecode(accessToken);
-	const currentTime = Math.floor(Date.now() / 1000);
-	console.log("exp: ", exp, " now: ", currentTime, exp - currentTime);
-	return exp < currentTime;
+	if (accessToken) {
+		const { exp } = jwtDecode(accessToken);
+		const currentTime = Math.floor(Date.now() / 1000);
+		// console.log("exp: ", exp, " now: ", currentTime, exp - currentTime);
+		return exp - currentTime <= 24;
+	}
+	return false;
 };
 
-const RefreshToken = () => {
-	const { refreshToken } = useTokenStore.getState();
-	if (isTokenExpired()) {
-		postData("/auth/token/refresh/", { refresh: refreshToken }).then(
-			(data) => {
-				console.log(data);
-			}
-		);
+const RefreshToken = async () => {
+	const { accessToken, refreshToken, updateAccessToken } =
+		useTokenStore.getState();
+	if (accessToken) {
+		if (isTokenExpired()) {
+			// console.log("meow", refreshToken)
+			const r = await apiClient.post("/auth/token/refresh/", {
+				refresh: refreshToken,
+			});
+			// console.log("get access token here1: ", refreshToken);
+			// console.log("get access token here2: ", r.data.access);
+			updateAccessToken(r.data.access);
+		}
 	}
 };
 
@@ -77,7 +85,7 @@ apiClient.interceptors.response.use(
 );
 
 export const getData = async (endPoint, headers) => {
-	RefreshToken();
+	await RefreshToken()
 	if (headers) {
 		try {
 			const response = await apiClient.get(endPoint, headers);
@@ -95,7 +103,7 @@ export const getData = async (endPoint, headers) => {
 };
 
 export const postData = async (endPoint, data) => {
-	RefreshToken();
+	await RefreshToken();
 	try {
 		const response = await apiClient.post(endPoint, data);
 		return response.data;
@@ -106,7 +114,7 @@ export const postData = async (endPoint, data) => {
 };
 
 export const postImageData = async (endPoint, formData) => {
-	RefreshToken();
+	await RefreshToken();
 	try {
 		const response = await apiClient.post(endPoint, formData, {
 			headers: { "Content-Type": "multipart/form-data" },
@@ -118,7 +126,7 @@ export const postImageData = async (endPoint, formData) => {
 	}
 };
 export const patchData = async (endPoint, data) => {
-	RefreshToken();
+	await RefreshToken();
 	try {
 		const response = await apiClient.patch(endPoint, data);
 		return response.data;
@@ -127,7 +135,7 @@ export const patchData = async (endPoint, data) => {
 	}
 };
 export const putData = async (endPoint, data) => {
-	RefreshToken();
+	await RefreshToken();
 	try {
 		const response = await apiClient.put(endPoint, data);
 		return response.data;
@@ -136,7 +144,7 @@ export const putData = async (endPoint, data) => {
 	}
 };
 export const deleteData = async (endPoint) => {
-	RefreshToken();
+	await RefreshToken();
 	try {
 		const response = await apiClient.delete(endPoint);
 		return response.data;

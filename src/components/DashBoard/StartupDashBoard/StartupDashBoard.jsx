@@ -36,7 +36,7 @@ const StartupDashBoard = () => {
 			);
 			setUsername(data.base_profile.name);
 
-			console.log("username: ", username);
+			// console.log("username: ", username);
 			setBio(data.base_profile.bio);
 			if (data.base_profile.likeCount) {
 				setLikeCount(data.base_profile.likeCount);
@@ -52,7 +52,6 @@ const StartupDashBoard = () => {
 			getData(`/startup/get_startup_profile/${username}/`).then(
 				(data) => {
 					console.log("positions: ", data.profile.positions);
-					setLoading(false);
 				}
 			);
 			getData(`/balance/balance/`).then((data) =>

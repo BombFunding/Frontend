@@ -27,7 +27,7 @@ const PositionBox = () => {
 				<Drawer open={open}>
 					<DrawerTrigger>
 						<button
-							className="btn bg-bomborange hover:text-white hover:bg-black m-2"
+							className="btn bg-bomborange text-black hover:text-white hover:bg-black m-2"
 							onClick={() => {
 								setOpen(true);
 							}}
