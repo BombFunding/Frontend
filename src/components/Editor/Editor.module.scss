@@ -1,5 +1,5 @@
 .editor {
-  @apply m-5 shadow-xl shadow-top-bottom p-3 relative !important;
+  @apply m-5 shadow-xl shadow-top-bottom p-3 relative rtl !important;
   text-align: right;
   width: 70vw;
   height: auto;
@@ -10,7 +10,7 @@
 }
 
 .save_btn {
-  @apply bg-bomborange absolute bottom-8 -left-12 p-2 aspect-square rounded-full aspect-square flex items-center justify-center hover:bg-bombblack hover:text-bomborange transition-all duration-300 ease-in-out transform opacity-[93%] hover:opacity-100 hover:scale-105 !important;
+  @apply bg-bomborange absolute top-8 -left-12 p-2 aspect-square rounded-full aspect-square flex items-center justify-center hover:bg-bombblack hover:text-bomborange transition-all duration-300 ease-in-out transform opacity-[93%] hover:opacity-100 hover:scale-105 !important;
 
   .save_txt {
     @apply text-bomborange invisible absolute top-[95%] font-vazirmatn  transition-all duration-300 ease-in-out transform;

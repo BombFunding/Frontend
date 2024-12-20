@@ -13,12 +13,48 @@ import SaveIcon from "@mui/icons-material/Save";
 import { Card } from "../ui/card";
 import { Label } from "../ui/label";
 import "./Editor.css";
+import { getData, patchData, postData } from "@/Services/ApiClient/Services";
+import axios from "axios";
 
 const Editor = () => {
   const [update, setUpdate] = useState(false);
   const { data, updateData } = useEditorStore();
   console.log(data);
   const editorRef = useRef(null);
+
+  const uploadByFile = async (file) => {
+    // Create a FormData object to send the image file
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      // Send the POST request to your API
+      const response = await postData("/project/image/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(response);
+
+      // The API should return the URL of the uploaded image
+      const imageUrl = response.file.url;
+
+      // Return the URL of the uploaded image
+      return {
+        success: 1,
+        file: {
+          url: imageUrl, // The URL returned by your API
+        },
+      };
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      return {
+        success: 0,
+        error: "Image upload failed",
+      };
+    }
+  };
+
   const columnTools = {
     header: {
       class: Header,
@@ -29,8 +65,29 @@ const Editor = () => {
       },
     },
     paragraph: Paragraph,
-    image: ImageTool,
+    image: {
+      class: ImageTool,
+      config: {
+        uploader: { uploadByFile },
+        // captionPlaceholder: "Enter caption", // (Optional) Placeholder text for captions
+        // buttonContent: "Select Image", // (Optional) Button text
+      },
+    },
   };
+
+  useEffect(() => {
+    const getDataFromServer = async () => {
+      try {
+        const res = await getData("/project/1");
+        await updateData(res.page);
+        console.log("sucessfully got data from server", res.page);
+      } catch (error) {
+        console.log("error: ", error);
+      }
+    };
+    getDataFromServer();
+  }, []);
+
   useEffect(() => {
     console.log("effectdata: ", data);
     const editor = new EditorJS({
@@ -39,6 +96,7 @@ const Editor = () => {
       tools: {
         header: {
           class: Header,
+          inlineToolbar: ["link"],
           config: {
             placeholder: "یک عنوان وارد کنید", // Placeholder text
             levels: [1, 2, 3, 4, 5, 6], // Available heading levels
@@ -49,22 +107,16 @@ const Editor = () => {
         image: {
           class: ImageTool,
           config: {
-            endpoints: {
-              // Provide the endpoint for image upload
-              byFile:
-                "http://104.168.46.4:8000/profilepage/startup_image/{startup_profile_id}", // URL for file upload
-              //   byUrl: "https://example.com/fetchUrl", // (Optional) URL to fetch image by URL
-            },
-            field: "file", // (Optional) Form field name for the file
-            additionalRequestHeaders: {
-              // (Optional) Add any headers your API requires
-              Authorization: "Bearer YOUR_TOKEN",
-            },
-            captionPlaceholder: "Enter caption", // (Optional) Placeholder text for captions
-            buttonContent: "Select Image", // (Optional) Button text
+            uploader: { uploadByFile },
+            // captionPlaceholder: "Enter caption", // (Optional) Placeholder text for captions
+            // buttonContent: "Select Image", // (Optional) Button text
           },
         },
-        paragraph: Paragraph,
+        paragraph: {
+          class: Paragraph,
+          inlineToolbar: true, // Enable inline toolbar for this tool
+        },
+
         columns: {
           class: editorjsColumns,
           config: {
@@ -86,11 +138,54 @@ const Editor = () => {
     };
   }, [data, update]);
 
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.ctrlKey && event.key === "s") {
+        event.preventDefault(); // Prevent the browser's default save behavior
+        handelSave();
+      }
+    };
+
+    // Add event listener
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Cleanup listener on component unmount
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   const handelSave = async () => {
     const savedData = await editorRef.current.save();
     //   editorRef.current.destroy();
-    await updateData(savedData);
-    console.log("finish", savedData);
+    if (!data) {
+      console.log("savedData in server: ", JSON.stringify(savedData));
+      await updateData(savedData);
+      postData(
+        "/project/",
+        { page: JSON.stringify(savedData) },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      ).then((res) => {
+        console.log("finish", res);
+      });
+    } else {
+      await updateData(savedData);
+      patchData(
+        "/project/1/",
+        { page: JSON.stringify(savedData) },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      ).then((res) => {
+        console.log("finish", res);
+      });
+    }
     // setUpdate(!update);
   };
 

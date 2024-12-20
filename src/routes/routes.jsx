@@ -19,74 +19,74 @@ import { Loading } from "@/components/Loading/Loading";
 import Editor from "@/components/Editor/Editor";
 
 export const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <PublicLayout />,
-		errorElement: <Error />,
-		children: [
-			{
-				index: true,
-				element: <Landing />,
-			},
-			{
-				path: "/Profile/:username",
-				element: <Profile />,
-			},
+  {
+    path: "/",
+    element: <PublicLayout />,
+    errorElement: <Error />,
+    children: [
+      {
+        index: true,
+        element: <Landing />,
+      },
+      {
+        path: "/Profile/:username",
+        element: <Profile />,
+      },
 
-			{
-				path: "/reset-password/:uid/:token",
-				element: <ChangePassword />,
-			},
-			{
-				path: "/profile/:username",
-				element: <Profile />,
-			},
-			{
-				path: "/developer",
-				element: <Editor />,
-			}
-		],
-	},
-	{
-		element: <PrivateLayout />,
-		children: [
-			{
-				path: "/test",
-				element: <Loading />,
-			},
-			{
-				path: "/EditProfile",
-				element: <EditProfile />,
-			},
-			{
-				path: "/DashBoard",
-				element: <DashBoard />,
-			},
-			{
-				path: "/ChargeAccount",
-				element: <ChargeAccount />,
-			},
-		],
-	},
-	{
-		element: <NoNavbarLayout />,
-		children: [
-			{
-				path: "/login",
-				element: <Login />,
-			},
-			{
-				path: "/signup",
-				element: <Signup />,
-			},
-			{
-				path: "/emailverification",
-				element: <EmailVerification />,
-			},
-			{
-				path: "/forgetpassword",
-				element: <ForgetPassword />,
-			},
-		],
-	},
+      {
+        path: "/reset-password/:uid/:token",
+        element: <ChangePassword />,
+      },
+      {
+        path: "/profile/:username",
+        element: <Profile />,
+      },
+    ],
+  },
+  {
+    element: <PrivateLayout />,
+    children: [
+      {
+        path: "/test",
+        element: <Loading />,
+      },
+      {
+        path: "/EditProfile",
+        element: <EditProfile />,
+      },
+      {
+        path: "/DashBoard",
+        element: <DashBoard />,
+      },
+      {
+        path: "/ChargeAccount",
+        element: <ChargeAccount />,
+      },
+      {
+        path: "/developer",
+        element: <Editor />,
+      },
+    ],
+  },
+  {
+    element: <NoNavbarLayout />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+      {
+        path: "/emailverification",
+        element: <EmailVerification />,
+      },
+      {
+        path: "/forgetpassword",
+        element: <ForgetPassword />,
+      },
+    ],
+  },
 ]);

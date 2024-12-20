@@ -63,10 +63,16 @@ const FaTranslation = () => {
          * Each subsection is the i18n dictionary that will be passed to the corresponded plugin
          * The name of a plugin should be equal the name you specify in the 'tool' section for that plugin
          */
+        image: {
+          Caption: "توضیح",
+          "With border": "با حاشیه",
+          "Stretch image": "کشیدن تصویر",
+          "With background": "با پس زمینه",
+        },
         list: {
-          "Ordered": "لیست شماره‌گذاری",
-          "Unordered": "لیست نامه‌ای",
-          "Checklist": "چک‌ لیست",
+          Ordered: "لیست شماره‌گذاری",
+          Unordered: "لیست نامه‌ای",
+          Checklist: "چک‌ لیست",
         },
         header: {
           "Heading 1": "عنوان 1",
