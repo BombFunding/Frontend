@@ -25,33 +25,21 @@ const PublicCommonProfile = ({ className }) => {
 				console.log(data);
 				const profile = data.baseuser_profile;
 				console.log("recived profile: ", profile);
-				getData(`/startup/get_startup_profile/${username}/`).then(
-					(res1) => {
-						getData(
-							`/startup/profile/${res1.profile.id}/vote/`
-						).then((res2) => {
-							console.log(res2);
-							const profileInfo_ = {
-								firstName: profile.first_name ?? "",
-								lastName: profile.last_name ?? "",
-								phoneNumber: profile.phone ?? "",
-								bio: profile.bio ?? "",
-								telegramAccount:
-									profile.socials?.telegram ?? "",
-								linkedinAccount:
-									profile.socials?.linkedin ?? "",
-								twitterAccount: profile.socials?.twitter ?? "",
-								website: profile.socials?.website ?? "",
-								email: profile.email ?? "",
-								likeCount: res2.vote_count,
-								banner: `http://104.168.46.4:8000${profile.header_picture}`,
-								avatar: `http://104.168.46.4:8000${profile.profile_picture}`,
-							};
-							setProfileInfo(profileInfo_);
-							setLoading(false);
-						});
-					}
-				);
+				const profileInfo_ = {
+					firstName: profile.first_name ?? "",
+					lastName: profile.last_name ?? "",
+					phoneNumber: profile.phone ?? "",
+					bio: profile.bio ?? "",
+					telegramAccount: profile.socials?.telegram ?? "",
+					linkedinAccount: profile.socials?.linkedin ?? "",
+					twitterAccount: profile.socials?.twitter ?? "",
+					website: profile.socials?.website ?? "",
+					email: profile.email ?? "",
+					banner: `http://104.168.46.4:8000${profile.header_picture}`,
+					avatar: `http://104.168.46.4:8000${profile.profile_picture}`,
+				};
+				setProfileInfo(profileInfo_);
+				setLoading(false);
 			})
 			.catch((error) => {
 				console.log(error);

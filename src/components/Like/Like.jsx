@@ -1,15 +1,15 @@
 import styles from "./Like.module.scss";
 import { useEffect, useState } from "react";
-import { getData, postData } from "@/Services/ApiClient/Services";
-function Like({ className, username, count }) {
-	const [likes, setLikes] = useState(count);
+import { deleteData, getData, postData } from "@/Services/ApiClient/Services";
+function Like({ className, username }) {
+	const [likes, setLikes] = useState(0);
 	const [userProfileId, setUserProfileId] = useState(null);
 	const [checked, setChecked] = useState(false);
 	useEffect(() => {
 		getData(`/startup/get_startup_profile/${username}/`).then((data) => {
 			setUserProfileId(data.profile.id);
-			getData(`/startup/profile/${userProfileId}/vote/`).then((data1) => {
-				console.log(data1);
+			getData(`/startup/profile/${data.profile.id}/vote/`).then((data1) => {
+				setLikes(data1.vote_count);
 			});
 		});
 	}, []);
@@ -20,8 +20,15 @@ function Like({ className, username, count }) {
 				console.log(data);
 			});
 			setLikes((likes) => likes + 1);
+		} else {
+			deleteData(`/startup/profile/${userProfileId}/vote/`).then(
+				(data) => {
+					console.log(data);
+				}
+			);
+			setLikes((likes) => likes - 1);
 		}
-		setChecked(!checked);
+		setChecked((checked) => !checked);
 	};
 	return (
 		<label className={`${styles.ui_like} ${className} flex`}>
