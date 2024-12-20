@@ -3,7 +3,7 @@ import styles from "./LogoutButton.module.scss";
 import { useNavigate } from "react-router-dom";
 
 function LogoutButton() {
-	const { deleteToken } = useTokenStore((state) => state);
+	const { deleteToken } = useTokenStore();
 	const Navigate = useNavigate();
 	return (
 		<button

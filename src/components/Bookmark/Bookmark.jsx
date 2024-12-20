@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import styles from "./Bookmark.module.scss";
 import { deleteData, getData, postData } from "@/Services/ApiClient/Services";
+import useTokenStore from "@/stores/TokenStore";
+import { toast } from "react-toastify";
+import CustomToast from "../Custom/CustomToast/CustomToast";
+import { useNavigate } from "react-router-dom";
 function Bookmark({ className, username }) {
 	const [checked, setChecked] = useState(false);
 	const [bookmarkId, setBookmarkId] = useState(null);
+	const Navigate = useNavigate();
+	const { accessToken } = useTokenStore();
 	useEffect(() => {
 		getData("/bookmark/").then((data) => {
 			data.map((bookmark) => {
@@ -16,16 +22,21 @@ function Bookmark({ className, username }) {
 	}, []);
 
 	const onChange = () => {
-		if (checked) {
-			deleteData(`/bookmark/${bookmarkId}/`).then((data) => {
-				console.log(data);
-			});
+		if (accessToken) {
+			if (checked) {
+				deleteData(`/bookmark/${bookmarkId}/`).then((data) => {
+					console.log(data);
+				});
+			} else {
+				postData("/bookmark/", { target: username }).then((data) => {
+					console.log(data);
+				});
+			}
+			setChecked((checked) => !checked);
 		} else {
-			postData("/bookmark/", { target: username }).then((data) => {
-				console.log(data);
-			});
+			toast.error(<CustomToast Header="لطفا وارد حساب کاربری خود شود" />);
+			setTimeout(() => Navigate("/login"), 3000);
 		}
-		setChecked((checked) => !checked);
 	};
 	return (
 		<label className={`${styles.ui_bookmark} ${className}`}>

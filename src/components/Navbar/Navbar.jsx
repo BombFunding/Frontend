@@ -11,7 +11,7 @@ import { useState } from "react";
 function Navbar() {
 	const Navigate = useNavigate();
 	const [isOpen, setOpen] = useState(false);
-	const TOKEN = useTokenStore((state) => state.accessToken);
+	const { accessToken } = useTokenStore();
 	return (
 		<nav
 			className={`flex flex-col justify-around bg-bomborange h-24 top-0 fixed right-0 z-40 w-[100vw] gap-1`}
@@ -37,7 +37,7 @@ function Navbar() {
 					</div>
 					<SearchBar className={`${styles.SearchBar}`} />
 					<div className={`${styles.mobile} flex`}>
-						{TOKEN ? (
+						{accessToken ? (
 							<ProfileDropDown />
 						) : (
 							<PushyButton onClick={() => Navigate("/login")}>
