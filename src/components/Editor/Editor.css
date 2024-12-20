@@ -5,3 +5,8 @@
 .codex-editor--narrow .ce-toolbar__actions {
   left: 5px !important;
 }
+
+.ce-editorjsColumns_col {
+  @apply rounded-sm;
+  border: 1px dashed gray !important;
+}

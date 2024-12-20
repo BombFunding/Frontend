@@ -1,3 +1,5 @@
+import { Heading } from "lucide-react";
+
 const FaTranslation = () => {
   return {
     /**
@@ -23,6 +25,7 @@ const FaTranslation = () => {
         toolbar: {
           toolbox: {
             Add: "اضافه کردن",
+            "Convert to": "تبدیل به",
           },
         },
       },
@@ -48,7 +51,8 @@ const FaTranslation = () => {
         InlineCode: "کد درون‌خطی",
         "Unordered List": "لیست نامه‌ای",
         "Ordered List": "لیست شماره‌گذاری",
-        // Image: "تصویر",
+        Image: "تصویر",
+        Columns: "ستون",
       },
 
       /**
@@ -59,7 +63,19 @@ const FaTranslation = () => {
          * Each subsection is the i18n dictionary that will be passed to the corresponded plugin
          * The name of a plugin should be equal the name you specify in the 'tool' section for that plugin
          */
-        list: {},
+        list: {
+          "Ordered": "لیست شماره‌گذاری",
+          "Unordered": "لیست نامه‌ای",
+          "Checklist": "چک‌ لیست",
+        },
+        header: {
+          "Heading 1": "عنوان 1",
+          "Heading 2": "عنوان 2",
+          "Heading 3": "عنوان 3",
+          "Heading 4": "عنوان 4",
+          "Heading 5": "عنوان 5",
+          "Heading 6": "عنوان 6",
+        },
         warning: {
           // <-- 'Warning' tool will accept this dictionary section
           Title: "عنوان",
