@@ -1,5 +1,25 @@
 import useTokenStore from "@/stores/TokenStore";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+
+const isTokenExpired = () => {
+	const { accessToken } = useTokenStore.getState();
+	const { exp } = jwtDecode(accessToken);
+	const currentTime = Math.floor(Date.now() / 1000);
+	console.log("exp: ", exp, " now: ", currentTime, exp - currentTime);
+	return exp < currentTime;
+};
+
+const RefreshToken = () => {
+	const { refreshToken } = useTokenStore.getState();
+	if (isTokenExpired()) {
+		postData("/auth/token/refresh/", { refresh: refreshToken }).then(
+			(data) => {
+				console.log(data);
+			}
+		);
+	}
+};
 
 const apiClient = axios.create({
 	baseURL: "http://104.168.46.4:8000/",
@@ -57,6 +77,7 @@ apiClient.interceptors.response.use(
 );
 
 export const getData = async (endPoint, headers) => {
+	RefreshToken();
 	if (headers) {
 		try {
 			const response = await apiClient.get(endPoint, headers);
@@ -74,6 +95,7 @@ export const getData = async (endPoint, headers) => {
 };
 
 export const postData = async (endPoint, data) => {
+	RefreshToken();
 	try {
 		const response = await apiClient.post(endPoint, data);
 		return response.data;
@@ -84,6 +106,7 @@ export const postData = async (endPoint, data) => {
 };
 
 export const postImageData = async (endPoint, formData) => {
+	RefreshToken();
 	try {
 		const response = await apiClient.post(endPoint, formData, {
 			headers: { "Content-Type": "multipart/form-data" },
@@ -95,6 +118,7 @@ export const postImageData = async (endPoint, formData) => {
 	}
 };
 export const patchData = async (endPoint, data) => {
+	RefreshToken();
 	try {
 		const response = await apiClient.patch(endPoint, data);
 		return response.data;
@@ -103,6 +127,7 @@ export const patchData = async (endPoint, data) => {
 	}
 };
 export const putData = async (endPoint, data) => {
+	RefreshToken();
 	try {
 		const response = await apiClient.put(endPoint, data);
 		return response.data;
@@ -111,6 +136,7 @@ export const putData = async (endPoint, data) => {
 	}
 };
 export const deleteData = async (endPoint) => {
+	RefreshToken();
 	try {
 		const response = await apiClient.delete(endPoint);
 		return response.data;
