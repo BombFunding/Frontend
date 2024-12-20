@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Comment.module.scss'; 
 import CustomTextArea from '../Custom/CustomTextArea/CustomTextArea';
+import CustomComment from '../CommentSection/CustomComment/CustomComment';
 
 const Comment = () => {
   const [comment, setComment] = useState('');
@@ -26,22 +27,30 @@ const Comment = () => {
 
   const handleCommentSubmit = () => {
     if (comment.trim()) {
-      setComments([...comments, comment]);
+      const newComment = {
+        Username: "Anonymous User", // Default username
+        Comment: comment,
+        pfp: "https://via.placeholder.com/150", // Default placeholder profile picture
+      };
+      setComments([...comments, newComment]);
       setComment('');
-      // console.log(comment);
     }
   };
 
   return (
     <div className={styles.comment}>
-
-      {/* Display existing comments */}
-      <div className={`${styles.commentsList} font-vazirmatn`}>
+      <div className={'${styles.commentsList} font-vazirmatn'}>
         {comments.length > 0 ? (
           comments.map((c, index) => (
-            <div key={index} className={styles.commentItem}>
-              <p>{c}</p>
-            </div>
+            // <div key={index} className={styles.commentItem}>
+            //   <p>{c}</p>
+            // </div>
+             <CustomComment
+              key={index}
+              Username={c.Username}
+              Comment={c.Comment}
+              pfp={c.pfp}
+            />
           ))
         ) : (
           <p style= {{ fontSize: "12px", lineHeight: "2", position: "relative", top: "-3px"}}>هنوز کامنتی نیست</p>
