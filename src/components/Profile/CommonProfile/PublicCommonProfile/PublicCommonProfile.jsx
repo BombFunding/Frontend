@@ -11,12 +11,13 @@ import { Loading } from "@/components/Loading/Loading";
 import { Separator } from "@/components/ui/separator";
 import Like from "@/components/Like/Like";
 import Bookmark from "@/components/Bookmark/Bookmark";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import Likes from "@/components/Likes/Likes";
 
 const PublicCommonProfile = ({ className }) => {
 	const { username } = useParams();
 	const [profileInfo, setProfileInfo] = React.useState({});
 	const [loading, setLoading] = React.useState(true);
-	console.log("username: ", username);
 	useEffect(() => {
 		setLoading(true);
 		getData(`/auth/baseuser_search_by_name/${username}/`)
@@ -24,21 +25,33 @@ const PublicCommonProfile = ({ className }) => {
 				console.log(data);
 				const profile = data.baseuser_profile;
 				console.log("recived profile: ", profile);
-				const profileInfo_ = {
-					firstName: profile.first_name ?? "",
-					lastName: profile.last_name ?? "",
-					phoneNumber: profile.phone ?? "",
-					bio: profile.bio ?? "",
-					telegramAccount: profile.socials?.telegram ?? "",
-					linkedinAccount: profile.socials?.linkedin ?? "",
-					twitterAccount: profile.socials?.twitter ?? "",
-					website: profile.socials?.website ?? "",
-					email: profile.email ?? "",
-					banner: `http://104.168.46.4:8000${profile.header_picture}`,
-					avatar: `http://104.168.46.4:8000${profile.profile_picture}`,
-				};
-				setProfileInfo(profileInfo_);
-				setLoading(false);
+				getData(`/startup/get_startup_profile/${username}/`).then(
+					(res1) => {
+						getData(
+							`/startup/profile/${res1.profile.id}/vote/`
+						).then((res2) => {
+							console.log(res2);
+							const profileInfo_ = {
+								firstName: profile.first_name ?? "",
+								lastName: profile.last_name ?? "",
+								phoneNumber: profile.phone ?? "",
+								bio: profile.bio ?? "",
+								telegramAccount:
+									profile.socials?.telegram ?? "",
+								linkedinAccount:
+									profile.socials?.linkedin ?? "",
+								twitterAccount: profile.socials?.twitter ?? "",
+								website: profile.socials?.website ?? "",
+								email: profile.email ?? "",
+								likeCount: res2.vote_count,
+								banner: `http://104.168.46.4:8000${profile.header_picture}`,
+								avatar: `http://104.168.46.4:8000${profile.profile_picture}`,
+							};
+							setProfileInfo(profileInfo_);
+							setLoading(false);
+						});
+					}
+				);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -57,6 +70,7 @@ const PublicCommonProfile = ({ className }) => {
 
 	return (
 		<>
+			{/* <Likes className="translate-x-[11vw] translate-y-[11vw] z-[100]" count={profileInfo.likeCount} /> */}
 			<Card
 				className={`${className} bg-slate-50 overflow-hidden h-[80vh] font-vazirmatn w-[80vw] place-self-center shadow-lg translate-y-[3vw] mb-[6vw] z-[-10]`}
 			>
@@ -80,8 +94,12 @@ const PublicCommonProfile = ({ className }) => {
 						<div className="flex rtl justify-between">
 							<Label className=" text-base">اطلاعات کاربری</Label>
 							<div className="flex place-items-center gap-2">
-								<Like />
-								<Bookmark />
+								<Like
+									username={username}
+									count={profileInfo.likeCount}
+								/>
+
+								<Bookmark username={username} />
 							</div>
 						</div>
 						<Separator className="my-2 bg-gray-300" />
