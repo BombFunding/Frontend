@@ -47,7 +47,12 @@ function Navbar() {
               </PushyButton>
             )}
           </div>
-          <HamburgerMenu isOpen={isOpen} setOpen={setOpen} mode={"sm:hidden"} />
+          <HamburgerMenu
+            isOpen={isOpen}
+            setOpen={setOpen}
+            mode={"sm:hidden"}
+            token={TOKEN}
+          />
         </div>
       </div>
       <div className={`${styles.dropdown} mt-[4vw] h-[2vh] w-screen z-[-20]`}>
