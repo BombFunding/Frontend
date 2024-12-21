@@ -13,13 +13,14 @@ function CommentSection() {
 				<div className="h-[3vw] place-content-center">کامنت‌ها</div>
 			</h1>
 			<Comment />
-			<CustomComment Comment="سلام لطفا تحلیل رو حذف کنید" Username="Ali_yasini" pfp={defaultpfp} />
-			<CustomComment Comment="سلام لطفا هرچه زودتر تحلیل رو حذف کنید ممنون" Username="Amir_maghare" pfp={defaultpfp} />
-			<CustomComment Comment="سلام لطفا هرچه زودتر تحلیل رو حذف کن" Username="nedaye_daroon" pfp={defaultpfp} />
-			<CustomComment Comment="واقعا چرا تحلیل رو حذف نمیکنی؟" Username="nedaye_daroon" pfp={defaultpfp} />
+			{/* // <CustomComment Comment="سلام لطفا تحلیل رو حذف کنید" Username="Ali_yasini" pfp={defaultpfp} />
+			// <CustomComment Comment="سلام لطفا هرچه زودتر تحلیل رو حذف کنید ممنون" Username="Amir_maghare" pfp={defaultpfp} />
+			// <CustomComment Comment="سلام لطفا هرچه زودتر تحلیل رو حذف کن" Username="nedaye_daroon" pfp={defaultpfp} />
+			// <CustomComment Comment="واقعا چرا تحلیل رو حذف نمیکنی؟" Username="nedaye_daroon" pfp={defaultpfp} />
 			<CustomComment Comment="حذف کن ترم بعد عشق کنیم" Username="nedaye_daroon" pfp={defaultpfp} />
 			<CustomComment Comment="نرمو بگو" Username="nedaye_daroon" pfp={defaultpfp} />
-			<CustomComment Comment="نرمو چیکار کنیم" Username="nedaye_daroon" pfp={defaultpfp} />
+			<CustomComment Comment="نرمو چیکار کنیم" Username="nedaye_daroon" pfp={defaultpfp} /> */}
+
 		</section>
 	);
 }
