@@ -16,8 +16,10 @@ import { Label } from "../ui/label";
 import "./Editor.css";
 import { getData, patchData, postData } from "@/Services/ApiClient/Services";
 import axios from "axios";
+import { toast } from "react-toastify";
+import CustomToast from "../Custom/CustomToast/CustomToast";
 
-const Editor = () => {
+const Editor = ({ id }) => {
   const [update, setUpdate] = useState(false);
   const { data, updateData } = useEditorStore();
   console.log(data);
@@ -91,7 +93,7 @@ const Editor = () => {
   useEffect(() => {
     const getDataFromServer = async () => {
       try {
-        const res = await getData("/project/1");
+        const res = await getData(`/project/${id}/`);
         await updateData(res.page);
         console.log("sucessfully got data from server", res.page);
       } catch (error) {
@@ -190,29 +192,41 @@ const Editor = () => {
             "Content-Type": "multipart/form-data",
           },
         }
-      ).then((res) => {
-        console.log("finish", res);
-      });
+      )
+        .then((res) => {
+          console.log("finish", res);
+          toast.success(<CustomToast Header="پروژه با موفقیت ذخیره شد" />);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(<CustomToast Header="خطا در ذخیره پروژه" />);
+        });
     } else {
       await updateData(savedData);
       patchData(
-        "/project/1/",
+        `/project/${id}/`,
         { page: JSON.stringify(savedData) },
         {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         }
-      ).then((res) => {
-        console.log("finish", res);
-      });
+      )
+        .then((res) => {
+          console.log("finish", res);
+          toast.success(<CustomToast Header="پروژه با موفقیت ذخیره شد" />);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(<CustomToast Header="خطا در ذخیره پروژه" />);
+        });
     }
     // setUpdate(!update);
   };
 
   return (
     <>
-      <Label className="p-8 text-3xl"> ویرایشگر</Label>
+      {/* <Label className="p-8 text-3xl"> ویرایشگر</Label> */}
       <div className={styles.holder}>
         <Card id="editorjs" className={styles.editor}></Card>
         <button className={styles.save_btn} onClick={handelSave}>
