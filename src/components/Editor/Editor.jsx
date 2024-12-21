@@ -5,6 +5,7 @@ import Header from "@editorjs/header";
 import List from "@editorjs/list";
 import ImageTool from "@editorjs/image";
 import Paragraph from "@editorjs/paragraph";
+import Quote from "@editorjs/quote";
 import editorjsColumns from "@calumk/editorjs-columns";
 import FaTranslation from "./FaTranslation.js";
 import { useEffect } from "react";
@@ -64,7 +65,19 @@ const Editor = () => {
         defaultLevel: 4, // Default heading level
       },
     },
-    paragraph: Paragraph,
+    paragraph: {
+      class: Paragraph,
+      inlineToolbar: true, // Enable inline toolbar for this tool
+    },
+    quote: {
+      class: Quote,
+      inlineToolbar: true,
+      //   shortcut: "CMD+SHIFT+O",
+      config: {
+        quotePlaceholder: "Enter a quote",
+        captionPlaceholder: "Quote's author",
+      },
+    },
     image: {
       class: ImageTool,
       config: {
@@ -116,7 +129,15 @@ const Editor = () => {
           class: Paragraph,
           inlineToolbar: true, // Enable inline toolbar for this tool
         },
-
+        quote: {
+          class: Quote,
+          inlineToolbar: true,
+          //   shortcut: "CMD+SHIFT+O",
+          config: {
+            quotePlaceholder: "نقل قول را وارد کنید",
+            captionPlaceholder: "نویسنده را وارد کنید",
+          },
+        },
         columns: {
           class: editorjsColumns,
           config: {

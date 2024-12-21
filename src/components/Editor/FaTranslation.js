@@ -63,6 +63,11 @@ const FaTranslation = () => {
          * Each subsection is the i18n dictionary that will be passed to the corresponded plugin
          * The name of a plugin should be equal the name you specify in the 'tool' section for that plugin
          */
+        quote: {
+          "Align Left": "چپ",
+          // "Align right": "راست",
+          "Align Center": "مرکز",
+        },
         image: {
           Caption: "توضیح",
           "With border": "با حاشیه",
