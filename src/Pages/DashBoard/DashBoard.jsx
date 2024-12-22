@@ -2,18 +2,25 @@ import BaseUserDashBoard from "@/components/DashBoard/BaseUserDashBoard/BaseUser
 import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
 import StartupDashBoard from "@/components/DashBoard/StartupDashBoard/StartupDashBoard";
 import useTokenStore from "@/stores/TokenStore";
-import React from "react";
+import React, { useEffect } from "react";
 import Error from "../Error/Error";
+// import Voting from "@/components/Voting/Voting";
 // import styles from "./DashBoard";
 
 const DashBoard = () => {
-	const userType = useTokenStore((state) => state.userType);
-	console.log(userType);
+	const { userType, accessToken } = useTokenStore();
+	useEffect(() => {
+		console.log("accessToken: ", accessToken);
+	}, []);
 	switch (userType) {
 		case "startup":
 			return <StartupDashBoard />;
 		case "investor":
-			return <InvestorDashBoard />;
+			return (<div>
+					<InvestorDashBoard />;
+					{/* <Voting />; */}
+					</div>
+			)
 		case "basic":
 			return <BaseUserDashBoard />;
 		default:

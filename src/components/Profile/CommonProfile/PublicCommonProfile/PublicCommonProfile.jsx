@@ -9,12 +9,16 @@ import { useParams } from "react-router-dom";
 import { getData } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
 import { Separator } from "@/components/ui/separator";
+import Like from "@/components/Like/Like";
+import Bookmark from "@/components/Bookmark/Bookmark";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import Likes from "@/components/Likes/Likes";
+import CommentSection from "@/components/CommentSection/CommentSection";
 
 const PublicCommonProfile = ({ className }) => {
 	const { username } = useParams();
 	const [profileInfo, setProfileInfo] = React.useState({});
 	const [loading, setLoading] = React.useState(true);
-	console.log("username: ", username);
 	useEffect(() => {
 		setLoading(true);
 		getData(`/auth/baseuser_search_by_name/${username}/`)
@@ -55,7 +59,7 @@ const PublicCommonProfile = ({ className }) => {
 
 	return (
 		<Card
-			className={`${className} bg-slate-50 overflow-hidden h-[80vh] font-vazirmatn w-[80vw] `}
+			className={`${className} bg-slate-50 overflow-hidden font-vazirmatn w-[80vw] translate-y-[3vw] mb-[6vw]`}
 		>
 			<div className={`h-1/3 overflow-hidden relative`}>
 				<img
@@ -73,43 +77,68 @@ const PublicCommonProfile = ({ className }) => {
 						/>
 					</div>
 				</div>
-				<div className="p-8 flex flex-col gap-3 font-vazirmatn">
-					<Label className=" text-base">اطلاعات کاربری</Label>
-					<Separator className="my-2 bg-gray-300" />
-					<div className="flex flex-col justify-evenly mr-3 gap-1">
-						<Label>:نام</Label>
-						<p className="text-xs">{profileInfo.firstName + " " + profileInfo.lastName}</p>
-						<Label>:ایمیل</Label>
-						<p className="text-xs">{profileInfo.email}</p>
-						<Label>:بیوگرافی</Label>
-						<p className="text-xs">{profileInfo.bio}</p>
+				<div className="relative">
+					<div className="flex justify-center items-center shadow-lg w-[100px] h-[100px] rounded-full overflow-hidden bg-white absolute top-[-70px] right-5">
+						<div className="w-[90px] rounded-full overflow-hidden">
+							<img
+								className="object-cover"
+								src={profileInfo.avatar}
+							/>
+						</div>
 					</div>
-					<div className="flex justify-center items-center gap-6 absolute">
-						{profileInfo.linkedinAccoun && (
-							<a href={profileInfo.linkedinAccount}>
-								{<LinkedInIcon />}
-							</a>
-						)}
-						{profileInfo.telegramAccount && (
-							<a
-								href={`https://t.me/${profileInfo.telegramAccount}`}
-							>
-								{<TelegramIcon />}
-							</a>
-						)}
-						{profileInfo.twitterAccount && (
-							<a
-								href={`https://x.com/${profileInfo.twitterAccount}`}
-							>
-								{<XIcon />}
-							</a>
-						)}
-						{profileInfo.website && (
-							<a href={profileInfo.website}>{<WebIcon />}</a>
-						)}
+					<div className="p-8 flex flex-col gap-3 font-vazirmatn">
+						<div className="flex rtl justify-between">
+							<Label className=" text-base">اطلاعات کاربری</Label>
+							<div className="flex place-items-center gap-2">
+								<Like
+									_username={username}
+									count={profileInfo.likeCount}
+								/>
+
+								<Bookmark username={username} />
+							</div>
+						</div>
+						<Separator className="my-2 bg-gray-300" />
+						<div className="flex flex-col justify-evenly mr-3 gap-1">
+							<Label>:نام</Label>
+							<p className="text-xs">
+								{profileInfo.firstName +
+									" " +
+									profileInfo.lastName}
+							</p>
+							<Label>:ایمیل</Label>
+							<p className="text-xs">{profileInfo.email}</p>
+							<Label>:بیوگرافی</Label>
+							<p className="text-xs">{profileInfo.bio}</p>
+						</div>
+						<div className="flex justify-center items-center gap-6 absolute">
+							{profileInfo.linkedinAccoun && (
+								<a href={profileInfo.linkedinAccount}>
+									{<LinkedInIcon />}
+								</a>
+							)}
+							{profileInfo.telegramAccount && (
+								<a
+									href={`https://t.me/${profileInfo.telegramAccount}`}
+								>
+									{<TelegramIcon />}
+								</a>
+							)}
+							{profileInfo.twitterAccount && (
+								<a
+									href={`https://x.com/${profileInfo.twitterAccount}`}
+								>
+									{<XIcon />}
+								</a>
+							)}
+							{profileInfo.website && (
+								<a href={profileInfo.website}>{<WebIcon />}</a>
+							)}
+						</div>
 					</div>
 				</div>
 			</div>
+			<CommentSection />
 		</Card>
 	);
 };

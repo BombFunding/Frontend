@@ -1,29 +1,5 @@
 import styles from "./InfiniteCarousel.module.scss";
-// import "./InfiniteCarousel.scss";
-import logo1 from "../../assets/logo1.png";
-import logo2 from "../../assets/logo2.png";
-import logo3 from "../../assets/logo3.png";
-import logo4 from "../../assets/logo4.png";
-import logo5 from "../../assets/logo5.png";
-import logo6 from "../../assets/logo6.png";
-import logo7 from "../../assets/logo7.png";
-import logo8 from "../../assets/logo8.png";
-import logo9 from "../../assets/logo9.png";
-import logo10 from "../../assets/logo10.png";
 import { useNavigate } from "react-router-dom";
-
-const images = [
-	logo1,
-	logo2,
-	logo3,
-	logo4,
-	logo5,
-	logo6,
-	logo7,
-	logo8,
-	logo9,
-	logo10,
-];
 
 const InfiniteCarousel = ({ items, children }) => {
 	const Navigate = useNavigate();

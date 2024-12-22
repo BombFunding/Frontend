@@ -20,7 +20,8 @@ function LoginForm() {
 
 	const { usernameEmail, password, updateUsernameEmail, updatePassword } =
 		useLoginFormStore((state) => state);
-	const TokenManager = useTokenStore((state) => state);
+	const { updateAccessToken, updateRefreshToken, updateUserType } =
+		useTokenStore((state) => state);
 	const profileManager = useProfileStore((state) => state);
 	const formData = { usernameEmail, password };
 	const formState = useLoginFormStore((state) => state);
@@ -41,9 +42,12 @@ function LoginForm() {
 					? { email: usernameEmail, password: password }
 					: { username: usernameEmail, password: password };
 			await postData("/auth/login/", bodyData).then((response) => {
-				TokenManager.updateAccessToken(response.access_token);
-				TokenManager.updateRefreshToken(response.refresh_token);
-				TokenManager.updateUserType(response.user_type);
+				updateAccessToken(response.access_token);
+				updateUserType(response.user_type);
+				updateRefreshToken(response.refresh_token);
+				// TokenManager.updateAccessToken(response.access_token);
+				// TokenManager.updateRefreshToken(response.refresh_token);
+				// TokenManager.updateUserType(response.user_type);
 				toast.success(
 					<CustomToast Header="با موفقیت وارد سایت شدید" />
 				);
@@ -57,27 +61,8 @@ function LoginForm() {
 					Navigate("/");
 				}, 3000);
 			});
-			// .catch((error) => {
-			// 	console.log("Data posting FAILED:", error);
-			// 	if (error?.response?.data) {
-			// 		const data = error?.response?.data;
-			// 		if (data?.non_field_errors) {
-			// 			const message = inputState
-			// 				? "نام کاربری یا رمز ورود اشتباه است"
-			// 				: "ایمیل یا رمز ورود اشتباه است";
-			// 			const err = {
-			// 				message: message,
-			// 				path: "usernameEmail",
-			// 			};
-			// 			const temp = errors;
-			// 			temp[0].push(err);
-			// 			setErrors((pre) => [temp]);
-			// 		}
-			// 	}
-			// });
 		} catch (error) {
-			// setErrors((pre) => [...pre, error.inner]);
-			// console.log("er:", error.response?.data);
+			console.log("login error: ", error);
 			if (error.response?.data?.error) {
 				toast.error(
 					<CustomToast Header="لطفا ایمیل خود را تایید کنید" />
@@ -88,21 +73,6 @@ function LoginForm() {
 				);
 			}
 		}
-		//  finally {
-		// 	const Fields = {
-		// 		usernameEmail: "نام کاربری یا ایمیل",
-		// 		password: "رمز عبور",
-		// 	};
-		// 	if (errors[0]?.length > 0) {
-		// 		// console.log(errors[0][0].message, Fields[errors[0][0].path]);
-		// 		toast.error(
-		// 			<CustomToast
-		// 				Header={Fields[errors[0][0].path]}
-		// 				Message={errors[0][0].message}
-		// 			/>
-		// 		);
-		// 	}
-		// }
 	};
 
 	return (

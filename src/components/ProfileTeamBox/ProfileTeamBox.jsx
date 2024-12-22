@@ -3,7 +3,7 @@ import prof01 from "../../assets/Profile01.jpg";
 import prof02 from "../../assets/A1.jpg";
 import prof03 from "../../assets/baner.jpg";
 import prof04 from "../../assets/defaultpfp.png";
-import prof05 from "../../assets/logo.png";
+import prof05 from "../../assets/logo1.png";
 import "./scrollBox.css";
 // import p from "../../assets/";
 

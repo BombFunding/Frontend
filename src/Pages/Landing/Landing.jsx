@@ -1,14 +1,4 @@
 import InfiniteCarousel from "@/components/InfiniteCarousel/InfiniteCarousel";
-import logo1 from "../../assets/logo1.png";
-import logo2 from "../../assets/logo2.png";
-import logo3 from "../../assets/logo3.png";
-import logo4 from "../../assets/logo4.png";
-import logo5 from "../../assets/logo5.png";
-import logo6 from "../../assets/logo6.png";
-import logo7 from "../../assets/logo7.png";
-import logo8 from "../../assets/logo8.png";
-import logo9 from "../../assets/logo9.png";
-import logo10 from "../../assets/logo10.png";
 import shakinghands from "../../assets/shakinghands.png";
 import handshaking from "../../assets/handshaking.png";
 import teamwork1 from "../../assets/teamwork1.png";
@@ -20,17 +10,22 @@ import { getData } from "@/Services/ApiClient/Services";
 const Landing = () => {
 	const [topFunded, setTopFunded] = useState([]);
 	const [topVisited, setTopVisited] = useState([]);
+	const [topLiked, setTopLiked] = useState([]);
 	useEffect(() => {
 		getData("/landing/get_statistics/").then((data) => {
 			console.log(data);
 		});
-		getData("/landing/top_funded_startups/").then((data) => {
-			console.log("topFunded: ", data);
-			setTopFunded(data);
-		});
+		// getData("/landing/top_funded_startups/").then((data) => {
+		// 	console.log("topFunded: +++++++++++++++++++++++++++++", data);
+		// 	setTopFunded(data);
+		// });
 		getData("/landing/top_visited_startups/").then((data) => {
 			console.log("topVisited: ", data);
 			setTopVisited(data);
+		});
+		getData("/landing/top_liked_startups/").then((data) => {
+			console.log("topLiked: ", data);
+			setTopLiked(data);
 		});
 	}, []);
 	return (
@@ -133,34 +128,8 @@ const Landing = () => {
 					</button>
 				</div>
 				<InfiniteCarousel items={topVisited} />
+
 				{/* <div className="rtl flex justify-between px-5">
-					<Label className="text-black font-vazirmatn text-2xl pr-10 top-10 place-content-center">
-						محبوب‌ترین استارت‌آپ‌ها
-					</Label>
-					<button
-						className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
-						onClick={() => {}}
-					>
-						دیدن بیشتر...
-					</button>
-				</div>
-				<InfiniteCarousel>
-					<div>
-						{[
-							logo1,
-							logo2,
-							logo4,
-							logo7,
-							logo10,
-							logo3,
-							logo9,
-							logo6,
-							logo5,
-							logo8,
-						]}
-					</div>
-				</InfiniteCarousel> */}
-				<div className="rtl flex justify-between px-5">
 					<Label className="text-black font-vazirmatn text-2xl pr-10 top-10 place-content-center">
 						جذاب‌ترین استارت‌آپ‌ها
 					</Label>
@@ -171,7 +140,20 @@ const Landing = () => {
 						دیدن بیشتر...
 					</button>
 				</div>
-				<InfiniteCarousel items={topFunded} />
+				<InfiniteCarousel items={topFunded} /> */}
+
+				<div className="rtl flex justify-between px-5">
+					<Label className="text-black font-vazirmatn text-2xl pr-10 top-10 place-content-center">
+						محبوب‌ترین استارت‌آپ‌ها
+					</Label>
+					<button
+						className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
+						onClick={() => {}}
+					>
+						دیدن بیشتر...
+					</button>
+				</div>
+				<InfiniteCarousel items={topLiked} />
 			</div>
 		</>
 	);

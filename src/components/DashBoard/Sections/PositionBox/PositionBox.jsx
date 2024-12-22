@@ -13,45 +13,53 @@ import { getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 const PositionBox = () => {
-	const { positions } = useProfileStore();
 	const [open, setOpen] = useState(false);
+	const [positions, setPositions] = useState([]);
+	const { username } = useProfileStore();
+	useEffect(() => {
+		getData(`/position/list/${username}/`).then((data) => {
+			setPositions(data);
+		});
+	}, []);
 	return (
 		<div className={styles.position_box}>
 			<div className={styles.create_position}>
 				<Drawer open={open}>
 					<DrawerTrigger>
-						<Button
-							variant="default"
-							className="btn bg-bomborange hover:text-white hover:bg-black m-2"
+						<button
+							className="btn bg-bomborange text-black hover:text-white hover:bg-black m-2"
 							onClick={() => {
 								setOpen(true);
 							}}
 						>
 							ساخت پوزیشن جدید
-						</Button>
+						</button>
 					</DrawerTrigger>
 					<DrawerContent>
-						<AddPositionForm setOpen={setOpen} />
+						<AddPositionForm
+							setOpen={setOpen}
+							positions={positions}
+							setPositions={setPositions}
+						/>
 						<DrawerClose asChild>
-							<Button
+							<button
 								className="font-vazirmatn"
-								variant="outline"
 								onClick={() => setOpen(false)}
 							>
 								بازگشت
-							</Button>
+							</button>
 						</DrawerClose>
 					</DrawerContent>
 				</Drawer>
 			</div>
 			<div className={styles.position_list}>
 				{positions.map((position, index) => (
-					<PositionItem positionData={position} key={index} />
+					<PositionItem
+						positionData={position}
+						setPositions={setPositions}
+						key={index}
+					/>
 				))}
-				{/* <PositionItem />
-				<PositionItem />
-				<PositionItem />
-				<PositionItem /> */}
 			</div>
 		</div>
 	);
