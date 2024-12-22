@@ -18,6 +18,11 @@ export default {
       animation: {
         shake: "shake 0.5s ease-in-out",
       },
+      boxShadow: {
+        top: "0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.06)",
+        "top-bottom":
+          "0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -71,5 +76,9 @@ export default {
       },
     },
   },
-  plugins: [require("daisyui"), require("tailwindcss-animate")],
+  plugins: [
+    require("daisyui"),
+    require("tailwindcss-animate"),
+    require("tailwindcss-rtl"),
+  ],
 };

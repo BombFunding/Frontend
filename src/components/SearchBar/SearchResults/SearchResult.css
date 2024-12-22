@@ -5,3 +5,17 @@
 .search-result:hover {
   background-color: #efefef;
 }
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.full-name {
+  color: #333;
+}
+
+.username {
+  color: #666;
+}

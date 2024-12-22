@@ -2,43 +2,46 @@ import { useState } from "react";
 import styles from "./CustomTextArea.module.scss";
 import { Textarea } from "@/components/ui/textarea";
 function CustomTextArea({
-	placeholder,
-	autofocus,
-	type,
-	onKey,
-	className,
-	inputClassName,
-	name,
-	onChange,
-	register,
+  placeholder,
+  autofocus,
+  type,
+  onKey,
+  className,
+  inputClassName,
+  name,
+  onChange,
+  register,
+  style,
 }) {
-	const [empty, setEmpty] = useState(true);
-	return (
-		<>
-			<div className="relative group mt-6">
-				{register ? (
-					<textarea
-						{...register(name)}
-						type={type}
-						name={name}
-						autoFocus={autofocus}
-						onChange={(e) => {
-							setEmpty(e.target.value.length === 0);
-							onChange && onChange(e.target.value);
-						}}
-						className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
+  const [empty, setEmpty] = useState(true);
+  return (
+    <>
+      <div className="relative group mt-6">
+        {register ? (
+          <textarea
+            {...register(name)}
+            type={type}
+            name={name}
+            autoFocus={autofocus}
+            onChange={(e) => {
+              setEmpty(e.target.value.length === 0);
+              onChange(e.target.value);
+            }}
+            style={style}
+            className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
                     text-black text-left transition duration-150 ease-in-out focus:outline-none focus:ring-0 focus:border-bomborange ${inputClassName}`}
-					/>
-				) : (
-					<textarea
-						type={type}
-						name={name}
-						autoFocus={autofocus}
-						onChange={(e) => {
-							setEmpty(e.target.value.length === 0);
-							onChange && onChange(e.target.value);
-						}}
-						className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
+          />
+        ) : (
+          <textarea
+            type={type}
+            name={name}
+            autoFocus={autofocus}
+            onChange={(e) => {
+              setEmpty(e.target.value.length === 0);
+              onChange(e.target.value);
+            }}
+            style={style}
+            className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
                     text-black text-left transition duration-150 ease-in-out focus:outline-none focus:ring-0 focus:border-bomborange ${inputClassName}`}
 					/>
 				)}
