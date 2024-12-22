@@ -20,7 +20,8 @@ const validationSchema = Yup.object().shape({
 	description: Yup.string().required("Name is required"),
 	role: Yup.string().required("Email is required"),
 });
-const AddTeamForm = ({ setFormOpen }) => {
+const AddTeamForm = ({ setFormOpen, setMembers }) => {
+	const { username } = useProfileStore();
 	const {
 		register,
 		handleSubmit,
@@ -28,7 +29,6 @@ const AddTeamForm = ({ setFormOpen }) => {
 	} = useForm({
 		resolver: yupResolver(validationSchema),
 	});
-	const { profileId } = useProfileStore((state) => state);
 	const onSubmit = (data) => {
 		console.log(data);
 		const bodyData = {
@@ -36,25 +36,23 @@ const AddTeamForm = ({ setFormOpen }) => {
 			role: data.role,
 			description: data.description,
 		};
-		console.log("bodyData: ", bodyData);
-		// console.log("ProfileManager: ", ProfileManager);
-		postData(`/startup/profile/${profileId}/team/add/`, bodyData)
-			.then((res) => {
-				console.log(res);
-				getData(`/startup/profile/${profileId}/team/list`).then(
+
+		postData(`/startup/profile/team/add/`, bodyData)
+			.then((data) => {
+				getData(`/startup/profile/team/list/${username}/`).then(
 					(res) => {
-						console.log("team list: ", res);
 						toast.success(
 							<CustomToast Header="عضو جدید تیم اضافه شد" />
 						);
-						setTimeout(
-							() => setFormOpen(false)
-						, 3000);
+						setTimeout(() => {
+							setMembers(res);
+							setFormOpen(false);
+						}, 3000);
 					}
 				);
 			})
 			.catch((err) => {
-				console.log("E: ", err.response.data.error);
+				console.log("E: ", err);
 				if (err.response?.data?.error === "User already in team") {
 					toast.error(
 						<CustomToast

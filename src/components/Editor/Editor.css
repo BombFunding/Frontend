@@ -1,0 +1,13 @@
+.cdx-block {
+  @apply rtl;
+}
+
+.codex-editor--narrow .ce-toolbar__actions {
+  @apply flex justify-end items-center !important;
+  left: 0px !important;
+}
+
+.ce-editorjsColumns_col {
+  @apply rounded-sm;
+  border: 1px dashed gray !important;
+}

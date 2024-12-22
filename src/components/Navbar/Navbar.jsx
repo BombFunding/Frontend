@@ -1,5 +1,5 @@
 import SearchBar from "../SearchBar/SearchBar";
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/logo2.png";
 import { useNavigate } from "react-router-dom";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 import useTokenStore from "@/stores/TokenStore";

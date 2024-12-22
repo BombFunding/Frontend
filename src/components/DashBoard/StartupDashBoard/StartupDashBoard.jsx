@@ -11,11 +11,15 @@ import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import TeamBox from "../Sections/TeamBox/TeamBox";
 import { Label } from "@/components/ui/label";
 import { Loading } from "@/components/Loading/Loading";
+import { BarChart1 } from "@/components/BarChart/BarChart1";
+import BarChart2 from "@/components/BarChart/BarChart2";
+
+import Likes from "@/components/Likes/Likes";
 const StartupDashBoard = () => {
-	const [loading, setLoading] = useState(false);
 	const {
 		username,
-		setPositions,
+		loading,
+		setLoading,
 		setFullname,
 		setUsername,
 		setBio,
@@ -42,9 +46,6 @@ const StartupDashBoard = () => {
 			setHeader(
 				`http://104.168.46.4:8000${data.base_profile.header_picture}`
 			);
-			getData(`/balance/balance/`).then((data) =>
-				setBalance(data.balance)
-			);
 			getData(`/startup/get_startup_profile/${username}/`).then(
 				(data) => {
 					console.log("positions: ", data.profile.positions);
@@ -52,6 +53,10 @@ const StartupDashBoard = () => {
 					setLoading(false);
 				}
 			);
+			getData(`/balance/balance/`).then((data) =>
+				setBalance(data.balance)
+			);
+			setLoading(false);
 		});
 	}, []);
 	if (loading)
@@ -71,25 +76,38 @@ const StartupDashBoard = () => {
 				<PersonalInfo loading={loading} />
 				<Label className={styles.label_style}>پوزیشن‌ها</Label>
 				<PositionBox />
+				{/* <Likes className="translate-x-[1vw] translate-y-[11.5vw]" count={2}/> */}
 				<div className="flex flex-row justify-between gap-2 mt-2">
-					<div className="flex flex-col w-2/6 gap-2">
+					{/* <div className="flex flex-col w-2/6 gap-2">
 						<Label className={styles.label_style}>حساب</Label>
 						<Accounting className={"h-[265px]"} />
 					</div>
 					<div className="flex flex-col w-4/6 gap-2">
 						<Label className={styles.label_style}>اعضا</Label>
 						<TeamBox />
-					</div>
-				</div>
-				{/* <div className={styles.position_box}>Team</div> */}
-				{/* <div className={styles.team_row}></div> */}
-				{/* <div className={styles.position_box}>profiles</div> */}
-				{/* <StartupProfiles /> */}
-				{/* <CommentSection /> */}
-				{/* <div className={styles.position_box}>stats</div> */}
-			</Card>
-		</>
-	);
+					</div> */}
+          <div className="flex flex-col w-full gap-2">
+            <Label className={styles.label_style}>اعضا</Label>
+            <TeamBox />
+          </div>
+        </div>
+        {/* <div className={styles.position_box}>Team</div> */}
+        {/* <div className={styles.team_row}></div> */}
+        {/* <div className={styles.position_box}>profiles</div> */}
+        {/* <StartupProfiles /> */}
+        {/* <CommentSection /> */}
+        {/* <div className={styles.position_box}>stats</div> */}
+       <div className={`flex flex-wrap gap-6 p-6 rounded-md ${styles.chartbox}`} >
+              <div className="flex-1 min-w-[300px]">
+            <BarChart1 />
+              </div>
+              <div className="flex-1 min-w-[300px]">
+            <BarChart2 />
+              </div>
+        </div>
+      </Card>
+    </>
+  );
 };
 
 export default StartupDashBoard;
