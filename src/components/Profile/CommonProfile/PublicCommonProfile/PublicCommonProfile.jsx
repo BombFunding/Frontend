@@ -83,7 +83,7 @@ const PublicCommonProfile = ({ className }) => {
 							<Label className=" text-base">اطلاعات کاربری</Label>
 							<div className="flex place-items-center gap-2">
 								<Like
-									username={username}
+									_username={username}
 									count={profileInfo.likeCount}
 								/>
 
