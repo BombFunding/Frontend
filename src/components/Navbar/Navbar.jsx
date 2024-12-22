@@ -8,17 +8,17 @@ import PushyButton from "../Custom/PushyButton/PushyButton";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu.jsx";
 import NavbarDropDown from "../NavbarDropdown/NavbarDropDown";
 import { useState } from "react";
+import SearchResultsList from "../SearchBar/SearchResultsList/SearchResultsList.jsx";
 function Navbar() {
   const Navigate = useNavigate();
   const [isOpen, setOpen] = useState(false);
+  const [results, setResults] = useState([]);
   const TOKEN = useTokenStore((state) => state.accessToken);
   return (
     <nav
-      className={`flex flex-col justify-around ${
-        isOpen ? "bg-black" : "bg-bomborange"
-      } h-fit top-0 fixed right-0 z-40 w-screen gap-1`}
+      className={`flex flex-col justify-around bg-bomborange h-24 top-0 fixed right-0 z-40 w-[100vw] gap-1`}
     >
-      <div className="flex flex-row w-full h-12 justify-between mb-2 items-center px-6">
+      <div className="flex flex-row bg-bomborange w-full h-12 justify-between items-center px-6">
         <div className="px-4 py-6 flex justify-between items-center w-full">
           <div
             className="flex text-white hover:cursor-pointer"
@@ -29,15 +29,22 @@ function Navbar() {
                 <img
                   src={Logo}
                   alt="Bomb Funding"
-                  className="rounded-full w-10 h-10 place-self-center mix-blend-multiply"
+                  className="rounded-full w-[2.5vw] h-[2.5vw] place-self-center mix-blend-multiply mx-[0.5vw]"
                 />
-                <a className="font-extrabold text-xs text-left px-0 place-self-center w-10 text-bombblack">
+                <a className="font-extrabold text-[1.5vw] text-left px-0 place-self-center text-bombblack">
                   Bomb Funding
                 </a>
               </>
             )}
           </div>
-          <SearchBar className={`${styles.SearchBar}`} />
+          <div>
+            <SearchBar setResults={setResults} />
+            {/* <SearchResultsList results={results} className={"z-50 hidden"} /> */}
+            <div className="absolute top-11 w-[32.7vw] z-50 rounded-b-full shadow-lg">
+              <SearchResultsList results={results} />
+            </div>
+          </div>
+
           <div className={`${styles.mobile} flex`}>
             {TOKEN ? (
               <ProfileDropDown />
@@ -50,12 +57,11 @@ function Navbar() {
           <HamburgerMenu
             isOpen={isOpen}
             setOpen={setOpen}
-            mode={"sm:hidden"}
-            token={TOKEN}
+            mode={"sm:hidden font-vazirmatn"}
           />
         </div>
       </div>
-      <div className={`${styles.dropdown} mt-[4vw] h-[2vh] w-screen z-[-20]`}>
+      <div className="mt-[4vw] h-[2vw] w-[100vw] z-[-20]">
         <NavbarDropDown />
       </div>
     </nav>
