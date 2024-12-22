@@ -3,6 +3,7 @@ import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis, Tooltip } from "recharts";
 import { getData } from "@/Services/ApiClient/Services";
 import { useParams } from "react-router-dom";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 const chartConfig = {
   view: {
@@ -37,7 +38,7 @@ function ChartTooltipContent({ payload, label }) {
 
 export default function BarChart2() {
   const [chartData, setChartData] = useState([]);
-  const { username:balls} = useParams();
+  const balls = useProfileStore(state => state.username);
 
   useEffect(() => {
     // Fetch the data from the API

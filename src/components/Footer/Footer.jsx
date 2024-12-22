@@ -1,8 +1,8 @@
 import styles from "./Footer.module.scss";
 function Footer() {
 	return (
-		<>
-			<footer className="footer bg-bomborange text-bombblack p-10 rtl w-full">
+		<footer className="w-[100vw]">
+			<div className="footer bg-bomborange text-bombblack p-10 rtl w-full">
 				<nav>
 					<h6 className={styles.top}>سرمایه گذاران</h6>
 					<a className={styles.option}>راهنمای سرمایه گذاری</a>
@@ -12,7 +12,7 @@ function Footer() {
 				</nav>
 				<nav>
 					<h6 className={styles.top}>استارت‌آپ‌ها</h6>
-					<a className={styles.option}>هنمای استارت‌آپ‌ها</a>
+					<a className={styles.option}>راهنمای استارت‌آپ‌ها</a>
 					<a className={styles.option}>پروژه‌های موفق</a>
 					<a className={styles.option}>قوانین و مقررات استارت‌آپ‌ها</a>
 				</nav>
@@ -23,8 +23,8 @@ function Footer() {
 					<a className={styles.option}>سوالات متداول</a>
 					<a className={styles.option}>حریم خصوصی</a>
 				</nav>
-			</footer>
-			<footer className="footer bg-white text-bombblack border-t px-10 py-4 rtl">
+			</div>
+			<div className="footer bg-white text-bombblack border-t px-10 py-4 rtl">
 				<aside className="grid-flow-col items-center rtl">
 					<svg
 						width="24"
@@ -76,8 +76,8 @@ function Footer() {
 						</a>
 					</div>
 				</nav>
-			</footer>
-		</>
+			</div>
+		</footer>
 	);
 }
 

@@ -25,7 +25,7 @@ function PersonalInfo({ loading }) {
 				} ring-bomborange`}
 			/>
 			<Button
-				className="absolute border-solid border-2 bg-bomborange hover:bg-white translate-x-[0.5vw] mt-[1vw]"
+				className="absolute border-solid border-2 bg-bomborange hover:bg-white translate-x-[0.75vw] translate-y-[1.25vw] w-[7vw] text-[1vw] h-[2vw]"
 				onClick={() => Navigate("/editprofile")}
 			>
 				ویرایش اطلاعات

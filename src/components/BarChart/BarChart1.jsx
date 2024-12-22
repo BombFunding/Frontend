@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, Tooltip } from "recharts";
 import { getData } from "@/Services/ApiClient/Services";
 import { useParams } from "react-router-dom";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 // const chartData = [
 //   { month: "مهر", fund: 0 },
@@ -48,7 +49,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 export function BarChart1() {
     const [chartData, setChartData] = useState([]); 
     const [loading, setLoading] = useState(true);
-    const { username:balls} = useParams();
+    const balls = useProfileStore(state => state.username);
     console.log(`Username is : ${balls}`);
     useEffect(() => {
       if (!balls) return
