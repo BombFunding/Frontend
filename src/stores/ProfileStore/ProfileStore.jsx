@@ -19,45 +19,40 @@ import { persist, createJSONStorage } from "zustand/middleware";
 // }));
 
 const useProfileStore = create(
-	persist(
-		(set) => ({
-			profileId: null,
-			fullname: null,
-			username: null,
-			bio: null,
-			avatar: null,
-			header: null,
-			likeCount: 0,
-			positions: [],
-			loading: false,
-			socialMedias: {},
-			balance: 0,
-			setProfileId: (profileId) =>
-				set((pre) => ({ ...pre, profileId: profileId })),
-			setFullname: (fullname) =>
-				set((pre) => ({ ...pre, fullname: fullname })),
-			setUsername: (username) =>
-				set((pre) => ({ ...pre, username: username })),
-			setBio: (bio) => set((pre) => ({ ...pre, bio: bio })),
-			setAvatar: (avatar) => set((pre) => ({ ...pre, avatar: avatar })),
-			setHeader: (header) => set((pre) => ({ ...pre, header: header })),
-			setLikeCount: (count) =>
-				set((pre) => ({ ...pre, likeCount: count })),
-			setPositions: (positions) =>
-				set((pre) => ({ ...pre, positions: positions })),
-			profileInfo: null,
-			setProfileInfo: (profileInfo) =>
-				set((pre) => ({ ...pre, profileInfo: profileInfo })),
-			setBalance: (balance) =>
-				set((pre) => ({ ...pre, balance: balance })),
-			setLoading: (loading) =>
-				set((pre) => ({ ...pre, loading: loading })),
-		}),
-		{
-			name: "profile-storage",
-			storage: createJSONStorage(() => sessionStorage),
-		}
-	)
+  persist(
+    (set) => ({
+      profileId: null,
+      fullname: null,
+      username: null,
+      phone: null,
+      email: null,
+      bio: null,
+      avatar: null,
+      header: null,
+      likeCount: 0,
+      positions: [],
+      socialMedias: {},
+      setProfileId: (profileId) =>
+        set((pre) => ({ ...pre, profileId: profileId })),
+      setFullname: (fullname) => set((pre) => ({ ...pre, fullname: fullname })),
+      setUsername: (username) => set((pre) => ({ ...pre, username: username })),
+      setPhone: (phone) => set((pre) => ({ ...pre, phone: phone })),
+      setEmail: (email) => set((pre) => ({ ...pre, email: email })),
+      setBio: (bio) => set((pre) => ({ ...pre, bio: bio })),
+      setAvatar: (avatar) => set((pre) => ({ ...pre, avatar: avatar })),
+      setHeader: (header) => set((pre) => ({ ...pre, header: header })),
+      setLikeCount: (count) => set((pre) => ({ ...pre, likeCount: count })),
+      setPositions: (positions) =>
+        set((pre) => ({ ...pre, positions: positions })),
+      profileInfo: null,
+      setProfileInfo: (profileInfo) =>
+        set((pre) => ({ ...pre, profileInfo: profileInfo })),
+    }),
+    {
+      name: "profile-storage",
+      storage: createJSONStorage(() => sessionStorage),
+    }
+  )
 );
 
 export default useProfileStore;
