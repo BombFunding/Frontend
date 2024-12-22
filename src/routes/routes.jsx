@@ -18,6 +18,8 @@ import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/Investor
 import { Loading } from "@/components/Loading/Loading";
 import Editor from "@/components/Editor/Editor";
 import ProjectEditor from "@/Pages/ProjectEditor/ProjectEditor";
+import StarBoard from "@/Pages/StarBoard/StarBoard";
+import BaseUserDashBoard from "@/components/DashBoard/BaseUserDashBoard/BaseUserDashBoard";
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +35,6 @@ export const router = createBrowserRouter([
         path: "/Profile/:username",
         element: <Profile />,
       },
-
       {
         path: "/reset-password/:uid/:token",
         element: <ChangePassword />,
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/test",
-        element: <Loading />,
+        element: <BaseUserDashBoard />,
       },
       {
         path: "/EditProfile",

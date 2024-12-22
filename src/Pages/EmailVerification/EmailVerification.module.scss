@@ -9,11 +9,11 @@
 }
 
 .logo {
-	@apply w-1/4 mix-blend-multiply;
+	@apply w-1/4 mix-blend-multiply rounded-full my-[2vw];
 }
 
 .bold_text {
-	@apply font-extrabold text-2xl;
+	@apply font-extrabold text-2xl my-[1vw];
 }
 
 .text {
@@ -21,7 +21,7 @@
 }
 
 .return_button {
-	@apply bg-bomborange hover:bg-[#ff653e] mt-5 font-vazirmatn rounded-full w-1/2 h-[8vh] place-content-center text-center place-items-start align-middle place-self-center;
+	@apply bg-bomborange hover:bg-[#ff653e] text-black mt-5 font-vazirmatn rounded-full w-1/2 h-[8vh] place-content-center text-center place-items-start align-middle place-self-center;
 }
 
 .edit_button {

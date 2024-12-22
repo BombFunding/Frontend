@@ -55,7 +55,7 @@ const PublicCommonProfile = ({ className }) => {
 
 	return (
 		<Card
-			className={`${className} bg-slate-50 overflow-hidden h-[80vh] font-vazirmatn w-[80vw] `}
+			className={`${className} bg-slate-50 overflow-hidden h-[80vh] font-vazirmatn w-[80vw] place-self-center shadow-lg translate-y-[3vw] mb-[6vw]`}
 		>
 			<div className={`h-1/3 overflow-hidden relative`}>
 				<img
@@ -78,7 +78,9 @@ const PublicCommonProfile = ({ className }) => {
 					<Separator className="my-2 bg-gray-300" />
 					<div className="flex flex-col justify-evenly mr-3 gap-1">
 						<Label>:نام</Label>
-						<p className="text-xs">{profileInfo.firstName + " " + profileInfo.lastName}</p>
+						<p className="text-xs">
+							{profileInfo.firstName + " " + profileInfo.lastName}
+						</p>
 						<Label>:ایمیل</Label>
 						<p className="text-xs">{profileInfo.email}</p>
 						<Label>:بیوگرافی</Label>
