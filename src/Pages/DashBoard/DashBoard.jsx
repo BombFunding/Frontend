@@ -4,6 +4,7 @@ import StartupDashBoard from "@/components/DashBoard/StartupDashBoard/StartupDas
 import useTokenStore from "@/stores/TokenStore";
 import React, { useEffect } from "react";
 import Error from "../Error/Error";
+// import Voting from "@/components/Voting/Voting";
 // import styles from "./DashBoard";
 
 const DashBoard = () => {
@@ -15,7 +16,11 @@ const DashBoard = () => {
 		case "startup":
 			return <StartupDashBoard />;
 		case "investor":
-			return <InvestorDashBoard />;
+			return (<div>
+					<InvestorDashBoard />;
+					{/* <Voting />; */}
+					</div>
+			)
 		case "basic":
 			return <BaseUserDashBoard />;
 		default:

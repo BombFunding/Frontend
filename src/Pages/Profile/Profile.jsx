@@ -6,7 +6,10 @@ import InvestorProfile from "@/components/Profile/Investor/Investor";
 import BaseUserProfile from "@/components/Profile/BaseUser/BaseUser";
 
 const Profile = () => {
-	return <PublicCommonProfile />;
+	return <div>
+		 <PublicCommonProfile />;
+		</div>
+
 	// const userType = useTokenStore((state) => state.userType);
 	// switch (userType) {
 	//   case "startup":

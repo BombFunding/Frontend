@@ -13,6 +13,7 @@ import Like from "@/components/Like/Like";
 import Bookmark from "@/components/Bookmark/Bookmark";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import Likes from "@/components/Likes/Likes";
+import CommentSection from "@/components/CommentSection/CommentSection";
 
 const PublicCommonProfile = ({ className }) => {
 	const { username } = useParams();
@@ -57,17 +58,24 @@ const PublicCommonProfile = ({ className }) => {
 	}
 
 	return (
-		<>
-			{/* <Likes className="translate-x-[11vw] translate-y-[11vw] z-[100]" count={profileInfo.likeCount} /> */}
-			<Card
-				className={`${className} bg-slate-50 overflow-hidden h-[80vh] font-vazirmatn w-[80vw] place-self-center shadow-lg translate-y-[3vw] mb-[6vw] z-[-10]`}
-			>
-				<div className={`h-1/3 overflow-hidden relative`}>
-					<img
-						className="transition-all duration-1000 ease-in-out top-0 md:top-[-100%] absolute"
-						src={profileInfo.banner}
-					/>
-					<div className="transition-all duration-500 ease-in-out absolute bg-white opacity-[27%]  w-[70%] aspect-square rounded-full top-[-30%] left-[-10%] md:top-[-60%]"></div>
+		<Card
+			className={`${className} bg-slate-50 overflow-hidden font-vazirmatn w-[80vw] translate-y-[3vw] mb-[6vw]`}
+		>
+			<div className={`h-1/3 overflow-hidden relative`}>
+				<img
+					className="transition-all duration-1000 ease-in-out top-0 md:top-[-100%] absolute"
+					src={profileInfo.banner}
+				/>
+				<div className="transition-all duration-500 ease-in-out absolute bg-white opacity-[27%]  w-[70%] aspect-square rounded-full top-[-30%] left-[-10%] md:top-[-60%]"></div>
+			</div>
+			<div className="relative">
+				<div className="flex justify-center items-center shadow-lg w-[100px] h-[100px] rounded-full overflow-hidden bg-white absolute top-[-70px] right-5">
+					<div className="w-[90px] rounded-full overflow-hidden">
+						<img
+							className="object-cover"
+							src={profileInfo.avatar}
+						/>
+					</div>
 				</div>
 				<div className="relative">
 					<div className="flex justify-center items-center shadow-lg w-[100px] h-[100px] rounded-full overflow-hidden bg-white absolute top-[-70px] right-5">
@@ -129,8 +137,9 @@ const PublicCommonProfile = ({ className }) => {
 						</div>
 					</div>
 				</div>
-			</Card>
-		</>
+			</div>
+			<CommentSection />
+		</Card>
 	);
 };
 
