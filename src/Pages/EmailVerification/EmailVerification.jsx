@@ -1,5 +1,5 @@
 import styles from "./EmailVerification.module.scss";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo2.png";
 import { useNavigate } from "react-router-dom";
 function EmailVerification() {
 	const Navigate = useNavigate();

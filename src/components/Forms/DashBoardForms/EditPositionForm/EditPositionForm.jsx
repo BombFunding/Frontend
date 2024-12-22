@@ -7,17 +7,19 @@ import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { patchData } from "@/Services/ApiClient/Services";
+import { getData, patchData } from "@/Services/ApiClient/Services";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 const validationSchema = Yup.object().shape({
 	position_name: Yup.string().required("این مورد اجباری است"),
 	description: Yup.string().required("این مورد اجباری است"),
 	total: Yup.string().required("این مورد اجباری است"),
+	funded: Yup.string().required("این مورد اجباری است"),
 });
 
-const EditPositionForm = ({ positionData, setEditFormOpen }) => {
+const EditPositionForm = ({ positionData, setPositions, setEditFormOpen }) => {
 	const {
 		register,
 		handleSubmit,
@@ -26,9 +28,11 @@ const EditPositionForm = ({ positionData, setEditFormOpen }) => {
 		resolver: yupResolver(validationSchema),
 	});
 
+	const { username } = useProfileStore();
 	const [name, setName] = useState(positionData?.name);
 	const [description, setDescription] = useState(positionData?.description);
 	const [total, setTotal] = useState(positionData?.total);
+	const [funded, setFunded] = useState(positionData?.funded);
 	// const now = new Date();
 	// const currentTime = now.toISOString().slice(0, 19);
 	// const futureDate = new Date(now);
@@ -84,15 +88,18 @@ const EditPositionForm = ({ positionData, setEditFormOpen }) => {
 		};
 		// console.log("Date: ", endTime);
 		console.log("bodyData: ", bodyData);
-		patchData(`/startup/position/update/${positionData?.id}/`, bodyData)
+		patchData(`/position/update/${positionData?.id}/`, bodyData)
 			.then((res) => {
 				console.log(res);
-				toast.success(
-					<CustomToast Header="پوزیشن با موفقیت ویرایش شد" />
-				);
-				setTimeout(() => {
-					setEditFormOpen(false);
-				}, 3000);
+				getData(`/position/list/${username}/`).then((data) => {
+					toast.success(
+						<CustomToast Header="پوزیشن با موفقیت ویرایش شد" />
+					);
+					setTimeout(() => {
+						setPositions(data);
+						setEditFormOpen(false);
+					}, 3000);
+				});
 			})
 			.catch((err) => {
 				console.log(err);
@@ -132,30 +139,16 @@ const EditPositionForm = ({ positionData, setEditFormOpen }) => {
 				value={total}
 				onChange={setTotal}
 			/>
-			{/* <CustomInput
+			<CustomInput
 				inputClassName={"w-[60vw] text-right rtl"}
-				placeholder="زمان (روز)"
-				type={"number"}
+				placeholder="مقدار به دست آمده"
 				register={register}
-				name={"duration"}
-				value={endTime}
-			/> */}
-			{/* <div className={styles.input_box}>
-        <Label className={styles.label_style}>نام پوزیشن</Label>
-        <Input className={styles.input_style}></Input>
-      </div>
-      <div className={styles.input_box}>
-        <Label className={styles.label_style}>سرمایه مورد نیاز</Label>
-        <Input className={styles.input_style}></Input>
-      </div>
-      <div className={styles.input_box}>
-        <Label className={styles.label_style}>{"مدت زمان (روز)"}</Label>
-        <Input
-          type="number"
-          className={styles.input_style}
-          defaultValue={0}
-        ></Input>
-      </div> */}
+				name={"funded"}
+				type="number"
+				value={funded}
+				onChange={setFunded}
+			/>
+
 			<Button className="btn bg-bomborange hover:text-bomborange hover:bg-black m-[2vw]">
 				ویرایش پوزیشن
 			</Button>

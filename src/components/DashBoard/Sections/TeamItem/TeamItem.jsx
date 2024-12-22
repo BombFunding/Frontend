@@ -17,11 +17,13 @@ import { deleteData, getData } from "@/Services/ApiClient/Services";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 import { toast } from "react-toastify";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
-const TeamItem = ({ profileId, memberData, className }) => {
+const TeamItem = ({ setMembers, memberData, className }) => {
 	const [deleteMemberOpen, setDeleteMemberOpen] = useState(false);
 	const [editMemberOpen, setEditMemberOpen] = useState(false);
 	const [profileData, setProfileData] = React.useState(null);
+	const { username } = useProfileStore();
 	const formattedDescription = memberData.description.split("\n");
 	console.log("memberData: ", memberData);
 	React.useEffect(() => {
@@ -33,13 +35,19 @@ const TeamItem = ({ profileId, memberData, className }) => {
 		console.log(memberData);
 	}, []);
 	const deleteMember = () => {
-		deleteData(
-			`/startup/profile/${profileId}/team/remove/${memberData?.user}/`
-		)
+		deleteData(`/startup/profile/team/remove/${memberData?.user}/`)
 			.then((data) => {
-				console.log(data);
-				toast.success(<CustomToast Header="عضو با موفقیت حذف شد" />);
-				setTimeout(() => setDeleteMemberOpen(false), 3000);
+				getData(`/startup/profile/team/list/${username}/`).then(
+					(res) => {
+						toast.success(
+							<CustomToast Header="عضو با موفقیت حذف شد" />
+						);
+						setTimeout(() => {
+							setMembers(res);
+							setDeleteMemberOpen(false);
+						}, 3000);
+					}
+				);
 			})
 			.catch((err) => {
 				toast.error(
@@ -91,6 +99,7 @@ const TeamItem = ({ profileId, memberData, className }) => {
 					<DrawerContent>
 						<EditTeamForm
 							memberData={memberData}
+							setMembers={setMembers}
 							setEditMemberOpen={setEditMemberOpen}
 						/>
 						<DrawerClose asChild>
