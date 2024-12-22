@@ -11,6 +11,9 @@ import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import TeamBox from "../Sections/TeamBox/TeamBox";
 import { Label } from "@/components/ui/label";
 import { Loading } from "@/components/Loading/Loading";
+import { BarChart1 } from "@/components/BarChart/BarChart1";
+import BarChart2 from "@/components/BarChart/BarChart2";
+
 import Likes from "@/components/Likes/Likes";
 const StartupDashBoard = () => {
 	const {
@@ -83,20 +86,28 @@ const StartupDashBoard = () => {
 						<Label className={styles.label_style}>اعضا</Label>
 						<TeamBox />
 					</div> */}
-					<div className="flex flex-col w-full gap-2">
-						<Label className={styles.label_style}>اعضا</Label>
-						<TeamBox />
-					</div>
-				</div>
-				{/* <div className={styles.position_box}>Team</div> */}
-				{/* <div className={styles.team_row}></div> */}
-				{/* <div className={styles.position_box}>profiles</div> */}
-				{/* <StartupProfiles /> */}
-				{/* <CommentSection /> */}
-				{/* <div className={styles.position_box}>stats</div> */}
-			</Card>
-		</>
-	);
+          <div className="flex flex-col w-full gap-2">
+            <Label className={styles.label_style}>اعضا</Label>
+            <TeamBox />
+          </div>
+        </div>
+        {/* <div className={styles.position_box}>Team</div> */}
+        {/* <div className={styles.team_row}></div> */}
+        {/* <div className={styles.position_box}>profiles</div> */}
+        {/* <StartupProfiles /> */}
+        {/* <CommentSection /> */}
+        {/* <div className={styles.position_box}>stats</div> */}
+       <div className={`flex flex-wrap gap-6 p-6 rounded-md ${styles.chartbox}`} >
+              <div className="flex-1 min-w-[300px]">
+            <BarChart1 />
+              </div>
+              <div className="flex-1 min-w-[300px]">
+            <BarChart2 />
+              </div>
+        </div>
+      </Card>
+    </>
+  );
 };
 
 export default StartupDashBoard;
