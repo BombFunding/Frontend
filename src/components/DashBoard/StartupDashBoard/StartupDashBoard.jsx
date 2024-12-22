@@ -19,8 +19,10 @@ const StartupDashBoard = () => {
 	const {
 		username,
 		loading,
+		likeCount,
 		setLoading,
 		setFullname,
+		setLikeCount,
 		setUsername,
 		setBio,
 		setAvatar,
@@ -30,7 +32,6 @@ const StartupDashBoard = () => {
 	console.log(useProfileStore());
 	useEffect(() => {
 		setLoading(true);
-		// getData("/startup/view_own_startup_profile/").then((data) => {
 		getData(`/auth/view_own_baseuser_profile/`).then((data) => {
 			console.log("Startup data: ", data.base_profile);
 			setFullname(
@@ -38,8 +39,13 @@ const StartupDashBoard = () => {
 			);
 			setUsername(data.base_profile.name);
 
-			console.log("username: ", username);
+			// console.log("username: ", username);
 			setBio(data.base_profile.bio);
+			if (data.base_profile.likeCount) {
+				setLikeCount(data.base_profile.likeCount);
+			} else {
+				setLikeCount(0);
+			}
 			setAvatar(
 				`http://104.168.46.4:8000${data.base_profile.profile_picture}`
 			);
@@ -49,8 +55,6 @@ const StartupDashBoard = () => {
 			getData(`/startup/get_startup_profile/${username}/`).then(
 				(data) => {
 					console.log("positions: ", data.profile.positions);
-					setPositions(data.profile.positions);
-					setLoading(false);
 				}
 			);
 			getData(`/balance/balance/`).then((data) =>
@@ -73,12 +77,15 @@ const StartupDashBoard = () => {
 	return (
 		<>
 			<Card className={styles.card_style}>
+				<Likes
+					className="translate-x-[1vw] translate-y-[11.5vw]"
+					count={likeCount}
+				/>
 				<PersonalInfo loading={loading} />
 				<Label className={styles.label_style}>پوزیشن‌ها</Label>
 				<PositionBox />
-				{/* <Likes className="translate-x-[1vw] translate-y-[11.5vw]" count={2}/> */}
 				<div className="flex flex-row justify-between gap-2 mt-2">
-					{/* <div className="flex flex-col w-2/6 gap-2">
+					<div className="flex flex-col w-2/6 gap-2">
 						<Label className={styles.label_style}>حساب</Label>
 						<Accounting className={"h-[265px]"} />
 					</div>

@@ -26,15 +26,14 @@ const PositionBox = () => {
 			<div className={styles.create_position}>
 				<Drawer open={open}>
 					<DrawerTrigger>
-						<Button
-							variant="default"
-							className="btn bg-bomborange hover:text-white hover:bg-black m-2"
+						<button
+							className="btn bg-bomborange text-black hover:text-white hover:bg-black m-2"
 							onClick={() => {
 								setOpen(true);
 							}}
 						>
 							ساخت پوزیشن جدید
-						</Button>
+						</button>
 					</DrawerTrigger>
 					<DrawerContent>
 						<AddPositionForm
@@ -43,13 +42,12 @@ const PositionBox = () => {
 							setPositions={setPositions}
 						/>
 						<DrawerClose asChild>
-							<Button
+							<button
 								className="font-vazirmatn"
-								variant="outline"
 								onClick={() => setOpen(false)}
 							>
 								بازگشت
-							</Button>
+							</button>
 						</DrawerClose>
 					</DrawerContent>
 				</Drawer>

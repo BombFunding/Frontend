@@ -1,5 +1,33 @@
 import useTokenStore from "@/stores/TokenStore";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+
+const isTokenExpired = () => {
+	const { accessToken } = useTokenStore.getState();
+	if (accessToken) {
+		const { exp } = jwtDecode(accessToken);
+		const currentTime = Math.floor(Date.now() / 1000);
+		// console.log("exp: ", exp, " now: ", currentTime, exp - currentTime);
+		return exp - currentTime <= 24;
+	}
+	return false;
+};
+
+const RefreshToken = async () => {
+	const { accessToken, refreshToken, updateAccessToken } =
+		useTokenStore.getState();
+	if (accessToken) {
+		if (isTokenExpired()) {
+			// console.log("meow", refreshToken)
+			const r = await apiClient.post("/auth/token/refresh/", {
+				refresh: refreshToken,
+			});
+			// console.log("get access token here1: ", refreshToken);
+			// console.log("get access token here2: ", r.data.access);
+			updateAccessToken(r.data.access);
+		}
+	}
+};
 
 const apiClient = axios.create({
   baseURL: "http://104.168.46.4:8000/",
@@ -53,64 +81,70 @@ apiClient.interceptors.response.use(
 );
 
 export const getData = async (endPoint, headers) => {
-  if (headers) {
-    try {
-      const response = await apiClient.get(endPoint, headers);
-      return response.data;
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
-  try {
-    const response = await apiClient.get(endPoint);
-    return response.data;
-  } catch (error) {
-    throw new Error(error);
-  }
+	await RefreshToken()
+	if (headers) {
+		try {
+			const response = await apiClient.get(endPoint, headers);
+			return response.data;
+		} catch (error) {
+			throw new Error(error);
+		}
+	}
+	try {
+		const response = await apiClient.get(endPoint);
+		return response.data;
+	} catch (error) {
+		throw new Error(error);
+	}
 };
 
-export const postData = async (endPoint, data, additionalData) => {
-  try {
-    const response = await apiClient.post(endPoint, data, additionalData);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+export const postData = async (endPoint, data) => {
+	await RefreshToken();
+	try {
+		const response = await apiClient.post(endPoint, data);
+		return response.data;
+	} catch (error) {
+		console.log(error);
+		throw error;
+	}
 };
 
 export const postImageData = async (endPoint, formData) => {
-  try {
-    const response = await apiClient.post(endPoint, formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+	await RefreshToken();
+	try {
+		const response = await apiClient.post(endPoint, formData, {
+			headers: { "Content-Type": "multipart/form-data" },
+		});
+		return response.data;
+	} catch (error) {
+		console.log(error);
+		throw error;
+	}
 };
-export const patchData = async (endPoint, data, additionalData) => {
-  try {
-    const response = await apiClient.patch(endPoint, data, additionalData);
-    return response.data;
-  } catch (error) {
-    throw new Error(error);
-  }
+export const patchData = async (endPoint, data) => {
+	await RefreshToken();
+	try {
+		const response = await apiClient.patch(endPoint, data);
+		return response.data;
+	} catch (error) {
+		throw new Error(error);
+	}
 };
 export const putData = async (endPoint, data) => {
-  try {
-    const response = await apiClient.put(endPoint, data);
-    return response.data;
-  } catch (error) {
-    throw new Error(error);
-  }
+	await RefreshToken();
+	try {
+		const response = await apiClient.put(endPoint, data);
+		return response.data;
+	} catch (error) {
+		throw new Error(error);
+	}
 };
 export const deleteData = async (endPoint) => {
-  try {
-    const response = await apiClient.delete(endPoint);
-    return response.data;
-  } catch (error) {
-    throw new Error(error);
-  }
+	await RefreshToken();
+	try {
+		const response = await apiClient.delete(endPoint);
+		return response.data;
+	} catch (error) {
+		throw new Error(error);
+	}
 };
