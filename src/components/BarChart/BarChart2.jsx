@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis, Tooltip } from "recharts";
+import { getData } from "@/Services/ApiClient/Services";
+import { useParams } from "react-router-dom";
 
 const chartConfig = {
   view: {
@@ -35,36 +37,37 @@ function ChartTooltipContent({ payload, label }) {
 
 export default function BarChart2() {
   const [chartData, setChartData] = useState([]);
+  const { username:balls} = useParams();
 
   useEffect(() => {
     // Fetch the data from the API
-    fetch("http://104.168.46.4:8000/profile_statics/last-7-days/?username=tara", {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        "X-CSRFTOKEN": "51VoasHbfJ0uJb2wtmNJ08Qg7RYYBDZRZGSmZ4u3eZ0kTq0DjcLGlebc8HlYPLle",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const formattedData = data.map((item) => ({
-          day: item.day,
-          view: item.view,
-          like: item.like,
-        }));
-        setChartData(formattedData);
-      })
-      .catch((error) => {
-        console.error("Error fetching chart data:", error);
-      });
-  }, []);
+    if (!balls) return
+
+    const fetchChartData = async () => {
+      try {
+        const data = await getData(`profile_statics/last-7-days/?username=${balls}`);
+        // data[0]["view"] = 100
+        // data[0]["like"] = 10
+        // data[1]["view"] = 100
+        // data[1]["like"] = 10
+        setChartData(data);
+
+      } catch (error) {
+        console.log("Error fetching chart data:", error);
+      } finally {
+        // setLoading(false);
+      }
+    };
+
+    fetchChartData();
+  }, [balls])
 
   return (
-    <div className="card">
+    <div className="card p-1 bg-white rounded-lg shadow-md text-xs">
       <div className="card-header"></div>
       <div className="card-content">
-        <div style={{ width: "100%", height: 300 }}>
-          <BarChart width={500} height={300} data={chartData}>
+        <div className="flex justify-center" style={{ width: "100%", height: 300 }}>
+          <BarChart width={400} height={300} data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="day"

@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
 				element: <Profile />,
 			},
 			{
-				path: "/blank",
+				path: "/blank/:username",
 				element: <BlankPage />,
 			},
 			{

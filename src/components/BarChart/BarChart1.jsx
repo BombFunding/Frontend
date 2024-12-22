@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, Tooltip } from "recharts";
+import { getData } from "@/Services/ApiClient/Services";
+import { useParams } from "react-router-dom";
 
 // const chartData = [
 //   { month: "مهر", fund: 0 },
@@ -46,44 +48,35 @@ const CustomTooltip = ({ active, payload, label }) => {
 export function BarChart1() {
     const [chartData, setChartData] = useState([]); 
     const [loading, setLoading] = useState(true);
+    const { username:balls} = useParams();
+    console.log(`Username is : ${balls}`);
     useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await fetch(
-              "http://104.168.46.4:8000/profile_statics/last-7-days/?username=tara",
-              {
-                method: "GET",
-                headers: {
-                  Accept: "application/json",
-                  "X-CSRFTOKEN": "51VoasHbfJ0uJb2wtmNJ08Qg7RYYBDZRZGSmZ4u3eZ0kTq0DjcLGlebc8HlYPLle", // Add CSRF token here
-                },
-              }
-            );
-    
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-    
-            const data = await response.json(); // Parse response JSON
-            setChartData(data); // Update chart data state
-          } catch (error) {
-            console.error("Failed to fetch data:", error);
-          } finally {
-            setLoading(false); // Set loading to false after fetching data
-          }
-        };
-    
-        fetchData();
-      }, []);
-      if (loading) {
-        return <div>Loading chart...</div>;
-      }    
+      if (!balls) return
+      console.log(`Username is: ${balls}`)
+      const fetchChartData = async () => {
+        try {
+          // Use getData from services.js to fetch the API data
+          const data = await getData(`/profile_statics/last-6-months/?username=${balls}`);
+          setChartData(data); // Update the chart data state with the API response
+        } catch (error) {
+          console.error("Error fetching chart data:", error);
+        } finally {
+          setLoading(false); // Set loading to false after fetching the data
+        }
+      };
+  
+      fetchChartData();
+    }, [balls]);
+  
+    if (loading) {
+      return <div>Loading chart...</div>;
+    }
   return (
-    <div className="p-6 bg-white rounded-lg shadow-md">
-      {/* Chart */}
-      <div className="overflow-x-auto">
+    <div className="p-1 bg-white rounded-lg shadow-md text-xs">
+      <div className="flex justify-center">
         <AreaChart
-          width={600}
+          className="p-3 "
+          width={450}
           height={300}
           data={chartData}
           margin={{ left: 12, right: 12 }}
@@ -93,8 +86,10 @@ export function BarChart1() {
             dataKey="month"
             tickLine={false}
             axisLine={false}
-            tickMargin={8}
-            tickFormatter={(value) => value.slice(0, 8)}
+            tickMargin={12}
+            interval={0}
+            tickFormatter={(value) => value}
+            className="font-vazirmatn text-s"
           />
           <Tooltip content={<CustomTooltip />} />
           <Area
