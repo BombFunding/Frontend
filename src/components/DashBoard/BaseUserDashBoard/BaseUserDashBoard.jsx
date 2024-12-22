@@ -8,7 +8,8 @@ import styles from "./BaseUserDashBoard.module.scss";
 import { Loading } from "@/components/Loading/Loading";
 const BaseUserDashBoard = () => {
   const [loading, setLoading] = useState(false);
-  const { setFullname, setUsername, setBio, setAvatar } = useProfileStore();
+  const { setFullname, setUsername, setPhone, setEmail, setBio, setAvatar } =
+    useProfileStore();
   useEffect(() => {
     setLoading(true);
     // getData("/startup/view_own_startup_profile/").then((data) => {
@@ -29,6 +30,8 @@ const BaseUserDashBoard = () => {
         data.base_profile.first_name + " " + data.base_profile.last_name
       );
       setUsername(data.base_profile.name);
+      setPhone(data.base_profile.phone);
+      setEmail(data.base_profile.email);
       setBio(data.base_profile.bio);
       setAvatar(`http://104.168.46.4:8000${data.base_profile.profile_picture}`);
       setLoading(false);
