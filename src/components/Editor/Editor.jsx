@@ -18,8 +18,21 @@ import { getData, patchData, postData } from "@/Services/ApiClient/Services";
 import axios from "axios";
 import { toast } from "react-toastify";
 import CustomToast from "../Custom/CustomToast/CustomToast";
+import Joyride from "react-joyride";
 
 const Editor = ({ id }) => {
+  const steps = [
+    {
+      target: ".step1",
+      content: "این یکه",
+      placement: 'top',
+    },
+    {
+      target: ".custom-toolbar-plus", // The "+" button for adding new blocks
+      content: "Click this button to add a new block to your editor.",
+    },
+  ];
+
   const [update, setUpdate] = useState(false);
   const { data, updateData } = useEditorStore();
   console.log(data);
@@ -150,6 +163,10 @@ const Editor = ({ id }) => {
         },
       },
       i18n: FaTranslation(),
+      onReady: () => {
+        const toolbarPlus = document.querySelector(".ce-toolbar__plus");
+        toolbarPlus?.classList.add("custom-toolbar-plus"); // Add a custom class
+      },
     });
 
     editorRef.current = editor;
@@ -227,8 +244,41 @@ const Editor = ({ id }) => {
   return (
     <>
       {/* <Label className="p-8 text-3xl"> ویرایشگر</Label> */}
-      <div className={styles.holder}>
-        <Card id="editorjs" className={styles.editor}></Card>
+      {/* <Joyride
+        steps={steps}
+        continuous
+        scrollToFirstStep
+        // showProgress
+        showSkipButton
+        scrollOffset={120}
+        locale={{
+          back: "قبلی",
+          close: "بستن",
+          last: "پایان",
+          next: "بعدی",
+          skip: "رد کردن",
+        }}
+        styles={{
+          options: {
+            arrowColor: "rgba(0, 0, 0, 0.5)",
+            backgroundColor: "#333",
+            textColor: "#fff",
+            overlayColor: "rgba(0, 0, 0, 0.5)",
+            fontFamily: "vazirmatn",
+            zIndex: 1000,
+          },
+          buttonNext: {
+            backgroundColor: "#FF7517",
+            fontFamily: "vazirmatn",
+          },
+          buttonBack: {
+            color: "#FF7517",
+            fontFamily: "vazirmatn",
+          },
+        }}
+      /> */}
+      <div className={`${styles.holder} step1`}>
+        <Card id="editorjs" className={`${styles.editor}`}></Card>
         <button className={styles.save_btn} onClick={handelSave}>
           <SaveIcon className={styles.save_icon} />
           <span className={styles.save_txt}>ذخیره</span>
