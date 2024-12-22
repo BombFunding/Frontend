@@ -13,6 +13,8 @@ function Navbar() {
   const Navigate = useNavigate();
   const [isOpen, setOpen] = useState(false);
   const [results, setResults] = useState([]);
+  const [isFocused, setIsFocused] = useState(false);
+  const [input, setInput] = useState("");
   const TOKEN = useTokenStore((state) => state.accessToken);
   return (
     <nav
@@ -38,9 +40,17 @@ function Navbar() {
             )}
           </div>
           <div>
-            <SearchBar setResults={setResults} />
+            <SearchBar
+              setResults={setResults}
+              setIsFocused={setIsFocused}
+              setInput={setInput}
+            />
             {/* <SearchResultsList results={results} className={"z-50 hidden"} /> */}
-            <div className="absolute top-11 w-[32.7vw] z-50 rounded-b-full shadow-lg">
+            <div
+              className={`absolute top-14 w-[32.7vw] z-50 rounded-b-full shadow-lg ${
+                !isFocused || input == "" ? "hidden" : ""
+              }`}
+            >
               <SearchResultsList results={results} />
             </div>
           </div>
@@ -61,7 +71,7 @@ function Navbar() {
           />
         </div>
       </div>
-      <div className="mt-[4vw] h-[2vw] w-[100vw] z-[-20]">
+      <div className="mt-[5vh] h-[2vh] w-[100vw] z-[-20]">
         <NavbarDropDown />
       </div>
     </nav>

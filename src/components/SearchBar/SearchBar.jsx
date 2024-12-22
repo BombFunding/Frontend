@@ -188,10 +188,9 @@ import { FaSearch } from "react-icons/fa";
 
 import "./SearchBar.css";
 import { getData } from "@/Services/ApiClient/Services";
+import profPic from "../../assets/defaultpfp.png";
 
-const SearchBar = ({ setResults }) => {
-  const [input, setInput] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
+const SearchBar = ({ setResults, setIsFocused, setInput }) => {
   const handleFocus = () => setIsFocused(true);
   const handleBlur = () => setIsFocused(false);
 
@@ -210,84 +209,51 @@ const SearchBar = ({ setResults }) => {
   //       setResults(results);
   //     });
   // };
-  let results = [
+  const results = [
     {
-      name: "alireza",
+      avatar: profPic,
+      fullName: "علیرضا رحیمی",
+      username: "basicalireza1",
     },
     {
-      name: "alireza",
+      avatar: profPic,
+      fullName: "علیرضا رحیمی",
+      username: "basicalireza2",
     },
     {
-      name: "alireza",
+      avatar: profPic,
+      fullName: "علیرضا رحیمی",
+      username: "basicalireza2",
     },
     {
-      name: "alireza",
+      avatar: profPic,
+      fullName: "علیرضا رحیمی",
+      username: "basicalireza3",
     },
     {
-      name: "alireza",
+      avatar: profPic,
+      fullName: "علیرضا رحیمی",
+      username: "basicalireza4",
     },
     {
-      name: "alireza",
-    },
-    {
-      name: "alireza",
-    },
-    {
-      name: "alireza",
-    },
-    {
-      name: "alireza",
-    },
-    {
-      name: "alireza",
-    },
-    {
-      name: "alireza",
-    },
-    {
-      name: "alireza",
-    },
-    {
-      name: "alireza",
-    },
-    {
-      name: "alireza",
+      avatar: profPic,
+      fullName: "علیرضا رحیمی",
+      username: "basicalireza5",
     },
   ];
-  const handleChange = (value) => {
-    // try {
-    //   // Fetch the data from the backend
-    //   console.log(value);
-    //   const data = await getData(
-    //     `/search/user?search=${encodeURIComponent(value)}`
-    //   );
-
-    //   // Update results with the fetched data
-    //   results.splice(0, results.length, ...data); // Update `results` array in place if it's reactive or shared.
-    //   // items = results;
-    //   // console.log(items);
-    //   console.log(results); // Log updated results
-    //   setResults(results);
-    // } catch (error) {
-    //   console.error("Error fetching search results:", error);
-    // }
-    // console.log(results);
-    // if (input.length > 0)
+  const handleChange = (e) => {
     setResults(results);
-    setInput(value);
+    setInput(e.target.value);
+    console.log(`input: ${e.target.value}`);
     // fetchData(value);
   };
 
   return (
-    <div
-      className={`input-wrapper text-black transition-all ${
-        isFocused ? "rounded-t-[10px] rounded-b-none" : "rounded-[10px]"
-      }`}
-    >
+    <div className={`input-wrapper text-black transition-all rounded-[10px]`}>
       <FaSearch id="search-icon" />
       <input
         placeholder="...جست و جو"
-        className="font-vazirmatn h-8 w-[20vw] text-[18px] focus:w-[28vw] focus:border-solid focus:border-[3px] focus:outline-none focus:border-white px-[2vw] py-3 transition-all outline-none"
+        className="font-vazirmatn h-8 w-[20vw] text-[18px] w-[28vw] border-solid border-[3px] outline-none mr-2 border-white px-[2vw] py-3 transition-all outline-none"
         name="search"
         onFocus={handleFocus}
         onBlur={handleBlur}
