@@ -17,3 +17,7 @@
 .label_style {
   @apply text-black text-lg font-bold;
 }
+
+.extra_item {
+  @apply border-solid flex flex-row justify-between px-[5vw] place-content-end my-3 gap-1;
+}
