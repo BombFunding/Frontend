@@ -11,3 +11,13 @@
   @apply rounded-sm;
   border: 1px dashed gray !important;
 }
+
+.ce-popover__container {
+  @apply w-[30vw] !important;
+  max-height: 60vh !important;
+}
+
+.toggle-block__content-default {
+  display: none !important;
+  visibility: hidden !important;
+}

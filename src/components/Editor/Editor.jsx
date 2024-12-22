@@ -7,6 +7,7 @@ import ImageTool from "@editorjs/image";
 import Paragraph from "@editorjs/paragraph";
 import Quote from "@editorjs/quote";
 import editorjsColumns from "@calumk/editorjs-columns";
+import ToggleBlock from "editorjs-toggle-block";
 import FaTranslation from "./FaTranslation.js";
 import { useEffect } from "react";
 import useEditorStore from "@/stores/EditorStore/EditorStore";
@@ -84,6 +85,14 @@ const Editor = ({ id }) => {
       class: Paragraph,
       inlineToolbar: true, // Enable inline toolbar for this tool
     },
+    toggle: {
+      class: ToggleBlock, // Replace with the actual toggle block class you're using
+      config: {
+        placeholder:
+          "تغییر وضعیت خالی. برای اضافه کردن، بلوک‌ها را اینجا کلیک یا بکشید.",
+        label: "تغییر وضعیت",
+      },
+    },
     quote: {
       class: Quote,
       inlineToolbar: true,
@@ -143,6 +152,12 @@ const Editor = ({ id }) => {
         paragraph: {
           class: Paragraph,
           inlineToolbar: true, // Enable inline toolbar for this tool
+        },
+        toggle: {
+          class: ToggleBlock, // Replace with the actual toggle block class you're using
+          config: {
+            placeholder: "تغییر وضعیت",
+          },
         },
         quote: {
           class: Quote,
