@@ -25,7 +25,7 @@ const Editor = ({ id }) => {
     {
       target: ".step1",
       content: "این یکه",
-      placement: 'top',
+      placement: "top",
     },
     {
       target: ".custom-toolbar-plus", // The "+" button for adding new blocks
@@ -198,7 +198,9 @@ const Editor = ({ id }) => {
   const handelSave = async () => {
     const savedData = await editorRef.current.save();
     //   editorRef.current.destroy();
-    if (!data) {
+    console.log("id: ", id);
+    console.log("data:", data);
+    if (id == 0) {
       console.log("savedData in server: ", JSON.stringify(savedData));
       await updateData(savedData);
       postData(
