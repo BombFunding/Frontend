@@ -43,6 +43,10 @@ export const router = createBrowserRouter([
         path: "/profile/:username",
         element: <Profile />,
       },
+      {
+        path: "/starboard",
+        element: <StarBoard />,
+      },
     ],
   },
   {
