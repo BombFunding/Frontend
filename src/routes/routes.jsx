@@ -16,76 +16,79 @@ import DashBoard from "@/Pages/DashBoard/DashBoard.jsx";
 import ChargeAccount from "@/Pages/ChargeAccount/ChargeAccount";
 import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
 import { Loading } from "@/components/Loading/Loading";
-import BlankPage from "@/Pages/Balnkpage";
+import Editor from "@/components/Editor/Editor";
+import ProjectEditor from "@/Pages/ProjectEditor/ProjectEditor";
+import StarBoard from "@/Pages/StarBoard/StarBoard";
+import BaseUserDashBoard from "@/components/DashBoard/BaseUserDashBoard/BaseUserDashBoard";
 
 export const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <PublicLayout />,
-		errorElement: <Error />,
-		children: [
-			{
-				index: true,
-				element: <Landing />,
-			},
-			{
-				path: "/Profile/:username",
-				element: <Profile />,
-			},
-			{
-				path: "/blank",
-				element: <BlankPage />,
-			},
-			{
-				path: "/reset-password/:uid/:token",
-				element: <ChangePassword />,
-			},
-			{
-				path: "/profile/:username",
-				element: <Profile />,
-			}
-		],
-	},
-	{
-		element: <PrivateLayout />,
-		children: [
-			{
-				path: "/test",
-				element: <Loading />,
-			},
-			{
-				path: "/EditProfile",
-				element: <EditProfile />,
-			},
-			{
-				path: "/DashBoard",
-				element: <DashBoard />,
-			},
-			{
-				path: "/ChargeAccount",
-				element: <ChargeAccount />,
-			},
-		],
-	},
-	{
-		element: <NoNavbarLayout />,
-		children: [
-			{
-				path: "/login",
-				element: <Login />,
-			},
-			{
-				path: "/signup",
-				element: <Signup />,
-			},
-			{
-				path: "/emailverification",
-				element: <EmailVerification />,
-			},
-			{
-				path: "/forgetpassword",
-				element: <ForgetPassword />,
-			},
-		],
-	},
+  {
+    path: "/",
+    element: <PublicLayout />,
+    errorElement: <Error />,
+    children: [
+      {
+        index: true,
+        element: <Landing />,
+      },
+      {
+        path: "/Profile/:username",
+        element: <Profile />,
+      },
+      {
+        path: "/reset-password/:uid/:token",
+        element: <ChangePassword />,
+      },
+      {
+        path: "/profile/:username",
+        element: <Profile />,
+      },
+    ],
+  },
+  {
+    element: <PrivateLayout />,
+    children: [
+      {
+        path: "/test",
+        element: <BaseUserDashBoard />,
+      },
+      {
+        path: "/EditProfile",
+        element: <EditProfile />,
+      },
+      {
+        path: "/DashBoard",
+        element: <DashBoard />,
+      },
+      {
+        path: "/ChargeAccount",
+        element: <ChargeAccount />,
+      },
+      {
+        path: "/Editor/:projectId",
+        element: <ProjectEditor />,
+      },
+    ],
+  },
+  {
+    element: <NoNavbarLayout />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+      {
+        path: "/emailverification",
+        element: <EmailVerification />,
+      },
+      {
+        path: "/forgetpassword",
+        element: <ForgetPassword />,
+      },
+    ],
+  },
 ]);

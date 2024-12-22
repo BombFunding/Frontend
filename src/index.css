@@ -7,23 +7,47 @@
   }
 }
 @layer base {
-	* {
-		@apply text-right;
-		/* @apply text-right rtl; */
-	}
-	* {
-		border: 0px;
-		box-sizing: border-box;
-	}
-	:root {
-		background-color: white !important;
-		@apply place-self-center;
-	}
+  * {
+    @apply text-right;
+    /* @apply text-right rtl; */
+  }
+  * {
+    border: 0px;
+    box-sizing: border-box;
+  }
+  :root {
+    background-color: white !important;
+    @apply place-self-center;
+  }
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
 }
 
 :root {
   @apply font-vazirmatn;
-  scrollbar-width: none; 
+  scrollbar-width: none;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -63,7 +87,7 @@ body {
 
     /* --primary-foreground: 210 40% 98%; */
     --primary-foreground: 0 0% 20%;
-    
+
     --secondary: 210 40% 96.1%;
     /* --secondary: 0 0% 58.8%; */
 

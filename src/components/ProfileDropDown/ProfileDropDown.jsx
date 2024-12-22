@@ -8,26 +8,38 @@ import {
 	DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import LogoutButton from "../Custom/LogoutButton/LogoutButton";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 function ProfileDropDown() {
+	const { avatar } = useProfileStore();
 	const Navigate = useNavigate();
 	return (
 		<DropdownMenu className="z-30">
 			<DropdownMenuTrigger className={styles.trigger}>
 				<img
-					src={profile}
+					src={avatar}
 					alt="Avatar"
 					className={styles.ProfileNavbar}
 				/>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className={styles.content}>
-
-
-				<DropdownMenuItem className={styles.item} onClick={()=>Navigate("/dashboard")}>
+				<DropdownMenuItem
+					className={styles.item}
+					onClick={() => Navigate("/dashboard")}
+				>
 					داشبورد
 				</DropdownMenuItem>
-				<DropdownMenuItem className={styles.item}>
-					تنظیمات
+				<DropdownMenuItem
+					className={styles.item}
+					onClick={() => Navigate("/starboard")}
+				>
+					استار بورد
+				</DropdownMenuItem>
+				<DropdownMenuItem
+					className={styles.item}
+					onClick={() => Navigate("/invesboard")}
+				>
+					اینوس بورد
 				</DropdownMenuItem>
 				<DropdownMenuItem className={styles.logout}>
 					<LogoutButton />

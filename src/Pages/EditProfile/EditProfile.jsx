@@ -102,37 +102,37 @@ const EditProfile = () => {
 			//     Pragma: "no-cache",
 			//   },
 			// });
-			if (userType === "startup") {
-				await getData("/auth/view_own_baseuser_profile/")
-					.then((data) => {
-						console.log("data: ", data);
-						const profile = data.base_profile;
-						console.log("recived profile: ", profile);
-						setBannerFile(
-							`http://104.168.46.4:8000${profile.header_picture}`
-						);
-						setAvatarFile(
-							`http://104.168.46.4:8000${profile.profile_picture}`
-						);
-						const profileInfo_ = {
-							firstName: profile.first_name ?? "",
-							lastName: profile.last_name ?? "",
-							phoneNumber: profile.phone ?? "",
-							bio: profile.bio ?? "",
-							telegramAccount: profile.socials?.telegram ?? "",
-							linkedinAccount: profile.socials?.linkedin ?? "",
-							twitterAccount: profile.socials?.twitter ?? "",
-							website: profile.socials?.website ?? "",
-							email: profile.email ?? "",
-						};
-						setProfileInfo(profileInfo_);
-						reset(profileInfo_);
-						setLoading(false);
-					})
-					.catch((error) => {
-						console.log(error);
-					});
-			}
+			// if (userType === "startup") {
+			await getData("/auth/view_own_baseuser_profile/")
+				.then((data) => {
+					console.log("data: ", data);
+					const profile = data.base_profile;
+					console.log("recived profile: ", profile);
+					setBannerFile(
+						`http://104.168.46.4:8000${profile.header_picture}`
+					);
+					setAvatarFile(
+						`http://104.168.46.4:8000${profile.profile_picture}`
+					);
+					const profileInfo_ = {
+						firstName: profile.first_name ?? "",
+						lastName: profile.last_name ?? "",
+						phoneNumber: profile.phone ?? "",
+						bio: profile.bio ?? "",
+						telegramAccount: profile.socials?.telegram ?? "",
+						linkedinAccount: profile.socials?.linkedin ?? "",
+						twitterAccount: profile.socials?.twitter ?? "",
+						website: profile.socials?.website ?? "",
+						email: profile.email ?? "",
+					};
+					setProfileInfo(profileInfo_);
+					reset(profileInfo_);
+					setLoading(false);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+			// }
 		};
 
 		fetchDefaultValues();
@@ -241,151 +241,147 @@ const EditProfile = () => {
 	};
 	if (loading) return <Loading />;
 	return (
-		<>
-			<div className="font-vazirmatn mt-8 h-auto rtl">
-				<Label className=" text-black text-2xl">اطلاعات کاربری</Label>
+		<div className="font-vazirmatn mt-8 h-auto rtl place-self-center translate-y-[3vw] mb-[6vw]">
+			<Label className=" text-black text-2xl">اطلاعات کاربری</Label>
 
-				<Card className={styles.card_style}>
-					<form onSubmit={handleSubmit(onSubmit)}>
-						<div className={styles.avatar_container}>
-							<img
-								className="w-full object-cover absolute"
-								src={bannerFile}
-								alt="avatar"
-							/>
-							<AvatarWithFileUpload
-								avatarFileState={[avatarFile, setAvatarFile]}
-								className={"m-4"}
-							/>
-							<button
-								className="absolute bottom-2 left-3 font-vazirmatn text-xs px-1 bg-gray-100 rounded-xl text-black text-gray-500 hover:text-bomborange transition-all duration-300 ease-in-out transform opacity-[93%] hover:opacity-100 hover:scale-110 bg-slate-50 shadow-md rounded-lg px-1 flex items-center h-4"
-								type="button"
-								onClick={handleBannerClick}
-							>
-								تغییر
-							</button>
-							<input
-								type="file"
-								accept="image/*"
-								style={{ display: "none" }} // Hide the file input element
-								ref={fileInputRef} // Attach input to useRef
-								onChange={handleBannerChange} // Handle file selection
-							/>
-						</div>
-						<div className="m-5">
-							<Label className="z-10 text-xl colo">
-								نام کاربری
-							</Label>
+			<Card className={styles.card_style}>
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<div className={styles.avatar_container}>
+						<img
+							className="w-full object-cover absolute"
+							src={bannerFile}
+							alt="avatar"
+						/>
+						<AvatarWithFileUpload
+							avatarFileState={[avatarFile, setAvatarFile]}
+							className={"m-4"}
+						/>
+						<button
+							className="absolute bottom-2 left-3 font-vazirmatn text-xs px-1 bg-gray-100 rounded-xl text-black text-gray-500 hover:text-bomborange transition-all duration-300 ease-in-out transform opacity-[93%] hover:opacity-100 hover:scale-110 bg-slate-50 shadow-md rounded-lg px-1 flex items-center h-4"
+							type="button"
+							onClick={handleBannerClick}
+						>
+							تغییر
+						</button>
+						<input
+							type="file"
+							accept="image/*"
+							style={{ display: "none" }} // Hide the file input element
+							ref={fileInputRef} // Attach input to useRef
+							onChange={handleBannerChange} // Handle file selection
+						/>
+					</div>
+					<div className="m-5">
+						<Label className="z-10 text-xl colo">نام کاربری</Label>
 
-							<Separator className="my-4" />
+						<Separator className="my-4" />
+						<div className="flex flex-col gap-6">
+							<div className={styles.input_row}>
+								<EditableInput
+									setFocus={setFocus}
+									setValue={setValue}
+									register={register}
+									name={"نام"}
+									value={"نام"}
+									fieldName={"firstName"}
+								/>
+								<EditableInput
+									setFocus={setFocus}
+									setValue={setValue}
+									register={register}
+									name={"نام خانوادگی"}
+									value={"نام خانوادگی"}
+									fieldName={"lastName"}
+								/>
+							</div>
+							<div className={styles.input_row}>
+								<VerifiableInput
+									setFocus={setFocus}
+									setValue={setValue}
+									register={register}
+									isVerified={true}
+									name={"ایمیل"}
+									value={"ایمیل"}
+									editable={false}
+									fieldName={"email"}
+								/>
+								<EditableInput
+									setFocus={setFocus}
+									setValue={setValue}
+									register={register}
+									name={"شماره تماس"}
+									value={"شماره تماس"}
+									fieldName={"phoneNumber"}
+								/>
+							</div>
+							<div className="grid w-full gap-1.5 ">
+								<EditableInput
+									setValue={setValue}
+									setFocus={setFocus}
+									register={register}
+									name={"بیوگرافی"}
+									isTextArea={true}
+									value={
+										"سیبدهیسدلهبدهیسبد سیهدبهدبهسی دهیس دبهد سید یسدهب یسهبدهسیدبه دصثهلد هحدلاخسجیلخئ هخیلت خهد سهخیبدلهیدل خخ لهخ لی دخد  "
+									}
+									fieldName={"bio"}
+								/>
+							</div>
+
 							<div className="flex flex-col gap-6">
 								<div className={styles.input_row}>
 									<EditableInput
 										setFocus={setFocus}
 										setValue={setValue}
 										register={register}
-										name={"نام"}
-										value={"نام"}
-										fieldName={"firstName"}
+										icon={<LinkedInIcon />}
+										name={"لینکدین"}
+										value={"لینکدین"}
+										fieldName={"linkedinAccount"}
 									/>
 									<EditableInput
 										setFocus={setFocus}
 										setValue={setValue}
 										register={register}
-										name={"نام خانوادگی"}
-										value={"نام خانوادگی"}
-										fieldName={"lastName"}
+										icon={<TelegramIcon />}
+										name={"تلگرام"}
+										value={"تلگرام"}
+										fieldName={"telegramAccount"}
 									/>
 								</div>
 								<div className={styles.input_row}>
-									<VerifiableInput
+									<EditableInput
 										setFocus={setFocus}
 										setValue={setValue}
 										register={register}
-										isVerified={true}
-										name={"ایمیل"}
-										value={"ایمیل"}
-										editable={false}
-										fieldName={"email"}
+										icon={<WebIcon />}
+										name={"سایت"}
+										value={"سایت"}
+										fieldName={"website"}
 									/>
 									<EditableInput
 										setFocus={setFocus}
 										setValue={setValue}
 										register={register}
-										name={"شماره تماس"}
-										value={"شماره تماس"}
-										fieldName={"phoneNumber"}
+										icon={<XIcon />}
+										name={"ایکس"}
+										value={"ایکس"}
+										fieldName={"twitterAccount"}
 									/>
-								</div>
-								<div className="grid w-full gap-1.5 ">
-									<EditableInput
-										setValue={setValue}
-										setFocus={setFocus}
-										register={register}
-										name={"بیوگرافی"}
-										isTextArea={true}
-										value={
-											"سیبدهیسدلهبدهیسبد سیهدبهدبهسی دهیس دبهد سید یسدهب یسهبدهسیدبه دصثهلد هحدلاخسجیلخئ هخیلت خهد سهخیبدلهیدل خخ لهخ لی دخد  "
-										}
-										fieldName={"bio"}
-									/>
-								</div>
-
-								<div className="flex flex-col gap-6">
-									<div className={styles.input_row}>
-										<EditableInput
-											setFocus={setFocus}
-											setValue={setValue}
-											register={register}
-											icon={<LinkedInIcon />}
-											name={"لینکدین"}
-											value={"لینکدین"}
-											fieldName={"linkedinAccount"}
-										/>
-										<EditableInput
-											setFocus={setFocus}
-											setValue={setValue}
-											register={register}
-											icon={<TelegramIcon />}
-											name={"تلگرام"}
-											value={"تلگرام"}
-											fieldName={"telegramAccount"}
-										/>
-									</div>
-									<div className={styles.input_row}>
-										<EditableInput
-											setFocus={setFocus}
-											setValue={setValue}
-											register={register}
-											icon={<WebIcon />}
-											name={"سایت"}
-											value={"سایت"}
-											fieldName={"website"}
-										/>
-										<EditableInput
-											setFocus={setFocus}
-											setValue={setValue}
-											register={register}
-											icon={<XIcon />}
-											name={"ایکس"}
-											value={"ایکس"}
-											fieldName={"twitterAccount"}
-										/>
-									</div>
 								</div>
 							</div>
 						</div>
-						{/* <GeneralDrawerButton classNames="fixed bottom-4 right-5" icon={<SaveIcon />}>
+					</div>
+					{/* <GeneralDrawerButton classNames="fixed bottom-4 right-5" icon={<SaveIcon />}>
             <span>ذخیره</span>
           </GeneralDrawerButton> */}
-						<button className={styles.save_btn} type="submit">
-							<SaveIcon className={styles.save_icon} />
-							<span className={styles.save_txt}>ذخیره</span>
-						</button>
-					</form>
-				</Card>
-			</div>
-		</>
+					<button className={styles.save_btn} type="submit">
+						<SaveIcon className={styles.save_icon} />
+						<span className={styles.save_txt}>ذخیره</span>
+					</button>
+				</form>
+			</Card>
+		</div>
 	);
 };
 

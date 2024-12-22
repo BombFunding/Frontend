@@ -1,14 +1,13 @@
 import styles from "./AddPositionForm.module.scss";
-import { Label } from "@radix-ui/react-label";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { postData } from "@/Services/ApiClient/Services";
+import { getData, postData } from "@/Services/ApiClient/Services";
 import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 const validationSchema = Yup.object().shape({
 	position_name: Yup.string().required("Name is required"),
@@ -17,7 +16,8 @@ const validationSchema = Yup.object().shape({
 	duration: Yup.string().required("Email is required"),
 });
 
-const AddPositionForm = ({ setOpen }) => {
+const AddPositionForm = ({ setOpen, positions, setPositions }) => {
+	const { username, setBalance } = useProfileStore();
 	const {
 		register,
 		handleSubmit,
@@ -46,30 +46,54 @@ const AddPositionForm = ({ setOpen }) => {
 			name: data.position_name,
 			description: data.description,
 			end_time: endTime,
+			is_done: false,
 			funded: 0,
 			start_time: currentTime,
 			total: data.total,
 		};
 		console.log("bodyData: ", bodyData);
-		postData("/startup/position/create/", bodyData)
+		postData("/position/create/", bodyData)
 			.then((res) => {
 				console.log(res);
-				toast.success(
-					<CustomToast Header="پوزیشن با موفقیت ساخته شد" />
-				);
-				setTimeout(() => {
-					setOpen(false);
-				}, 3000);
+				getData(`/position/list/${username}/`).then((data) => {
+					toast.success(
+						<CustomToast Header="پوزیشن با موفقیت ساخته شد" />
+					);
+					getData(`/balance/balance/`).then((res) => {
+						setTimeout(() => {
+							setBalance(res.balance);
+							setPositions(data);
+							setOpen(false);
+						}, 3000);
+					});
+				});
 			})
 			.catch((err) => {
 				console.log(err);
-				toast.error(<CustomToast Header="خطا" Message={err.message} />);
+				if (err.response?.data?.error) {
+					toast.error(
+						<CustomToast
+							Header="خطا"
+							Message={`برای ساخت این پوزیشن موجودی شما باید حداقل ${
+								err.response?.data?.error.split(" ")[6]
+							} تومان باشد`}
+						/>
+					);
+				} else {
+					toast.error(
+						<CustomToast
+							Header="خطا"
+							Message={
+								"در هنگام ساخت پوزیشن جدید خطایی به وجود آمد"
+							}
+						/>
+					);
+				}
 			});
 	};
 
 	return (
 		<form
-			// className="flex flex-col gap-4 items-center font-vazirmatn m-5"
 			className="font-vazirmatn place-items-center"
 			onSubmit={handleSubmit(onSubmit)}
 		>
@@ -87,7 +111,7 @@ const AddPositionForm = ({ setOpen }) => {
 					name={"description"}
 				/>
 				<CustomInput
-					inputClassName={"w-[60vw] text-right"}
+					inputClassName={"w-[60vw]"}
 					placeholder="سرمایه مورد نیاز"
 					type="number"
 					register={register}
@@ -107,18 +131,6 @@ const AddPositionForm = ({ setOpen }) => {
 					ثبت پوزیشن
 				</Button>
 			</div>
-			{/* <div className={styles.input_box}>
-				<Label className={styles.label_style}>نام پوزیشن</Label>
-				<Input className={styles.input_style}></Input>
-			</div> */}
-			{/* <div className={styles.input_box}>
-				<Label className={styles.label_style}>سرمایه مورد نیاز</Label>
-				<Input type="number" className={styles.input_style}></Input>
-			</div> */}
-			{/* <div className={styles.input_box}>
-				<Label className={styles.label_style}>{"مدت زمان (روز)"}</Label>
-				<Input type="number" className={styles.input_style}></Input>
-			</div> */}
 		</form>
 	);
 };
