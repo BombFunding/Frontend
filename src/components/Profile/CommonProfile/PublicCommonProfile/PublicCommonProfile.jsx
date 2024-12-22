@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { getData } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
 import { Separator } from "@/components/ui/separator";
+import CommentSection from "@/components/CommentSection/CommentSection";
 
 const PublicCommonProfile = ({ className }) => {
 	const { username } = useParams();
@@ -55,7 +56,7 @@ const PublicCommonProfile = ({ className }) => {
 
 	return (
 		<Card
-			className={`${className} bg-slate-50 overflow-hidden h-[80vh] font-vazirmatn w-[80vw] place-self-center shadow-lg translate-y-[3vw] mb-[6vw]`}
+			className={`${className} bg-slate-50 overflow-hidden font-vazirmatn w-[80vw] translate-y-[3vw] mb-[6vw]`}
 		>
 			<div className={`h-1/3 overflow-hidden relative`}>
 				<img
@@ -112,6 +113,7 @@ const PublicCommonProfile = ({ className }) => {
 					</div>
 				</div>
 			</div>
+			<CommentSection />
 		</Card>
 	);
 };
