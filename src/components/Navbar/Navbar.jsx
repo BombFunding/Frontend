@@ -55,19 +55,15 @@ function Navbar() {
 						</div>
 					</div>
 
-					<div className={`${styles.mobile} flex`}>
+					<div className={`${styles.mobile} flex gap-[1vw]`}>
+						<PushyButton onClick={() => Navigate("/invesboard")}>
+							سرمایه گذاران
+						</PushyButton>
+						<PushyButton onClick={() => Navigate("/starboard")}>
+							استارت‌آپ‌ها
+						</PushyButton>
 						{TOKEN ? (
-							<div className="flex gap-[1vw] place-items-center">
-								<PushyButton
-									onClick={() => Navigate("/invesboard")}
-								>
-									سرمایه گذاران
-								</PushyButton>
-								<PushyButton
-									onClick={() => Navigate("/starboard")}
-								>
-									استارت‌آپ‌ها
-								</PushyButton>
+							<div className="place-items-center">
 								<ProfileDropDown />
 							</div>
 						) : (
