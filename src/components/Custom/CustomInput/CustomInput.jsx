@@ -50,7 +50,7 @@ function CustomInput({
 				<label
 					className={`${
 						!empty && "-translate-y-[25px] px-[5px]"
-					} absolute right-4 peer-focus:px-[5px] pointer-events-none text-sm top-3
+					} absolute right-4 peer-focus:px-[5px] pointer-events-none text-sm top-4
                     text-gray-500 transition-all peer-focus:-translate-y-[25px] peer-focus:right-1 
                     peer-focus:scale-[80%] peer-valid:bg-white peer-focus:text-gray-500 ${className}`}
 				>
