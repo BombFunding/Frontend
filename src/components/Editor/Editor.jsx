@@ -8,6 +8,8 @@ import Paragraph from "@editorjs/paragraph";
 import Quote from "@editorjs/quote";
 import editorjsColumns from "@calumk/editorjs-columns";
 import ToggleBlock from "editorjs-toggle-block";
+import CodeTool from "@editorjs/code";
+import BreakLine from "editorjs-break-line";
 import FaTranslation from "./FaTranslation.js";
 import { useEffect } from "react";
 import useEditorStore from "@/stores/EditorStore/EditorStore";
@@ -73,6 +75,11 @@ const Editor = ({ id }) => {
   };
 
   const columnTools = {
+    code: CodeTool,
+    breakLine: {
+      class: BreakLine,
+      inlineToolbar: true,
+    },
     header: {
       class: Header,
       config: {
@@ -131,6 +138,11 @@ const Editor = ({ id }) => {
       holder: "editorjs",
       data: data ?? { blocks: [], time: Date.now() },
       tools: {
+        code: CodeTool,
+        breakLine: {
+          class: BreakLine,
+          inlineToolbar: true,
+        },
         header: {
           class: Header,
           inlineToolbar: ["link"],

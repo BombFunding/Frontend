@@ -54,6 +54,7 @@ const FaTranslation = () => {
         Image: "تصویر",
         Columns: "ستون",
         Toggle: "منوی کشویی",
+        "Break Line": "خط",
       },
 
       /**

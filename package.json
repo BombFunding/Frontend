@@ -12,6 +12,7 @@
 	"dependencies": {
 		"@calumk/editorjs-columns": "^0.3.2",
 		"@editorjs/checklist": "^1.6.0",
+		"@editorjs/code": "^2.9.3",
 		"@editorjs/editorjs": "^2.30.7",
 		"@editorjs/header": "^2.8.8",
 		"@editorjs/image": "^2.10.1",
@@ -82,6 +83,7 @@
 		"@vitejs/plugin-react": "^4.3.3",
 		"autoprefixer": "^10.4.20",
 		"daisyui": "^4.12.14",
+		"editorjs-break-line": "^1.0.10",
 		"editorjs-toggle-block": "^0.3.16",
 		"eslint": "^9.13.0",
 		"eslint-plugin-react": "^7.37.1",
