@@ -29,7 +29,6 @@ const StartupDashBoard = () => {
 		setHeader,
 		setBalance,
 	} = useProfileStore();
-	console.log(useProfileStore());
 	useEffect(() => {
 		setLoading(true);
 		getData(`/auth/view_own_baseuser_profile/`).then((data) => {
@@ -87,34 +86,27 @@ const StartupDashBoard = () => {
 				<div className="flex flex-row justify-between gap-2 mt-2">
 					<div className="flex flex-col w-2/6 gap-2">
 						<Label className={styles.label_style}>حساب</Label>
-						<Accounting className={"h-[265px]"} />
+						<Accounting />
 					</div>
 					<div className="flex flex-col w-4/6 gap-2">
 						<Label className={styles.label_style}>اعضا</Label>
 						<TeamBox />
-					</div> */}
-          <div className="flex flex-col w-full gap-2">
-            <Label className={styles.label_style}>اعضا</Label>
-            <TeamBox />
-          </div>
-        </div>
-        {/* <div className={styles.position_box}>Team</div> */}
-        {/* <div className={styles.team_row}></div> */}
-        {/* <div className={styles.position_box}>profiles</div> */}
-        {/* <StartupProfiles /> */}
-        {/* <CommentSection /> */}
-        {/* <div className={styles.position_box}>stats</div> */}
-       <div className={`flex flex-wrap gap-6 p-6 rounded-md ${styles.chartbox}`} >
-              <div className="flex-1 min-w-[300px]">
-            <BarChart1 />
-              </div>
-              <div className="flex-1 min-w-[300px]">
-            <BarChart2 />
-              </div>
-        </div>
-      </Card>
-    </>
-  );
+					</div>
+				</div>
+				<Label className={styles.label_style}>آمار</Label>
+				<div
+					className={`flex flex-wrap gap-6 p-6 rounded-md ${styles.chartbox}`}
+				>
+					<div className="flex-1 min-w-[300px]">
+						<BarChart1 />
+					</div>
+					<div className="flex-1 min-w-[300px]">
+						<BarChart2 />
+					</div>
+				</div>
+			</Card>
+		</>
+	);
 };
 
 export default StartupDashBoard;
