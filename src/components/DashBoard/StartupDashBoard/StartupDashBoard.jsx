@@ -37,28 +37,29 @@ const StartupDashBoard = () => {
 				data.base_profile.first_name + " " + data.base_profile.last_name
 			);
 			setUsername(data.base_profile.name);
-
-			// console.log("username: ", username);
 			setBio(data.base_profile.bio);
-			if (data.base_profile.likeCount) {
-				setLikeCount(data.base_profile.likeCount);
-			} else {
-				setLikeCount(0);
-			}
+			// if (data.base_profile.likeCount) {
+			// 	setLikeCount(data.base_profile.likeCount);
+			// } else {
+			// 	setLikeCount(0);
+			// }
 			setAvatar(
 				`http://104.168.46.4:8000${data.base_profile.profile_picture}`
 			);
 			setHeader(
 				`http://104.168.46.4:8000${data.base_profile.header_picture}`
 			);
-			getData(`/startup/get_startup_profile/${username}/`).then(
-				(data) => {
-					console.log("positions: ", data.profile.positions);
-				}
-			);
 			getData(`/balance/balance/`).then((data) =>
 				setBalance(data.balance)
 			);
+			getData(`/startup/get_startup_profile/${username}/`).then((d) => {
+				console.log("d: ", d.profile.id);
+				getData(`/startup/profile/${d.profile.id}/vote/`).then((data1) => {
+					console.log(data1.vote_count);
+					setLikeCount(data1.vote_count)
+				});
+			});
+
 			setLoading(false);
 		});
 	}, []);
