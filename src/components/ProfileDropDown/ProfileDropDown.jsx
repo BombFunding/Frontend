@@ -9,10 +9,14 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import LogoutButton from "../Custom/LogoutButton/LogoutButton";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import { useEffect } from "react";
 
 function ProfileDropDown() {
 	const { avatar, username } = useProfileStore();
 	const Navigate = useNavigate();
+	useEffect(() => {
+		console.log("avatar: ", avatar);
+	}, []);
 	return (
 		<DropdownMenu className="z-30">
 			<DropdownMenuTrigger className={styles.trigger}>

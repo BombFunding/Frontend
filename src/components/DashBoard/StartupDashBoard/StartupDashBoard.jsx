@@ -23,6 +23,8 @@ const StartupDashBoard = () => {
 		setLoading,
 		setFullname,
 		setLikeCount,
+		setEmail,
+		setPhone,
 		setUsername,
 		setBio,
 		setAvatar,
@@ -43,6 +45,8 @@ const StartupDashBoard = () => {
 			// } else {
 			// 	setLikeCount(0);
 			// }
+			setEmail(data.base_profile.email);
+			setPhone(data.base_profile.phone);
 			setAvatar(
 				`http://104.168.46.4:8000${data.base_profile.profile_picture}`
 			);
@@ -54,10 +58,12 @@ const StartupDashBoard = () => {
 			);
 			getData(`/startup/get_startup_profile/${username}/`).then((d) => {
 				console.log("d: ", d.profile.id);
-				getData(`/startup/profile/${d.profile.id}/vote/`).then((data1) => {
-					console.log(data1.vote_count);
-					setLikeCount(data1.vote_count)
-				});
+				getData(`/startup/profile/${d.profile.id}/vote/`).then(
+					(data1) => {
+						console.log(data1.vote_count);
+						setLikeCount(data1.vote_count);
+					}
+				);
 			});
 
 			setLoading(false);
