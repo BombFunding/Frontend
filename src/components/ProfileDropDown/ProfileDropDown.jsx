@@ -11,7 +11,7 @@ import LogoutButton from "../Custom/LogoutButton/LogoutButton";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 function ProfileDropDown() {
-	const { avatar } = useProfileStore();
+	const { avatar, username } = useProfileStore();
 	const Navigate = useNavigate();
 	return (
 		<DropdownMenu className="z-30">
@@ -25,11 +25,17 @@ function ProfileDropDown() {
 			<DropdownMenuContent className={styles.content}>
 				<DropdownMenuItem
 					className={styles.item}
+					onClick={() => Navigate(`/profile/${username}`)}
+				>
+					پروفایل
+				</DropdownMenuItem>
+				<DropdownMenuItem
+					className={styles.item}
 					onClick={() => Navigate("/dashboard")}
 				>
 					داشبورد
 				</DropdownMenuItem>
-				<DropdownMenuItem
+				{/* <DropdownMenuItem
 					className={styles.item}
 					onClick={() => Navigate("/starboard")}
 				>
@@ -40,7 +46,7 @@ function ProfileDropDown() {
 					onClick={() => Navigate("/invesboard")}
 				>
 					اینوس بورد
-				</DropdownMenuItem>
+				</DropdownMenuItem> */}
 				<DropdownMenuItem className={styles.logout}>
 					<LogoutButton />
 				</DropdownMenuItem>
