@@ -5,7 +5,9 @@ import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { toast } from "react-toastify";
 import CustomToast from "../Custom/CustomToast/CustomToast";
 import useTokenStore from "@/stores/TokenStore";
+import { useNavigate } from "react-router-dom";
 function Like({ className, _username }) {
+	const Naviagte = useNavigate();
 	const [likes, setLikes] = useState(0);
 	const [userProfileId, setUserProfileId] = useState(null);
 	const [checked, setChecked] = useState(false);
@@ -36,8 +38,12 @@ function Like({ className, _username }) {
 	const onChange = () => {
 		if (accessToken === "") {
 			toast.error(
-				<CustomToast Header="خطا" Message="باید ابتدا وارد شوید" />
+				<CustomToast
+					Header="خطا"
+					Message="لطفا ابتدا وارد حساب کاربری خود شوید"
+				/>
 			);
+			setTimeout(() => Naviagte("/login"), 3000);
 			return;
 		}
 		if (!checked) {

@@ -10,7 +10,7 @@ function Accounting({ className }) {
 		>
 			<h1 className="flex gap-[1vw] p-[2vw] self-center">
 				<img src={Accouting} className="h-[2.75vw] place-self-center" />
-				<div className="h-[3vw] place-content-center">حسابداری</div>
+				<div className="h-[3vw] place-content-center text-[2vw]">حسابداری</div>
 			</h1>
 			<div className="rtl">{balance} تومان</div>
 			<button

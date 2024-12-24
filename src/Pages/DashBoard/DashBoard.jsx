@@ -16,11 +16,7 @@ const DashBoard = () => {
 		case "startup":
 			return <StartupDashBoard />;
 		case "investor":
-			return (<div>
-					<InvestorDashBoard />;
-					{/* <Voting />; */}
-					</div>
-			)
+			return <InvestorDashBoard />;
 		case "basic":
 			return <BaseUserDashBoard />;
 		default:

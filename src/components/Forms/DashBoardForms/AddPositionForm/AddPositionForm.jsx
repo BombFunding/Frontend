@@ -50,6 +50,7 @@ const AddPositionForm = ({ setOpen, positions, setPositions }) => {
 			funded: 0,
 			start_time: currentTime,
 			total: data.total,
+			subcategories: []
 		};
 		console.log("bodyData: ", bodyData);
 		postData("/position/create/", bodyData)

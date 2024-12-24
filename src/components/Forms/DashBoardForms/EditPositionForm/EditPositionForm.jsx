@@ -139,15 +139,6 @@ const EditPositionForm = ({ positionData, setPositions, setEditFormOpen }) => {
 				value={total}
 				onChange={setTotal}
 			/>
-			<CustomInput
-				inputClassName={"w-[60vw] text-right rtl"}
-				placeholder="مقدار به دست آمده"
-				register={register}
-				name={"funded"}
-				type="number"
-				value={funded}
-				onChange={setFunded}
-			/>
 
 			<Button className="btn bg-bomborange hover:text-bomborange hover:bg-black m-[2vw]">
 				ویرایش پوزیشن

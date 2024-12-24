@@ -9,10 +9,14 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import LogoutButton from "../Custom/LogoutButton/LogoutButton";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import { useEffect } from "react";
 
 function ProfileDropDown() {
-	const { avatar } = useProfileStore();
+	const { avatar, username } = useProfileStore();
 	const Navigate = useNavigate();
+	useEffect(() => {
+		console.log("avatar: ", avatar);
+	}, []);
 	return (
 		<DropdownMenu className="z-30">
 			<DropdownMenuTrigger className={styles.trigger}>
@@ -25,11 +29,17 @@ function ProfileDropDown() {
 			<DropdownMenuContent className={styles.content}>
 				<DropdownMenuItem
 					className={styles.item}
+					onClick={() => Navigate(`/profile/${username}`)}
+				>
+					پروفایل
+				</DropdownMenuItem>
+				<DropdownMenuItem
+					className={styles.item}
 					onClick={() => Navigate("/dashboard")}
 				>
 					داشبورد
 				</DropdownMenuItem>
-				<DropdownMenuItem
+				{/* <DropdownMenuItem
 					className={styles.item}
 					onClick={() => Navigate("/starboard")}
 				>
@@ -40,7 +50,7 @@ function ProfileDropDown() {
 					onClick={() => Navigate("/invesboard")}
 				>
 					اینوس بورد
-				</DropdownMenuItem>
+				</DropdownMenuItem> */}
 				<DropdownMenuItem className={styles.logout}>
 					<LogoutButton />
 				</DropdownMenuItem>
