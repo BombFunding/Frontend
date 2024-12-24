@@ -76,7 +76,7 @@ const StartupDashBoard = () => {
 					"flex justify-center items-center w-[100vw] h[100vh]"
 				}
 			>
-				<Loading />;
+				<Loading />
 			</div>
 		);
 
