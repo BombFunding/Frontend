@@ -110,21 +110,19 @@ const App = () => {
       },
     });
 
-ScrollTrigger.create({
-  trigger: slides[2],
-  start: 'center center',
-  onEnter: () => {
-    if (typeof window.BarChart !== 'undefined' && typeof window.BarChart.startAnimation === 'function') {
-      setTimeout(() => {
-        window.BarChart.startAnimation();
-      }, 3500);
-    } else {
-      console.error('BarChart.startAnimation is not defined.');
-    }
-  },
-
-  
-});
+ ScrollTrigger.create({
+    trigger: '.bar-chart',  // Target the BarChart component directly
+    start: 'center bottom', // وقتی که وسط BarChart به پایین viewport رسید
+    onEnter: () => {
+      if (typeof window.BarChart !== 'undefined' && typeof window.BarChart.startAnimation === 'function') {
+        setTimeout(() => {
+          window.BarChart.startAnimation();
+        },200);
+      } else {
+        console.error('BarChart.startAnimation is not defined.');
+      }
+    },
+  });
 
   function counter(id, start, end, duration) {
     let obj = document.getElementById(id),
@@ -248,10 +246,15 @@ ScrollTrigger.create({
             className={styles['bg-img']}
             alt="Slide 3 Background"
           />
-          <BarChart />
         </section>
 
       </div>
+      <div>
+      <section className="bar-chart">
+      <BarChart />
+        </section>
+      </div>
+        
     </>
   );
 };
