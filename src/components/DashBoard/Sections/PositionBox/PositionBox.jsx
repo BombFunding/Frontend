@@ -25,7 +25,11 @@ const PositionBox = () => {
 	return (
 		<div className={styles.position_box}>
 			<div>
-				{positions.length === 0 ? <EmptySection type="پوزیشن" /> : <></>}
+				{positions.length === 0 ? (
+					<EmptySection type="پوزیشن" />
+				) : (
+					<></>
+				)}
 			</div>
 			<div className={styles.create_position}>
 				<Drawer open={open}>
@@ -46,12 +50,13 @@ const PositionBox = () => {
 							setPositions={setPositions}
 						/>
 						<DrawerClose asChild>
-							<button
+							<Button
+								variant="outline"
 								className="font-vazirmatn"
 								onClick={() => setOpen(false)}
 							>
 								بازگشت
-							</button>
+							</Button>
 						</DrawerClose>
 					</DrawerContent>
 				</Drawer>
