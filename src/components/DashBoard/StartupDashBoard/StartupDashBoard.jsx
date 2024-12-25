@@ -15,6 +15,7 @@ import { BarChart1 } from "@/components/BarChart/BarChart1";
 import BarChart2 from "@/components/BarChart/BarChart2";
 
 import Likes from "@/components/Likes/Likes";
+import BookmarkBox from "../ProjectBox/ProjectBox";
 const StartupDashBoard = () => {
 	const {
 		username,
@@ -111,6 +112,8 @@ const StartupDashBoard = () => {
 						<BarChart2 />
 					</div>
 				</div>
+				<Label className={styles.label_style}>ذخیره شده</Label>
+				<BookmarkBox />
 			</Card>
 		</>
 	);

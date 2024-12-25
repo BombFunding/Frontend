@@ -1,0 +1,9 @@
+.container {
+	@apply rounded-lg shadow-lg w-[30vw];
+}
+
+.image {
+	@apply rounded-t-lg;
+	aspect-ratio: 16/9;
+	object-fit: cover;
+}
