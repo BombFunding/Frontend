@@ -2,7 +2,7 @@ import BaseUserDashBoard from "@/components/DashBoard/BaseUserDashBoard/BaseUser
 import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
 import StartupDashBoard from "@/components/DashBoard/StartupDashBoard/StartupDashBoard";
 import useTokenStore from "@/stores/TokenStore";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Error from "../Error/Error";
 // import Voting from "@/components/Voting/Voting";
 // import styles from "./DashBoard";

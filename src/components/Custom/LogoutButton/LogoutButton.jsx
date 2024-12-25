@@ -1,15 +1,18 @@
 import useTokenStore from "@/stores/TokenStore";
 import styles from "./LogoutButton.module.scss";
 import { useNavigate } from "react-router-dom";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 function LogoutButton() {
 	const { deleteToken } = useTokenStore();
+	const { logout } = useProfileStore();
 	const Navigate = useNavigate();
 	return (
 		<button
 			className={styles.Btn}
 			onClick={() => {
 				deleteToken();
+				logout();
 				Navigate("/login");
 			}}
 		>
