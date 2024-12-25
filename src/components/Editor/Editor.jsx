@@ -40,6 +40,7 @@ const Editor = ({ id }) => {
   const { data, updateData } = useEditorStore();
   console.log(data);
   const editorRef = useRef(null);
+  const pBoxRef = useRef(null);
 
   const uploadByFile = async (file) => {
     // Create a FormData object to send the image file
@@ -136,6 +137,7 @@ const Editor = ({ id }) => {
     console.log("effectdata: ", data);
     const editor = new EditorJS({
       holder: "editorjs",
+      autofocus: true,
       data: data ?? { blocks: [], time: Date.now() },
       tools: {
         code: CodeTool,
@@ -190,10 +192,6 @@ const Editor = ({ id }) => {
         },
       },
       i18n: FaTranslation(),
-      onReady: () => {
-        const toolbarPlus = document.querySelector(".ce-toolbar__plus");
-        toolbarPlus?.classList.add("custom-toolbar-plus"); // Add a custom class
-      },
     });
 
     editorRef.current = editor;
@@ -270,11 +268,29 @@ const Editor = ({ id }) => {
     // setUpdate(!update);
   };
 
+  // const handleJoyrideCallback = (data) => {
+  //   const { action, index, type } = data;
+
+  //   if (type === "step:after" && index === 0 && action === "next") {
+  //     // editorRef.current.focus();
+  //     // editorRef.current.render();
+  //     const editorHolder = document.getElementById("editorjs");
+  //     if (editorHolder) {
+  //       editorHolder.click(); // Trigger a click event
+  //     }
+  //     else
+  //     {
+  //       console.log("editorHolder not found");
+  //     }
+  //   }
+  // };
+
   return (
     <>
       {/* <Label className="p-8 text-3xl"> ویرایشگر</Label> */}
       {/* <Joyride
         steps={steps}
+        callback={handleJoyrideCallback}
         continuous
         scrollToFirstStep
         // showProgress
@@ -306,8 +322,8 @@ const Editor = ({ id }) => {
           },
         }}
       /> */}
-      <div className={`${styles.holder} step1`}>
-        <Card id="editorjs" className={`${styles.editor}`}></Card>
+      <div className={`${styles.holder}`}>
+        <Card id="editorjs" className={`${styles.editor} step1`}></Card>
         <button className={styles.save_btn} onClick={handelSave}>
           <SaveIcon className={styles.save_icon} />
           <span className={styles.save_txt}>ذخیره</span>

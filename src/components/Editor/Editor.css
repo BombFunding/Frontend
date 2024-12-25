@@ -21,3 +21,7 @@
   display: none !important;
   visibility: hidden !important;
 }
+
+.vivi {
+  visibility: visible;
+}
