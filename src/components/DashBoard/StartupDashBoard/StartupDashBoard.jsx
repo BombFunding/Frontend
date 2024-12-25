@@ -15,7 +15,7 @@ import { BarChart1 } from "@/components/BarChart/BarChart1";
 import BarChart2 from "@/components/BarChart/BarChart2";
 
 import Likes from "@/components/Likes/Likes";
-import BookmarkBox from "../ProjectBox/ProjectBox";
+import ProjectBox from "../ProjectBox/ProjectBox";
 const StartupDashBoard = () => {
 	const {
 		username,
@@ -101,6 +101,8 @@ const StartupDashBoard = () => {
 						<TeamBox />
 					</div>
 				</div>
+				<Label className={styles.label_style}>پروژه‌ها</Label>
+				<ProjectBox type="پروژه‌ا" />
 				<Label className={styles.label_style}>آمار</Label>
 				<div
 					className={`flex flex-wrap gap-6 p-6 rounded-md ${styles.chartbox}`}
@@ -113,7 +115,7 @@ const StartupDashBoard = () => {
 					</div>
 				</div>
 				<Label className={styles.label_style}>ذخیره شده</Label>
-				<BookmarkBox />
+				<ProjectBox type="پروژه‌ا" />
 			</Card>
 		</>
 	);

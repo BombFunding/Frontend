@@ -253,30 +253,20 @@ function SignupForm() {
 				<div className={styles.form_even_justify}>
 					<div className={styles.input_row}>
 						<CustomInput
-							placeholder="نام کاربری"
-							autofocus={true}
-							name="username"
-							onChange={(e) => updateUsername(e)}
-							value={username}
-							showErrors={true}
-						/>
-						<CustomInput
 							placeholder="ایمیل"
 							autofocus={true}
 							name="email"
 							onChange={(e) => updateEmail(e)}
 							value={email}
-							showErrors={true}
+						/>
+						<CustomInput
+							placeholder="نام کاربری"
+							name="username"
+							onChange={(e) => updateUsername(e)}
+							value={username}
 						/>
 					</div>
 					<div className={styles.input_row}>
-						<PasswordInput
-							placeholder="تایید رمز عبور"
-							name="confirmPassword"
-							onChange={(e) => updateConfirmPassword(e)}
-							showPassword={showPassword}
-							togglePasswordVisibility={togglePasswordVisibility}
-						/>
 						<PasswordInput
 							placeholder="رمز عبور"
 							name="password"
@@ -285,21 +275,28 @@ function SignupForm() {
 							showPassword={showPassword}
 							togglePasswordVisibility={togglePasswordVisibility}
 						/>
+						<PasswordInput
+							placeholder="تایید رمز عبور"
+							name="confirmPassword"
+							onChange={(e) => updateConfirmPassword(e)}
+							showPassword={showPassword}
+							togglePasswordVisibility={togglePasswordVisibility}
+						/>
 					</div>
 				</div>
 				<div className="pt-2">
 					<RadioInput>
-						<RadioInputOption
+						{/* <RadioInputOption
 							value={"basic"}
 							id="tab-1"
 							checked={user_type === "basic"}
 							onChange={updateUser_type}
 						>
 							هیچکدام
-						</RadioInputOption>
+						</RadioInputOption> */}
 						<RadioInputOption
 							value={"startup"}
-							id="tab-2"
+							id="tab-1"
 							checked={user_type === "startup"}
 							onChange={updateUser_type}
 						>
@@ -307,7 +304,7 @@ function SignupForm() {
 						</RadioInputOption>
 						<RadioInputOption
 							value={"investor"}
-							id="tab-3"
+							id="tab-2"
 							checked={user_type === "investor"}
 							onChange={updateUser_type}
 						>

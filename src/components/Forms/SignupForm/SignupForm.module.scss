@@ -51,7 +51,7 @@
 }
 
 .input_row {
-	@apply flex items-center justify-between gap-5;
+	@apply flex items-center justify-between gap-5 rtl;
 }
 
 .notification_box {
