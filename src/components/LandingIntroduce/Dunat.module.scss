@@ -67,6 +67,7 @@ $custom-t: 1s;
 }
 
 // Header styles
+// Header styles (حذف حلقه و نمایش cost)
 .custom-header {
   gap: $custom-a;
   padding: 2 * $custom-a .5em $custom-a;
@@ -76,17 +77,6 @@ $custom-t: 1s;
   counter-reset: cost var(--cost);
   animation: custom-head $custom-t ease-out var(--dt1) backwards;
 
-  &::before {
-    place-self: center;
-    place-content: center;
-    border: solid $custom-l currentcolor;
-    width: $custom-d;
-    height: $custom-d;
-    border-radius: 50%;
-    animation: custom-ring $custom-t ease-out var(--dt3) backwards;
-    content: '$' counter(cost);
-  }
-
   &::after {
     height: $custom-l;
     background: currentcolor;
@@ -94,7 +84,15 @@ $custom-t: 1s;
     animation: custom-line $custom-t ease-out var(--dt2) backwards;
     content: '';
   }
+
+  .cost-display {  // عنصر جدید برای نمایش cost
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #fff;
+    margin-top: $custom-a;
+  }
 }
+
 
 @keyframes custom-head {
   0% {

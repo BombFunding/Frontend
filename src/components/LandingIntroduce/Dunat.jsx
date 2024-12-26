@@ -2,9 +2,9 @@ import React from "react";
 import styles from './Dunat.module.scss';  // Import SCSS file
 
 const data = [
-  { name: 'b', cost: 9, grad: '#0fcf7b, #0c9f30' },
-  { name: 'standard', cost: 19, grad: '#f7256e, #cc0c48' },
-  { name: 'premium', cost: 29, grad: '#f7ea1f, #f87d2c' }
+  { name: 'b', cost: '9', grad: '#0fcf7b, #0c9f30' },  // cost is now a string
+  { name: 'standard', cost: '19', grad: '#f7256e, #cc0c48' },
+  { name: 'premium', cost: '29', grad: '#f7ea1f, #f87d2c' }
 ];
 
 const CardComponent = () => {
