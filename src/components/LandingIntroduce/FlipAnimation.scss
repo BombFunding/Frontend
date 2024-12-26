@@ -21,9 +21,11 @@
 #flip > div > div {
   color: #fff;
   padding: 4px 12px;
-  height: 45px;
+  height: 51px;
   margin-bottom: 45px;
   display: inline-block;
+  border-radius: 14px; 
+
 }
 
 #flip div:first-child {
