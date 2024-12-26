@@ -251,18 +251,19 @@ const EditProfile = () => {
 
 			<Card className={styles.card_style}>
 				<form onSubmit={handleSubmit(onSubmit)}>
+					<AvatarWithFileUpload
+						avatarFileState={[avatarFile, setAvatarFile]}
+						className="m-4"
+					/>
 					<div className={styles.avatar_container}>
 						<img
 							className="w-full object-cover absolute"
 							src={bannerFile}
 							alt="avatar"
 						/>
-						<AvatarWithFileUpload
-							avatarFileState={[avatarFile, setAvatarFile]}
-							className={"m-4"}
-						/>
+
 						<button
-							className="absolute bottom-2 left-3 font-vazirmatn text-xs px-1 bg-gray-100 rounded-xl text-black text-gray-500 hover:text-bomborange transition-all duration-300 ease-in-out transform opacity-[93%] hover:opacity-100 hover:scale-110 bg-slate-50 shadow-md rounded-lg px-1 flex items-center h-4"
+							className="absolute bottom-2 left-3 font-vazirmatn text-xs px-1 bg-gray-100 rounded-xl text-black text-gray-500 hover:text-bomborange transition-all duration-300 ease-in-out transform opacity-[93%] hover:opacity-100 hover:scale-110 bg-slate-50 shadow-md rounded-lg flex items-center h-4"
 							type="button"
 							onClick={handleBannerClick}
 						>
@@ -377,9 +378,6 @@ const EditProfile = () => {
 							</div>
 						</div>
 					</div>
-					{/* <GeneralDrawerButton classNames="fixed bottom-4 right-5" icon={<SaveIcon />}>
-            <span>ذخیره</span>
-          </GeneralDrawerButton> */}
 					<button className={styles.save_btn} type="submit">
 						<SaveIcon className={styles.save_icon} />
 						<span className={styles.save_txt}>ذخیره</span>

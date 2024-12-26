@@ -68,14 +68,15 @@ const AvatarWithFileUpload = ({
 				// size="large" // Customize size according to your preference
 				onClick={handleAvatarClick} // Trigger file selection on avatar click
 				// style={{ cursor: "pointer" }} // Change cursor to pointer indicating it's clickable
-				className={`w-24 h-24 flex justify-center items-center relative overflow-hidden`}
+				className={`w-[12vw] h-[12vw] translate-y-[5vw] translate-x-[-3vw] border-solid ring-[0.4vw] ring-bomborange z-[50] absolute flex justify-center items-center object-cover`}
 			>
-				<div className="w-full h-full top-1/2 absolute bg-black opacity-25" />
-				<CameraAltIcon className="absolute top-[60%] text-white opacity-90" />
+				<div className="w-full h-full top-2/3 absolute bg-black opacity-25" />
+				<CameraAltIcon className="absolute top-[70%] text-white opacity-90" />
 				<AvatarImage
 					src={imageURL || AVATARIMG}
 					alt="User Avatar"
 					size="large"
+					className="object-cover"
 				/>
 			</Avatar>
 			<input
