@@ -9,13 +9,8 @@ import { useParams } from "react-router-dom";
 import { getData } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
 import { Separator } from "@/components/ui/separator";
-import Like from "@/components/Like/Like";
-import Bookmark from "@/components/Bookmark/Bookmark";
-import useProfileStore from "@/stores/ProfileStore/ProfileStore";
-import Likes from "@/components/Likes/Likes";
-import CommentSection from "@/components/CommentSection/CommentSection";
 
-const PublicCommonProfile = ({ className }) => {
+const StartupProfile = ({ className }) => {
 	const { username } = useParams();
 	const [profileInfo, setProfileInfo] = React.useState({});
 	const [loading, setLoading] = React.useState(true);
@@ -69,23 +64,11 @@ const PublicCommonProfile = ({ className }) => {
 				className="w-[12vw] h-[12vw] rounded-full translate-x-[74vw] translate-y-[-9vw] ring-bomborange absolute ring-[0.4vw] z-[100] object-cover"
 				src={profileInfo.avatar}
 			/>
-			{/* <div className={`h-1/3 overflow-hidden relative`}></div> */}
 			<div className="relative pt-[3vw]">
-				{/* <div className="shadow-lg mb-[10vw] rounded-full overflow-hidden bg-white">
-					<div className="rounded-full overflow-hidden"></div>
-				</div> */}
 				<div className="relative">
 					<div className="p-8 flex flex-col gap-3 font-vazirmatn">
 						<div className="flex rtl justify-between">
 							<Label className="text-2xl">اطلاعات کاربری</Label>
-							{/* <div className="flex place-items-center gap-2">
-								<Like
-									_username={username}
-									count={profileInfo.likeCount}
-								/>
-
-								<Bookmark username={username} />
-							</div> */}
 						</div>
 						<Separator className="my-2 bg-gray-300" />
 						<div className="flex flex-col justify-evenly mr-3 gap-1">
@@ -127,9 +110,8 @@ const PublicCommonProfile = ({ className }) => {
 					</div>
 				</div>
 			</div>
-			{/* <CommentSection /> */}
 		</Card>
 	);
 };
 
-export default PublicCommonProfile;
+export default StartupProfile;
