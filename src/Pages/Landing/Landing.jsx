@@ -15,10 +15,12 @@ import logo9 from "../../assets/logo9.png";
 import logo10 from "../../assets/logo10.png";
 import { Label } from "@radix-ui/react-label";
 import styles from "./Landing.module.scss";
+import CardComponent from "@/components/LandingIntroduce/Dunat";
+
 const Landing = () => {
 	return (
 		<>
-			      <div>
+			<div>
         <LandingIntroduce />
       </div>
 			<div className="flex justify-evenly place-items-center place-content-center rtl">

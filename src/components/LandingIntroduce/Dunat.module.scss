@@ -1,0 +1,169 @@
+@use 'sass:math';  // ایمپورت کردن math برای استفاده از math.div
+
+$custom-width: 9rem;  // عرض هر کارت
+$custom-d: math.div($custom-width, 3); // مقدار دیفالت برای طراحی
+$custom-l: 4px;
+$custom-a: 1rem;
+$custom-t: 1s;
+
+// Reset global styles within a specific class to avoid conflicts
+.reset-styles * {
+  margin: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-transform: inherit;
+}
+
+// Grid container
+.custom-grid-container {
+  display: grid;
+  gap: 2em;                          // فاصله بین کارت‌ها
+  grid-template-columns: repeat(3, 1fr); // سه ستون برای کارت‌ها
+  place-content: center;             // مرکز چین کردن گرید
+  min-height: 80vh;                 // ارتفاع صفحه
+  background: #222;                 // رنگ پس‌زمینه
+  font: 900 1.25em / 1.25 sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+
+  // مرکز چین کردن گرید
+  justify-items: center;  // مرکز چین کردن کارت‌ها به صورت افقی
+  align-items: center;    // مرکز چین کردن کارت‌ها به صورت عمودی
+}
+
+// Card styles
+.custom-card {
+  --m: calc(.5 * (var(--n) - 1));
+  --abs: max(calc(var(--i) - var(--m)), calc(var(--m) - var(--i)));
+  --val: calc(var(--abs) * (1 + .5 * var(--i)) / var(--n));
+  --dt0: calc(var(--val) * #{$custom-t});
+  --dt1: calc((var(--val) + 1) * #{$custom-t});
+  --dt2: calc((var(--val) + 1.5) * #{$custom-t});
+  --dt3: calc((var(--val) + 2) * #{$custom-t});
+  --dt4: calc((var(--val) + 2.5) * #{$custom-t});
+  --dt5: calc((var(--val) + 3) * #{$custom-t});
+
+  overflow: hidden;
+  padding-bottom: $custom-a;
+  backface-visibility: hidden;
+  transform: perspective(25em);
+  background: #fff content-box;
+  filter: drop-shadow(4px 4px 13px);
+  animation: custom-card $custom-t ease-out var(--dt0) backwards, custom-cost $custom-t var(--dt4) backwards;
+  max-width: 100%;  // برای اینکه کارت‌ها به اندازه مناسب اندازه‌گیری شوند
+}
+
+@keyframes custom-card {
+  0% {
+    transform: perspective(25em) rotatey(.5turn);
+  }
+}
+
+// Header styles
+.custom-header {
+  gap: $custom-a;
+  padding: 2 * $custom-a .5em $custom-a;
+  transform-origin: 100% 100%;
+  background: linear-gradient(var(--grad));
+  color: #fff;
+  counter-reset: cost var(--cost);
+  animation: custom-head $custom-t ease-out var(--dt1) backwards;
+
+  &::before {
+    place-self: center;
+    place-content: center;
+    border: solid $custom-l currentcolor;
+    width: $custom-d;
+    height: $custom-d;
+    border-radius: 50%;
+    animation: custom-ring $custom-t ease-out var(--dt3) backwards;
+    content: '$' counter(cost);
+  }
+
+  &::after {
+    height: $custom-l;
+    background: currentcolor;
+    clip-path: inset(0 round $custom-l);
+    animation: custom-line $custom-t ease-out var(--dt2) backwards;
+    content: '';
+  }
+}
+
+@keyframes custom-head {
+  0% {
+    transform: translate(-100%) skewx(35deg);
+  }
+}
+
+@keyframes custom-ring {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes custom-line {
+  0% {
+    clip-path: inset(0 50% round $custom-l);
+  }
+}
+
+// Header title animation (h3)
+.custom-h3 {
+  &::before,
+  &::after {
+    place-self: center;
+    mask: var(--mask);
+    animation: custom-text $custom-t ease-out var(--dt5) backwards;
+  }
+
+  &::before {
+    --j: 0;
+    animation-name: custom-text, custom-move;
+    content: attr(data-name);
+  }
+
+  &::after {
+    font-size: .6em;
+    font-weight: 100;
+    content: 'subscription';
+  }
+}
+
+@keyframes custom-move {
+  0% {
+    transform: translate(50%);
+  }
+}
+
+// Section style for cards
+.custom-section {
+  margin-bottom: -$custom-a;
+  border-bottom: solid $custom-a transparent;
+  background-color: inherit;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - #{$custom-a}), 50% 100%, 0 calc(100% - #{$custom-a}));
+  justify-content: center;  /* وسط چین کردن دکمه در بخش */
+  align-items: center;  /* وسط چین کردن دکمه در بخش */
+}
+
+
+@keyframes custom-text {
+  0% {
+    mask-position: calc(var(--j) * 100%);
+  }
+}
+
+// Media Queries (optional for responsiveness)
+@media (max-width: 768px) {
+  .custom-grid-container {
+    grid-template-columns: repeat(2, 1fr); // دو ستون برای صفحه‌های کوچک
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-grid-container {
+    grid-template-columns: 1fr;  // یک ستون برای صفحه‌های خیلی کوچک
+  }
+}

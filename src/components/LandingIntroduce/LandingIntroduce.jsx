@@ -12,6 +12,7 @@ import img8 from "../../assets/landing8.png";
 import img9 from "../../assets/landing9.jpg";
 import BarChart from './BarChart';
 import FlipAnimation from "@/components/LandingIntroduce/FlipAnimation";
+import CardComponent from "@/components/LandingIntroduce/Dunat";
 import { motion, useInView, useAnimation } from "framer-motion";
 import { useEffect, useRef } from "react";
 
@@ -259,7 +260,7 @@ const App = () => {
           {/* <img */}
         </a>
       </header>
-
+{/* 
       <div className={styles.intro}>
         <div className={styles.visual}>
           <img
@@ -273,7 +274,7 @@ const App = () => {
           el="h2"
           text={["BOMB FUNDING"]}
           repeatDelay={5000}
-            className="text-left text-[4vw] font-bold text-[#FF7517] League Gothic"
+            className="text-left text-[4vw] font-bold text-[#ffffff] League Gothic"
           />
 
           <h1 className={`${styles.title} font-vazirmatn text-[3vw] text-right`}>
@@ -285,6 +286,7 @@ const App = () => {
           <p className="font-vazirmatn text-[1.2vw] mt-4 text-right">
             بمب فاندینگ، پلتفرمی برای ارتباط با سرمایه گذاران ، کارآفرینان و حمایت کنندگان.
             چه ایده بزرگی داشته باشی چه کوچک، اینجا جایی برای توست...
+            
           </p>
           <div className="mt-8 flex gap-4 flex-wrap">
             <button className="btn font-vazirmatn text-black bg-bomborange hover:text-white text-[0.9vw] w-[10vw] h-[2vw]">
@@ -347,11 +349,14 @@ const App = () => {
         </section>
 
       </div>
-      <div>
-      <section className="bar-chart">
-      <BarChart />
+      <div> */}
+
+      {/* <section className="bar-chart"> */}
+      {/* <BarChart /> */}
+        <section>
+        <CardComponent/>
         </section>
-      </div>
+      {/* </div> */}
         
     </>
   );
