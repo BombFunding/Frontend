@@ -261,6 +261,7 @@ function SignupForm() {
 						/>
 						<CustomInput
 							placeholder="نام کاربری"
+							autofocus={false}
 							name="username"
 							onChange={(e) => updateUsername(e)}
 							value={username}

@@ -22,6 +22,16 @@ function LoginForm() {
 		useLoginFormStore((state) => state);
 	const { updateAccessToken, updateRefreshToken, updateUserType } =
 		useTokenStore((state) => state);
+	const {
+		setBio,
+		setEmail,
+		setFullname,
+		setUsername,
+		setPhone,
+		setAvatar,
+		setHeader,
+		setBalance,
+	} = useProfileStore();
 	const profileManager = useProfileStore((state) => state);
 	const formData = { usernameEmail, password };
 	const formState = useLoginFormStore((state) => state);
@@ -45,31 +55,61 @@ function LoginForm() {
 				updateAccessToken(response.access_token);
 				updateUserType(response.user_type);
 				updateRefreshToken(response.refresh_token);
-				// TokenManager.updateAccessToken(response.access_token);
-				// TokenManager.updateRefreshToken(response.refresh_token);
-				// TokenManager.updateUserType(response.user_type);
-				toast.success(
-					<CustomToast Header="با موفقیت وارد سایت شدید" />
-				);
+				getData("/auth/view_own_baseuser_profile/").then((data) => {
+					console.log("data", data);
+					setBio(data.base_profile.bio);
+					setEmail(data.base_profile.email);
+					setFullname(
+						data.base_profile.first_name +
+							" " +
+							data.base_profile.last_name
+					);
+					setUsername(data.base_profile.name);
+					setPhone(data.base_profile.phone);
+					setAvatar(
+						`http://104.168.46.4:8000${data.base_profile.profile_picture}`
+					);
+					setHeader(
+						`http://104.168.46.4:8000${data.base_profile.header_picture}`
+					);
+					getData(`/balance/balance/`).then((data1) => {
+						setBalance(data1.balance);
+						toast.success(
+							<CustomToast
+								Header={`با موفقیت وارد سایت شدید ${
+									data.base_profile.first_name
+										? `${data.base_profile.first_name} جان`
+										: ""
+								}`}
+							/>
+						);
+						setTimeout(() => {
+							Navigate("/");
+						}, 3000);
+					});
+				});
+				// toast.success(
+				// 	<CustomToast Header="با موفقیت وارد سایت شدید" />
+				// );
 				getData(
 					`startup/get_startup_profile/${response.username}/`
 				).then((res) => {
 					console.log("res:", res);
 					profileManager.setProfileId(res.profile.id);
 				});
-				setTimeout(() => {
-					Navigate("/");
-				}, 3000);
 			});
 		} catch (error) {
 			console.log("login error: ", error);
-			if (error.response?.data?.error) {
+			if (
+				error.response?.data?.error[0] ===
+				"Invalid username or password."
+			) {
 				toast.error(
-					<CustomToast Header="لطفا ایمیل خود را تایید کنید" />
+					<CustomToast Header="نام کاربری یا رمز عبور اشتباه است" />
 				);
 			} else {
 				toast.error(
-					<CustomToast Header="نام کاربری یا رمز عبور اشتباه است" />
+					<CustomToast Header="لطفا ایمیل خود را تایید کنید" />
 				);
 			}
 		}
