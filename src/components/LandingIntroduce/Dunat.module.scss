@@ -1,6 +1,7 @@
 @use 'sass:math';  // ایمپورت کردن math برای استفاده از math.div
 
-$custom-width: 9rem;  // عرض هر کارت
+$custom-width: 28rem;  // عرض هر کارت (ثابت)
+$custom-height: 22rem;  // ارتفاع هر کارت (ثابت)
 $custom-d: math.div($custom-width, 3); // مقدار دیفالت برای طراحی
 $custom-l: 4px;
 $custom-a: 1rem;
@@ -52,7 +53,11 @@ $custom-t: 1s;
   background: #fff content-box;
   filter: drop-shadow(4px 4px 13px);
   animation: custom-card $custom-t ease-out var(--dt0) backwards, custom-cost $custom-t var(--dt4) backwards;
-  max-width: 100%;  // برای اینکه کارت‌ها به اندازه مناسب اندازه‌گیری شوند
+
+  width: $custom-width;  // عرض ثابت کارت
+  height: $custom-height; // ارتفاع ثابت کارت
+  max-width: $custom-width;  // برای اینکه کارت‌ها به اندازه ثابت اندازه‌گیری شوند
+  max-height: $custom-height;  // جلوگیری از تغییر ارتفاع کارت‌ها
 }
 
 @keyframes custom-card {

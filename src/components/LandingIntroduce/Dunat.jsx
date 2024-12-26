@@ -2,7 +2,7 @@ import React from "react";
 import styles from './Dunat.module.scss';  // Import SCSS file
 
 const data = [
-  { name: 'standard', cost: 9, grad: '#0fcf7b, #0c9f30' },
+  { name: 'b', cost: 9, grad: '#0fcf7b, #0c9f30' },
   { name: 'standard', cost: 19, grad: '#f7256e, #cc0c48' },
   { name: 'premium', cost: 29, grad: '#f7ea1f, #f87d2c' }
 ];
