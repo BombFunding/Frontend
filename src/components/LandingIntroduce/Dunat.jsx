@@ -22,9 +22,9 @@ const CardComponent = () => {
             <h3 className={styles['custom-h3']} data-name={c.name}></h3>
           </header>
           <section className={styles['custom-section']}>
+            {/* <p>hi helloooo</p>
             <p>hi helloooo</p>
-            <p>hi helloooo</p>
-            <p>hi helloooo</p>
+            <p>hi helloooo</p> */}
           </section>
         </article>
       ))}

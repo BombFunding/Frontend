@@ -24,7 +24,7 @@ $custom-t: 1s;
   grid-template-columns: repeat(3, 1fr); // سه ستون برای کارت‌ها
   place-content: center;             // مرکز چین کردن گرید
   min-height: 80vh;                 // ارتفاع صفحه
-  background: #222;                 // رنگ پس‌زمینه
+  // background: #222;                 // رنگ پس‌زمینه
   font: 900 1.25em / 1.25 sans-serif;
   text-align: center;
   text-transform: uppercase;
@@ -51,13 +51,14 @@ $custom-t: 1s;
   backface-visibility: hidden;
   transform: perspective(25em);
   background: #fff content-box;
-  filter: drop-shadow(4px 4px 13px);
+  // filter: drop-shadow(4px 4px 13px);
+  filter: drop-shadow(4px 4px 13px rgb(0, 0, 0));
   animation: custom-card $custom-t ease-out var(--dt0) backwards, custom-cost $custom-t var(--dt4) backwards;
 
   width: $custom-width;  // عرض ثابت کارت
   height: $custom-height; // ارتفاع ثابت کارت
   max-width: $custom-width;  // برای اینکه کارت‌ها به اندازه ثابت اندازه‌گیری شوند
-  max-height: $custom-height;  // جلوگیری از تغییر ارتفاع کارت‌ها
+  max-height: $custom-height; 
 }
 
 @keyframes custom-card {
@@ -113,18 +114,18 @@ $custom-t: 1s;
   }
 }
 
-// Header title animation (h3)
 .custom-h3 {
+  display: flex;               /* اضافه کردن فلکس‌باکس */
+  justify-content: center;     /* وسط‌چین افقی */
+  align-items: center;         /* وسط‌چین عمودی */
+  flex-direction: column;      /* قرار دادن متن‌های قبل و بعد به صورت عمودی */
+
   &::before,
   &::after {
-    place-self: center;
     mask: var(--mask);
-    animation: custom-text $custom-t ease-out var(--dt5) backwards;
   }
 
   &::before {
-    --j: 0;
-    animation-name: custom-text, custom-move;
     content: attr(data-name);
   }
 
@@ -134,6 +135,7 @@ $custom-t: 1s;
     content: 'subscription';
   }
 }
+
 
 @keyframes custom-move {
   0% {
