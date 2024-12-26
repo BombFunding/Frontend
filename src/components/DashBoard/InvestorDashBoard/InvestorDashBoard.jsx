@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/drawer";
 import MoreInfo from "@/components/Forms/DashBoardForms/MoreInfoForm/MoreInfoForm";
 import { Separator } from "@/components/ui/separator";
+import { Loading } from "@/components/Loading/Loading";
 
 const mockup = {
 	ssn: "4444444444",
@@ -63,10 +64,10 @@ const InvestorDashBoard = () => {
 			setHeader(
 				`http://104.168.46.4:8000${data.base_profile.header_picture}`
 			);
-			getData(`/balance/balance/`).then((data) =>
-				setBalance(data.balance)
-			);
-			setLoading(false);
+			getData(`/balance/balance/`).then((data) => {
+				setBalance(data.balance);
+				setLoading(false);
+			});
 		});
 	}, []);
 	const check =
@@ -76,6 +77,7 @@ const InvestorDashBoard = () => {
 		mockup.tax &&
 		mockup.address;
 	console.log(check);
+	if (loading) return <Loading />;
 	return (
 		<>
 			<Card className={styles.card_style}>
