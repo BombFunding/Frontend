@@ -4,13 +4,14 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import ErrorMessage from "@/components/messages/ErrorMessage/ErrorMessage";
 import { toast } from "react-toastify";
-import { postImageData } from "@/Services/ApiClient/Services";
+import { getData, postImageData } from "@/Services/ApiClient/Services";
 import styles from "./AvatarWithFileUpload.module.scss";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 const AvatarWithFileUpload = ({ className, avatarFileState }) => {
 	const [imageURL, setImageURL] = avatarFileState ?? useState("");
 	const [imageLoading, setImageLoading] = useState(false);
 	const fileInputRef = useRef(null);
-
+	const { setAvatar } = useProfileStore();
 	const handleImageChange = (event) => {
 		const file = event.target.files[0];
 		if (file) {
@@ -21,19 +22,20 @@ const AvatarWithFileUpload = ({ className, avatarFileState }) => {
 				formData.append("profile_picture", file);
 				setImageLoading(true);
 				const toastId = toast.success(
-					<ErrorMessage message={"آواتار در حال بروزرسانی ..."} />,
-					{
-						autoClose: 20000,
-					}
+					<ErrorMessage message={"آواتار در حال بارگزاری ..."} />,
+					{ autoClose: 20000 }
 				);
 				postImageData("/auth/update_baseuser_profile/", formData)
 					.then((res) => {
 						console.log("Image posted successfully:", res);
 						setImageLoading(false);
+						setAvatar(
+							`http://104.168.46.4:8000${res.profile.profile_picture}`
+						);
 						toast.dismiss(toastId);
 						toast.success(
 							<ErrorMessage
-								message={"آواتار با موفقیت بروزرسانی شد"}
+								message={"آواتار با موفقیت بارگزاری شد"}
 							/>
 						);
 					})
@@ -42,7 +44,7 @@ const AvatarWithFileUpload = ({ className, avatarFileState }) => {
 						setImageLoading(false);
 						toast.dismiss(toastId);
 						toast.error(
-							<ErrorMessage message={"آواتار بروزرسانی نشد"} />
+							<ErrorMessage message={"آواتار بارگزاری نشد"} />
 						);
 					});
 			};

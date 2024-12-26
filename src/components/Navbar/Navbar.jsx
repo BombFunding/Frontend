@@ -7,25 +7,15 @@ import styles from "./Navbar.module.scss";
 import PushyButton from "../Custom/PushyButton/PushyButton";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu.jsx";
 import NavbarDropDown from "../NavbarDropdown/NavbarDropDown";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SearchResultsList from "../SearchBar/SearchResultsList/SearchResultsList.jsx";
-import { getData } from "@/Services/ApiClient/Services";
-import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 function Navbar() {
 	const Navigate = useNavigate();
 	const [isOpen, setOpen] = useState(false);
 	const [results, setResults] = useState([]);
 	const [isFocused, setIsFocused] = useState(false);
 	const [input, setInput] = useState("");
-	const { avatar, setAvatar } = useProfileStore();
 	const TOKEN = useTokenStore((state) => state.accessToken);
-	useEffect(() => {
-		getData(`/auth/view_own_baseuser_profile/`).then((data) => {
-			console.log("navbar: ", data.base_profile.profile_picture);
-			setAvatar(`http://104.168.46.4:8000${data.base_profile.profile_picture}`);
-			console.log(avatar)
-		});
-	}, []);
 	return (
 		<nav
 			className={`flex flex-col justify-around bg-bomborange h-24 top-0 fixed right-0 z-40 w-[100vw] gap-1`}

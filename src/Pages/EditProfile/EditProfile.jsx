@@ -79,6 +79,17 @@ const EditProfile = () => {
 	const userType = useTokenStore((state) => state.userType);
 	const Navigate = useNavigate();
 	const {
+		loading,
+		setLoading,
+		setFullname,
+		setEmail,
+		setPhone,
+		setUsername,
+		setBio,
+		setAvatar,
+		setHeader,
+	} = useProfileStore();
+	const {
 		register,
 		handleSubmit,
 		formState: { errors },
@@ -88,11 +99,9 @@ const EditProfile = () => {
 	} = useForm({
 		resolver: yupResolver(schema),
 	});
-
 	const [profileInfo, setProfileInfo] = React.useState({});
 	const [bannerFile, setBannerFile] = React.useState(null);
 	const [avatarFile, setAvatarFile] = React.useState(null);
-	const [loading, setLoading] = React.useState(false);
 	const [imageLoading, setImageLoading] = React.useState(false);
 
 	useEffect(() => {
@@ -170,22 +179,28 @@ const EditProfile = () => {
 		const updateData = async (bodyData) => {
 			console.log("bodyData: ", bodyData);
 			await postData("/auth/update_baseuser_profile/", bodyData)
-				.then((data) => {
-					console.log("Data posted successfully:", data);
+				.then((res) => {
+					console.log(res);
+
 					toast.success(
-						// <ErrorMessage
-						// 	message={"پروفایل با موفقیت بروزرسانی شد"}
-						// />
 						<CustomToast Header="پروفایل با موفقیت بروزرسانی شد" />
 					);
-					setTimeout(() => {
-						Navigate("/dashboard");
-					}, 3000);
+					// setTimeout(() => {
+					// 	Navigate("/dashboard");
+					// }, 3000);
+					setLoading(false);
+
+					setFullname(
+						res.profile.first_name + " " + res.profile.last_name
+					);
+					setUsername(res.profile.name);
+					setBio(res.profile.bio);
+					setEmail(res.profile.email);
+					setPhone(res.profile.phone);
 				})
 				.catch((error) => {
 					console.log("Data posting FAILED:", error);
 					toast.error(
-						// <ErrorMessage message={"پروفایل بروزرسانی نشد"} />
 						<CustomToast
 							Header="خطا"
 							Message="پروفایل بروزرسانی نشد"
@@ -213,32 +228,26 @@ const EditProfile = () => {
 				formData.append("header_picture", file);
 				setImageLoading(true);
 				const toastId = toast.success(
-					// <ErrorMessage message={"بنر در حال بروزرسانی ..."} />,
-					<CustomToast Header="بنر در حال بروزرسانی ..." />,
-					{
-						autoClose: 20000,
-					}
+					<CustomToast Header="بنر در حال بارگزاری ..." />,
+					{ autoClose: 20000 }
 				);
 				postImageData("/auth/update_baseuser_profile/", formData)
 					.then((res) => {
 						console.log("Image posted successfully:", res);
 						setImageLoading(false);
+						setHeader(
+							`http://104.168.46.4:8000${res.profile.header_picture}`
+						);
 						toast.dismiss(toastId);
 						toast.success(
-							// <ErrorMessage
-							// 	message={"بنر با موفقیت بروزرسانی شد"}
-							// />
-							<CustomToast Header="بنر با موفقیت بروزرسانی شد" />
+							<CustomToast Header="بنر با موفقیت بارگزاری شد" />
 						);
 					})
 					.catch((err) => {
 						console.log("Image posting FAILED:", err);
 						setImageLoading(false);
 						toast.dismiss(toastId);
-						toast.error(
-							// <ErrorMessage message={"بنر بروزرسانی نشد"} />
-							<CustomToast Header="بنر بروزرسانی نشد" />
-						);
+						toast.error(<CustomToast Header="بنر بارگزاری نشد" />);
 					});
 			};
 			reader.readAsDataURL(file);
