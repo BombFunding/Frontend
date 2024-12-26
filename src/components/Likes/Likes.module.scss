@@ -2,7 +2,8 @@ $color: #FF7517;
 // $color: #0060ff;
 .Btn {
     @apply absolute ;
-	width: 13vw;
+	// width: 13vw;
+	width: auto;
 	height: 3vw;
 	display: flex;
 	align-items: center;
@@ -23,11 +24,11 @@ $color: #FF7517;
 	display: flex;
 	// align-items: center;
 	// justify-content: center;
-	gap: 0.5vw;
+	gap: 0.3vw;
 }
 
 .like {
-    @apply text-center place-content-center place-self-center align-middle text-white pr-[0.4vw];
+    @apply text-center place-content-center place-self-center align-middle text-white pr-[0.4vw] mt-[0.4vw];
 }
 
 .leftContainer {
@@ -36,8 +37,9 @@ $color: #FF7517;
 }
 
 .likeCount {
-    @apply text-[1.5vw] pt-[0.35vw];
-	width: 5vw;
+    @apply text-[1.5vw] pt-[0.35vw] px-[0.5vw];
+	// width: 5vw;
+	min-width: 3vw;
 	height: 3vw;
 	display: flex;
 	align-items: center;
@@ -49,7 +51,7 @@ $color: #FF7517;
 }
 
 .likeCount::before {
-	@apply top-[1.1vw];
+	@apply top-[1.1vw] mr-[1vw];
 	height: 1vw;
 	width: 1vw;
 	position: absolute;
@@ -58,16 +60,3 @@ $color: #FF7517;
 	transform: rotate(45deg);
 	left: -0.5vw;
 }
-
-// .Btn:hover .leftContainer {
-// 	background-color: $color;
-// }
-
-// .Btn:active .leftContainer {
-// 	background-color: $color;
-// }
-
-// .Btn:active .leftContainer svg {
-// 	transform: scale(1.15);
-// 	transform-origin: top;
-// }

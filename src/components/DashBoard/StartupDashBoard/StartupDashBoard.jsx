@@ -2,7 +2,6 @@ import styles from "./StartupDashBoard.module.scss";
 import { Card } from "@/components/ui/card";
 import PositionBox from "../Sections/PositionBox/PositionBox";
 import Accounting from "@/components/Accounting/Accounting";
-import StartupProfiles from "@/components/StartupProfiles/StartupProfiles";
 // import CommentSection from "@/components/CommentSection/CommentSection";
 import PersonalInfo from "@/components/PersonalInfo/PersonalInfo";
 import { useEffect, useState } from "react";
@@ -15,6 +14,7 @@ import { BarChart1 } from "@/components/BarChart/BarChart1";
 import BarChart2 from "@/components/BarChart/BarChart2";
 
 import Likes from "@/components/Likes/Likes";
+import ProjectBox from "../ProjectBox/ProjectBox";
 const StartupDashBoard = () => {
 	const {
 		username,
@@ -69,16 +69,7 @@ const StartupDashBoard = () => {
 			setLoading(false);
 		});
 	}, []);
-	if (loading)
-		return (
-			<div
-				className={
-					"flex justify-center items-center w-[100vw] h[100vh]"
-				}
-			>
-				<Loading />
-			</div>
-		);
+	if (loading) return <Loading />;
 
 	return (
 		<>
@@ -100,6 +91,8 @@ const StartupDashBoard = () => {
 						<TeamBox />
 					</div>
 				</div>
+				<Label className={styles.label_style}>پروژه‌ها</Label>
+				<ProjectBox type="پروژه‌ا" />
 				<Label className={styles.label_style}>آمار</Label>
 				<div
 					className={`flex flex-wrap gap-6 p-6 rounded-md ${styles.chartbox}`}
@@ -111,6 +104,8 @@ const StartupDashBoard = () => {
 						<BarChart2 />
 					</div>
 				</div>
+				<Label className={styles.label_style}>ذخیره شده</Label>
+				<ProjectBox type="پروژه‌ا" />
 			</Card>
 		</>
 	);

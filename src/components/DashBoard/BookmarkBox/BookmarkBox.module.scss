@@ -1,8 +1,0 @@
-.box {
-  @apply h-[265px] flex flex-col justify-center rounded-lg !important;
-  border: 2px solid #ff7517 !important;
-}
-
-.bookmark_list {
-  @apply w-full overflow-x-scroll flex flex-row gap-8 p-3 !important;
-}

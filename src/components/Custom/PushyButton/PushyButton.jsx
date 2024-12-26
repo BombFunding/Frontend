@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 const PushyButton = ({ onClick, children }) => {
 	return (
 		<Button className={styles.login_button} onClick={onClick}>
-			<div className="font-vazirmatn flex place-self-center">
+			<div className={styles.text}>
 				{children}
 			</div>
 		</Button>

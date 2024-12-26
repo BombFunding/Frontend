@@ -1,0 +1,15 @@
+.container {
+	@apply border-solid p-[1.5vw] place-items-center;
+}
+
+.comment_label {
+	@apply flex gap-[1vw] p-[2vw];
+}
+
+.comment_icon {
+    @apply h-[2.75vw] place-self-center;
+}
+
+.comment_text {
+    @apply place-content-center text-black font-vazirmatn;
+}
