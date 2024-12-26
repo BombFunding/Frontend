@@ -6,6 +6,7 @@ function CustomInput({
 	type,
 	value,
 	className,
+	holderClassName,
 	inputClassName,
 	name,
 	onChange,
@@ -19,7 +20,7 @@ function CustomInput({
 	}, [value]);
 	return (
 		<>
-			<div className="relative group mt-6">
+			<div className={`relative group mt-6 ${holderClassName}`}>
 				{register ? (
 					<input
 						{...register(name)}

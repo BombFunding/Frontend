@@ -17,7 +17,7 @@ import ChargeAccount from "@/Pages/ChargeAccount/ChargeAccount";
 import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
 import { Loading } from "@/components/Loading/Loading";
 import Editor from "@/components/Editor/Editor";
-import ProjectEditor from "@/Pages/ProjectEditor/ProjectEditor";
+import ProjectEditor from "@/Pages/ProjectDashboard/ProjectDashboard";
 import StarBoard from "@/Pages/StarBoard/StarBoard";
 import BaseUserDashBoard from "@/components/DashBoard/BaseUserDashBoard/BaseUserDashBoard";
 
