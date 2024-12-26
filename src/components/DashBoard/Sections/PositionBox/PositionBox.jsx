@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import AddPositionForm from "@/components/Forms/DashBoardForms/AddPositionForm/AddPositionForm";
 import { getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import EmptySection from "@/components/EmptySection/EmptySection";
 
 const PositionBox = () => {
 	const [open, setOpen] = useState(false);
@@ -23,6 +24,13 @@ const PositionBox = () => {
 	}, []);
 	return (
 		<div className={styles.position_box}>
+			<div>
+				{positions.length === 0 ? (
+					<EmptySection type="پوزیشن" />
+				) : (
+					<></>
+				)}
+			</div>
 			<div className={styles.create_position}>
 				<Drawer open={open}>
 					<DrawerTrigger>
@@ -42,12 +50,13 @@ const PositionBox = () => {
 							setPositions={setPositions}
 						/>
 						<DrawerClose asChild>
-							<button
+							<Button
+								variant="outline"
 								className="font-vazirmatn"
 								onClick={() => setOpen(false)}
 							>
 								بازگشت
-							</button>
+							</Button>
 						</DrawerClose>
 					</DrawerContent>
 				</Drawer>

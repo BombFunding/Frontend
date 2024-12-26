@@ -3,7 +3,9 @@ import { Button } from "@/components/ui/button";
 const PushyButton = ({ onClick, children }) => {
 	return (
 		<Button className={styles.login_button} onClick={onClick}>
-			{children}
+			<div className={styles.text}>
+				{children}
+			</div>
 		</Button>
 	);
 };

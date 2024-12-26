@@ -1,0 +1,9 @@
+.box {
+	@apply p-[1vw] flex flex-row justify-center rounded-lg h-full;
+	border: 2px solid #ff7517;
+}
+
+.project_list {
+	@apply grid grid-flow-col gap-8 p-3;
+	overflow-x: auto;
+}

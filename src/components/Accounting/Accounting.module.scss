@@ -1,0 +1,19 @@
+.container {
+	@apply border-solid h-full border-2 rounded-lg border-bomborange p-[1vw] flex flex-col items-center justify-evenly;
+}
+
+.text_section {
+	@apply flex gap-[1vw] p-[2vw] self-center;
+}
+
+.logo {
+	@apply h-[2.75vw] place-self-center;
+}
+
+.accounting {
+	@apply h-[3vw] place-content-center text-[2vw];
+}
+
+.balance {
+    @apply rtl;
+}
