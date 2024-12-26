@@ -81,7 +81,6 @@ const InvestorDashBoard = () => {
 	return (
 		<>
 			<Card className={styles.card_style}>
-				{/* <PersonalInfo loading={loading} /> */}
 				<PersonalInfo loading={loading} />
 				{/* <Card
 					className={`bg-bomborange text-white px-5 py-3 flex gap-2 justify-end items-center`}

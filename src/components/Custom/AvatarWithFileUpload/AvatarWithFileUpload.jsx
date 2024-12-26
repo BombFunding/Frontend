@@ -5,17 +5,12 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import ErrorMessage from "@/components/messages/ErrorMessage/ErrorMessage";
 import { toast } from "react-toastify";
 import { postImageData } from "@/Services/ApiClient/Services";
-
-const AvatarWithFileUpload = ({
-	className,
-	defaultAvatar,
-	avatarFileState,
-}) => {
+import styles from "./AvatarWithFileUpload.module.scss";
+const AvatarWithFileUpload = ({ className, avatarFileState }) => {
 	const [imageURL, setImageURL] = avatarFileState ?? useState("");
 	const [imageLoading, setImageLoading] = useState(false);
 	const fileInputRef = useRef(null);
 
-	// Function to handle file input change
 	const handleImageChange = (event) => {
 		const file = event.target.files[0];
 		if (file) {
@@ -55,23 +50,14 @@ const AvatarWithFileUpload = ({
 		}
 	};
 
-	// Function to trigger file input click
-	const handleAvatarClick = () => {
-		fileInputRef.current.click();
-	};
-
 	return (
 		<div className={`${className}`} style={{ textAlign: "center" }}>
 			<Avatar
-				// src={imageURL || AVATARIMG} // Display a default avatar image if none is selected
-				// alt="User Avatar"
-				// size="large" // Customize size according to your preference
-				onClick={handleAvatarClick} // Trigger file selection on avatar click
-				// style={{ cursor: "pointer" }} // Change cursor to pointer indicating it's clickable
-				className={`w-[12vw] h-[12vw] translate-y-[5vw] translate-x-[-3vw] border-solid ring-[0.4vw] ring-bomborange z-[50] absolute flex justify-center items-center object-cover`}
+				onClick={() => fileInputRef.current.click()}
+				className={styles.profile}
 			>
-				<div className="w-full h-full top-2/3 absolute bg-black opacity-25" />
-				<CameraAltIcon className="absolute top-[70%] text-white opacity-90" />
+				<div className={styles.shadow} />
+				<CameraAltIcon className={styles.camera_icon} />
 				<AvatarImage
 					src={imageURL || AVATARIMG}
 					alt="User Avatar"
@@ -82,9 +68,9 @@ const AvatarWithFileUpload = ({
 			<input
 				type="file"
 				accept="image/*"
-				style={{ display: "none" }} // Hide the file input element
-				ref={fileInputRef} // Attach input to useRef
-				onChange={handleImageChange} // Handle file selection
+				style={{ display: "none" }}
+				ref={fileInputRef}
+				onChange={handleImageChange}
 			/>
 		</div>
 	);

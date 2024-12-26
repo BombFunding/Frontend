@@ -2,7 +2,6 @@ import styles from "./StartupDashBoard.module.scss";
 import { Card } from "@/components/ui/card";
 import PositionBox from "../Sections/PositionBox/PositionBox";
 import Accounting from "@/components/Accounting/Accounting";
-import StartupProfiles from "@/components/StartupProfiles/StartupProfiles";
 // import CommentSection from "@/components/CommentSection/CommentSection";
 import PersonalInfo from "@/components/PersonalInfo/PersonalInfo";
 import { useEffect, useState } from "react";
@@ -70,16 +69,7 @@ const StartupDashBoard = () => {
 			setLoading(false);
 		});
 	}, []);
-	if (loading)
-		return (
-			<div
-				className={
-					"flex justify-center items-center w-[100vw] h[100vh]"
-				}
-			>
-				<Loading />
-			</div>
-		);
+	if (loading) return <Loading />;
 
 	return (
 		<>

@@ -1,4 +1,3 @@
-import BaseUserDashBoard from "@/components/DashBoard/BaseUserDashBoard/BaseUserDashBoard";
 import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
 import StartupDashBoard from "@/components/DashBoard/StartupDashBoard/StartupDashBoard";
 import useTokenStore from "@/stores/TokenStore";
@@ -17,8 +16,6 @@ const DashBoard = () => {
 			return <StartupDashBoard />;
 		case "investor":
 			return <InvestorDashBoard />;
-		case "basic":
-			return <BaseUserDashBoard />;
 		default:
 			return <Error />;
 	}

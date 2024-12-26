@@ -6,7 +6,7 @@ const ProjectItem = ({ header, name }) => {
 	return (
 		<Card className={styles.container}>
 			<img src={header} className={styles.image} />
-			<Label className="p-[2vw] flex place-self-center text-center text-xl">
+			<Label className={styles.text}>
 				{name}
 			</Label>
 		</Card>

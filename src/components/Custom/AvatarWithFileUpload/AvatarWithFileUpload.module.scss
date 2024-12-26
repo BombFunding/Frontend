@@ -1,0 +1,11 @@
+.profile {
+	@apply w-[12vw] h-[12vw] hover:cursor-pointer translate-y-[5vw] translate-x-[-3vw] border-solid ring-[0.4vw] ring-bomborange z-[50] absolute flex justify-center items-center object-cover;
+}
+
+.shadow {
+	@apply w-full h-full top-3/4 absolute bg-black opacity-25;
+}
+
+.camera_icon {
+	@apply absolute top-[80%] text-white opacity-90;
+}
