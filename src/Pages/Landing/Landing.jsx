@@ -119,8 +119,7 @@ const Landing = () => {
 			<div style={{ width: '100vw', height: 'auto', overflow: 'hidden' }}>
 			<img src={landing7} alt="Landing Image" style={{ width: '100%', height: 'auto' }} />
 			</div>
-
-			
+						
 		</>
 
 		

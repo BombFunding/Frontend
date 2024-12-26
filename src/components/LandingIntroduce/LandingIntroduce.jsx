@@ -12,6 +12,7 @@ import img7 from "../../assets/landing7.png";
 import img8 from "../../assets/landing8.png";
 import img9 from "../../assets/landing9.jpg";
 import BarChart from './BarChart';
+import FlipAnimation from "@/components/LandingIntroduce/FlipAnimation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -179,7 +180,7 @@ const App = () => {
         </div>
         <div className={styles.content}>
           <h1 className={`${styles.title} font-vazirmatn text-[3vw] text-right`}>
-            جایی که ایده ها زنده میشوند...
+        <FlipAnimation/>
           </h1>
           <p className="font-vazirmatn text-[1.2vw] mt-4 text-right">
             همین امروز بیزینس خودتو شروع کن و به جمع صدها استارتاپ موفق در بمب فاندینگ بپیوند.
