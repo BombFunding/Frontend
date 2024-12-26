@@ -35,7 +35,16 @@ const mockup = {
 
 const InvestorDashBoard = () => {
 	const [loading, setLoading] = useState(false);
-	const { setFullname, setUsername, setBio, setAvatar } = useProfileStore();
+	const {
+		setFullname,
+		setUsername,
+		setBio,
+		setAvatar,
+		setHeader,
+		setEmail,
+		setPhone,
+		setBalance,
+	} = useProfileStore();
 	console.log("Investor dashboard");
 	useEffect(() => {
 		setLoading(true);
@@ -46,8 +55,16 @@ const InvestorDashBoard = () => {
 			);
 			setUsername(data.base_profile.name);
 			setBio(data.base_profile.bio);
+			setEmail(data.base_profile.email);
+			setPhone(data.base_profile.phone);
 			setAvatar(
 				`http://104.168.46.4:8000${data.base_profile.profile_picture}`
+			);
+			setHeader(
+				`http://104.168.46.4:8000${data.base_profile.header_picture}`
+			);
+			getData(`/balance/balance/`).then((data) =>
+				setBalance(data.balance)
 			);
 			setLoading(false);
 		});
@@ -125,7 +142,9 @@ const InvestorDashBoard = () => {
 						<Accounting />
 					</div>
 					<div className="flex flex-col w-4/6 gap-2">
-						<Label className={styles.label_style}>پروژه‌های سرمایه گذاری شده</Label>
+						<Label className={styles.label_style}>
+							پروژه‌های سرمایه گذاری شده
+						</Label>
 						<ProjectBox type="پروژه‌ا" />
 					</div>
 				</div>
