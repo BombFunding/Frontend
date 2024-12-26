@@ -53,8 +53,11 @@ const AnimatedText = ({
     return () => clearTimeout(timeout);
   }, [isInView]);
 
+  // تشخیص زبان متن و تعیین جهت نمایش
+  const isRtl = textArray.some(line => /[\u0600-\u06FF]/.test(line)); // بررسی حضور حروف عربی/فارسی
+
   return (
-    <Wrapper className={className}>
+    <Wrapper className={className} dir={isRtl ? "rtl" : "ltr"}>
       <span className="sr-only">{textArray.join(" ")}</span>
       <motion.span
         ref={ref}
@@ -266,14 +269,13 @@ const App = () => {
           />
         </div>
         <div className={styles.content}>
-          <AnimatedText
+        <AnimatedText
           el="h2"
-          text={[
-            "BOMB",
-            "FUNDING"
-          ]}
+          text={["BOMB FUNDING"]}
           repeatDelay={5000}
-        />
+            className="text-left text-[4vw] font-bold text-[#FF7517] League Gothic"
+          />
+
           <h1 className={`${styles.title} font-vazirmatn text-[3vw] text-right`}>
         <FlipAnimation/>
           </h1>
