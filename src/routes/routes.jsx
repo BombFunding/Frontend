@@ -15,6 +15,8 @@ import DashBoard from "@/Pages/DashBoard/DashBoard.jsx";
 import ChargeAccount from "@/Pages/ChargeAccount/ChargeAccount";
 import ProjectEditor from "@/Pages/ProjectEditor/ProjectEditor";
 import StarBoard from "@/Pages/StarBoard/StarBoard";
+import BaseUserDashBoard from "@/components/DashBoard/BaseUserDashBoard/BaseUserDashBoard";
+import AboutUs from "@/Pages/AboutUs/AboutUs";
 import ProjectItem from "@/components/DashBoard/ProjectItem/ProjectItem";
 
 export const router = createBrowserRouter([
@@ -51,11 +53,19 @@ export const router = createBrowserRouter([
 				path: "/starboard",
 				element: <StarBoard />,
 			},
+			{
+				path: "/AboutUs",
+				element: <AboutUs />,
+			},
 		],
 	},
 	{
 		element: <PrivateLayout />,
 		children: [
+			{
+				path: "/test",
+				element: <BaseUserDashBoard />,
+			},
 			{
 				path: "/EditProfile",
 				element: <EditProfile />,
