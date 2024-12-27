@@ -426,7 +426,7 @@ function AboutUs() {
 								className="rtl"
 								name="میلاد زارعی"
 								role="لیدر تیم بک‌اند و دوآپس"
-								description="مهارت "
+								description="مهارت‌های زیادی داره و موقعش که بشه وارد گادمود میشه"
 								picture={MiladZarei}
 							/>
 
