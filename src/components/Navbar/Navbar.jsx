@@ -29,9 +29,13 @@ function Navbar() {
   }, []);
   return (
     <nav
-      className={`flex flex-col justify-around bg-bomborange sm:h-24 top-0 fixed right-0 z-40 w-[100vw]`}
+      className={`flex flex-col justify-around h-12 top-0 fixed right-0 z-40 w-screen`}
     >
-      <div className="flex flex-row bg-bomborange w-full h-12 justify-between items-center px-6">
+      <div
+        className={`flex flex-row ${
+          isOpen ? "bg-black" : "bg-bomborange"
+        } w-full h-12 justify-between items-center px-6`}
+      >
         <div className="px-4 flex justify-between items-center w-full">
           <div
             className="flex text-white hover:cursor-pointer"
@@ -90,7 +94,7 @@ function Navbar() {
         </div>
       </div>
       <div
-        className={`h-[2vh] w-[100vw] z-[-20] place-items-center ${styles.dropdown}`}
+        className={`h-12 bg-bomborange w-screen z-[-20] place-items-center ${styles.dropdown}`}
       >
         {/* <NavbarDropDown /> */}
         <NavbarDropDownSCN />

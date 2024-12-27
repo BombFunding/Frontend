@@ -1,5 +1,5 @@
 import { useClickAway } from "react-use";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Squash as Hamburger } from "hamburger-react";
 // import { routes } from "../../routes/routes";
@@ -12,8 +12,11 @@ import { BsHeartPulse } from "react-icons/bs";
 import { LuPlane } from "react-icons/lu";
 import { FaBookOpen } from "react-icons/fa";
 import { FaCoins } from "react-icons/fa";
-import { SlLogin } from "react-icons/sl";
-
+import { SlLogin, SlLogout } from "react-icons/sl";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import { getData } from "@/Services/ApiClient/Services";
+import useTokenStore from "@/stores/TokenStore";
+// import { pic } from "../../assets/defaultpfp.png";
 function HamburgerMenu({ isOpen, setOpen, mode, token }) {
   const routes = [
     token
@@ -74,15 +77,31 @@ function HamburgerMenu({ isOpen, setOpen, mode, token }) {
         },
       ],
     },
+    {
+      title: "خروج",
+      href: "#",
+      Icon: SlLogout,
+    },
   ];
-
   // const [isOpen, setOpen] = useState(false);
   const ref = useRef(null);
   const [showCategories, toggleShowCategories] = useState(false);
-  console.log(showCategories);
+  const [userdata, setUserdata] = useState({ username: "", fullname: "" });
+  const { deleteToken } = useTokenStore();
+  const { avatar } = useProfileStore();
+
+  useEffect(() => {
+    getData(`/auth/view_own_baseuser_profile/`).then((data) => {
+      setUserdata({
+        username: data.base_profile.name,
+        fullname:
+          data.base_profile.first_name + " " + data.base_profile.last_name,
+      });
+    });
+  }, []);
 
   return (
-    <div ref={ref} className={mode}>
+    <div ref={ref} className={`${mode}`}>
       <Hamburger toggled={isOpen} size={20} toggle={setOpen} />
       <AnimatePresence>
         {isOpen && (
@@ -91,13 +110,14 @@ function HamburgerMenu({ isOpen, setOpen, mode, token }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            // className="fixed left-0 shadow-4xl right-0 top-[3.5rem] p-5 pt-0 bg-neutral-950 border-b border-b-white/20"
-            className="fixed left-0 shadow-4xl right-0 top-[3rem] p-5 overflow-hidden overflow-y-scroll pt-0 bg-neutral-950 border-b border-b-white/20"
+            className="fixed left-0 shadow-4xl h-screen right-0 p-5 overflow-hidden overflow-y-scroll pt-0 bg-neutral-950 border-b border-b-white/20"
           >
             <ul className="grid gap-2">
               {routes.map((route, idx) => {
                 const { Icon } = route;
-
+                if (route.title === "خروج" && !token) {
+                  return null;
+                }
                 return (
                   <motion.li
                     initial={{ scale: 0, opacity: 0 }}
@@ -109,27 +129,52 @@ function HamburgerMenu({ isOpen, setOpen, mode, token }) {
                       damping: 20,
                       delay: 0.1 + idx / 10,
                     }}
-                    className={`h-fit w-full p-[0.08rem] rounded-xl bg-gradient-to-tr from-neutral-700 via-neutral-950 ${
+                    className={`w-full p-[0.08rem] rounded-xl bg-gradient-to-tr from-neutral-700 via-neutral-950 ${
                       !showCategories ? "to-neutral-700" : "to-neutral-950"
                     }`}
                   >
                     <a
-                      onClick={() =>
-                        toggleShowCategories(() => !showCategories)
-                      }
+                      onClick={(e) => {
+                        if (route.categories) {
+                          e.preventDefault(); // Prevent navigation
+                          toggleShowCategories((prev) => !prev);
+                        } else if (route.title === "خروج") {
+                          deleteToken();
+                        }
+                      }}
+                      href={route.href}
                       className={`flex items-center justify-between w-full p-5 ${
                         showCategories ? "" : "rounded-xl"
                       } bg-neutral-950`}
                     >
-                      {route.categories ? "" : <Icon className="text-xl" />}
-                      {route.categories && (
+                      {route.categories ? (
                         <Icon
-                          className={`transition-transform ${
+                          className={`transition-transform duration-300 ${
                             showCategories ? "rotate-180" : ""
                           }`}
                         />
+                      ) : route.title !== "پروفایل" ? (
+                        <Icon className="text-xl" />
+                      ) : (
+                        <div className="w-[90px] rounded-full overflow-hidden border-solid border-2 border-bomborange">
+                          <img
+                            className="object-cover p-[0.125rem] rounded-full"
+                            src={avatar}
+                          />
+                        </div>
                       )}
-                      <span className="flex gap-1 text-lg">{route.title}</span>
+                      {route.title !== "پروفایل" ? (
+                        <span className="flex gap-1 text-lg">
+                          {route.title}
+                        </span>
+                      ) : (
+                        <div className="flex flex-col gap-2">
+                          <div className="font-extrabold text-[4.5vw]">
+                            {userdata.fullname}
+                          </div>
+                          <div className="text-[2vw]">@{userdata.username}</div>
+                        </div>
+                      )}
                     </a>
                     {showCategories &&
                       route.categories &&
@@ -143,20 +188,18 @@ function HamburgerMenu({ isOpen, setOpen, mode, token }) {
                               type: "spring",
                               stiffness: 260,
                               damping: 20,
-                              // delay: 0.1 + (5 + i) / 10,
                             }}
                             key={i}
                             className="px-3 text-[#7e8089]"
                           >
                             <a
-                              onClick={() => setOpen((prev) => !prev)}
+                              onClick={() => setOpen(false)}
                               className={
                                 "flex justify-between w-full p-1 bg-inherit"
                               }
                               href={category.href}
                             >
                               <Icon className="text-lg" />
-
                               <span className="flex gap-1 text-md">
                                 {category.title}
                               </span>

@@ -55,7 +55,7 @@ const components = [
     subs: {
       "ارز دیجیتال": "/financial",
       بیمه: "/financial",
-      "صندوق سرمایه گذاری": "/financial",
+      "سرمایه گذاری": "/financial",
     },
     description: "Visually or semantically separates content.",
   },
@@ -117,7 +117,7 @@ function NavbarDropDownSCN() {
     //     })}
     //   </NavigationMenuList>
     // </NavigationMenu>
-    <div className="w-screen -translate-y-2 h-7 grid grid-cols-6 px-[9vw] gap-[1.5vw] sm:text-[1.6vw] md:text-[1.5vw] lg:text-[1.2vw]">
+    <div className="w-screen -translate-y-2 h-7 mt-6 grid grid-cols-6 px-[9vw] gap-[1.5vw] sm:text-[1.6vw] md:text-[1.5vw] lg:text-[1.2vw] font-vazirmatn">
       {components.map((comp, i) => {
         return (
           <div
@@ -130,7 +130,7 @@ function NavbarDropDownSCN() {
               {comp.title}
               <FiChevronDown
                 className={`mt-1.5 ml-[0.2vw] transition ${
-                  selected == i ? "rotate-180  duration-400" : ""
+                  selected == i ? "rotate-180  duration-300" : ""
                 }`}
               />
             </div>
