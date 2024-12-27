@@ -20,6 +20,8 @@ import Editor from "@/components/Editor/Editor";
 import ProjectEditor from "@/Pages/ProjectEditor/ProjectEditor";
 import StarBoard from "@/Pages/StarBoard/StarBoard";
 import BaseUserDashBoard from "@/components/DashBoard/BaseUserDashBoard/BaseUserDashBoard";
+import AboutUs from "@/Pages/AboutUs/AboutUs";
+import BlankPage from "@/Pages/Balnkpage";
 
 export const router = createBrowserRouter([
   {
@@ -59,6 +61,10 @@ export const router = createBrowserRouter([
       {
         path: "/EditProfile",
         element: <EditProfile />,
+      },
+	  {
+        path: "/AboutUs",
+        element: <BlankPage />,
       },
       {
         path: "/DashBoard",
