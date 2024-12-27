@@ -92,6 +92,7 @@ function HamburgerMenu({ isOpen, setOpen, mode, token }) {
   const ref = useRef(null);
   const [showCategories, toggleShowCategories] = useState(false);
   const [userdata, setUserdata] = useState({ username: "", fullname: "" });
+  const [color, setColor] = useState("black");
   const { deleteToken } = useTokenStore();
   const { avatar } = useProfileStore();
 
@@ -105,9 +106,23 @@ function HamburgerMenu({ isOpen, setOpen, mode, token }) {
     });
   }, []);
 
+  const handleToggle = (value) => {
+    setOpen(value);
+    if (value === true) {
+      setColor("gray");
+    } else {
+      setColor("black");
+    }
+  };
+
   return (
     <div ref={ref} className={`${mode}`}>
-      <Hamburger toggled={isOpen} size={20} toggle={setOpen} />
+      <Hamburger
+        toggled={isOpen}
+        size={20}
+        toggle={handleToggle}
+        color={color}
+      />
       <AnimatePresence>
         {isOpen && (
           <motion.div
