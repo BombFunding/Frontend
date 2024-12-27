@@ -62,7 +62,11 @@ const MetaBox = ({ className }) => {
     <>
       <div className={`overflow-hidden flex flex-row-reverse ${className}`}>
         <div className="w-3/5 relative">
-          <img src={bannerFile} alt="project image" className="h-full aspect-[5/2]" />
+          <img
+            src={bannerFile}
+            alt="project image"
+            className="h-full aspect-[16/9] object-cover"
+          />
           <button
             className={`${styles.btn} btn h-6 rounded-full bg-bomborange text-white absolute bottom-5 left-5`}
             onClick={handleBannerClick}
