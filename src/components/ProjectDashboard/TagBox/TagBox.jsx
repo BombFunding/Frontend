@@ -15,6 +15,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import EmptySection from "@/components/EmptySection/EmptySection";
+import { Label } from "@/components/ui/label";
 
 const TagBox = ({ className }) => {
   const tagCategories = [
@@ -31,6 +32,7 @@ const TagBox = ({ className }) => {
   ];
   return (
     <div className={`${className} flex flex-col items-center p-5`}>
+      <Label>دسته بندی ها :</Label>
       <Tags />
       <Popover>
         <PopoverTrigger>

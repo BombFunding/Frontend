@@ -7,13 +7,14 @@ import MetaBox from "@/components/ProjectDashboard/MetaBox/MetaBox";
 import PositionBox from "@/components/DashBoard/Sections/PositionBox/PositionBox";
 import InvestorDialogBox from "@/components/ProjectDashboard/InvestorDialogBox/InvestorDialogBox";
 import TagBox from "@/components/ProjectDashboard/TagBox/TagBox";
+import styles from "./ProjectDashboard.module.scss"
 
 const ProjectEditor = () => {
   const { projectId } = useParams();
   return (
     <>
-      <div className="min-h-screen bg-[#FFF5E1] relative flex flex-col gap-5 items-center justify-start rtl">
-        <div className="relative rounded-lg mt-5 p-5 w-11/12 shadow-sm bg-bomborange text-white">
+      <div className={styles.full_page}>
+        <div className={styles.typer}>
           <TypewriterComponent
             options={{
               typeSpeed: 120,
@@ -37,18 +38,22 @@ const ProjectEditor = () => {
             }}
           />
         </div>
-        <MetaBox className={"w-11/12 bg-white rounded-lg shadow-md"} />
+        <MetaBox className={"w-11/12 h-full md:h-[50vh] bg-white rounded-lg shadow-md"} />
         <PositionBox className={"w-11/12"} />
-        <div className="w-11/12 flex justify-center items-center bg-bomborange rounded-lg shadow-md p-5">
-          <button className="btn bg-white text-black hover:bg-black hover:text-white">
-            شخصی سازی پروژه
-          </button>
-        </div>
-        <div className="w-11/12 flex justify-between items-center gap-5">
-          <InvestorDialogBox
-            className={"bg-white shadow-sm rounded-lg w-1/2 flex justify-center items-center"}
-          />
-          <TagBox className={"bg-white shadow-sm rounded-lg w-1/2"} />
+        <div className={styles.down_box}>
+          <div className="flex flex-col gap-2 items-center w-full md:w-1/2">
+            <div className="w-full flex justify-center items-center bg-bomborange rounded-lg shadow-md p-5">
+              <button className="btn bg-white text-black hover:bg-black hover:text-white">
+                شخصی سازی پروژه
+              </button>
+            </div>
+            <InvestorDialogBox
+              className={
+                "bg-white shadow-sm rounded-lg w-full flex justify-center items-center"
+              }
+            />
+          </div>
+          <TagBox className={"bg-white shadow-sm h-full rounded-lg md:w-1/2 w-full"} />
         </div>
       </div>
     </>

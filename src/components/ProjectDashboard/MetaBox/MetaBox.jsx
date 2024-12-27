@@ -60,8 +60,8 @@ const MetaBox = ({ className }) => {
 
   return (
     <>
-      <div className={`overflow-hidden flex flex-row-reverse ${className}`}>
-        <div className="w-3/5 relative">
+      <div className={`overflow-hidden flex flex-col md:flex-row-reverse justify-between ${className}`}>
+        <div className="w-full md:w-3/5 relative flex justify-end">
           <img
             src={bannerFile}
             alt="project image"
@@ -81,7 +81,7 @@ const MetaBox = ({ className }) => {
             onChange={handleBannerChange} // Handle file selection
           />
         </div>
-        <div className="w-2/5 p-5 flex flex-col justify-evenly items-center relative">
+        <div className="w-full md:w-2/5 p-5 flex flex-col justify-evenly items-center relative">
           <Label className="w-full text-right">نام پروژه</Label>
           <Label className="w-full text-right mb-6">توضیحات</Label>
           <div className="absolute bottom-4">
