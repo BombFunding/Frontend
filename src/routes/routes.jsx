@@ -24,81 +24,81 @@ import AboutUs from "@/Pages/AboutUs/AboutUs";
 import BlankPage from "@/Pages/Balnkpage";
 
 export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <PublicLayout />,
-    errorElement: <Error />,
-    children: [
-      {
-        index: true,
-        element: <Landing />,
-      },
-      {
-        path: "/Profile/:username",
-        element: <Profile />,
-      },
-      {
-        path: "/reset-password/:uid/:token",
-        element: <ChangePassword />,
-      },
-      {
-        path: "/profile/:username",
-        element: <Profile />,
-      },
-      {
+	{
+		path: "/",
+		element: <PublicLayout />,
+		errorElement: <Error />,
+		children: [
+			{
+				index: true,
+				element: <Landing />,
+			},
+			{
+				path: "/Profile/:username",
+				element: <Profile />,
+			},
+			{
+				path: "/reset-password/:uid/:token",
+				element: <ChangePassword />,
+			},
+			{
+				path: "/profile/:username",
+				element: <Profile />,
+			},
+			{
 				path: "/starboard",
 				element: <StarBoard />,
 			},
-    ],
-  },
-  {
-    element: <PrivateLayout />,
-    children: [
-      {
-        path: "/test",
-        element: <BaseUserDashBoard />,
-      },
-      {
-        path: "/EditProfile",
-        element: <EditProfile />,
-      },
-	  {
-        path: "/AboutUs",
-        element: <BlankPage />,
-      },
-      {
-        path: "/DashBoard",
-        element: <DashBoard />,
-      },
-      {
-        path: "/ChargeAccount",
-        element: <ChargeAccount />,
-      },
-      {
-        path: "/Editor/:projectId",
-        element: <ProjectEditor />,
-      },
-    ],
-  },
-  {
-    element: <NoNavbarLayout />,
-    children: [
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/signup",
-        element: <Signup />,
-      },
-      {
-        path: "/emailverification",
-        element: <EmailVerification />,
-      },
-      {
-        path: "/forgetpassword",
-        element: <ForgetPassword />,
-      },
-    ],
-  },
+			{
+				path: "/AboutUs",
+				element: <AboutUs />,
+			},
+		],
+	},
+	{
+		element: <PrivateLayout />,
+		children: [
+			{
+				path: "/test",
+				element: <BaseUserDashBoard />,
+			},
+			{
+				path: "/EditProfile",
+				element: <EditProfile />,
+			},
+			{
+				path: "/DashBoard",
+				element: <DashBoard />,
+			},
+			{
+				path: "/ChargeAccount",
+				element: <ChargeAccount />,
+			},
+			{
+				path: "/Editor/:projectId",
+				element: <ProjectEditor />,
+			},
+		],
+	},
+	{
+		element: <NoNavbarLayout />,
+		children: [
+			{
+				path: "/login",
+				element: <Login />,
+			},
+			{
+				path: "/signup",
+				element: <Signup />,
+			},
+			{
+				path: "/emailverification",
+				element: <EmailVerification />,
+			},
+			{
+				path: "/forgetpassword",
+				element: <ForgetPassword />,
+			},
+		],
+	},
 ]);
