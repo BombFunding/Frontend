@@ -8,7 +8,7 @@ import { FiChevronDown, FiSearch } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { GrTechnology } from "react-icons/gr";
 import { IoMdBrush } from "react-icons/io";
-import { BsHeartPulse } from "react-icons/bs";
+import { BsHeartPulse, BsInfoCircle } from "react-icons/bs";
 import { LuPlane } from "react-icons/lu";
 import { FaBookOpen } from "react-icons/fa";
 import { FaCoins } from "react-icons/fa";
@@ -81,6 +81,11 @@ function HamburgerMenu({ isOpen, setOpen, mode, token }) {
       title: "خروج",
       href: "#",
       Icon: SlLogout,
+    },
+    {
+      title: "درباره ما",
+      href: "/aboutus",
+      Icon: BsInfoCircle,
     },
   ];
   // const [isOpen, setOpen] = useState(false);
