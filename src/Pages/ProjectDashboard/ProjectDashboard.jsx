@@ -5,6 +5,8 @@ import UnderNavbar from "@/assets/UnderNavbar.svg?react";
 import TypewriterComponent from "typewriter-effect";
 import MetaBox from "@/components/ProjectDashboard/MetaBox/MetaBox";
 import PositionBox from "@/components/DashBoard/Sections/PositionBox/PositionBox";
+import InvestorDialogBox from "@/components/ProjectDashboard/InvestorDialogBox/InvestorDialogBox";
+import TagBox from "@/components/ProjectDashboard/TagBox/TagBox";
 
 const ProjectEditor = () => {
   const { projectId } = useParams();
@@ -38,9 +40,16 @@ const ProjectEditor = () => {
         <MetaBox className={"w-11/12 bg-white rounded-lg shadow-md"} />
         <PositionBox className={"w-11/12"} />
         <div className="w-11/12 flex justify-center items-center bg-bomborange rounded-lg shadow-md p-5">
-            <button className="btn bg-white text-black hover:bg-black hover:text-white">شخصی سازی پروژه</button>
+          <button className="btn bg-white text-black hover:bg-black hover:text-white">
+            شخصی سازی پروژه
+          </button>
         </div>
-
+        <div className="w-11/12 flex justify-between items-center gap-5">
+          <InvestorDialogBox
+            className={"bg-white shadow-sm rounded-lg w-1/2 flex justify-center items-center"}
+          />
+          <TagBox className={"bg-white shadow-sm rounded-lg w-1/2"} />
+        </div>
       </div>
     </>
   );
