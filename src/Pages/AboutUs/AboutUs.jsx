@@ -1,3 +1,10 @@
+import TeamCard from "./TeamCard/TeamCard";
+import ErfanTajik from "../../assets/ErfanTajik.png";
+import AlirezaRahimi from "../../assets/AlirezaRahimi.png";
+import AminFiroozi from "../../assets/AminFiroozi.png";
+import TaranehAbdollahi from "../../assets/TaranehAbdollahi.png";
+import MiladZarei from "../../assets/MiladZarei.png";
+import AliShahrezaei from "../../assets/AliShahrezaei.png";
 function AboutUs() {
 	return (
 		<div className="ml-5">
@@ -131,7 +138,7 @@ function AboutUs() {
 									+۱۰
 								</div>
 								<div className="flex-1">
-									<h4 className="text-xl text-gray-900 font-semibold mb-2">
+									<h4 className="text-xl text-gray-900 font-semibold mb-2 font-vazirmatn">
 										استارتاپ های موفق در سایت ما
 									</h4>
 									<p className="text-xs text-gray-500 leading-5 font-vazirmatn">
@@ -259,8 +266,8 @@ function AboutUs() {
 						</h2>
 					</div>
 					<div className="pb-10">
-						<div className="items-center flex">
-							<div className="swiper-slide">
+						<div className="items-center grid grid-cols-2 gap-[3vw]">
+							{/* <div className="swiper-slide">
 								<div className="group w-full flex-wrap flex items-center gap-8 transition-all duration-500 lg:flex-nowrap ">
 									<div className=" w-full lg:w-48 h-64">
 										<img
@@ -329,7 +336,7 @@ function AboutUs() {
 								</div>
 							</div>
 							<div className="swiper-slide">
-								<div className="group w-full flex-wrap flex items-center gap-8 flex-col md:flex-row transition-all duration-500 lg:flex-nowrap ml-20">
+								<div className="group w-full flex-wrap flex items-center gap-8 flex-col md:flex-row transition-all duration-500 lg:flex-nowrap ">
 									<div className=" w-full lg:w-48 h-64 max-lg:max-w-[204px] max-lg:mx-auto">
 										<img
 											src="https://pagedone.io/asset/uploads/1696238869.png"
@@ -395,7 +402,47 @@ function AboutUs() {
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> */}
+							<TeamCard
+								name="عرفان تاجیک"
+								role="لیدر تیم فرانت‌اند"
+								description="با خلاقیت هرچه تمام دنبال تکنولوژی‌های روز دنیاست و جدیدترین‌هارو به ارمغان میاره"
+								picture={ErfanTajik}
+							/>
+							<TeamCard
+								name="امین فیروزی"
+								role="لیدر تیم"
+								description="لیدر تیم که همه هماهنگی هارو انجام میده و ویژگی‌های جدید رو به سایت اضافه میکنه"
+								picture={AminFiroozi}
+							/>
+							<TeamCard
+								className="rtl"
+								name="ترانه عبداللهی"
+								role="فول‌استک دولوپر"
+								description="همیشه سعی میکنه هرجایی مشکلی وجود داره خودشو برسونه و کمک کنه و خلاقیت عالی داره"
+								picture={TaranehAbdollahi}
+							/>
+							<TeamCard
+								className="rtl"
+								name="میلاد زارعی"
+								role="لیدر تیم بک‌اند و دوآپس"
+								description="مهارت "
+								picture={MiladZarei}
+							/>
+
+							<TeamCard
+								name="علیرضا رحیمی"
+								role="فرانت‌اند دولوپر"
+								description="همیشه تمام تلاششو میکنه که مفید واقع بشه و دنبال خلاقیت میره"
+								picture={AlirezaRahimi}
+							/>
+
+							<TeamCard
+								name="علی شاهرضایی"
+								role="فرانت‌اند دولوپر"
+								description="با اینکه خلاقیت زیادی نداره اما تلاش زیادی میکنه که جبران کنه"
+								picture={AliShahrezaei}
+							/>
 						</div>
 						<div className="swiper-pagination" />
 						<div className="swiper-scrollbar" />

@@ -21,7 +21,6 @@ import ProjectEditor from "@/Pages/ProjectEditor/ProjectEditor";
 import StarBoard from "@/Pages/StarBoard/StarBoard";
 import BaseUserDashBoard from "@/components/DashBoard/BaseUserDashBoard/BaseUserDashBoard";
 import AboutUs from "@/Pages/AboutUs/AboutUs";
-import BlankPage from "@/Pages/Balnkpage";
 
 export const router = createBrowserRouter([
 	{
