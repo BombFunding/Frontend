@@ -85,7 +85,6 @@ const TeamItem = ({ setMembers, memberData, className }) => {
 					</DialogContent>
 				</Dialog>
 			</div>
-			<Separator />
 			<div className="flex flex-row items-center justify-center gap-2">
 				<Drawer open={editMemberOpen}>
 					<DrawerTrigger>

@@ -1,45 +1,19 @@
-import PublicCommonProfile from "@/components/Profile/CommonProfile/PublicCommonProfile/PublicCommonProfile";
-import useTokenStore from "@/stores/TokenStore";
 import Error from "../Error/Error";
-import StartupProfile from "@/components/Profile/Startup/Startup";
-import InvestorProfile from "@/components/Profile/Investor/Investor";
-import BaseUserProfile from "@/components/Profile/BaseUser/BaseUser";
+import useTokenStore from "@/stores/TokenStore";
+import StartupProfile from "@/components/Profile/StartupProfile/StartupProfile";
+import InvestorProfile from "@/components/Profile/InvestorProfile/InvestorProfile";
 
 const Profile = () => {
-	return <div>
-		 <PublicCommonProfile />;
-		</div>
-
-	// const userType = useTokenStore((state) => state.userType);
-	// switch (userType) {
-	//   case "startup":
-	//     return (
-	//       <>
-	//         <PublicCommonProfile className="w-[85vw]" />
-	//         <StartupProfile />
-	//       </>
-	//     );
-	//     break;
-	//   case "investor":
-	//     return (
-	//       <>
-	//         <PublicCommonProfile className="w-[85vw]" />
-	//         <InvestorProfile />
-	//       </>
-	//     );
-	//     break;
-	//   case "basic":
-	//     return (
-	//       <>
-	//         <PublicCommonProfile className="w-[85vw]" />
-	//         <BaseUserProfile />
-	//       </>
-	//     );
-	//     break;
-	//   default:
-	//     return <Error />;
-	//     break;
-	// }
+	const { userType } = useTokenStore();
+	console.log(userType);
+	switch (userType) {
+		case "startup":
+			return <StartupProfile />;
+		case "investor":
+			return <InvestorProfile />;
+		default:
+			return <Error />;
+	}
 };
 
 export default Profile;

@@ -45,6 +45,22 @@ const useProfileStore = create(
 			setBio: (bio) => set((pre) => ({ ...pre, bio: bio })),
 			setAvatar: (avatar) => set((pre) => ({ ...pre, avatar: avatar })),
 			setHeader: (header) => set((pre) => ({ ...pre, header: header })),
+			logout: () =>
+				set({
+					profileId: null,
+					fullname: null,
+					username: null,
+					phone: null,
+					email: null,
+					bio: null,
+					avatar: null,
+					header: null,
+					loading: false,
+					balance: 0,
+					likeCount: 0,
+					positions: [],
+					socialMedias: {},
+				}),
 			setLikeCount: (count) =>
 				set((pre) => ({ ...pre, likeCount: count })),
 			setPositions: (positions) =>

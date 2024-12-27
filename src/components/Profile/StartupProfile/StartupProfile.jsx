@@ -9,13 +9,8 @@ import { useParams } from "react-router-dom";
 import { getData } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
 import { Separator } from "@/components/ui/separator";
-import Like from "@/components/Like/Like";
-import Bookmark from "@/components/Bookmark/Bookmark";
-import useProfileStore from "@/stores/ProfileStore/ProfileStore";
-import Likes from "@/components/Likes/Likes";
-import CommentSection from "@/components/CommentSection/CommentSection";
 
-const PublicCommonProfile = ({ className }) => {
+const StartupProfile = ({ className }) => {
 	const { username } = useParams();
 	const [profileInfo, setProfileInfo] = React.useState({});
 	const [loading, setLoading] = React.useState(true);
@@ -59,57 +54,34 @@ const PublicCommonProfile = ({ className }) => {
 
 	return (
 		<Card
-			className={`${className} bg-slate-50 overflow-hidden font-vazirmatn w-[80vw] translate-y-[3vw] mb-[6vw] place-self-center pt-[10vw]`}
+			className={`${className} bg-slate-50 overflow-hidden font-vazirmatn w-[90vw] translate-y-[3vw] mb-[6vw] place-self-center`}
 		>
-			<div className={`h-1/3 overflow-hidden relative`}>
-				<img
-					className="transition-all duration-1000 ease-in-out top-0 md:top-[-100%] absolute"
-					src={profileInfo.banner}
-				/>
-				<div className="transition-all duration-500 ease-in-out absolute bg-white opacity-[27%]  w-[70%] aspect-square rounded-full top-[-30%] left-[-10%] md:top-[-60%]"></div>
-			</div>
-			<div className="relative">
-				<div className="flex justify-center items-center shadow-lg w-[100px] h-[100px] rounded-full overflow-hidden bg-white absolute top-[-70px] right-5">
-					<div className="w-[90px] rounded-full overflow-hidden">
-						<img
-							className="object-cover"
-							src={profileInfo.avatar}
-						/>
-					</div>
-				</div>
+			<img
+				className="w-full h-[15vw] rounded-t-lg object-cover"
+				src={profileInfo.banner}
+			/>
+			<img
+				className="w-[12vw] h-[12vw] rounded-full translate-x-[74vw] translate-y-[-9vw] ring-bomborange absolute ring-[0.4vw] z-[100] object-cover"
+				src={profileInfo.avatar}
+			/>
+			<div className="relative pt-[3vw]">
 				<div className="relative">
-					<div className="flex justify-center items-center shadow-lg w-[100px] h-[100px] rounded-full overflow-hidden bg-white absolute top-[-70px] right-5">
-						<div className="w-[90px] rounded-full overflow-hidden">
-							<img
-								className="object-cover"
-								src={profileInfo.avatar}
-							/>
-						</div>
-					</div>
 					<div className="p-8 flex flex-col gap-3 font-vazirmatn">
 						<div className="flex rtl justify-between">
-							<Label className=" text-base">اطلاعات کاربری</Label>
-							<div className="flex place-items-center gap-2">
-								<Like
-									_username={username}
-									count={profileInfo.likeCount}
-								/>
-
-								<Bookmark username={username} />
-							</div>
+							<Label className="text-2xl">اطلاعات کاربری</Label>
 						</div>
 						<Separator className="my-2 bg-gray-300" />
 						<div className="flex flex-col justify-evenly mr-3 gap-1">
-							<Label>:نام</Label>
-							<p className="text-xs">
+							<Label className="text-xl">:نام</Label>
+							<p className="text-base">
 								{profileInfo.firstName +
 									" " +
 									profileInfo.lastName}
 							</p>
-							<Label>:ایمیل</Label>
-							<p className="text-xs">{profileInfo.email}</p>
-							<Label>:بیوگرافی</Label>
-							<p className="text-xs">{profileInfo.bio}</p>
+							<Label className="text-xl">:ایمیل</Label>
+							<p className="text-base">{profileInfo.email}</p>
+							<Label className="text-xl">:بیوگرافی</Label>
+							<p className="text-base">{profileInfo.bio}</p>
 						</div>
 						<div className="flex justify-center items-center gap-6 absolute">
 							{profileInfo.linkedinAccoun && (
@@ -138,9 +110,8 @@ const PublicCommonProfile = ({ className }) => {
 					</div>
 				</div>
 			</div>
-			<CommentSection />
 		</Card>
 	);
 };
 
-export default PublicCommonProfile;
+export default StartupProfile;

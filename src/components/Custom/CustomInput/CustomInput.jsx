@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./CustomInput.module.scss";
 function CustomInput({
 	placeholder,
@@ -17,6 +17,27 @@ function CustomInput({
 			setEmpty(false);
 		}
 	}, [value]);
+	const [isAutofilled, setIsAutofilled] = useState(false);
+
+	useEffect(() => {
+		const input = document.getElementById("meow");
+
+		const checkAutofill = () => {
+			if (input.matches(":-webkit-autofill")) {
+				setIsAutofilled(true);
+			} else {
+				setIsAutofilled(false);
+			}
+		};
+
+		input.addEventListener("animationstart", checkAutofill);
+		input.addEventListener("input", checkAutofill);
+
+		return () => {
+			input.removeEventListener("animationstart", checkAutofill);
+			input.removeEventListener("input", checkAutofill);
+		};
+	}, []);
 	return (
 		<>
 			<div className="relative group mt-6">
@@ -31,20 +52,19 @@ function CustomInput({
 							onChange && onChange(e.target.value);
 						}}
 						value={value}
-						className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
-                    text-black text-left transition duration-150 ease-in-out focus:outline-none focus:border-bomborange ${inputClassName}`}
+						className={`peer ${styles.CustomInput} ${inputClassName}`}
 					/>
 				) : (
 					<input
 						type={type}
 						name={name}
 						autoFocus={autofocus}
+						id="meow"
 						onChange={(e) => {
 							setEmpty(e.target.value.length === 0);
 							onChange(e.target.value);
 						}}
-						className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
-                    text-black text-left transition duration-150 ease-in-out focus:outline-none focus:border-bomborange ${inputClassName}`}
+						className={`peer ${styles.CustomInput} ${inputClassName}`}
 					/>
 				)}
 				<label
