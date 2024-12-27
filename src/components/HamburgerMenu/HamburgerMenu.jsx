@@ -16,11 +16,6 @@ import { SlLogin } from "react-icons/sl";
 
 function HamburgerMenu({ isOpen, setOpen, mode, token }) {
   const routes = [
-    {
-      title: "خانه",
-      href: "/",
-      Icon: BiHomeAlt2,
-    },
     token
       ? {
           title: "پروفایل",
@@ -33,44 +28,54 @@ function HamburgerMenu({ isOpen, setOpen, mode, token }) {
           Icon: SlLogin,
         },
     {
+      title: "خانه",
+      href: "/",
+      Icon: BiHomeAlt2,
+    },
+    {
       title: "جستجو",
       href: "",
       Icon: FiSearch,
     },
+    {
+      title: "دسته بندی ها",
+      href: "",
+      Icon: FiChevronDown,
+      categories: [
+        {
+          title: "تکنولوژی",
+          href: "/",
+          Icon: GrTechnology,
+        },
+        {
+          title: "هنری",
+          href: "/",
+          Icon: IoMdBrush,
+        },
+        {
+          title: "سلامت",
+          href: "/",
+          Icon: BsHeartPulse,
+        },
+        {
+          title: "گردشگری",
+          href: "/",
+          Icon: LuPlane,
+        },
+        {
+          title: "آموزشی",
+          href: "/",
+          Icon: FaBookOpen,
+        },
+        {
+          title: "مالی",
+          href: "/",
+          Icon: FaCoins,
+        },
+      ],
+    },
   ];
 
-  const categories = [
-    {
-      title: "تکنولوژی",
-      href: "/",
-      Icon: GrTechnology,
-    },
-    {
-      title: "هنری",
-      href: "/",
-      Icon: IoMdBrush,
-    },
-    {
-      title: "سلامت",
-      href: "/",
-      Icon: BsHeartPulse,
-    },
-    {
-      title: "گردشگری",
-      href: "/",
-      Icon: LuPlane,
-    },
-    {
-      title: "آموزشی",
-      href: "/",
-      Icon: FaBookOpen,
-    },
-    {
-      title: "مالی",
-      href: "/",
-      Icon: FaCoins,
-    },
-  ];
   // const [isOpen, setOpen] = useState(false);
   const ref = useRef(null);
   const [showCategories, toggleShowCategories] = useState(false);
@@ -97,88 +102,71 @@ function HamburgerMenu({ isOpen, setOpen, mode, token }) {
                   <motion.li
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
+                    key={idx}
                     transition={{
                       type: "spring",
                       stiffness: 260,
                       damping: 20,
                       delay: 0.1 + idx / 10,
                     }}
-                    key={route.title}
-                    className="w-full p-[0.08rem] rounded-xl bg-gradient-to-tr from-neutral-800 via-neutral-950 to-neutral-700"
+                    className={`h-fit w-full p-[0.08rem] rounded-xl bg-gradient-to-tr from-neutral-700 via-neutral-950 ${
+                      !showCategories ? "to-neutral-700" : "to-neutral-950"
+                    }`}
                   >
                     <a
-                      onClick={() => setOpen((prev) => !prev)}
-                      className={
-                        "flex items-center justify-between w-full p-5 rounded-xl bg-neutral-950"
+                      onClick={() =>
+                        toggleShowCategories(() => !showCategories)
                       }
-                      href={route.href}
+                      className={`flex items-center justify-between w-full p-5 ${
+                        showCategories ? "" : "rounded-xl"
+                      } bg-neutral-950`}
                     >
-                      <Icon className="text-xl" />
+                      {route.categories ? "" : <Icon className="text-xl" />}
+                      {route.categories && (
+                        <Icon
+                          className={`transition-transform ${
+                            showCategories ? "rotate-180" : ""
+                          }`}
+                        />
+                      )}
                       <span className="flex gap-1 text-lg">{route.title}</span>
                     </a>
+                    {showCategories &&
+                      route.categories &&
+                      route.categories.map((category, i) => {
+                        const { Icon } = category;
+                        return (
+                          <motion.li
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 260,
+                              damping: 20,
+                              // delay: 0.1 + (5 + i) / 10,
+                            }}
+                            key={i}
+                            className="px-3 text-[#7e8089]"
+                          >
+                            <a
+                              onClick={() => setOpen((prev) => !prev)}
+                              className={
+                                "flex justify-between w-full p-1 bg-inherit"
+                              }
+                              href={category.href}
+                            >
+                              <Icon className="text-lg" />
+
+                              <span className="flex gap-1 text-md">
+                                {category.title}
+                              </span>
+                            </a>
+                          </motion.li>
+                        );
+                      })}
                   </motion.li>
                 );
               })}
-              <motion.li
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 260,
-                  damping: 20,
-                  delay: 0.1 + routes.length / 10,
-                }}
-                className={`h-fit w-full p-[0.08rem] rounded-xl bg-gradient-to-tr from-neutral-700 via-neutral-950 ${
-                  !showCategories ? "to-neutral-700" : "to-neutral-950"
-                }`}
-              >
-                <a
-                  onClick={() => toggleShowCategories(() => !showCategories)}
-                  className={`flex items-center justify-between w-full p-5 ${
-                    showCategories ? "" : "rounded-xl"
-                  } bg-neutral-950`}
-                >
-                  {/* <Icon className="text-xl" /> */}
-                  <FiChevronDown
-                    className={`transition-transform ${
-                      showCategories ? "rotate-180" : ""
-                    }`}
-                  />
-                  <span className="flex gap-1 text-lg">{"دسته بندی ها"}</span>
-                </a>
-                {showCategories &&
-                  categories.map((category, i) => {
-                    const { Icon } = category;
-                    return (
-                      <motion.li
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 260,
-                          damping: 20,
-                          // delay: 0.1 + (5 + i) / 10,
-                        }}
-                        key={i}
-                        className="px-3 text-[#7e8089]"
-                      >
-                        <a
-                          onClick={() => setOpen((prev) => !prev)}
-                          className={
-                            "flex justify-between w-full p-1 bg-inherit"
-                          }
-                          href={category.href}
-                        >
-                          <Icon className="text-lg" />
-
-                          <span className="flex gap-1 text-md">
-                            {category.title}
-                          </span>
-                        </a>
-                      </motion.li>
-                    );
-                  })}
-              </motion.li>
             </ul>
           </motion.div>
         )}

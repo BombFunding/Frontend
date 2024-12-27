@@ -29,7 +29,7 @@ function Navbar() {
   }, []);
   return (
     <nav
-      className={`flex flex-col justify-around bg-bomborange h-24 top-0 fixed right-0 z-40 w-[100vw]`}
+      className={`flex flex-col justify-around bg-bomborange sm:h-24 top-0 fixed right-0 z-40 w-[100vw]`}
     >
       <div className="flex flex-row bg-bomborange w-full h-12 justify-between items-center px-6">
         <div className="px-4 flex justify-between items-center w-full">
@@ -50,7 +50,7 @@ function Navbar() {
               </>
             )}
           </div>
-          <div>
+          <div className={`${styles.searchbar}`}>
             <SearchBar
               setResults={setResults}
               setIsFocused={setIsFocused}
@@ -85,10 +85,13 @@ function Navbar() {
             isOpen={isOpen}
             setOpen={setOpen}
             mode={"sm:hidden font-vazirmatn"}
+            token={TOKEN}
           />
         </div>
       </div>
-      <div className="h-[2vh] w-[100vw] z-[-20] place-items-center">
+      <div
+        className={`h-[2vh] w-[100vw] z-[-20] place-items-center ${styles.dropdown}`}
+      >
         {/* <NavbarDropDown /> */}
         <NavbarDropDownSCN />
       </div>
