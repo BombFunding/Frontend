@@ -1,4 +1,3 @@
-import { useClickAway } from "react-use";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Squash as Hamburger } from "hamburger-react";
@@ -78,14 +77,14 @@ function HamburgerMenu({ isOpen, setOpen, mode, token }) {
       ],
     },
     {
-      title: "خروج",
-      href: "#",
-      Icon: SlLogout,
-    },
-    {
       title: "درباره ما",
       href: "/aboutus",
       Icon: BsInfoCircle,
+    },
+    {
+      title: "خروج",
+      href: "#",
+      Icon: SlLogout,
     },
   ];
   // const [isOpen, setOpen] = useState(false);
