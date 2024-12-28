@@ -19,6 +19,7 @@ import Editor from "@/components/Editor/Editor";
 import ProjectEditor from "@/Pages/ProjectDashboard/ProjectDashboard";
 import StarBoard from "@/Pages/StarBoard/StarBoard";
 import ProjectItem from "@/components/DashBoard/ProjectItem/ProjectItem";
+import Likes from "@/components/Likes/Likes";
 
 export const router = createBrowserRouter([
 	{
@@ -34,7 +35,7 @@ export const router = createBrowserRouter([
 				path: "/test",
 				element: (
 					<div className="p-20">
-						<ProjectItem />
+						<Likes />
 					</div>
 				),
 			},

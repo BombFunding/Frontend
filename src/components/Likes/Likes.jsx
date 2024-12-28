@@ -2,6 +2,7 @@ import styles from "./Likes.module.scss";
 function Likes({ count, className }) {
 	return (
 		<button className={`${styles.Btn} ${className}`}>
+			<span className={`${styles.likeCount}`}>{count}</span>
 			<span className={`${styles.leftContainer}`}>
 				<svg
 					viewBox="0 0 24 24"
@@ -14,7 +15,7 @@ function Likes({ count, className }) {
 				</svg>
 				<span className={`${styles.like}`}>Likes</span>
 			</span>
-			<span className={`${styles.likeCount}`}>{count}</span>
+			
 		</button>
 	);
 }

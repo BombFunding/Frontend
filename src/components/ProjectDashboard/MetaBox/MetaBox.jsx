@@ -8,10 +8,12 @@ import { DrawerDialog } from "@/components/Custom/DrawerDialog/DrawerDialog";
 import Button from "@/components/EditButton/EditButton";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 import MetaForm from "@/components/Forms/ProjectDashboardForms/MetaForm/MetaForm";
+import Likes from "@/components/Likes/Likes";
+import Baner from "../../../assets/baner.jpg";
 
 const MetaBox = ({ className }) => {
   const fileInputRef = useRef(null);
-  const [bannerFile, setBannerFile] = React.useState(null);
+  const [bannerFile, setBannerFile] = React.useState(Baner);
 
   const handleBannerClick = () => {
     fileInputRef.current.click();
@@ -85,9 +87,23 @@ const MetaBox = ({ className }) => {
           />
         </div>
         <div className="w-full md:w-2/5 p-5 flex flex-col justify-evenly items-center relative">
-          <Label className="w-full text-right">نام پروژه</Label>
-          <Label className="w-full text-right mb-6">توضیحات</Label>
-          <div className="absolute bottom-4">
+          <div className="w-full text-right flex gap-3">
+            <Label className="text-xl text-black">نام پروژه</Label>
+            <Label className="place-self-center text-base">یک دو سه چهار</Label>
+          </div>
+          <div className="w-full text-right mb-6 flex gap-3">
+            <Label className="text-xl text-black">توضیحات</Label>
+            <Label className="place-self-center">
+              حالا چطوری می‌شه از این فرصت استفاده کرد؟ چالش‌ها و نکته‌های ورود
+              به این حوزه چیه؟ همه رو توی این وبینار رایگان بهت می‌گیم. حالا
+              چطوری می‌شه از این فرصت استفاده کرد؟ چالش‌ها و نکته‌های ورود به
+              این حوزه چیه؟ همه رو توی این وبینار رایگان بهت می‌گیم. حالا چطوری
+              می‌شه از این فرصت استفاده کرد؟ چالش‌ها و نکته‌های ورود به این حوزه
+              چیه؟ همه رو توی این وبینار رایگان بهت می‌گیم.
+            </Label>
+          </div>
+          <div className="absolute bottom-4 flex">
+            {/* <Likes /> */}
             <DrawerDialog
               triggerButton={
                 <button
@@ -106,6 +122,10 @@ const MetaBox = ({ className }) => {
             >
               <MetaForm />
             </DrawerDialog>
+            <Likes
+              className="z-[10] translate-x-[-23vw] translate-y-[-1vw]"
+              count={10}
+            />
           </div>
         </div>
       </div>

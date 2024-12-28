@@ -2,6 +2,7 @@ import Editor from "@/components/Editor/Editor";
 import React from "react";
 import { useParams } from "react-router-dom";
 import UnderNavbar from "@/assets/UnderNavbar.svg?react";
+import picture from "../../assets/baner.jpg"
 import TypewriterComponent from "typewriter-effect";
 import MetaBox from "@/components/ProjectDashboard/MetaBox/MetaBox";
 import PositionBox from "@/components/DashBoard/Sections/PositionBox/PositionBox";
