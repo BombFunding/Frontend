@@ -78,7 +78,7 @@ function StartupCard() {
 
       {showToast && (
         <div
-          className="fixed bottom-4 right-4 bg-green-100 text-green-800 p-3 rounded-lg shadow-lg flex items-center"
+          className="fixed bottom-4 left-1/2 bg-green-100 text-green-800 p-3 text-[1.5vw] rounded-lg shadow-lg flex items-center"
           style={{ zIndex: 1000 }}
         >
           <FaCheckCircle className="ml-2 text-green-600 font-vazirmatn" />
