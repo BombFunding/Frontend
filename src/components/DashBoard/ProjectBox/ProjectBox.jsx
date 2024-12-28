@@ -2,7 +2,7 @@ import styles from "./ProjectBox.module.scss";
 import ProjectItem from "../ProjectItem/ProjectItem";
 import EmptySection from "@/components/EmptySection/EmptySection";
 
-const ProjectBox = ({ projects, className, type }) => {
+const ProjectBox = ({ projects, className, type, add }) => {
 	return (
 		<div className={`${className} ${styles.box}`}>
 			{projects?.length > 0 ? (
@@ -11,9 +11,11 @@ const ProjectBox = ({ projects, className, type }) => {
 						<ProjectItem
 							header={project.header}
 							name={project.name}
+							add={false}
 							key={index}
 						/>
 					))}
+					{add ? <ProjectItem add={add} /> : <></>}
 				</div>
 			) : (
 				<EmptySection type={type} />

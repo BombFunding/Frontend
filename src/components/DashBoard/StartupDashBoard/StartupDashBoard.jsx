@@ -2,9 +2,10 @@ import styles from "./StartupDashBoard.module.scss";
 import { Card } from "@/components/ui/card";
 import PositionBox from "../Sections/PositionBox/PositionBox";
 import Accounting from "@/components/Accounting/Accounting";
+import baner from "../../../assets/baner.jpg";
 // import CommentSection from "@/components/CommentSection/CommentSection";
 import PersonalInfo from "@/components/PersonalInfo/PersonalInfo";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import TeamBox from "../Sections/TeamBox/TeamBox";
@@ -12,7 +13,6 @@ import { Label } from "@/components/ui/label";
 import { Loading } from "@/components/Loading/Loading";
 import { BarChart1 } from "@/components/BarChart/BarChart1";
 import BarChart2 from "@/components/BarChart/BarChart2";
-
 import Likes from "@/components/Likes/Likes";
 import ProjectBox from "../ProjectBox/ProjectBox";
 const StartupDashBoard = () => {
@@ -92,7 +92,16 @@ const StartupDashBoard = () => {
 					</div>
 				</div>
 				<Label className={styles.label_style}>پروژه‌ها</Label>
-				<ProjectBox type="پروژه‌ا" />
+				<ProjectBox
+					type="پروژه‌ا"
+					projects={[
+						{ name: "mamad", header: baner },
+						{ name: "mamad", header: baner },
+						{ name: "mamad", header: baner },
+						{ name: "mamad", header: baner },
+					]}
+					add={true}
+				/>
 				<Label className={styles.label_style}>آمار</Label>
 				<div
 					className={`flex flex-wrap gap-6 p-6 rounded-md ${styles.chartbox}`}
