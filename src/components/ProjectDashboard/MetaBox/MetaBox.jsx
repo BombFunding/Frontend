@@ -7,6 +7,7 @@ import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import { DrawerDialog } from "@/components/Custom/DrawerDialog/DrawerDialog";
 import Button from "@/components/EditButton/EditButton";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
+import MetaForm from "@/components/Forms/ProjectDashboardForms/MetaForm/MetaForm";
 
 const MetaBox = ({ className }) => {
   const fileInputRef = useRef(null);
@@ -60,7 +61,9 @@ const MetaBox = ({ className }) => {
 
   return (
     <>
-      <div className={`overflow-hidden flex flex-col md:flex-row-reverse justify-between ${className}`}>
+      <div
+        className={`overflow-hidden flex flex-col md:flex-row-reverse justify-between ${className}`}
+      >
         <div className="w-full md:w-3/5 relative flex justify-end">
           <img
             src={bannerFile}
@@ -101,7 +104,7 @@ const MetaBox = ({ className }) => {
                 </button>
               }
             >
-              <div className="m-5">hello</div>
+              <MetaForm />
             </DrawerDialog>
           </div>
         </div>
