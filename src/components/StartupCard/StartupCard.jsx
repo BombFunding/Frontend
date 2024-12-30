@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/accordion";
 import { useNavigate } from "react-router-dom";
 import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
+import { useEffect, useState } from "react";
+import { getData } from "@/Services/ApiClient/Services";
 function StartupCard({
 	image,
 	name,
@@ -24,7 +26,13 @@ function StartupCard({
 	description,
 	onImageLoad,
 }) {
+	const [liked, setLiked] = useState();
 	const Navigate = useNavigate();
+	useEffect(() => {
+		getData(`/like/check/${id}/`).then((data) => {
+			setLiked(data.has_liked);
+		});
+	}, []);
 	return (
 		<div className={`${styles.container}`}>
 			<img
@@ -47,7 +55,11 @@ function StartupCard({
 					<h1 className="text-[1.2vw] place-self-center">{name}</h1>
 				</div>
 				<div className="flex">
-					<Like className="pr-[1vw] pl-[1vw] place-self-center" likeCount={likeCount} />
+					<Like
+						className="pr-[1vw] pl-[1vw] place-self-center"
+						likeCount={likeCount}
+						liked={liked}
+					/>
 					<Bookmark className="pl-[1.5vw] place-self-center" />
 				</div>
 			</div>
