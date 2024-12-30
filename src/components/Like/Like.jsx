@@ -14,25 +14,25 @@ function Like({ className, _username }) {
 	const { accessToken } = useTokenStore();
 	const { username } = useProfileStore();
 	useEffect(() => {
-		postData("/profile_statics/check-like/", {
-			liker_username: username,
-			profile_username: _username,
-		}).then((d) => {
-			console.log(d);
-			if (d.is_liked) {
-				setChecked(true);
-			}
-		});
-		getData(`/startup/get_startup_profile/${_username}/`).then((data) => {
-			console.log("data: ", data);
-			setUserProfileId(data.profile.id);
-			getData(`/startup/profile/${data.profile.id}/vote/`).then(
-				(data1) => {
-					console.log("data1: ", data1);
-					setLikes(data1.vote_count);
-				}
-			);
-		});
+		// postData("/profile_statics/check-like/", {
+		// 	liker_username: username,
+		// 	profile_username: _username,
+		// }).then((d) => {
+		// 	console.log(d);
+		// 	if (d.is_liked) {
+		// 		setChecked(true);
+		// 	}
+		// });
+		// getData(`/startup/get_startup_profile/${_username}/`).then((data) => {
+		// 	console.log("data: ", data);
+		// 	setUserProfileId(data.profile.id);
+		// 	getData(`/startup/profile/${data.profile.id}/vote/`).then(
+		// 		(data1) => {
+		// 			console.log("data1: ", data1);
+		// 			setLikes(data1.vote_count);
+		// 		}
+		// 	);
+		// });
 	}, []);
 
 	const onChange = () => {

@@ -2,10 +2,15 @@ import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import FilterSection from "@/components/FilterSection/FilterSection";
 import StartupPagination from "@/components/StartupPagination/StartupPagination";
 import { getData } from "@/Services/ApiClient/Services";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function StarBoard() {
 	const [search, setSearch] = useState("");
+	// useEffect(() => {
+	// 	getData("/starboard/most-recent/").then((data) => {
+	// 		console.log("data", data);
+	// 	});
+	// }, []);
 	const onSubmit = (e) => {
 		e.preventDefault();
 		getData("/starboard/top-startups/", {
@@ -30,7 +35,7 @@ function StarBoard() {
 			</div>
 			<FilterSection />
 			n استارت آپ یافت شد
-			<StartupPagination />
+			<StartupPagination  />
 		</form>
 	);
 }
