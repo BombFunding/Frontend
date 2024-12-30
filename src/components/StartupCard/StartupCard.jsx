@@ -55,7 +55,7 @@ function StartupCard({
 						likeCount={likeCount}
             projectId={id}
 					/>
-					<Bookmark className="pl-[1.5vw] place-self-center" />
+					<Bookmark className="pl-[1.5vw] place-self-center" projectId={id} />
 				</div>
 			</div>
 			<Accordion type="single" collapsible className="w-full p-3">
