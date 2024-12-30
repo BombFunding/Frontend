@@ -22,14 +22,14 @@ function StartupCard({
 	subcategories,
 	likeCount,
 	description,
-  onImageLoad
+	onImageLoad,
 }) {
 	const Navigate = useNavigate();
 	return (
 		<div className={`${styles.container}`}>
 			<img
 				src={image ? image : mockuppic2}
-				className={`${styles.image}`}
+				className={`${styles.image} hover:cursor-pointer`}
 				onClick={() => Navigate(`/projects/${id}`)}
 				onLoad={onImageLoad}
 			/>
@@ -47,7 +47,7 @@ function StartupCard({
 					<h1 className="text-[1.2vw] place-self-center">{name}</h1>
 				</div>
 				<div className="flex">
-					<Like className="pr-[1vw] pl-[1vw] place-self-center" />
+					<Like className="pr-[1vw] pl-[1vw] place-self-center" likeCount={likeCount} />
 					<Bookmark className="pl-[1.5vw] place-self-center" />
 				</div>
 			</div>

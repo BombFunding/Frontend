@@ -15,16 +15,13 @@ function StartupPagination() {
 	const {
 		pageNumber,
 		setPageNumber,
-		searchQuery,
-		setSearchQuery,
 		resultsPerPage,
-		setResultsPerPage,
 		loading,
 		setLoading,
 		projects,
-		setProjects,
 		pages,
 	} = useStarboardStore();
+	console.log(projects);
 	const [loadedImagesCount, setLoadedImagesCount] = useState(0);
 	const handleImageLoad = () => {
 		setLoadedImagesCount((prev) => prev + 1);
@@ -39,21 +36,6 @@ function StartupPagination() {
 		}
 	}, [loadedImagesCount, projects]);
 
-	useEffect(() => {
-		console.log(projects.length);
-		console.log(resultsPerPage);
-	}, []);
-
-	// useEffect(() => {
-	// 	getDataParams("/starboard/most-recent/", null, {
-	// 		results_per_page: resultsPerPage * 4,
-	// 		page_number: pageNumber,
-	// 	}).then((data) => {
-	// 		console.log(data);
-	// 		setProjects(data);
-	// 		setLoading(false);
-	// 	});
-	// }, []);
 	return (
 		!loading && (
 			<>
@@ -74,11 +56,13 @@ function StartupPagination() {
 				<div className="m-[2vw] transition-all duration-300">
 					<Pagination>
 						<PaginationContent className="rtl">
-							<PaginationItem>
-								<PaginationLink className="px-[1.5vw] hover:cursor-pointer">
-									<SlArrowRight />
-								</PaginationLink>
-							</PaginationItem>
+							{pageNumber !== 1 && (
+								<PaginationItem>
+									<PaginationLink className="px-[1.5vw] hover:cursor-pointer">
+										<SlArrowRight />
+									</PaginationLink>
+								</PaginationItem>
+							)}
 							{pages.map(
 								(page, index) =>
 									pageNumber + page > 0 && (
@@ -104,11 +88,13 @@ function StartupPagination() {
 										</PaginationItem>
 									)
 							)}
-							<PaginationItem>
-								<PaginationLink className="px-[1.5vw] hover:cursor-pointer">
-									<SlArrowLeft />
-								</PaginationLink>
-							</PaginationItem>
+							{
+								<PaginationItem>
+									<PaginationLink className="px-[1.5vw] hover:cursor-pointer">
+										<SlArrowLeft />
+									</PaginationLink>
+								</PaginationItem>
+							}
 						</PaginationContent>
 					</Pagination>
 				</div>

@@ -28,7 +28,6 @@ function StarBoard() {
 			results_per_page: resultsPerPage,
 			page_number: pageNumber,
 		}).then((data) => {
-			console.log(data);
 			setProjects(data);
 			setLoading(false);
 		});
@@ -58,7 +57,8 @@ function StarBoard() {
 			</div>
 			<FilterSection setResultsPerPage={setResultsPerPage} />
 			<p className="rtl place-self-center">
-				{projects.length} استارت آپ یافت شد
+				{projects.length === 0 ? "هیچ استارت‌آپی یافت نشد" : `${projects.length} استارت‌آپ یافت شد`}
+				
 			</p>
 			<StartupPagination />
 		</form>

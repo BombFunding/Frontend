@@ -6,9 +6,9 @@ import { toast } from "react-toastify";
 import CustomToast from "../Custom/CustomToast/CustomToast";
 import useTokenStore from "@/stores/TokenStore";
 import { useNavigate } from "react-router-dom";
-function Like({ className, _username }) {
+function Like({ className, _username, likeCount }) {
 	const Naviagte = useNavigate();
-	const [likes, setLikes] = useState(0);
+	const [likes, setLikes] = useState(likeCount);
 	const [userProfileId, setUserProfileId] = useState(null);
 	const [checked, setChecked] = useState(false);
 	const { accessToken } = useTokenStore();
