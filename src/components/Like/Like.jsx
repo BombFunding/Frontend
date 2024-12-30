@@ -1,18 +1,22 @@
 import styles from "./Like.module.scss";
 import { useEffect, useState } from "react";
-import { getData, postData } from "@/Services/ApiClient/Services";
+import { deleteData, getData, postData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { toast } from "react-toastify";
 import CustomToast from "../Custom/CustomToast/CustomToast";
 import useTokenStore from "@/stores/TokenStore";
 import { useNavigate } from "react-router-dom";
-function Like({ className, _username, likeCount, liked }) {
+function Like({ className, _username, likeCount, projectId }) {
 	const Naviagte = useNavigate();
 	const [likes, setLikes] = useState(likeCount);
 	const [userProfileId, setUserProfileId] = useState(null);
-	const [checked, setChecked] = useState(liked);
+	const [checked, setChecked] = useState(false);
 	const { accessToken } = useTokenStore();
-	useEffect(() => {setChecked(liked)}, [liked]);
+	useEffect(() => {
+		getData(`/like/check/${projectId}/`).then((data) => {
+			setChecked(data.has_liked);
+		});
+	}, []);
 	useEffect(() => {
 		// postData("/profile_statics/check-like/", {
 		// 	liker_username: username,
@@ -47,17 +51,13 @@ function Like({ className, _username, likeCount, liked }) {
 			return;
 		}
 		if (!checked) {
-			postData(`/startup/profile/${userProfileId}/vote/`, {
-				vote: 1,
-			}).then((data) => {
-				console.log(data);
+			postData(`/like/${projectId}/`).then((data) => {
+				console.log("liked", data);
 			});
 			setLikes((likes) => likes + 1);
 		} else {
-			postData(`/startup/profile/${userProfileId}/vote/`, {
-				vote: 0,
-			}).then((data) => {
-				console.log(data);
+			deleteData(`/like/${projectId}/`).then((data) => {
+				console.log("removed like", data);
 			});
 			setLikes((likes) => likes - 1);
 		}

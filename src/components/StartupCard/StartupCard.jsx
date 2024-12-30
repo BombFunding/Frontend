@@ -26,13 +26,8 @@ function StartupCard({
 	description,
 	onImageLoad,
 }) {
-	const [liked, setLiked] = useState();
 	const Navigate = useNavigate();
-	useEffect(() => {
-		getData(`/like/check/${id}/`).then((data) => {
-			setLiked(data.has_liked);
-		});
-	}, []);
+	
 	return (
 		<div className={`${styles.container}`}>
 			<img
@@ -58,7 +53,7 @@ function StartupCard({
 					<Like
 						className="pr-[1vw] pl-[1vw] place-self-center"
 						likeCount={likeCount}
-						liked={liked}
+            projectId={id}
 					/>
 					<Bookmark className="pl-[1.5vw] place-self-center" />
 				</div>
