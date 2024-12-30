@@ -40,7 +40,7 @@ export function DrawerDialog({ children, triggerButton, closeButton, title }) {
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>{triggerButton}</DrawerTrigger>
       <DrawerContent>
-        <DrawerTitle>{title ?? ""}</DrawerTitle>
+        <DrawerTitle className="p-4">{title ?? ""}</DrawerTitle>
         {children}
         <DrawerFooter className="flex flex-col items-center">
           <DrawerClose asChild>{closeButton}</DrawerClose>

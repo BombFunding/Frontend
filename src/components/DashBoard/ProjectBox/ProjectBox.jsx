@@ -5,8 +5,16 @@ import useProjectStore from "@/stores/ProjectStore/ProjectStore";
 import { use, useEffect, useState } from "react";
 import { getData } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
+import useProjectBox from "@/hooks/StartupDashboard/ProjectBoxHook";
+import useProjectBoxStore from "@/stores/ProjectStore/ProjectBoxStore";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
-const ProjectBox = ({ projects, className, type, add, loading }) => {
+const ProjectBox = ({ className, type, add }) => {
+  const { projects, loading, updateProjects } = useProjectBoxStore();
+  const { username } = useProfileStore();
+  useEffect(() => {
+    updateProjects(username);
+  }, []);
   if (loading) {
     return (
       <div className={`${className} ${styles.box}`}>

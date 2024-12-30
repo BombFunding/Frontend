@@ -15,7 +15,6 @@ import { BarChart1 } from "@/components/BarChart/BarChart1";
 import BarChart2 from "@/components/BarChart/BarChart2";
 import Likes from "@/components/Likes/Likes";
 import ProjectBox from "../ProjectBox/ProjectBox";
-import useProjectBox from "@/hooks/StartupDashboard/ProjectBoxHook";
 const StartupDashBoard = () => {
   const {
     username,
@@ -32,9 +31,7 @@ const StartupDashBoard = () => {
     setHeader,
     setBalance,
   } = useProfileStore();
-  const { projects: projectBoxProjects, loading: projectBoxLoading } =
-    useProjectBox();
-  console.log("projectBoxProjects: ", projectBoxProjects);
+  
   useEffect(() => {
     setLoading(true);
     getData(`/auth/view_own_baseuser_profile/`).then((data) => {
@@ -89,9 +86,7 @@ const StartupDashBoard = () => {
         </div>
         <Label className={styles.label_style}>پروژه‌ها</Label>
         <ProjectBox
-          type="پروژه‌ا"
-          projects={projectBoxProjects}
-          loading={projectBoxLoading}
+          type="پروژه‌"
           add={true}
         />
         <Label className={styles.label_style}>آمار</Label>
@@ -106,7 +101,7 @@ const StartupDashBoard = () => {
           </div>
         </div>
         <Label className={styles.label_style}>ذخیره شده</Label>
-        <ProjectBox type="پروژه‌ا" />
+        <ProjectBox type="پروژه‌" />
       </Card>
     </>
   );
