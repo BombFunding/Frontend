@@ -15,6 +15,7 @@ import { BarChart1 } from "@/components/BarChart/BarChart1";
 import BarChart2 from "@/components/BarChart/BarChart2";
 import Likes from "@/components/Likes/Likes";
 import ProjectBox from "../ProjectBox/ProjectBox";
+import useProjectBoxStore from "@/stores/ProjectStore/ProjectBoxStore";
 const StartupDashBoard = () => {
   const {
     username,
@@ -31,7 +32,7 @@ const StartupDashBoard = () => {
     setHeader,
     setBalance,
   } = useProfileStore();
-  
+
   useEffect(() => {
     setLoading(true);
     getData(`/auth/view_own_baseuser_profile/`).then((data) => {
@@ -85,10 +86,7 @@ const StartupDashBoard = () => {
           </div>
         </div>
         <Label className={styles.label_style}>پروژه‌ها</Label>
-        <ProjectBox
-          type="پروژه‌"
-          add={true}
-        />
+        <ProjectBox type="پروژه‌" add={true} />
         <Label className={styles.label_style}>آمار</Label>
         <div
           className={`flex flex-wrap gap-6 p-6 rounded-md ${styles.chartbox}`}
