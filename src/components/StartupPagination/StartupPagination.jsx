@@ -58,7 +58,15 @@ function StartupPagination() {
 						<PaginationContent className="rtl">
 							{pageNumber !== 1 && (
 								<PaginationItem>
-									<PaginationLink className="px-[1.5vw] hover:cursor-pointer">
+									<PaginationLink
+										className="px-[1.5vw] hover:cursor-pointer"
+										onClick={() => {
+											Navigate(
+												`/starboard/${pageNumber - 1}`
+											);
+											setPageNumber(pageNumber - 1);
+										}}
+									>
 										<SlArrowRight />
 									</PaginationLink>
 								</PaginationItem>
@@ -90,7 +98,15 @@ function StartupPagination() {
 							)}
 							{
 								<PaginationItem>
-									<PaginationLink className="px-[1.5vw] hover:cursor-pointer">
+									<PaginationLink
+										className="px-[1.5vw] hover:cursor-pointer"
+										onClick={() => {
+											Navigate(
+												`/starboard/${pageNumber + 1}`
+											);
+											setPageNumber(pageNumber + 1);
+										}}
+									>
 										<SlArrowLeft />
 									</PaginationLink>
 								</PaginationItem>
