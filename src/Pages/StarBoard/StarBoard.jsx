@@ -1,16 +1,38 @@
 import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import FilterSection from "@/components/FilterSection/FilterSection";
+import { Loading } from "@/components/Loading/Loading";
 import StartupPagination from "@/components/StartupPagination/StartupPagination";
-import { getData } from "@/Services/ApiClient/Services";
+import { getData, getDataParams } from "@/Services/ApiClient/Services";
+import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 function StarBoard() {
-	const [search, setSearch] = useState("");
-	// useEffect(() => {
-	// 	getData("/starboard/most-recent/").then((data) => {
-	// 		console.log("data", data);
-	// 	});
-	// }, []);
+	const { page } = useParams();
+	const {
+		pageNumber,
+		setPageNumber,
+		searchQuery,
+		setSearchQuery,
+		resultsPerPage,
+		setResultsPerPage,
+		loading,
+		setLoading,
+		projects,
+		setProjects,
+	} = useStarboardStore();
+	useEffect(() => {
+		setLoading(true);
+		setPageNumber(page ? Number(page) : 1);
+		getDataParams("/starboard/most-recent/", null, {
+			results_per_page: resultsPerPage,
+			page_number: pageNumber,
+		}).then((data) => {
+			console.log(data);
+			setProjects(data);
+			setLoading(false);
+		});
+	}, [pageNumber]);
 	const onSubmit = (e) => {
 		e.preventDefault();
 		getData("/starboard/top-startups/", {
@@ -21,6 +43,7 @@ function StarBoard() {
 			console.log(data);
 		});
 	};
+	if (loading) return <Loading />;
 	return (
 		<form
 			className="font-vazirmatn text-black w-[100vw]"
@@ -29,13 +52,15 @@ function StarBoard() {
 			<div className="m-10 place-content-center">
 				<CustomInput
 					placeholder="جستجو"
-					value={search}
-					onChange={setSearch}
+					value={searchQuery}
+					onChange={setSearchQuery}
 				/>
 			</div>
-			<FilterSection />
-			n استارت آپ یافت شد
-			<StartupPagination  />
+			<FilterSection setResultsPerPage={setResultsPerPage} />
+			<p className="rtl place-self-center">
+				{projects.length} استارت آپ یافت شد
+			</p>
+			<StartupPagination />
 		</form>
 	);
 }

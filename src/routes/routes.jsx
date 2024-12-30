@@ -52,7 +52,7 @@ export const router = createBrowserRouter([
 				element: <Profile />,
 			},
 			{
-				path: "/starboard",
+				path: "/starboard/:page?",
 				element: <StarBoard />,
 			},
 		],

@@ -14,6 +14,7 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useNavigate } from "react-router-dom";
+import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
 function StartupCard({
 	image,
 	name,
@@ -21,34 +22,34 @@ function StartupCard({
 	subcategories,
 	likeCount,
 	description,
+  onImageLoad
 }) {
 	const Navigate = useNavigate();
-	console.log(name, image);
 	return (
 		<div className={`${styles.container}`}>
 			<img
 				src={image ? image : mockuppic2}
 				className={`${styles.image}`}
 				onClick={() => Navigate(`/projects/${id}`)}
+				onLoad={onImageLoad}
 			/>
 			<Progress
 				value={10}
 				className={styles.progress_bar}
 				ProgressColor="bg-bomborange"
 			/>
-			<div className="flex">
-				<img
-					src={defaultpfp}
-					className="rounded-full w-[4vw] m-[1vw]"
-				/>
-				<h1 className="text-[1.2vw] place-self-center">
-					{name}
-					{/* {name
-						? name
-						: "این یک پوزیشن است؟ فکر کنم لورم ایپسام ایپسام ایپسام"} */}
-				</h1>
-				<Like className="pr-[1vw] pl-[1vw] place-self-center" />
-				<Bookmark className="pl-[1.5vw] place-self-center" />
+			<div className="flex justify-between">
+				<div className="flex">
+					<img
+						src={defaultpfp}
+						className="rounded-full w-[4vw] m-[1vw]"
+					/>
+					<h1 className="text-[1.2vw] place-self-center">{name}</h1>
+				</div>
+				<div className="flex">
+					<Like className="pr-[1vw] pl-[1vw] place-self-center" />
+					<Bookmark className="pl-[1.5vw] place-self-center" />
+				</div>
 			</div>
 			<Accordion type="single" collapsible className="w-full p-3">
 				<AccordionItem value="item-1">
