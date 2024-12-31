@@ -9,6 +9,9 @@ const useStarboardStore = create(
 			loading: true,
 			projects: [],
 			resultsPerPage: 6,
+			mainCategory: "",
+			subcategory: "",
+			sorting: "most-recent",
 			pages: [-3, -2, -1, 0, 1, 2, 3],
 			setPageNumber: (pageNumber) => {
 				pageNumber
@@ -23,6 +26,12 @@ const useStarboardStore = create(
 				set((pre) => ({ ...pre, projects: projects })),
 			setResultsPerPage: (resultsPerPage) =>
 				set((pre) => ({ ...pre, resultsPerPage: resultsPerPage })),
+			setMainCategory: (mainCategory) =>
+				set((pre) => ({ ...pre, mainCategory: mainCategory })),
+			setSubcategory: (subcategory) =>
+				set((pre) => ({ ...pre, subcategory: subcategory })),
+			setSorting: (sorting) =>
+				set((pre) => ({ ...pre, sorting: sorting })),
 		}),
 		{
 			name: "profile-storage",

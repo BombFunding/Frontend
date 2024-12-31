@@ -12,15 +12,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 function StartupPagination() {
 	const Navigate = useNavigate();
-	const {
-		pageNumber,
-		setPageNumber,
-		resultsPerPage,
-		loading,
-		setLoading,
-		projects,
-		pages,
-	} = useStarboardStore();
+	const { pageNumber, setPageNumber, loading, setLoading, projects, pages } =
+		useStarboardStore();
 	console.log(projects);
 	const [loadedImagesCount, setLoadedImagesCount] = useState(0);
 	const handleImageLoad = () => {
@@ -53,67 +46,75 @@ function StartupPagination() {
 						/>
 					))}
 				</div>
-				<div className="m-[2vw] transition-all duration-300">
-					<Pagination>
-						<PaginationContent className="rtl">
-							{pageNumber !== 1 && (
-								<PaginationItem>
-									<PaginationLink
-										className="px-[1.5vw] hover:cursor-pointer"
-										onClick={() => {
-											Navigate(
-												`/starboard/${pageNumber - 1}`
-											);
-											setPageNumber(pageNumber - 1);
-										}}
-									>
-										<SlArrowRight />
-									</PaginationLink>
-								</PaginationItem>
-							)}
-							{pages.map(
-								(page, index) =>
-									pageNumber + page > 0 && (
-										<PaginationItem key={index}>
-											<PaginationLink
-												onClick={() => {
-													Navigate(
-														`/starboard/${
+				{projects.length > 0 && (
+					<div className="m-[2vw] transition-all duration-300">
+						<Pagination>
+							<PaginationContent className="rtl">
+								{pageNumber !== 1 && (
+									<PaginationItem>
+										<PaginationLink
+											className="px-[1.5vw] hover:cursor-pointer"
+											onClick={() => {
+												Navigate(
+													`/starboard/${
+														pageNumber - 1
+													}`
+												);
+												setPageNumber(pageNumber - 1);
+											}}
+										>
+											<SlArrowRight />
+										</PaginationLink>
+									</PaginationItem>
+								)}
+								{pages.map(
+									(page, index) =>
+										pageNumber + page > 0 && (
+											<PaginationItem key={index}>
+												<PaginationLink
+													onClick={() => {
+														Navigate(
+															`/starboard/${
+																pageNumber +
+																page
+															}`
+														);
+														setPageNumber(
 															pageNumber + page
-														}`
-													);
-													setPageNumber(
-														pageNumber + page
-													);
-												}}
-												isActive={page === 0}
-												className={`hover:cursor-pointer ${
-													page === 0 && styles.current
-												}`}
-											>
-												{pageNumber + page}
-											</PaginationLink>
-										</PaginationItem>
-									)
-							)}
-							{
-								<PaginationItem>
-									<PaginationLink
-										className="px-[1.5vw] hover:cursor-pointer"
-										onClick={() => {
-											Navigate(
-												`/starboard/${pageNumber + 1}`
-											);
-											setPageNumber(pageNumber + 1);
-										}}
-									>
-										<SlArrowLeft />
-									</PaginationLink>
-								</PaginationItem>
-							}
-						</PaginationContent>
-					</Pagination>
-				</div>
+														);
+													}}
+													isActive={page === 0}
+													className={`hover:cursor-pointer ${
+														page === 0 &&
+														styles.current
+													}`}
+												>
+													{pageNumber + page}
+												</PaginationLink>
+											</PaginationItem>
+										)
+								)}
+								{
+									<PaginationItem>
+										<PaginationLink
+											className="px-[1.5vw] hover:cursor-pointer"
+											onClick={() => {
+												Navigate(
+													`/starboard/${
+														pageNumber + 1
+													}`
+												);
+												setPageNumber(pageNumber + 1);
+											}}
+										>
+											<SlArrowLeft />
+										</PaginationLink>
+									</PaginationItem>
+								}
+							</PaginationContent>
+						</Pagination>
+					</div>
+				)}
 			</>
 		)
 	);
