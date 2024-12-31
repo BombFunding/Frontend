@@ -81,7 +81,7 @@ const persianToEnglish = {
 	"کتب و نشریات": "Books and Publications",
 	"توسعه فردی": "Personal Development",
 	"مؤسسات آموزشی": "Educational Institutions",
-	"صندوق سرمایه‌گذاری": "Investment Fund",
+	سرمایه‌گذاری: "Investment Fund",
 	رمزارز: "Cryptocurrency",
 	بیمه: "Insurance",
 };
@@ -104,7 +104,7 @@ const englishToPersian = {
 	"Books and Publications": "کتب و نشریات",
 	"Personal Development": "توسعه فردی",
 	"Educational Institutions": "مؤسسات آموزشی",
-	"Investment Fund": "صندوق سرمایه‌گذاری",
+	"Investment Fund": "سرمایه‌گذاری",
 	Cryptocurrency: "رمزارز",
 	Insurance: "بیمه",
 };
@@ -128,16 +128,18 @@ function FilterSection() {
 	const [open2, setOpen2] = useState(false);
 	const onSubmit = (e) => {
 		e.preventDefault();
-		// setLoading(true);
-		getDataParams(`/starboard/${sorting}/`, null, {
-			category: mainCategory,
-			subcategory: subcategory,
+		const formData = {
+			category: englishToPersian[mainCategory],
+			subcategory: englishToPersian[subcategory],
 			search: searchQuery,
 			results_per_page: resultsPerPage,
 			page_number: pageNumber,
-		}).then((data) => {
+		};
+		// console.log(`/starboard/${sorting}/`, formData);
+		setLoading(true);
+		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
 			setProjects(data);
-			// setLoading(false);
+			setLoading(false);
 		});
 	};
 	return (

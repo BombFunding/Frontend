@@ -27,7 +27,11 @@ const useStarboardStore = create(
 			setResultsPerPage: (resultsPerPage) =>
 				set((pre) => ({ ...pre, resultsPerPage: resultsPerPage })),
 			setMainCategory: (mainCategory) =>
-				set((pre) => ({ ...pre, mainCategory: mainCategory })),
+				set((pre) => ({
+					...pre,
+					mainCategory: mainCategory,
+					subcategory: "",
+				})),
 			setSubcategory: (subcategory) =>
 				set((pre) => ({ ...pre, subcategory: subcategory })),
 			setSorting: (sorting) =>

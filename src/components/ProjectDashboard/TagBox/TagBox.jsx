@@ -63,7 +63,7 @@ const TagBox = ({ className }) => {
     "کتب و نشریات": "Books and Publications",
     "توسعه فردی": "Personal Development",
     "مؤسسات آموزشی": "Educational Institutions",
-    "صندوق سرمایه‌گذاری": "Investment Fund",
+    "سرمایه‌گذاری": "Investment Fund",
     رمزارز: "Cryptocurrency",
     بیمه: "Insurance",
   };
@@ -86,7 +86,7 @@ const TagBox = ({ className }) => {
     "Books and Publications": "کتب و نشریات",
     "Personal Development": "توسعه فردی",
     "Educational Institutions": "مؤسسات آموزشی",
-    "Investment Fund": "صندوق سرمایه‌گذاری",
+    "Investment Fund": "سرمایه‌گذاری",
     Cryptocurrency: "رمزارز",
     Insurance: "بیمه",
   };
