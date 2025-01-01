@@ -5,7 +5,7 @@ import UnderNavbar from "@/assets/UnderNavbar.svg?react";
 import picture from "../../assets/baner.jpg";
 import TypewriterComponent from "typewriter-effect";
 import MetaBox from "@/components/ProjectDashboard/MetaBox/MetaBox";
-import PositionBox from "@/components/DashBoard/Sections/PositionBox/PositionBox";
+import PositionBox from "@/components/ProjectDashboard/PositionBox/PositionBox";
 import InvestorDialogBox from "@/components/ProjectDashboard/InvestorDialogBox/InvestorDialogBox";
 import TagBox from "@/components/ProjectDashboard/TagBox/TagBox";
 import styles from "./ProjectDashboard.module.scss";

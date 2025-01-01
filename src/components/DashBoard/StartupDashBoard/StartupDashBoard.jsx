@@ -1,6 +1,6 @@
 import styles from "./StartupDashBoard.module.scss";
 import { Card } from "@/components/ui/card";
-import PositionBox from "../Sections/PositionBox/PositionBox";
+import PositionBox from "../../ProjectDashboard/PositionBox/PositionBox";
 import Accounting from "@/components/Accounting/Accounting";
 import baner from "../../../assets/baner.jpg";
 // import CommentSection from "@/components/CommentSection/CommentSection";
