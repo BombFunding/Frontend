@@ -102,6 +102,19 @@ export const getData = async (endPoint, headers) => {
 	}
 };
 
+export const getDataParams = async (endPoint, headers, params) => {
+	await RefreshToken();
+	try {
+		const response = await apiClient.get(endPoint, {
+			headers,
+			params: { ...params },
+		});
+		return response.data;
+	} catch (error) {
+		throw new Error(error);
+	}
+};
+
 export const postData = async (endPoint, data, additionalHeaders) => {
 	await RefreshToken();
 	try {

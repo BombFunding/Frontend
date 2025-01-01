@@ -7,6 +7,9 @@ import ImageTool from "@editorjs/image";
 import Paragraph from "@editorjs/paragraph";
 import Quote from "@editorjs/quote";
 import editorjsColumns from "@calumk/editorjs-columns";
+import ToggleBlock from "editorjs-toggle-block";
+import CodeTool from "@editorjs/code";
+import BreakLine from "editorjs-break-line";
 import FaTranslation from "./FaTranslation.js";
 import { useEffect } from "react";
 import useEditorStore from "@/stores/EditorStore/EditorStore";
@@ -37,6 +40,7 @@ const Editor = ({ id }) => {
   const { data, updateData } = useEditorStore();
   console.log(data);
   const editorRef = useRef(null);
+  const pBoxRef = useRef(null);
 
   const uploadByFile = async (file) => {
     // Create a FormData object to send the image file
@@ -72,6 +76,11 @@ const Editor = ({ id }) => {
   };
 
   const columnTools = {
+    code: CodeTool,
+    breakLine: {
+      class: BreakLine,
+      inlineToolbar: true,
+    },
     header: {
       class: Header,
       config: {
@@ -83,6 +92,14 @@ const Editor = ({ id }) => {
     paragraph: {
       class: Paragraph,
       inlineToolbar: true, // Enable inline toolbar for this tool
+    },
+    toggle: {
+      class: ToggleBlock, // Replace with the actual toggle block class you're using
+      config: {
+        placeholder:
+          "تغییر وضعیت خالی. برای اضافه کردن، بلوک‌ها را اینجا کلیک یا بکشید.",
+        label: "تغییر وضعیت",
+      },
     },
     quote: {
       class: Quote,
@@ -120,8 +137,14 @@ const Editor = ({ id }) => {
     console.log("effectdata: ", data);
     const editor = new EditorJS({
       holder: "editorjs",
+      autofocus: true,
       data: data ?? { blocks: [], time: Date.now() },
       tools: {
+        code: CodeTool,
+        breakLine: {
+          class: BreakLine,
+          inlineToolbar: true,
+        },
         header: {
           class: Header,
           inlineToolbar: ["link"],
@@ -144,6 +167,12 @@ const Editor = ({ id }) => {
           class: Paragraph,
           inlineToolbar: true, // Enable inline toolbar for this tool
         },
+        toggle: {
+          class: ToggleBlock, // Replace with the actual toggle block class you're using
+          config: {
+            placeholder: "تغییر وضعیت",
+          },
+        },
         quote: {
           class: Quote,
           inlineToolbar: true,
@@ -163,10 +192,6 @@ const Editor = ({ id }) => {
         },
       },
       i18n: FaTranslation(),
-      onReady: () => {
-        const toolbarPlus = document.querySelector(".ce-toolbar__plus");
-        toolbarPlus?.classList.add("custom-toolbar-plus"); // Add a custom class
-      },
     });
 
     editorRef.current = editor;
@@ -243,11 +268,29 @@ const Editor = ({ id }) => {
     // setUpdate(!update);
   };
 
+  // const handleJoyrideCallback = (data) => {
+  //   const { action, index, type } = data;
+
+  //   if (type === "step:after" && index === 0 && action === "next") {
+  //     // editorRef.current.focus();
+  //     // editorRef.current.render();
+  //     const editorHolder = document.getElementById("editorjs");
+  //     if (editorHolder) {
+  //       editorHolder.click(); // Trigger a click event
+  //     }
+  //     else
+  //     {
+  //       console.log("editorHolder not found");
+  //     }
+  //   }
+  // };
+
   return (
     <>
       {/* <Label className="p-8 text-3xl"> ویرایشگر</Label> */}
       {/* <Joyride
         steps={steps}
+        callback={handleJoyrideCallback}
         continuous
         scrollToFirstStep
         // showProgress
@@ -279,8 +322,8 @@ const Editor = ({ id }) => {
           },
         }}
       /> */}
-      <div className={`${styles.holder} step1`}>
-        <Card id="editorjs" className={`${styles.editor}`}></Card>
+      <div className={`${styles.holder}`}>
+        <Card id="editorjs" className={`${styles.editor} step1`}></Card>
         <button className={styles.save_btn} onClick={handelSave}>
           <SaveIcon className={styles.save_icon} />
           <span className={styles.save_txt}>ذخیره</span>

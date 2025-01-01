@@ -7,6 +7,7 @@ function CustomTextArea({
   type,
   onKey,
   className,
+  holderClassName,
   inputClassName,
   name,
   onChange,
@@ -16,7 +17,7 @@ function CustomTextArea({
   const [empty, setEmpty] = useState(true);
   return (
     <>
-      <div className="relative group mt-6">
+      <div className={`relative group mt-6 ${holderClassName}`}>
         {register ? (
           <textarea
             {...register(name)}

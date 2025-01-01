@@ -1,7 +1,6 @@
 .position_box {
-	@apply border-solid border-2 border-black;
-	@apply flex flex-col items-center rounded-lg py-[2vw] overflow-y-auto !important;
-	border: 2px solid #ff7517 !important;
+	@apply flex flex-col items-center rounded-lg py-[2vw] overflow-y-auto bg-white shadow-md !important;
+	// border: 2px solid #ff7517 !important;
 }
 
 .position_list {
