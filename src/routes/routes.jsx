@@ -16,87 +16,91 @@ import ChargeAccount from "@/Pages/ChargeAccount/ChargeAccount";
 import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
 import { Loading } from "@/components/Loading/Loading";
 import Editor from "@/components/Editor/Editor";
-import ProjectEditor from "@/Pages/ProjectDashboard/ProjectDashboard";
 import StarBoard from "@/Pages/StarBoard/StarBoard";
 import ProjectItem from "@/components/DashBoard/ProjectItem/ProjectItem";
 import Likes from "@/components/Likes/Likes";
+import ProjectDashboard from "@/Pages/ProjectDashboard/ProjectDashboard";
 
 export const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <PublicLayout />,
-		errorElement: <Error />,
-		children: [
-			{
-				index: true,
-				element: <Landing />,
-			},
-			{
-				path: "/test",
-				element: (
-					<div className="p-20">
-						<Likes />
-					</div>
-				),
-			},
-			{
-				path: "/Profile/:username",
-				element: <Profile />,
-			},
-			{
-				path: "/reset-password/:uid/:token",
-				element: <ChangePassword />,
-			},
-			{
-				path: "/profile/:username",
-				element: <Profile />,
-			},
-			{
-				path: "/starboard",
-				element: <StarBoard />,
-			},
-		],
-	},
-	{
-		element: <PrivateLayout />,
-		children: [
-			{
-				path: "/EditProfile",
-				element: <EditProfile />,
-			},
-			{
-				path: "/DashBoard",
-				element: <DashBoard />,
-			},
-			{
-				path: "/ChargeAccount",
-				element: <ChargeAccount />,
-			},
-			{
-				path: "/Editor/:projectId",
-				element: <ProjectEditor />,
-			},
-		],
-	},
-	{
-		element: <NoNavbarLayout />,
-		children: [
-			{
-				path: "/login",
-				element: <Login />,
-			},
-			{
-				path: "/signup",
-				element: <Signup />,
-			},
-			{
-				path: "/emailverification",
-				element: <EmailVerification />,
-			},
-			{
-				path: "/forgetpassword",
-				element: <ForgetPassword />,
-			},
-		],
-	},
+  {
+    path: "/",
+    element: <PublicLayout />,
+    errorElement: <Error />,
+    children: [
+      {
+        index: true,
+        element: <Landing />,
+      },
+      {
+        path: "/test",
+        element: (
+          <div className="p-20">
+            <Likes />
+          </div>
+        ),
+      },
+      {
+        path: "/Profile/:username",
+        element: <Profile />,
+      },
+      {
+        path: "/reset-password/:uid/:token",
+        element: <ChangePassword />,
+      },
+      {
+        path: "/profile/:username",
+        element: <Profile />,
+      },
+      {
+        path: "/starboard",
+        element: <StarBoard />,
+      },
+    ],
+  },
+  {
+    element: <PrivateLayout />,
+    children: [
+      {
+        path: "/EditProfile",
+        element: <EditProfile />,
+      },
+      {
+        path: "/DashBoard",
+        element: <DashBoard />,
+      },
+      {
+        path: "/ChargeAccount",
+        element: <ChargeAccount />,
+      },
+      {
+        path: "/ProjectDashboard/:projectId",
+        element: <ProjectDashboard />,
+      },
+      {
+        path: "Editor/:projectId",
+        element: <Editor />,
+      },
+    ],
+  },
+  {
+    element: <NoNavbarLayout />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+      {
+        path: "/emailverification",
+        element: <EmailVerification />,
+      },
+      {
+        path: "/forgetpassword",
+        element: <ForgetPassword />,
+      },
+    ],
+  },
 ]);
