@@ -99,6 +99,7 @@ const PositionItem = ({ positionData, setPositions, id }) => {
               positionData={positionData}
               setPositions={setPositions}
               setEditFormOpen={setEditFormOpen}
+			  id = {id}
             />
             <DrawerClose asChild>
               <Button
@@ -128,6 +129,7 @@ const PositionItem = ({ positionData, setPositions, id }) => {
               setPositions={setPositions}
               positionData={positionData}
               setExtendPositionOpen={setExtendPositionOpen}
+			  id = {id}
             />
             <DrawerClose asChild>
               <Button
