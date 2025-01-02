@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./SearchResult.css";
 
 export default function SearchResult({ result }) {
@@ -13,18 +14,29 @@ export default function SearchResult({ result }) {
       }
     >
       {/* Avatar */}
-      <div className="avatar w-16 h-16 rounded-full overflow-hidden">
+      <div
+        className={`avatar ${
+          result.image ? "aspect-video rounded-sm" : "rounded-full"
+        } overflow-hidden`}
+      >
         <img
-          src={result.avatar}
-          alt={`${result.fullName}'s avatar`}
+          src={`http://104.168.46.4:8000${
+            result.profile_picture ?? result.image
+          }`}
+          alt={`${result.fullName ?? result.name}`}
           className="w-full h-full object-cover"
         />
       </div>
 
       {/* User Details */}
       <div className="col-span-2 flex flex-col text-right">
-        <div className="full-name font-bold text-lg">{result.fullName}</div>
-        <div className="username text-gray-500 text-sm">{result.username}</div>
+        <div className="full-name font-bold lg:text-lg sm:text-sm md:text-lg">
+          {result.image ? result.name : "محمد خاکپور"}
+          {/* {result.fullName} */}
+        </div>
+        <div className="username text-gray-500 text-sm">
+          {result.username ?? ""}
+        </div>
       </div>
     </div>
   );

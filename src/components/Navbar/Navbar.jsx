@@ -15,7 +15,11 @@ import NavbarDropDownSCN from "../NavbarDropDownSCN/NavbarDropDownSCN";
 function Navbar() {
   const Navigate = useNavigate();
   const [isOpen, setOpen] = useState(false);
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState({
+    users: [],
+    startups: [],
+    projects: [],
+  });
   const [isFocused, setIsFocused] = useState(false);
   const [input, setInput] = useState("");
   const { avatar, setAvatar } = useProfileStore();
@@ -63,8 +67,11 @@ function Navbar() {
             {/* <SearchResultsList results={results} className={"z-50 hidden"} /> */}
             <div
               className={`absolute top-14 w-[32.7vw] z-50 rounded-b-full shadow-lg ${
-                !isFocused || input == "" ? "hidden" : ""
+                true == "" ? "hidden" : ""
               }`}
+              // className={`absolute top-14 w-[32.7vw] z-50 rounded-b-full shadow-lg ${
+              //   !isFocused || input == "" ? "hidden" : ""
+              // }`}
             >
               <SearchResultsList results={results} />
             </div>
