@@ -18,6 +18,12 @@ function StarBoard() {
 		setLoading,
 		projects,
 		setProjects,
+		mainCategory,
+		searchQuery,
+		subcategory,
+		sorting,
+		englishToPersian,
+		reset,
 	} = useStarboardStore();
 	useEffect(() => {
 		setLoading(true);
@@ -30,14 +36,31 @@ function StarBoard() {
 			setLoading(false);
 		});
 	}, [pageNumber]);
-	
+
+	useEffect(() => {
+		// reset();
+		const formData = {
+			category: englishToPersian[mainCategory],
+			subcategory: englishToPersian[subcategory],
+			search: searchQuery,
+			results_per_page: resultsPerPage,
+			page_number: pageNumber,
+		};
+		// console.log(`/starboard/${sorting}/`, formData);
+		setLoading(true);
+		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
+			setProjects(data);
+			setLoading(false);
+		});
+	}, []);
+
 	if (loading) return <Loading />;
 	return (
 		// <form
 		// 	className="font-vazirmatn text-black w-[100vw]"
 		// 	onSubmit={onSubmit}
 		// >
-		<div className="font-vazirmatn text-black">
+		<div className="font-vazirmatn text-black w-[100vw]">
 			<FilterSection setResultsPerPage={setResultsPerPage} />
 			<p className="rtl place-self-center">
 				{projects.length === 0

@@ -14,7 +14,7 @@ const Landing = () => {
 	const [topFunded, setTopFunded] = useState([]);
 	const [topVisited, setTopVisited] = useState([]);
 	const [topLiked, setTopLiked] = useState([]);
-	const { setSorting } = useStarboardStore();
+	const { setSorting, reset } = useStarboardStore();
 	useEffect(() => {
 		getData("/landing/get_statistics/").then((data) => {
 			console.log(data);
@@ -127,7 +127,9 @@ const Landing = () => {
 					<button
 						className="text-blue-700 font-vazirmatn place-content-center text-sm"
 						onClick={() => {
+							reset();
 							setSorting("top-visited");
+							window.scrollTo(0, 0);
 							Navigate("/starboard");
 						}}
 					>
@@ -156,7 +158,9 @@ const Landing = () => {
 					<button
 						className="text-blue-700 font-vazirmatn place-content-center text-sm"
 						onClick={() => {
+							reset();
 							setSorting("top-liked");
+							window.scrollTo(0, 0);
 							Navigate("/starboard");
 						}}
 					>
