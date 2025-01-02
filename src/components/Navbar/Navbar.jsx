@@ -7,7 +7,7 @@ import styles from "./Navbar.module.scss";
 import PushyButton from "../Custom/PushyButton/PushyButton";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu.jsx";
 import NavbarDropDown from "../NavbarDropdown/NavbarDropDown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchResultsList from "../SearchBar/SearchResultsList/SearchResultsList.jsx";
 import { getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
