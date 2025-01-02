@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import {
   Dialog,
   DialogContent,
@@ -20,8 +19,21 @@ import {
 } from "@/components/ui/drawer";
 import { useMediaQuery } from "react-responsive";
 
-export function DrawerDialog({ children, triggerButton, closeButton, title }) {
-  const [open, setOpen] = React.useState(false);
+export function DrawerDialog({
+  children,
+  triggerButton,
+  closeButton,
+  title,
+  open: controlledOpen, // Controlled state
+  onOpenChange,         // External state handler
+}) {
+  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(false);
+
+  // If the component is controlled, use the provided state; otherwise, use internal state.
+  const isControlled = controlledOpen !== undefined;
+  const open = isControlled ? controlledOpen : uncontrolledOpen;
+  const setOpen = isControlled ? onOpenChange : setUncontrolledOpen;
+
   const isDesktop = useMediaQuery({ query: "(min-width: 768px)" });
 
   if (isDesktop) {

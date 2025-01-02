@@ -17,6 +17,7 @@ const MetaBox = ({ className }) => {
   const fileInputRef = useRef(null);
   const [bannerFile, setBannerFile] = React.useState(Baner);
   const { projectName, description, image } = useProjectStore();
+  const [closer, setCloser] = React.useState(false);
   useEffect(() => {}, []);
 
   const handleBannerClick = () => {
@@ -104,6 +105,9 @@ const MetaBox = ({ className }) => {
           <div className="absolute bottom-4 flex">
             {/* <Likes /> */}
             <DrawerDialog
+              open={closer}
+              onOpenChange={setCloser}
+              title={"ویرایش اطلاعات پروژه"}
               triggerButton={
                 <button
                   className={`${styles.btn} h-8 btn bg-bomborange text-white`}
@@ -119,7 +123,7 @@ const MetaBox = ({ className }) => {
                 </button>
               }
             >
-              <MetaForm />
+              <MetaForm setClose={setCloser} />
             </DrawerDialog>
             <Likes
               className="z-[10] translate-x-[-23vw] translate-y-[-1vw]"
