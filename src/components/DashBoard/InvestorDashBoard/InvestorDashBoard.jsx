@@ -22,6 +22,7 @@ import {
 import MoreInfo from "@/components/Forms/DashBoardForms/MoreInfoForm/MoreInfoForm";
 import { Separator } from "@/components/ui/separator";
 import { Loading } from "@/components/Loading/Loading";
+import Tags from "@/components/Tags/Tags";
 
 const mockup = {
 	ssn: "4444444444",
@@ -82,6 +83,12 @@ const InvestorDashBoard = () => {
 		<>
 			<Card className={styles.card_style}>
 				<PersonalInfo loading={loading} />
+				<Label className={styles.label_style}>
+					دسته‌بندی‌های مورد علاقه
+				</Label>
+				<div className="border-solid border-2 border-bomborange rounded-lg place-items-end px-[1vw]">
+					<Tags tags={["تفریحی", "فرهنگی", "سینمایی"]} />
+				</div>
 				{/* <Card
 					className={`bg-bomborange text-white px-5 py-3 flex gap-2 justify-end items-center`}
 				>
