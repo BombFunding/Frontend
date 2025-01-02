@@ -1,6 +1,6 @@
 import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
 import CustomInput from "../Custom/CustomInput/CustomInput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -63,51 +63,6 @@ const subcategories = [
 	{ value: "بیمه", label: "بیمه", parent: "مالی" },
 ];
 
-const persianToEnglish = {
-	"هوش مصنوعی": "Artificial Intelligence",
-	"اینترنت اشیا": "Internet of Things",
-	نرم‌افزار: "Software",
-	امنیت: "Security",
-	"واقعیت افزوده": "Augmented Reality",
-	موسیقی: "Music",
-	سینما: "Cinema",
-	"صنایع دستی": "Handicrafts",
-	تغذیه: "Nutrition",
-	روان‌شناسی: "Psychology",
-	درمان: "Therapy",
-	فرهنگی: "Cultural",
-	شهری: "Urban",
-	بین‌المللی: "International",
-	"کتب و نشریات": "Books and Publications",
-	"توسعه فردی": "Personal Development",
-	"مؤسسات آموزشی": "Educational Institutions",
-	سرمایه‌گذاری: "Investment Fund",
-	رمزارز: "Cryptocurrency",
-	بیمه: "Insurance",
-};
-
-const englishToPersian = {
-	"Artificial Intelligence": "هوش مصنوعی",
-	"Internet of Things": "اینترنت اشیا",
-	Software: "نرم‌افزار",
-	Security: "امنیت",
-	"Augmented Reality": "واقعیت افزوده",
-	Music: "موسیقی",
-	Cinema: "سینما",
-	Handicrafts: "صنایع دستی",
-	Nutrition: "تغذیه",
-	Psychology: "روان‌شناسی",
-	Therapy: "درمان",
-	Cultural: "فرهنگی",
-	Urban: "شهری",
-	International: "بین‌المللی",
-	"Books and Publications": "کتب و نشریات",
-	"Personal Development": "توسعه فردی",
-	"Educational Institutions": "مؤسسات آموزشی",
-	"Investment Fund": "سرمایه‌گذاری",
-	Cryptocurrency: "رمزارز",
-	Insurance: "بیمه",
-};
 function FilterSection() {
 	const {
 		searchQuery,
@@ -116,6 +71,7 @@ function FilterSection() {
 		resultsPerPage,
 		pageNumber,
 		subcategory,
+		englishToPersian,
 		setMainCategory,
 		setSubcategory,
 		setSearchQuery,
@@ -123,11 +79,12 @@ function FilterSection() {
 		setResultsPerPage,
 		setSorting,
 		setLoading,
+		reset,
 	} = useStarboardStore();
 	const [open1, setOpen1] = useState(false);
 	const [open2, setOpen2] = useState(false);
 	const onSubmit = (e) => {
-		e.preventDefault();
+		e?.preventDefault();
 		const formData = {
 			category: englishToPersian[mainCategory],
 			subcategory: englishToPersian[subcategory],
@@ -142,9 +99,10 @@ function FilterSection() {
 			setLoading(false);
 		});
 	};
+
 	return (
 		<form
-			className="mt-36 mb-12 pt-6 pb-12 w-[90%] place-items-center place-content-center place-self-center flex flex-row rtl gap-3 border-solid border-2 border-bomborange rounded-lg"
+			className="mt-36 mb-12 pt-6 pb-12 w-[95%] place-items-center place-content-center place-self-center flex flex-row rtl gap-3 border-solid border-2 border-bomborange rounded-lg"
 			onSubmit={onSubmit}
 		>
 			<p className="place-self-center translate-y-[0.7vw]">
@@ -172,7 +130,7 @@ function FilterSection() {
 									(category) =>
 										category.value === mainCategory
 							  )?.label
-							: "دسته بندی"}
+							: "همه دسته‌بندی‌ها"}
 						{/* <ChevronsUpDown className="opacity-50" /> */}
 					</Button>
 				</PopoverTrigger>
@@ -227,7 +185,7 @@ function FilterSection() {
 							? subcategories.find(
 									(category) => category.value === subcategory
 							  )?.label
-							: "زیر دسته‌بندی"}
+							: "همه زیردسته‌بندی‌ها"}
 					</Button>
 				</PopoverTrigger>
 				<PopoverContent>
@@ -294,13 +252,13 @@ function FilterSection() {
 						جدیدترین
 					</SelectItem>
 					<SelectItem
-						value="top-liked"
+						value="top-visited"
 						className="hover:cursor-pointer"
 					>
 						پربازدیدترین
 					</SelectItem>
 					<SelectItem
-						value="top-visited"
+						value="top-liked"
 						className="hover:cursor-pointer"
 					>
 						محبوب‌ترین
@@ -311,7 +269,7 @@ function FilterSection() {
 				پروژه‌ها در هر صفحه
 			</p>
 			<Select
-				defaultValue={"6"}
+				defaultValue="6"
 				value={resultsPerPage}
 				onValueChange={(value) => {
 					setResultsPerPage(value);
