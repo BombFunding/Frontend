@@ -10,6 +10,29 @@ import { Label } from "../ui/label";
 import CommentSection from "../CommentSection/CommentSection";
 import Tags from "../Tags/Tags";
 
+const englishToPersian = {
+	"Artificial Intelligence": "هوش مصنوعی",
+	"Internet of Things": "اینترنت اشیا",
+	Software: "نرم‌افزار",
+	Security: "امنیت",
+	"Augmented Reality": "واقعیت افزوده",
+	Music: "موسیقی",
+	Cinema: "سینما",
+	Handicrafts: "صنایع دستی",
+	Nutrition: "تغذیه",
+	Psychology: "روان‌شناسی",
+	Therapy: "درمان",
+	Cultural: "فرهنگی",
+	Urban: "شهری",
+	International: "بین‌المللی",
+	"Books and Publications": "کتب و نشریات",
+	"Personal Development": "توسعه فردی",
+	"Educational Institutions": "مؤسسات آموزشی",
+	"Investment Fund": "سرمایه‌گذاری",
+	Cryptocurrency: "رمزارز",
+	Insurance: "بیمه",
+};
+
 function Project({ className }) {
 	const { projectId } = useParams();
 	const Navigate = useNavigate();
@@ -21,6 +44,7 @@ function Project({ className }) {
 	const [ownerName, setOwnerName] = useState("");
 	const [position, setPosition] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const [subcategories, setSubCategories] = useState([]);
 	function timeDiff(time) {
 		const now = new Date(); // Current time
 		const date = new Date(time); // Convert the comment time to a Date object
@@ -48,6 +72,7 @@ function Project({ className }) {
 			setName(data.name);
 			setOwner(data.username);
 			setDescription(data.description);
+			setSubCategories(data.subcategories);
 			getData(`/auth/baseuser_search_by_name/${data.username}/`).then(
 				(res) => {
 					console.log(res.baseuser_profile.profile_picture);
@@ -88,7 +113,7 @@ function Project({ className }) {
 						indicatorColor="bg-blue-300"
 						ProgressColor="bg-bomborange"
 					/> */}
-					{position && (
+					{position ? (
 						<div className="flex flex-col p-[2vw] justify-between h-full">
 							<div>
 								<div className="flex rtl gap-[1vw] mt-[2vw] px-[1vw]">
@@ -120,17 +145,29 @@ function Project({ className }) {
 								indicatorColor="bg-blue-300"
 								ProgressColor="bg-bomborange"
 							/>
-							<div className="text-[1vw]">تا {timeDiff(position.end_time)}</div>
+							<div className="text-[1vw]">
+								تا {timeDiff(position.end_time)}
+							</div>
 							<Button className="btn w-full bg-bomborange hover:bg-black hover:text-white ">
 								روی این پروژه سرمایه گذاری کنید
 							</Button>
+						</div>
+					) : (
+						<div className="text-black text-[4vw] h-full place-content-center place-self-center">
+							این پروژه فعلا هیچ پوزیشن بازی ندارد
 						</div>
 					)}
 				</div>
 			</div>
 			<div className="flex justify-between">
-				<Tags tags={["meow", "migga"]} className="place-items-start" />
-				<div className="border-2 border-solid rounded-full" />
+				<Tags
+					tags={subcategories.map(
+						(subcategory) =>
+							englishToPersian[subcategory] || subcategory
+					)}
+					className="place-items-start"
+				/>
+				<div className="border-2 border-solid rounded-full mx-[1vw]" />
 				<div className="my-[2vw] flex place-items-center">
 					<div className="flex rtl gap-[0.5vw] place-self-start px-[2vw] py-[1vh]">
 						<div className="text-black text-4xl place-self-center">
@@ -159,7 +196,9 @@ function Project({ className }) {
 					/>
 				</div>
 			</div>
-			<div className="text-black w-[95%] border-solid b">{description}</div>
+			<div className="text-black w-[95%] place-self-center">
+				{description}
+			</div>
 			<CommentSection />
 		</div>
 	);

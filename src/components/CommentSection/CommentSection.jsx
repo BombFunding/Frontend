@@ -93,12 +93,7 @@ function CommentSection() {
 						))
 					) : (
 						<p
-							style={{
-								fontSize: "12px",
-								lineHeight: "2",
-								position: "relative",
-								top: "-3px",
-							}}
+							className="place-self-center pt-[3vw]"
 						>
 							هنوز کامنتی نیست
 						</p>
