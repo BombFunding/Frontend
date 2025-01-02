@@ -24,7 +24,7 @@ const ProjectItem = ({ header, name, add, className, onClick }) => {
       </>
     );
   return (
-    <Card className={`rounded-lg shadow-lg w-[30vw] ${className}`}>
+    <Card className={`rounded-lg shadow-lg w-[30vw] hover:cursor-pointer ${className}`} onClick={onClick}>
       <img src={header} className={styles.image} />
       <Label className={styles.text}>{name}</Label>
     </Card>
