@@ -11,12 +11,11 @@ import Like from "../Like/Like";
 import { GoPaperAirplane } from "react-icons/go";
 import { FaCheckCircle } from "react-icons/fa"; // Import green check icon
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
 } from "@/components/ui/accordion";
-
 function StartupCard() {
   const [showToast, setShowToast] = useState(false);
 

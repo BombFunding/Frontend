@@ -5,32 +5,22 @@ import useTokenStore from "@/stores/TokenStore";
 import { toast } from "react-toastify";
 import CustomToast from "../Custom/CustomToast/CustomToast";
 import { useNavigate } from "react-router-dom";
-function Bookmark({ className, username }) {
+function Bookmark({ className, username, projectId }) {
 	const [checked, setChecked] = useState(false);
-	const [bookmarkId, setBookmarkId] = useState(null);
 	const Navigate = useNavigate();
 	const { accessToken } = useTokenStore();
 	useEffect(() => {
-		getData("/bookmark/").then((data) => {
-			data.map((bookmark) => {
-				if (bookmark.target_username === username) {
-					setChecked(true);
-					setBookmarkId(bookmark.id);
-				}
-			});
+		getData(`/bookmark/${projectId}/status/`).then((data) => {
+			setChecked(data.has_bookmarked);
 		});
 	}, []);
 
 	const onChange = () => {
 		if (accessToken) {
 			if (checked) {
-				deleteData(`/bookmark/${bookmarkId}/`).then((data) => {
-					console.log(data);
-				});
+				deleteData(`/bookmark/${projectId}/delete/`);
 			} else {
-				postData("/bookmark/", { target: username }).then((data) => {
-					console.log(data);
-				});
+				postData(`/bookmark/${projectId}/`);
 			}
 			setChecked((checked) => !checked);
 		} else {

@@ -1,5 +1,5 @@
 .ProfileNavbar {
-	@apply rounded-full hover:cursor-pointer h-8 place-self-center z-10;
+	@apply rounded-full hover:cursor-pointer h-8 w-8 place-self-center z-10 object-cover;
 }
 
 .content {

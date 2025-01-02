@@ -1,0 +1,13 @@
+.container {
+	@apply rounded-lg shadow-lg w-[30vw];
+}
+
+.image {
+	@apply rounded-t-lg;
+	aspect-ratio: 16/9;
+	object-fit: cover;
+}
+
+.text {
+	@apply p-[2vw] flex place-self-center text-center text-xl;
+}

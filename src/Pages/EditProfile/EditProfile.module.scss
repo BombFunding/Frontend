@@ -9,7 +9,7 @@
 }
 
 .avatar_container {
-	@apply bg-gradient-to-tr from-orange-900 to-bomborange flex items-center justify-start relative overflow-hidden;
+	@apply bg-gradient-to-tr mb-[3vw] from-orange-900 rounded-t-lg to-bomborange flex items-center justify-start relative overflow-hidden h-[15vw];
 }
 
 .input_block {

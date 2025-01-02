@@ -1,13 +1,15 @@
-	import profile_default from "@/assets/defaultpfp.png"
+import profile_default from "@/assets/defaultpfp.png";
+import styles from "./CustomComment.module.scss";
+import { useNavigate } from "react-router-dom";
 function CustomComment({ pfp, Username, Comment }) {
-	const profile_image = pfp??profile_default;
+	const Navigate = useNavigate();
 	return (
-		<div className="flex gap-5 my-[2vh] border-solid border-2 rounded-lg bg-gray-50 border-gray-300 py-[2vh] px-[2vw] w-full place-content-end">
-			<div className="grid">
-				<h2>{Username}</h2>
-				<p>{Comment}</p>
+		<div className={styles.box}>
+			<div className={styles.comment_section}>
+				<h2 className={styles.username}>{Username}</h2>
+				<p className={styles.comment}>{Comment}</p>
 			</div>
-			<img src={profile_image} className="rounded-full h-[10vh]" />
+			<img src={pfp ?? profile_default} className={styles.profile} onClick={()=>Navigate(`/profile/${Username}`)} />
 		</div>
 	);
 }

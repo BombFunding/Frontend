@@ -12,6 +12,7 @@ import AddTeamForm from "@/components/Forms/DashBoardForms/AddTeamForm/AddTeamFo
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { getData } from "@/Services/ApiClient/Services";
 import { v4 as uuidv4 } from "uuid";
+import EmptySection from "@/components/EmptySection/EmptySection";
 
 const TeamBox = ({ className }) => {
 	const [formOpen, setFormOpen] = useState(false);
@@ -25,6 +26,9 @@ const TeamBox = ({ className }) => {
 	}, []);
 	return (
 		<div className={`${styles.team_box} ${className}`}>
+			<div>
+				{members.length === 0 ? <EmptySection type="عضو" /> : <></>}
+			</div>
 			<div className={styles.create_member}>
 				<Drawer open={formOpen}>
 					<DrawerTrigger>
@@ -54,7 +58,6 @@ const TeamBox = ({ className }) => {
 				</Drawer>
 			</div>
 			<div className={styles.team_list}>
-				{/* {members.concat(members).concat(members).map((member) => ( */}
 				{members.map((member) => (
 					<TeamItem
 						setMembers={setMembers}

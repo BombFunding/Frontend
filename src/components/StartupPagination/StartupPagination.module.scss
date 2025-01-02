@@ -1,0 +1,7 @@
+$h: 2px;
+$w: 2px;
+
+.current {
+	box-shadow: inset $w $h 4px 2px rgb(0 0 0 / 0.05),
+		inset calc(-1 * $w) calc(-1 * $h) 4px 2px rgb(0 0 0 / 0.05);
+}
