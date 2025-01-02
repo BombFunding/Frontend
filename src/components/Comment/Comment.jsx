@@ -4,12 +4,12 @@ import CustomTextArea from "../Custom/CustomTextArea/CustomTextArea";
 import CustomComment from "../CommentSection/CustomComment/CustomComment";
 import { getData, postData } from "../../Services/ApiClient/Services";
 import { useParams } from "react-router-dom";
-
+import commentIcon from "../../assets/commentIcon.png";
 const Comment = () => {
 	const [comment, setComment] = useState("");
 	const [comments, setComments] = useState([]);
 	const [direction, setDirection] = useState("ltr");
-	const { username: targetUsername } = useParams();
+	const { projectId } = useParams();
 
 	const detectDirection = (text) => {
 		const persianRegex = /[\u0600-\u06FF]/;
@@ -25,37 +25,68 @@ const Comment = () => {
 	const handleCommentSubmit = async () => {
 		if (comment.trim()) {
 			try {
-				const response = await postData(
-					`/auth/comment_on_profile/${targetUsername}/`,
-					{
-						comment,
-					}
-				);
-				setComments((prevComments) => [
-					...prevComments,
-					response.comment,
-				]);
-				setComment("");
+				postData(`/comment/${projectId}/`, {
+					text: comment,
+				}).then(() => {
+					getData(`/comment/list/${projectId}/`)
+						.then((response) => {
+							console.log(response);
+							setComments(response);
+						})
+						.catch((error) =>
+							console.error("Error fetching comments:", error)
+						);
+					setComment("");
+				});
 			} catch (error) {
 				console.error("Error submitting the comment:", error);
 			}
 		}
 	};
 	useEffect(() => {
-		getData(`/auth/all_comments_of_profile/${targetUsername}/`)
-			.then((response) => setComments(response.comments))
+		getData(`/comment/list/${projectId}/`)
+			.then((response) => {
+				console.log(response);
+				setComments(response);
+			})
 			.catch((error) => console.error("Error fetching comments:", error));
 	}, []);
 
 	return (
-		<div className={styles.comment}>
+		<div className={`${styles.comment}`}>
+			<h1 className={styles.comment_label}>
+				<img src={commentIcon} className={styles.comment_icon} />
+				<div className={styles.comment_text}>کامنت‌ها</div>
+			</h1>
 			<div className={`${styles.commentsList} font-vazirmatn`}>
+				<div className={styles.commentInput}>
+					<CustomTextArea
+						placeholder="... کامنت اضافه کن"
+						onChange={handleCommentChange}
+						name="comment"
+						inputClassName={`w-full`}
+						style={{
+							direction: direction,
+							textAlign: direction === "rtl" ? "right" : "left",
+						}}
+						className={``}
+						value={comment}
+					/>
+					<button
+						onClick={handleCommentSubmit}
+						className={styles.button}
+					>
+						بفرست
+					</button>
+				</div>
 				{comments.length > 0 ? (
 					comments.map((c, index) => (
 						<CustomComment
 							key={index}
-							Username={c.username}
-							Comment={c.comment}
+							pfp={c?.profile_picture}
+							Username={c?.username}
+							Comment={c?.text}
+							time={c?.created_at}
 						/>
 					))
 				) : (
@@ -70,24 +101,6 @@ const Comment = () => {
 						هنوز کامنتی نیست
 					</p>
 				)}
-			</div>
-
-			<div className={styles.commentInput}>
-				<CustomTextArea
-					placeholder="... کامنت اضافه کن"
-					onChange={handleCommentChange}
-					name="comment"
-					inputClassName={`${styles.textarea} w-full`}
-					style={{
-						direction: direction,
-						textAlign: direction === "rtl" ? "right" : "left",
-					}}
-					className={`${styles["custom-placeholder-label"]}`}
-					value={comment}
-				/>
-				<button onClick={handleCommentSubmit} className={styles.button}>
-					بفرست
-				</button>
 			</div>
 		</div>
 	);

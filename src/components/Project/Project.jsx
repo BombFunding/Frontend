@@ -7,6 +7,7 @@ import toman from "../../assets/toman.png";
 import { Button } from "../ui/button";
 import { Loading } from "../Loading/Loading";
 import { Label } from "../ui/label";
+import CommentSection from "../CommentSection/CommentSection";
 
 function Project({ className }) {
 	const { projectId } = useParams();
@@ -110,12 +111,11 @@ function Project({ className }) {
 				<img
 					src={profile}
 					className="rounded-full w-[16vw] h-[16vw] hover:cursor-pointer"
-					onClick={() => (
-						Navigate(`/profile/${owner}`)
-					)}
+					onClick={() => Navigate(`/profile/${owner}`)}
 				/>
 			</div>
 			<div>{description}</div>
+			<CommentSection />
 		</div>
 	);
 }
