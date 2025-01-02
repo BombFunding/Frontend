@@ -14,19 +14,17 @@ import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import NavbarDropDownSCN from "../NavbarDropDownSCN/NavbarDropDownSCN";
 function Navbar() {
 	const Navigate = useNavigate();
+	const { accessToken } = useTokenStore();
 	const [isOpen, setOpen] = useState(false);
 	const [results, setResults] = useState([]);
 	const [isFocused, setIsFocused] = useState(false);
 	const [input, setInput] = useState("");
-	const { avatar, setAvatar } = useProfileStore();
-	const TOKEN = useTokenStore((state) => state.accessToken);
+	const { setAvatar } = useProfileStore();
 	useEffect(() => {
 		getData(`/auth/view_own_baseuser_profile/`).then((data) => {
-			console.log("navbar: ", data.base_profile.profile_picture);
 			setAvatar(
 				`http://104.168.46.4:8000${data.base_profile.profile_picture}`
 			);
-			console.log(avatar);
 		});
 	}, []);
 	return (
@@ -76,7 +74,7 @@ function Navbar() {
 						<PushyButton onClick={() => Navigate("/starboard")}>
 							استارت‌آپ‌ها
 						</PushyButton>
-						{TOKEN ? (
+						{accessToken ? (
 							<div className="place-items-center">
 								<ProfileDropDown />
 							</div>
@@ -90,7 +88,6 @@ function Navbar() {
 						isOpen={isOpen}
 						setOpen={setOpen}
 						mode={"sm:hidden font-vazirmatn"}
-						token={TOKEN}
 					/>
 				</div>
 			</div>
