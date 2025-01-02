@@ -39,7 +39,7 @@ function ChartTooltipContent({ payload, label }) {
 export default function BarChart2() {
   const [chartData, setChartData] = useState([]);
   const balls = useProfileStore(state => state.username);
-
+  console.log(balls);
   useEffect(() => {
     // Fetch the data from the API
     if (!balls) return

@@ -49,6 +49,11 @@ const CustomTooltip = ({ active, payload, label }) => {
 export function BarChart1() {
     const [chartData, setChartData] = useState([]); 
     const [loading, setLoading] = useState(true);
+    // const balls = useProfileStore(state => state.username);
+    // const useProfileStore = create((set) => ({
+    //   username: null, // Default initialization
+    //   setUsername: (username) => set({ username }),
+    // }));
     const balls = useProfileStore(state => state.username);
     console.log(`Username is : ${balls}`);
     useEffect(() => {
