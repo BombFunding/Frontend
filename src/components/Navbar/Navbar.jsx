@@ -12,6 +12,7 @@ import SearchResultsList from "../SearchBar/SearchResultsList/SearchResultsList.
 import { getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import NavbarDropDownSCN from "../NavbarDropDownSCN/NavbarDropDownSCN";
+import HamburgerSearch from "../HamburgerSearch/HamburgerSearch";
 function Navbar() {
   const Navigate = useNavigate();
   const [isOpen, setOpen] = useState(false);
@@ -22,6 +23,7 @@ function Navbar() {
   });
   const [isFocused, setIsFocused] = useState(false);
   const [input, setInput] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
   const { avatar, setAvatar } = useProfileStore();
   const TOKEN = useTokenStore((state) => state.accessToken);
   useEffect(() => {
@@ -63,15 +65,16 @@ function Navbar() {
               setResults={setResults}
               setIsFocused={setIsFocused}
               setInput={setInput}
+              mode="desktop"
             />
             {/* <SearchResultsList results={results} className={"z-50 hidden"} /> */}
             <div
-              className={`absolute top-14 w-[32.7vw] z-50 rounded-b-full shadow-lg ${
-                true == "" ? "hidden" : ""
-              }`}
               // className={`absolute top-14 w-[32.7vw] z-50 rounded-b-full shadow-lg ${
-              //   !isFocused || input == "" ? "hidden" : ""
+              //   true == "" ? "hidden" : ""
               // }`}
+              className={`absolute top-14 w-[32.7vw] z-50 rounded-b-full shadow-lg ${
+                !isFocused || input == "" ? "hidden" : ""
+              }`}
             >
               <SearchResultsList results={results} />
             </div>
@@ -97,6 +100,8 @@ function Navbar() {
             setOpen={setOpen}
             mode={"sm:hidden font-vazirmatn"}
             token={TOKEN}
+            isVisible={isVisible}
+            setIsVisible={setIsVisible}
           />
         </div>
       </div>
@@ -106,6 +111,10 @@ function Navbar() {
         {/* <NavbarDropDown /> */}
         <NavbarDropDownSCN />
       </div>
+      <HamburgerSearch
+        isSliderVisible={isVisible}
+        setIsSliderVisible={setIsVisible}
+      />
     </nav>
   );
 }

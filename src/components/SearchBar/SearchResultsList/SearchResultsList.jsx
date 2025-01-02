@@ -1,11 +1,14 @@
 import "./SearchResultsList.css";
+import styles from "./SearchResultsList.module.scss";
 import SearchResult from "../SearchResults/SearchResults.jsx";
 import { Separator } from "@/components/ui/separator";
 
 function SearchResultsList({ results }) {
   // console.log(`results: ${results}`);
   return (
-    <div className="results-list bg-[#ddd] overflow-hidden overflow-y-scroll hide-scrollbar rounded-[10px]">
+    <div
+      className={`results-list bg-[#ddd] overflow-hidden overflow-y-scroll hide-scrollbar rounded-[10px] ${styles.test}`}
+    >
       {results.startups && (
         <div className="pt-3">
           <label className="font-bold mr-[2vw]">استارت‌آپ‌ها</label>

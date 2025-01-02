@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import "./NavbarDropDownSCN.css";
 // import Link from "next/link";
 
 import { cn } from "@/lib/utils";
@@ -130,15 +131,15 @@ function NavbarDropDownSCN() {
               {comp.title}
               <FiChevronDown
                 className={`mt-1.5 ml-[0.2vw] transition ${
-                  selected == i ? "rotate-180  duration-300" : ""
+                  selected == i ? "rotate-180  duration-500" : ""
                 }`}
               />
             </div>
             <div
               className={`p-2 container rtl overflow-hidden grid text-center w-[15vw] bg-gray-800 mt-1 rounded-md sm:-translate-x-[1vw] md:-translate-x-[0vw] ${
                 selected === i
-                  ? "grid-cols-2 gap-2 auto-rows-auto text-[1vw]"
-                  : "hidden"
+                  ? "grid-cols-2 gap-2 auto-rows-auto text-[1vw] unfader"
+                  : "opacity-0" // hidden
               }`}
             >
               {Object.entries(comp.subs).map(([label, link], index) => (

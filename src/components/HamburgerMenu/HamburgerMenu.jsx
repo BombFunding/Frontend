@@ -16,7 +16,7 @@ import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { getData } from "@/Services/ApiClient/Services";
 import useTokenStore from "@/stores/TokenStore";
 // import { pic } from "../../assets/defaultpfp.png";
-function HamburgerMenu({ isOpen, setOpen, mode, token }) {
+function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
   const routes = [
     token
       ? {
@@ -159,6 +159,9 @@ function HamburgerMenu({ isOpen, setOpen, mode, token }) {
                           toggleShowCategories((prev) => !prev);
                         } else if (route.title === "خروج") {
                           deleteToken();
+                        } else if (route.title === "جستجو") {
+                          e.preventDefault();
+                          setIsVisible(true);
                         }
                       }}
                       href={route.href}

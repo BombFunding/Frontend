@@ -250,7 +250,7 @@ import profPic from "../../assets/defaultpfp.png";
 // import { FaSearch } from "react-icons/fa";
 // import { getData } from "./path-to-getData"; // Adjust the path to where getData is defined
 
-const SearchBar = ({ setResults, setIsFocused, setInput }) => {
+const SearchBar = ({ setResults, setIsFocused, setInput, mode }) => {
   const [timeoutId, setTimeoutId] = useState(null); // For debouncing
 
   const handleFocus = () => setIsFocused(true);
@@ -289,7 +289,11 @@ const SearchBar = ({ setResults, setIsFocused, setInput }) => {
       <FaSearch id="search-icon" />
       <input
         placeholder="...جست و جو"
-        className="font-vazirmatn h-8 w-[20vw] text-[18px] focus:w-[28vw] border-solid border-[3px] focus:outline-none mr-2 border-white px-[2vw] py-3 transition-all outline-none"
+        className={`font-vazirmatn h-8 ${
+          mode === "desktop"
+            ? "w-[20vw] text-[18px] focus:w-[28vw] border-solid border-[3px] focus:outline-none mr-2 border-white px-[2vw] py-3 transition-all outline-none"
+            : "text-[18px] w-[80vw] border-solid border-[3px] mr-2 border-white px-[2vw] py-3 outline-none"
+        }`}
         name="search"
         onFocus={handleFocus}
         onBlur={handleBlur}
