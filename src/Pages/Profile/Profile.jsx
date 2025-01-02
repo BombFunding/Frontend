@@ -9,7 +9,7 @@ const Profile = () => {
 	switch (userType) {
 		case "startup":
 			return <StartupProfile />;
-		case "investor":
+		case "basic":
 			return <InvestorProfile />;
 		default:
 			return <Error />;
