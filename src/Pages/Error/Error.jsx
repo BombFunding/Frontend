@@ -1,10 +1,10 @@
 import Navbar from "@/components/Navbar/Navbar";
 import styles from "./Error.module.scss";
+import Footer from "@/components/Footer/Footer";
 const Error = () => {
 	return (
-		<div>
-			<Navbar />
-			<div className="w-[100vw] h-[87vh] bg-bomborange mt-[13vh]">
+		<>
+			<div className="w-[100vw] h-[88vh] mt-[12vh] bg-bomborange">
 				<div className={styles.top}>
 					<h1 className={styles.error404}>404</h1>
 					<h3 className={styles.notfound}>صفحه پیدا نشد</h3>
@@ -31,7 +31,7 @@ const Error = () => {
 					</p>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 

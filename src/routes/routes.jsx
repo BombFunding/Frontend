@@ -18,16 +18,23 @@ import { Loading } from "@/components/Loading/Loading";
 import Editor from "@/components/Editor/Editor";
 import ProjectEditor from "@/Pages/ProjectDashboard/ProjectDashboard";
 import StarBoard from "@/Pages/StarBoard/StarBoard";
-import BaseUserDashBoard from "@/components/DashBoard/BaseUserDashBoard/BaseUserDashBoard";
 import AboutUs from "@/Pages/AboutUs/AboutUs";
 import ProjectItem from "@/components/DashBoard/ProjectItem/ProjectItem";
 import Likes from "@/components/Likes/Likes";
+import Navbar from "@/components/Navbar/Navbar";
+import Footer from "@/components/Footer/Footer";
 
 export const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <PublicLayout />,
-		errorElement: <Error />,
+		errorElement: (
+			<>
+				<Navbar />
+				<Error />
+				<Footer />
+			</>
+		),
 		children: [
 			{
 				index: true,
@@ -68,7 +75,7 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: "/test",
-				element: <BaseUserDashBoard />,
+				element: <Loading />,
 			},
 			{
 				path: "/EditProfile",

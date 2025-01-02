@@ -117,7 +117,7 @@ function NavbarDropDownSCN() {
     //     })}
     //   </NavigationMenuList>
     // </NavigationMenu>
-    <div className="w-screen -translate-y-2 h-7 mt-6 grid grid-cols-6 px-[9vw] gap-[1.5vw] sm:text-[1.6vw] md:text-[1.5vw] lg:text-[1.2vw] font-vazirmatn">
+    <div className="w-screen -translate-y-[1.5vh] h-7 mt-6 grid grid-cols-6 px-[9vw] gap-[1.5vw] sm:text-[1.6vw] md:text-[1.5vw] lg:text-[1.2vw] font-vazirmatn">
       {components.map((comp, i) => {
         return (
           <div
@@ -129,13 +129,13 @@ function NavbarDropDownSCN() {
             <div className="hover:cursor-pointer place-content-center h-fit ml-[2.5vw] px-[1vw] w-[12vw] flex  flex-row text-black">
               {comp.title}
               <FiChevronDown
-                className={`mt-1.5 ml-[0.2vw] transition ${
+                className={`mt-[0.7vh] ml-[0.2vw] transition ${
                   selected == i ? "rotate-180  duration-300" : ""
                 }`}
               />
             </div>
             <div
-              className={`p-2 container rtl overflow-hidden grid text-center w-[15vw] bg-gray-800 mt-1 rounded-md sm:-translate-x-[1vw] md:-translate-x-[0vw] ${
+              className={`p-2 container rtl overflow-hidden grid text-center w-[15vw] bg-gray-800 mt-[1vh] rounded-md sm:-translate-x-[1vw] md:-translate-x-[0vw] ${
                 selected === i
                   ? "grid-cols-2 gap-2 auto-rows-auto text-[1vw]"
                   : "hidden"
