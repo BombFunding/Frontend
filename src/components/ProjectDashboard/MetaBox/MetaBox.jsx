@@ -10,15 +10,17 @@ import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 import MetaForm from "@/components/Forms/ProjectDashboardForms/MetaForm/MetaForm";
 import Likes from "@/components/Likes/Likes";
 import Baner from "../../../assets/baner.jpg";
-import { getData, postData } from "@/Services/ApiClient/Services";
+import { getData, patchData, postData } from "@/Services/ApiClient/Services";
 import useProjectStore from "@/stores/ProjectStore/ProjectStore";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const MetaBox = ({ className }) => {
   const fileInputRef = useRef(null);
-  const [bannerFile, setBannerFile] = React.useState(Baner);
-  const { projectName, description, image } = useProjectStore();
+  // const [bannerFile, setBannerFile] = React.useState(Baner);
+  const { projectName, description, image, updateProject } = useProjectStore();
   const [closer, setCloser] = React.useState(false);
-  useEffect(() => {}, []);
+  const { projectId } = useParams();
 
   const handleBannerClick = () => {
     fileInputRef.current.click();
@@ -27,40 +29,42 @@ const MetaBox = ({ className }) => {
   const handleBannerChange = (event) => {
     const file = event.target.files[0];
     if (file) {
+      console.log("File selected:", file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setBannerFile(reader.result);
+        // setBannerFile(reader.result);
         const formData = new FormData();
-        formData.append("header_picture", file);
+        formData.append("image", file);
         // setImageLoading(true);
-        const toastId = toast.success(
+        const toastId = toast(
           // <ErrorMessage message={"بنر در حال بروزرسانی ..."} />,
           <CustomToast Header="بنر در حال بروزرسانی ..." />,
           {
             autoClose: 20000,
           }
         );
-        // postImageData("/auth/update_baseuser_profile/", formData)
-        //   .then((res) => {
-        //     console.log("Image posted successfully:", res);
-        //     setImageLoading(false);
-        //     toast.dismiss(toastId);
-        //     toast.success(
-        //       // <ErrorMessage
-        //       // 	message={"بنر با موفقیت بروزرسانی شد"}
-        //       // />
-        //       <CustomToast Header="بنر با موفقیت بروزرسانی شد" />
-        //     );
-        //   })
-        //   .catch((err) => {
-        //     console.log("Image posting FAILED:", err);
-        //     setImageLoading(false);
-        //     toast.dismiss(toastId);
-        //     toast.error(
-        //       // <ErrorMessage message={"بنر بروزرسانی نشد"} />
-        //       <CustomToast Header="بنر بروزرسانی نشد" />
-        //     );
-        //   });
+        patchData(`/projects/${projectId}/`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+          .then((res) => {
+            console.log("Image posted successfully:", res);
+            updateProject(projectId);
+            toast.dismiss(toastId);
+            toast.success(
+              // <ErrorMessage
+              // 	message={"بنر با موفقیت بروزرسانی شد"}
+              // />
+              <CustomToast Header="بنر با موفقیت بروزرسانی شد" />
+            );
+          })
+          .catch((err) => {
+            console.log("Image posting FAILED:", err);
+            toast.dismiss(toastId);
+            toast.error(
+              // <ErrorMessage message={"بنر بروزرسانی نشد"} />
+              <CustomToast Header="بنر بروزرسانی نشد" />
+            );
+          });
       };
       reader.readAsDataURL(file);
     }
@@ -73,7 +77,7 @@ const MetaBox = ({ className }) => {
       >
         <div className="w-full md:w-3/5 relative flex justify-end">
           <img
-            src={image ?? bannerFile}
+            src={image}
             alt="project image"
             className="h-full aspect-[16/9] object-cover"
           />
