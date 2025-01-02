@@ -12,6 +12,9 @@ const useStarboardStore = create(
 			mainCategory: "",
 			subcategory: "",
 			sorting: "most-recent",
+			// most-recent
+			// top-liked
+			// top-visited
 			pages: [-3, -2, -1, 0, 1, 2, 3],
 			setPageNumber: (pageNumber) => {
 				pageNumber

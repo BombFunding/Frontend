@@ -7,10 +7,14 @@ import { Label } from "@radix-ui/react-label";
 import styles from "./Landing.module.scss";
 import { useEffect, useState } from "react";
 import { getData } from "@/Services/ApiClient/Services";
+import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
+import { useNavigate } from "react-router-dom";
 const Landing = () => {
+	const Navigate = useNavigate();
 	const [topFunded, setTopFunded] = useState([]);
 	const [topVisited, setTopVisited] = useState([]);
 	const [topLiked, setTopLiked] = useState([]);
+	const { setSorting } = useStarboardStore();
 	useEffect(() => {
 		getData("/landing/get_statistics/").then((data) => {
 			console.log(data);
@@ -121,8 +125,11 @@ const Landing = () => {
 						پربازدیدترین استارت‌آپ‌ها
 					</Label>
 					<button
-						className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
-						onClick={() => {}}
+						className="text-blue-700 font-vazirmatn place-content-center text-sm"
+						onClick={() => {
+							setSorting("top-visited");
+							Navigate("/starboard");
+						}}
 					>
 						دیدن بیشتر...
 					</button>
@@ -147,8 +154,11 @@ const Landing = () => {
 						محبوب‌ترین استارت‌آپ‌ها
 					</Label>
 					<button
-						className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
-						onClick={() => {}}
+						className="text-blue-700 font-vazirmatn place-content-center text-sm"
+						onClick={() => {
+							setSorting("top-liked");
+							Navigate("/starboard");
+						}}
 					>
 						دیدن بیشتر...
 					</button>

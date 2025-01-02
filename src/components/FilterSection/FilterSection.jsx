@@ -294,13 +294,13 @@ function FilterSection() {
 						جدیدترین
 					</SelectItem>
 					<SelectItem
-						value="top-liked"
+						value="top-visited"
 						className="hover:cursor-pointer"
 					>
 						پربازدیدترین
 					</SelectItem>
 					<SelectItem
-						value="top-visited"
+						value="top-liked"
 						className="hover:cursor-pointer"
 					>
 						محبوب‌ترین
