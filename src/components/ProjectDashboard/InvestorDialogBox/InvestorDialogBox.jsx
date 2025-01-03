@@ -40,13 +40,13 @@ const InvestorDialogBox = ({ className }) => {
   const mockData = [
     { name: "Ali", avatar: AVT, valueOfInvestment: "1000$" },
     { name: "Reza", avatar: AVT, valueOfInvestment: "2000$" },
-    { name: "Mehdi", avatar: AVT, valueOfInvestment: "3000$" },
-    { name: "Mehdi", avatar: AVT, valueOfInvestment: "3000$" },
-    { name: "Mehdi", avatar: AVT, valueOfInvestment: "3000$" },
-    { name: "Mehdi", avatar: AVT, valueOfInvestment: "3000$" },
-    { name: "Mehdi", avatar: AVT, valueOfInvestment: "3000$" },
-    { name: "Mehdi", avatar: AVT, valueOfInvestment: "3000$" },
-    { name: "Mehdi", avatar: AVT, valueOfInvestment: "3000$" },
+    { name: "Meahdi", avatar: AVT, valueOfInvestment: "300$" },
+    { name: "Medi", avatar: AVT, valueOfInvestment: "3000$" },
+    { name: "Maefhdi", avatar: AVT, valueOfInvestment: "300$" },
+    { name: "Mhdai", avatar: AVT, valueOfInvestment: "300$" },
+    { name: "ehdgi", avatar: AVT, valueOfInvestment: "300$" },
+    { name: "Meadi", avatar: AVT, valueOfInvestment: "3000$" },
+    { name: "Meahgi", avatar: AVT, valueOfInvestment: "300$" },
   ];
   return (
     <>

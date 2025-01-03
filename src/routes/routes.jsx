@@ -16,7 +16,6 @@ import ChargeAccount from "@/Pages/ChargeAccount/ChargeAccount";
 import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
 import { Loading } from "@/components/Loading/Loading";
 import Editor from "@/components/Editor/Editor";
-import ProjectEditor from "@/Pages/ProjectDashboard/ProjectDashboard";
 import StarBoard from "@/Pages/StarBoard/StarBoard";
 import AboutUs from "@/Pages/AboutUs/AboutUs";
 import ProjectItem from "@/components/DashBoard/ProjectItem/ProjectItem";
@@ -24,6 +23,7 @@ import Likes from "@/components/Likes/Likes";
 import Project from "@/components/Project/Project";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import ProjectDashboard from "@/Pages/ProjectDashboard/ProjectDashboard";
 
 export const router = createBrowserRouter([
 	{
@@ -95,8 +95,12 @@ export const router = createBrowserRouter([
 				element: <ChargeAccount />,
 			},
 			{
-				path: "/Editor/:projectId",
-				element: <ProjectEditor />,
+				path: "/ProjectDashboard/:projectId",
+				element: <ProjectDashboard />,
+			},
+			{
+				path: "Editor/:projectId",
+				element: <Editor />,
 			},
 		],
 	},

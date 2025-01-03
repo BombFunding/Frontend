@@ -1,22 +1,23 @@
 import Editor from "@/components/Editor/Editor";
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import UnderNavbar from "@/assets/UnderNavbar.svg?react";
 import picture from "../../assets/baner.jpg";
 import TypewriterComponent from "typewriter-effect";
 import MetaBox from "@/components/ProjectDashboard/MetaBox/MetaBox";
-import PositionBox from "@/components/DashBoard/Sections/PositionBox/PositionBox";
+import PositionBox from "@/components/ProjectDashboard/PositionBox/PositionBox";
 import InvestorDialogBox from "@/components/ProjectDashboard/InvestorDialogBox/InvestorDialogBox";
 import TagBox from "@/components/ProjectDashboard/TagBox/TagBox";
 import styles from "./ProjectDashboard.module.scss";
 import useProjectStore from "@/stores/ProjectStore/ProjectStore";
 
-const ProjectEditor = () => {
+const ProjectDashboard = () => {
   const { projectId } = useParams();
-  
-  const {updateProject} = useProjectStore();
+  const navigate = useNavigate();
+
+  const { updateProject } = useProjectStore();
   useEffect(() => {
-	updateProject(projectId);
+    updateProject(projectId);
   }, []);
   return (
     <>
@@ -52,7 +53,10 @@ const ProjectEditor = () => {
         <div className={styles.down_box}>
           <div className="flex flex-col gap-2 items-center w-full md:w-1/2">
             <div className="w-full flex justify-center items-center bg-bomborange rounded-lg shadow-md p-5">
-              <button className="btn bg-white text-black hover:bg-black hover:text-white">
+              <button
+                onClick={() => navigate(`/Editor/${projectId}`)}
+                className="btn bg-white text-black hover:bg-black hover:text-white"
+              >
                 شخصی سازی پروژه
               </button>
             </div>
@@ -71,4 +75,4 @@ const ProjectEditor = () => {
   );
 };
 
-export default ProjectEditor;
+export default ProjectDashboard;

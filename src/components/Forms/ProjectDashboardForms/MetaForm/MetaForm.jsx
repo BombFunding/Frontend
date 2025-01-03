@@ -1,16 +1,20 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import CustomTextArea from "@/components/Custom/CustomTextArea/CustomTextArea";
+import useProjectStore from "@/stores/ProjectStore/ProjectStore";
+import { useParams } from "react-router-dom";
+import { patchData } from "@/Services/ApiClient/Services";
+import { toast } from "react-toastify";
 
 const schema = yup.object().shape({
-  name: yup.string().required("Name is required"),
-  description: yup.string().required("Description is required"),
+  name: yup.string().optional(),
+  description: yup.string().optional(),
 });
 
-const MetaForm = () => {
+const MetaForm = ({ setClose }) => {
   const {
     register,
     handleSubmit,
@@ -18,9 +22,30 @@ const MetaForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  const { updateProject } = useProjectStore();
+  const { projectId } = useParams();
 
   const onSubmit = (data) => {
     console.log("Form Data:", data);
+    const bodyData = {
+      name: data.name,
+      description: data.description,
+    };
+    patchData(`/projects/${projectId}/`, bodyData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((res) => {
+        console.log("Project Updated:", res);
+        toast.success("پروژه با موفقیت بروزرسانی شد");
+        setClose(false);
+        updateProject(projectId);
+      })
+      .catch((err) => {
+        console.log("Project Update Failed:", err);
+        toast.error("خطا در بروزرسانی پروژه");
+      });
   };
   return (
     <form

@@ -12,20 +12,47 @@ import AddPositionForm from "@/components/Forms/DashBoardForms/AddPositionForm/A
 import { getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import EmptySection from "@/components/EmptySection/EmptySection";
+import { useParams } from "react-router-dom";
+import useProjectStore from "@/stores/ProjectStore/ProjectStore";
+import { Loading } from "@/components/Loading/Loading";
 
 const PositionBox = ({ className }) => {
   const [open, setOpen] = useState(false);
   const [positions, setPositions] = useState([]);
   const { username } = useProfileStore();
+  const { projectId } = useParams();
+  const { positionIds } = useProjectStore();
+  const [loading, setLoading] = useState(false);
+  // if (positionIds.length === 0) {
+  //   return (
+  //     <div className={`${styles.position_box} ${className}`}>
+  //       <EmptySection type="پوزیشن" />
+  //     </div>
+  //   );
+  // }
   useEffect(() => {
-    getData(`/position/list/${username}/`).then((data) => {
-      setPositions(data);
+    if (positionIds.length === 0) {
+      setPositions([]);
+      return;
+    }
+    setLoading(true);
+    getData(`/position/detail/${positionIds[0]}/`).then((data) => {
+      setPositions((prev) => [data]);
+      console.log("position data: ", data);
+      setLoading(false);
     });
-  }, []);
+  }, [positionIds]);
+  if (loading) {
+    return (
+      <div className={`${styles.position_box} ${className}`}>
+        <Loading />
+      </div>
+    );
+  }
   return (
     <div className={`${styles.position_box} ${className}`}>
       <div>
-        {positions.length === 0 ? <EmptySection type="پوزیشن" /> : <></>}
+        {positionIds.length === 0 ? <EmptySection type="پوزیشن" /> : <></>}
       </div>
       <div className={styles.create_position}>
         <Drawer open={open}>
@@ -58,11 +85,12 @@ const PositionBox = ({ className }) => {
         </Drawer>
       </div>
       <div className={styles.position_list}>
-        {positions.map((position, index) => (
+        {positions.length !== 0 && positions.map((position, index) => (
           <PositionItem
             positionData={position}
             setPositions={setPositions}
             key={index}
+            id={positionIds[0]}
           />
         ))}
       </div>

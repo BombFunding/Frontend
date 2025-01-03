@@ -22,109 +22,25 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import CustomToast from "../Custom/CustomToast/CustomToast";
 import Joyride from "react-joyride";
+import { useParams } from "react-router-dom";
+import useProjectStore from "@/stores/ProjectStore/ProjectStore";
+import JoyrideSteps from "./JoyrideSteps";
+import ColumnTools from "./ColumnTools";
+import EditorTools from "./EditorTools";
 
-const Editor = ({ id }) => {
-  const steps = [
-    {
-      target: ".step1",
-      content: "این یکه",
-      placement: "top",
-    },
-    {
-      target: ".custom-toolbar-plus", // The "+" button for adding new blocks
-      content: "Click this button to add a new block to your editor.",
-    },
-  ];
+const Editor = () => {
+  const { projectId } = useParams();
+  const { page: data, updateProject } = useProjectStore();
 
   const [update, setUpdate] = useState(false);
-  const { data, updateData } = useEditorStore();
-  console.log(data);
   const editorRef = useRef(null);
   const pBoxRef = useRef(null);
-
-  const uploadByFile = async (file) => {
-    // Create a FormData object to send the image file
-    const formData = new FormData();
-    formData.append("image", file);
-
-    try {
-      // Send the POST request to your API
-      const response = await postData("/project/image/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log(response);
-
-      // The API should return the URL of the uploaded image
-      const imageUrl = response.file.url;
-
-      // Return the URL of the uploaded image
-      return {
-        success: 1,
-        file: {
-          url: imageUrl, // The URL returned by your API
-        },
-      };
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      return {
-        success: 0,
-        error: "Image upload failed",
-      };
-    }
-  };
-
-  const columnTools = {
-    code: CodeTool,
-    breakLine: {
-      class: BreakLine,
-      inlineToolbar: true,
-    },
-    header: {
-      class: Header,
-      config: {
-        placeholder: "یک عنوان وارد کنید", // Placeholder text
-        levels: [1, 2, 3, 4, 5, 6], // Available heading levels
-        defaultLevel: 4, // Default heading level
-      },
-    },
-    paragraph: {
-      class: Paragraph,
-      inlineToolbar: true, // Enable inline toolbar for this tool
-    },
-    toggle: {
-      class: ToggleBlock, // Replace with the actual toggle block class you're using
-      config: {
-        placeholder:
-          "تغییر وضعیت خالی. برای اضافه کردن، بلوک‌ها را اینجا کلیک یا بکشید.",
-        label: "تغییر وضعیت",
-      },
-    },
-    quote: {
-      class: Quote,
-      inlineToolbar: true,
-      //   shortcut: "CMD+SHIFT+O",
-      config: {
-        quotePlaceholder: "Enter a quote",
-        captionPlaceholder: "Quote's author",
-      },
-    },
-    image: {
-      class: ImageTool,
-      config: {
-        uploader: { uploadByFile },
-        // captionPlaceholder: "Enter caption", // (Optional) Placeholder text for captions
-        // buttonContent: "Select Image", // (Optional) Button text
-      },
-    },
-  };
 
   useEffect(() => {
     const getDataFromServer = async () => {
       try {
-        const res = await getData(`/project/${id}/`);
-        await updateData(res.page);
+        const res = await getData(`/projects/${projectId}/`);
+        // await updateData(res.page);
         console.log("sucessfully got data from server", res.page);
       } catch (error) {
         console.log("error: ", error);
@@ -139,58 +55,7 @@ const Editor = ({ id }) => {
       holder: "editorjs",
       autofocus: true,
       data: data ?? { blocks: [], time: Date.now() },
-      tools: {
-        code: CodeTool,
-        breakLine: {
-          class: BreakLine,
-          inlineToolbar: true,
-        },
-        header: {
-          class: Header,
-          inlineToolbar: ["link"],
-          config: {
-            placeholder: "یک عنوان وارد کنید", // Placeholder text
-            levels: [1, 2, 3, 4, 5, 6], // Available heading levels
-            defaultLevel: 3, // Default heading level
-          },
-        },
-        list: List,
-        image: {
-          class: ImageTool,
-          config: {
-            uploader: { uploadByFile },
-            // captionPlaceholder: "Enter caption", // (Optional) Placeholder text for captions
-            // buttonContent: "Select Image", // (Optional) Button text
-          },
-        },
-        paragraph: {
-          class: Paragraph,
-          inlineToolbar: true, // Enable inline toolbar for this tool
-        },
-        toggle: {
-          class: ToggleBlock, // Replace with the actual toggle block class you're using
-          config: {
-            placeholder: "تغییر وضعیت",
-          },
-        },
-        quote: {
-          class: Quote,
-          inlineToolbar: true,
-          //   shortcut: "CMD+SHIFT+O",
-          config: {
-            quotePlaceholder: "نقل قول را وارد کنید",
-            captionPlaceholder: "نویسنده را وارد کنید",
-          },
-        },
-        columns: {
-          class: editorjsColumns,
-          config: {
-            EditorJsLibrary: EditorJS, // Pass Editor.js instance
-            tools: columnTools,
-            i18n: FaTranslation(), // Pass tools to be used inside columns
-          },
-        },
-      },
+      tools: EditorTools(),
       i18n: FaTranslation(),
     });
 
@@ -223,48 +88,29 @@ const Editor = ({ id }) => {
   const handelSave = async () => {
     const savedData = await editorRef.current.save();
     //   editorRef.current.destroy();
-    console.log("id: ", id);
+    console.log("id: ", projectId);
     console.log("data:", data);
-    if (id == 0) {
-      console.log("savedData in server: ", JSON.stringify(savedData));
-      await updateData(savedData);
-      postData(
-        "/project/",
-        { page: JSON.stringify(savedData) },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-        .then((res) => {
-          console.log("finish", res);
-          toast.success(<CustomToast Header="پروژه با موفقیت ذخیره شد" />);
-        })
-        .catch((err) => {
-          console.log(err);
-          toast.error(<CustomToast Header="خطا در ذخیره پروژه" />);
-        });
-    } else {
-      await updateData(savedData);
-      patchData(
-        `/project/${id}/`,
-        { page: JSON.stringify(savedData) },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-        .then((res) => {
-          console.log("finish", res);
-          toast.success(<CustomToast Header="پروژه با موفقیت ذخیره شد" />);
-        })
-        .catch((err) => {
-          console.log(err);
-          toast.error(<CustomToast Header="خطا در ذخیره پروژه" />);
-        });
-    }
+
+    // await updateData(savedData);
+    patchData(
+      `/projects/${projectId}/`,
+      { page: JSON.stringify(savedData) },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    )
+      .then((res) => {
+        console.log("finish", res);
+        toast.success(<CustomToast Header="پروژه با موفقیت ذخیره شد" />);
+        updateProject(projectId);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(<CustomToast Header="خطا در ذخیره پروژه" />);
+      });
+
     // setUpdate(!update);
   };
 
@@ -322,12 +168,23 @@ const Editor = ({ id }) => {
           },
         }}
       /> */}
-      <div className={`${styles.holder}`}>
-        <Card id="editorjs" className={`${styles.editor} step1`}></Card>
-        <button className={styles.save_btn} onClick={handelSave}>
-          <SaveIcon className={styles.save_icon} />
-          <span className={styles.save_txt}>ذخیره</span>
-        </button>
+      <div className=" bg-[#FFF5E1]">
+        <div className={`${styles.holder}`}>
+          <Card id="editorjs" className={`${styles.editor} step1`}></Card>
+          {/* <button className={styles.save_btn} onClick={handelSave}>
+            <SaveIcon className={styles.save_icon} />
+            <span className={styles.save_txt}>ذخیره</span>
+          </button> */}
+        </div>
+        <div className="h-24 bg-blue-950 sticky bottom-0 right-0 left-0 z-20 flex justify-center items-center gap-10">
+          <button
+            className="btn bg-bomborange text-white hover:bg-white hover:text-black animate-kreep hover:animate-none"
+            onClick={handelSave}
+          >
+            save
+          </button>
+          <button>discard</button>
+        </div>
       </div>
     </>
   );
