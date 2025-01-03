@@ -92,29 +92,27 @@ function NavbarDropDownSCN() {
 		sorting,
 		resultsPerPage,
 		pageNumber,
-		englishToPersian,
-		setMainCategory,
-		setSubcategory,
 		setProjects,
+		setTotalPages,
 		setLoading,
+		setPageNumber,
 		setResults,
 		reset,
 	} = useStarboardStore();
 	const searchProject = (category, subcategory) => {
+		setLoading(true);
 		reset();
-		setMainCategory(category);
-		setSubcategory(subcategory);
 		const formData = {
-			category: englishToPersian[category],
-			subcategory: englishToPersian[subcategory],
+			category: category,
+			subcategory: subcategory,
 			search: searchQuery,
 			results_per_page: resultsPerPage,
 			page_number: pageNumber,
 		};
-		// console.log(`/starboard/${sorting}/`, formData);
-		setLoading(true);
+		setPageNumber(1);
 		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
 			setResults(data.result_count);
+			setTotalPages(data.total_pages);
 			setProjects(data.results);
 			setLoading(false);
 		});

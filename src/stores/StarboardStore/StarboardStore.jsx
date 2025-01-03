@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
+
+
 const useStarboardStore = create(
 	persist(
 		(set) => ({
@@ -13,10 +15,19 @@ const useStarboardStore = create(
 			subcategory: "",
 			sorting: "most-recent",
 			results: "0",
+			totalPages: 0,
 			// most-recent
 			// top-liked
 			// top-visited
 			pages: [-3, -2, -1, 0, 1, 2, 3],
+			persianToEnglishMain: {
+				تکنولوژی: "Technology",
+				گردشگری: "Tourism",
+				آموزش: "Education",
+				مالی: "Finance",
+				هنری: "Art",
+				سلامت: "Wellness",
+			},
 			persianToEnglish: {
 				"هوش مصنوعی": "Artificial Intelligence",
 				"اینترنت اشیا": "Internet of Things",
@@ -100,6 +111,9 @@ const useStarboardStore = create(
 				set((pre) => ({ ...pre, sorting: sorting })),
 			setResults: (results) =>
 				set((pre) => ({ ...pre, results: results })),
+			setTotalPages: (totalPages) =>
+				set((pre) => ({ ...pre, totalPages: totalPages })),
+			update: () => {},
 		}),
 		{
 			name: "profile-storage",

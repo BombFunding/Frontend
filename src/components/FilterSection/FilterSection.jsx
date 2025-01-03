@@ -26,44 +26,74 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { getDataParams } from "@/Services/ApiClient/Services";
+import { useParams } from "react-router-dom";
 
 const categories = [
-	{ value: "تکنولوژی", label: "تکنولوژی" },
-	{ value: "هنری", label: "هنری" },
-	{ value: "سلامت", label: "سلامت" },
-	{ value: "گردشگری", label: "گردشگری" },
-	{ value: "آموزش", label: "آموزش" },
-	{ value: "مالی", label: "مالی" },
+	{ value: "Technology", label: "تکنولوژی " },
+	{ value: "Art ", label: "هنری" },
+	{ value: "Wellness ", label: "سلامت" },
+	{ value: "Tourism ", label: "گردشگری" },
+	{ value: "Education ", label: "آموزش" },
+	{ value: "Finance ", label: "مالی" },
 ];
+// const categories = [
+// 	{ value: "تکنولوژی", label: "تکنولوژی " },
+// 	{ value: "هنری ", label: "هنری" },
+// 	{ value: "سلامت ", label: "سلامت" },
+// 	{ value: "گردشگری ", label: "گردشگری" },
+// 	{ value: "آموزش ", label: "آموزش" },
+// 	{ value: "مالی ", label: "مالی" },
+// ];
 
 const subcategories = [
-	{ value: "هوش مصنوعی", label: "هوش مصنوعی", parent: "تکنولوژی" },
-	{ value: "اینترنت اشیا", label: "اینترنت اشیا", parent: "تکنولوژی" },
-	{ value: "نرم‌افزار", label: "نرم‌افزار", parent: "تکنولوژی" },
-	{ value: "امنیت", label: "امنیت", parent: "تکنولوژی" },
-	{ value: "واقعیت افزوده", label: "واقعیت افزوده", parent: "تکنولوژی" },
-	{ value: "موسیقی", label: "موسیقی", parent: "هنری" },
-	{ value: "سینما", label: "سینما", parent: "هنری" },
-	{ value: "صنایع دستی", label: "صنایع دستی", parent: "هنری" },
-	{ value: "تغذیه", label: "تغذیه", parent: "سلامت" },
-	{ value: "روان‌شناسی", label: "روان‌شناسی", parent: "سلامت" },
-	{ value: "درمان", label: "درمان", parent: "سلامت" },
-	{ value: "فرهنگی", label: "فرهنگی", parent: "گردشگری" },
-	{ value: "شهری", label: "شهری", parent: "گردشگری" },
-	{ value: "بین‌المللی", label: "بین‌المللی", parent: "گردشگری" },
-	{ value: "کتب و نشریات", label: "کتب و نشریات", parent: "آموزشی" },
-	{ value: "توسعه فردی", label: "توسعه فردی", parent: "آموزشی" },
-	{ value: "مؤسسات آموزشی", label: "مؤسسات آموزشی", parent: "آموزشی" },
 	{
-		value: "سرمایه‌گذاری",
-		label: "سرمایه‌گذاری",
-		parent: "مالی",
+		value: "Artificial Intelligence",
+		label: "هوش مصنوعی",
+		parent: "Technology",
 	},
-	{ value: "رمزارز", label: "رمزارز", parent: "مالی" },
-	{ value: "بیمه", label: "بیمه", parent: "مالی" },
+	{
+		value: "Internet of Things",
+		label: "اینترنت اشیا",
+		parent: "Technology",
+	},
+	{ value: "Software", label: "نرم‌افزار", parent: "Technology" },
+	{ value: "Security", label: "امنیت", parent: "Technology" },
+	{
+		value: "Augmented Reality",
+		label: "واقعیت افزوده",
+		parent: "Technology",
+	},
+	{ value: "Music", label: "موسیقی", parent: "Art" },
+	{ value: "Cinema", label: "سینما", parent: "Art" },
+	{ value: "Handicrafts", label: "صنایع دستی", parent: "Art" },
+	{ value: "Nutrition", label: "تغذیه", parent: "Wellness" },
+	{ value: "Psychology", label: "روان‌شناسی", parent: "Wellness" },
+	{ value: "Therapy", label: "درمان", parent: "Wellness" },
+	{ value: "Cultural", label: "فرهنگی", parent: "Tourism" },
+	{ value: "Urban", label: "شهری", parent: "Tourism" },
+	{ value: "International", label: "بین‌المللی", parent: "Tourism" },
+	{
+		value: "Books and Publications",
+		label: "کتب و نشریات",
+		parent: "Education",
+	},
+	{ value: "Personal Development", label: "توسعه فردی", parent: "Education" },
+	{
+		value: "Educational Institutions",
+		label: "مؤسسات آموزشی",
+		parent: "Education",
+	},
+	{
+		value: "Investment Fund",
+		label: "سرمایه‌گذاری",
+		parent: "Finance",
+	},
+	{ value: "Cryptocurrency", label: "رمزارز", parent: "Finance" },
+	{ value: "Insurance", label: "بیمه", parent: "Finance" },
 ];
 
 function FilterSection() {
+	const { page } = useParams();
 	const {
 		searchQuery,
 		sorting,
@@ -71,7 +101,8 @@ function FilterSection() {
 		resultsPerPage,
 		pageNumber,
 		subcategory,
-		englishToPersian,
+		persianToEnglishMain,
+		persianToEnglish,
 		setMainCategory,
 		setSubcategory,
 		setSearchQuery,
@@ -80,25 +111,30 @@ function FilterSection() {
 		setSorting,
 		setLoading,
 		setResults,
+		setPageNumber,
+		setTotalPages,
 		reset,
 	} = useStarboardStore();
 	const [open1, setOpen1] = useState(false);
 	const [open2, setOpen2] = useState(false);
 	const onSubmit = (e) => {
 		e?.preventDefault();
+		setLoading(true);
+		// reset();
 		const formData = {
-			category: englishToPersian[mainCategory],
-			subcategory: englishToPersian[subcategory],
+			category: mainCategory,
+			subcategory: subcategory,
 			search: searchQuery,
 			results_per_page: resultsPerPage,
 			page_number: pageNumber,
 		};
-		// console.log(`/starboard/${sorting}/`, formData);
-		setLoading(true);
+		setPageNumber(page ? Number(page) : 1);
+		console.log(formData, mainCategory, subcategory);
 		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
-			console.log("data", data);
-			setResults(data.results_count);
+			setResults(data.result_count);
+			setTotalPages(data.total_pages);
 			setProjects(data.results);
+			console.log(data.results);
 			setLoading(false);
 		});
 	};

@@ -21,8 +21,8 @@ function StartupPagination() {
 		pages,
 		results,
 		resultsPerPage,
+		totalPages,
 	} = useStarboardStore();
-	console.log("projects", projects);
 	const [loadedImagesCount, setLoadedImagesCount] = useState(0);
 	const handleImageLoad = () => {
 		setLoadedImagesCount((prev) => prev + 1);
@@ -35,7 +35,7 @@ function StartupPagination() {
 		) {
 			setLoading(false);
 		}
-		console.log(results, resultsPerPage, results / Number(resultsPerPage));
+		console.log(totalPages);
 	}, [loadedImagesCount, projects]);
 
 	return (
@@ -46,7 +46,7 @@ function StartupPagination() {
 						<StartupCard
 							name={project.name}
 							id={project.id}
-							image={`http://104.168.46.4:8000${project.image}`}
+							image={project.image}
 							description={project.description}
 							likeCount={project.like_count}
 							subcategories={project.subcategories}
@@ -79,10 +79,7 @@ function StartupPagination() {
 								{pages.map(
 									(page, index) =>
 										pageNumber + page > 0 &&
-										pageNumber + page <=
-											Math.ceil(
-												results / Number(resultsPerPage)
-											) && (
+										pageNumber + page <= totalPages && (
 											<PaginationItem key={index}>
 												<PaginationLink
 													onClick={() => {
@@ -107,10 +104,7 @@ function StartupPagination() {
 											</PaginationItem>
 										)
 								)}
-								{pageNumber !==
-									Math.ceil(
-										results / Number(resultsPerPage)
-									) && (
+								{pageNumber !== totalPages && (
 									<PaginationItem>
 										<PaginationLink
 											className="px-[1.5vw] hover:cursor-pointer"

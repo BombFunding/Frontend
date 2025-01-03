@@ -25,22 +25,25 @@ function StarBoard() {
 		results,
 		setResults,
 		englishToPersian,
+		setTotalPages,
 		reset,
 	} = useStarboardStore();
 	useEffect(() => {
 		setLoading(true);
-		reset();
+		// reset();
 		const formData = {
-			category: englishToPersian[mainCategory],
-			subcategory: englishToPersian[subcategory],
+			category: mainCategory,
+			subcategory: subcategory,
 			search: searchQuery,
 			results_per_page: resultsPerPage,
 			page_number: pageNumber,
 		};
 		setPageNumber(page ? Number(page) : 1);
+		console.log(formData, mainCategory, subcategory);
 		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
 			setResults(data.result_count);
-			setProjects(data.results);
+			setTotalPages(data.total_pages);
+			(data.results);
 			setLoading(false);
 		});
 	}, [pageNumber]);
