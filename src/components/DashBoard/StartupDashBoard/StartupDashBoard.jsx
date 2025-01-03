@@ -82,8 +82,6 @@ const StartupDashBoard = () => {
 					count={likeCount}
 				/>
 				<PersonalInfo loading={loading} />
-				<Label className={styles.label_style}>پوزیشن‌ها</Label>
-				<PositionBox />
 				<div className="flex flex-row justify-between gap-2 mt-2">
 					<div className="flex flex-col w-2/6 gap-2">
 						<Label className={styles.label_style}>حساب</Label>
@@ -109,7 +107,7 @@ const StartupDashBoard = () => {
 				</div>
 				<Label className={styles.label_style}>ذخیره شده</Label>
 				{/* <ProjectBox type="پروژه‌" /> */}
-				<Bookmarks />
+				<Bookmarks type="پروژه‌ا" />
 			</Card>
 		</>
 	);
