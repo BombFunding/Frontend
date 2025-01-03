@@ -79,6 +79,7 @@ function FilterSection() {
 		setResultsPerPage,
 		setSorting,
 		setLoading,
+		setResults,
 		reset,
 	} = useStarboardStore();
 	const [open1, setOpen1] = useState(false);
@@ -95,7 +96,9 @@ function FilterSection() {
 		// console.log(`/starboard/${sorting}/`, formData);
 		setLoading(true);
 		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
-			setProjects(data);
+			console.log("data", data);
+			setResults(data.results_count);
+			setProjects(data.results);
 			setLoading(false);
 		});
 	};

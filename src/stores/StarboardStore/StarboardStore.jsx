@@ -12,6 +12,7 @@ const useStarboardStore = create(
 			mainCategory: "",
 			subcategory: "",
 			sorting: "most-recent",
+			results: "0",
 			// most-recent
 			// top-liked
 			// top-visited
@@ -97,6 +98,8 @@ const useStarboardStore = create(
 				set((pre) => ({ ...pre, subcategory: subcategory })),
 			setSorting: (sorting) =>
 				set((pre) => ({ ...pre, sorting: sorting })),
+			setResults: (results) =>
+				set((pre) => ({ ...pre, results: results })),
 		}),
 		{
 			name: "profile-storage",

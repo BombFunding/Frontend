@@ -112,6 +112,7 @@ function HamburgerMenu({ isOpen, setOpen, mode }) {
 		setSubcategory,
 		setProjects,
 		setLoading,
+		setResults,
 		reset,
 	} = useStarboardStore();
 	const searchProject = (category, subcategory) => {
@@ -128,7 +129,8 @@ function HamburgerMenu({ isOpen, setOpen, mode }) {
 		// console.log(`/starboard/${sorting}/`, formData);
 		setLoading(true);
 		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
-			setProjects(data);
+			setResults(data.result_count);
+			setProjects(data.results);
 			setLoading(false);
 		});
 	};

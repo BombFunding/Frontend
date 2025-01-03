@@ -12,9 +12,17 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 function StartupPagination() {
 	const Navigate = useNavigate();
-	const { pageNumber, setPageNumber, loading, setLoading, projects, pages } =
-		useStarboardStore();
-	console.log(projects);
+	const {
+		pageNumber,
+		setPageNumber,
+		loading,
+		setLoading,
+		projects,
+		pages,
+		results,
+		resultsPerPage,
+	} = useStarboardStore();
+	console.log("projects", projects);
 	const [loadedImagesCount, setLoadedImagesCount] = useState(0);
 	const handleImageLoad = () => {
 		setLoadedImagesCount((prev) => prev + 1);
@@ -27,6 +35,7 @@ function StartupPagination() {
 		) {
 			setLoading(false);
 		}
+		console.log(results, resultsPerPage, results / Number(resultsPerPage));
 	}, [loadedImagesCount, projects]);
 
 	return (
@@ -69,7 +78,11 @@ function StartupPagination() {
 								)}
 								{pages.map(
 									(page, index) =>
-										pageNumber + page > 0 && (
+										pageNumber + page > 0 &&
+										pageNumber + page <=
+											Math.ceil(
+												results / Number(resultsPerPage)
+											) && (
 											<PaginationItem key={index}>
 												<PaginationLink
 													onClick={() => {
@@ -94,7 +107,10 @@ function StartupPagination() {
 											</PaginationItem>
 										)
 								)}
-								{
+								{pageNumber !==
+									Math.ceil(
+										results / Number(resultsPerPage)
+									) && (
 									<PaginationItem>
 										<PaginationLink
 											className="px-[1.5vw] hover:cursor-pointer"
@@ -110,7 +126,7 @@ function StartupPagination() {
 											<SlArrowLeft />
 										</PaginationLink>
 									</PaginationItem>
-								}
+								)}
 							</PaginationContent>
 						</Pagination>
 					</div>

@@ -22,23 +22,14 @@ function StarBoard() {
 		searchQuery,
 		subcategory,
 		sorting,
+		results,
+		setResults,
 		englishToPersian,
 		reset,
 	} = useStarboardStore();
 	useEffect(() => {
 		setLoading(true);
-		setPageNumber(page ? Number(page) : 1);
-		getDataParams("/starboard/most-recent/", null, {
-			results_per_page: resultsPerPage,
-			page_number: pageNumber,
-		}).then((data) => {
-			setProjects(data);
-			setLoading(false);
-		});
-	}, [pageNumber]);
-
-	useEffect(() => {
-		// reset();
+		reset();
 		const formData = {
 			category: englishToPersian[mainCategory],
 			subcategory: englishToPersian[subcategory],
@@ -46,13 +37,31 @@ function StarBoard() {
 			results_per_page: resultsPerPage,
 			page_number: pageNumber,
 		};
-		// console.log(`/starboard/${sorting}/`, formData);
-		setLoading(true);
+		setPageNumber(page ? Number(page) : 1);
 		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
-			setProjects(data);
+			setResults(data.result_count);
+			setProjects(data.results);
 			setLoading(false);
 		});
-	}, []);
+	}, [pageNumber]);
+
+	// useEffect(() => {
+	// 	// reset();
+	// 	const formData = {
+	// 		category: englishToPersian[mainCategory],
+	// 		subcategory: englishToPersian[subcategory],
+	// 		search: searchQuery,
+	// 		results_per_page: resultsPerPage,
+	// 		page_number: pageNumber,
+	// 	};
+	// 	// console.log(`/starboard/${sorting}/`, formData);
+	// 	setLoading(true);
+	// 	getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
+	// 		setResults(data.results_count);
+	// 		setProjects(data.results);
+	// 		setLoading(false);
+	// 	});
+	// }, []);
 
 	if (loading) return <Loading />;
 	return (
@@ -65,7 +74,7 @@ function StarBoard() {
 			<p className="rtl place-self-center">
 				{projects.length === 0
 					? "هیچ استارت‌آپی یافت نشد"
-					: `${projects.length} استارت‌آپ یافت شد`}
+					: `${results} استارت‌آپ یافت شد`}
 			</p>
 			<StartupPagination />
 		</div>
