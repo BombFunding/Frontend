@@ -9,6 +9,7 @@ import { Loading } from "../Loading/Loading";
 import { Label } from "../ui/label";
 import CommentSection from "../CommentSection/CommentSection";
 import Tags from "../Tags/Tags";
+import InvestorDialogBox from "../ProjectDashboard/InvestorDialogBox/InvestorDialogBox";
 
 const englishToPersian = {
 	"Artificial Intelligence": "هوش مصنوعی",
@@ -200,9 +201,10 @@ function Project({ className }) {
 					</div>
 				</div>
 			</div>
-			<div className="text-black text-[1.5vw] rtl hover:cursor-pointer hover:underline hover:text-bomborange">
+			{/* <div className="text-black text-[1.5vw] rtl hover:cursor-pointer hover:underline hover:text-bomborange">
 				n نفر روی این پروژه سرمایه گذاری کرده‌اند
-			</div>
+			</div> */}
+			<InvestorDialogBox className="rtl" projectId={projectId} />
 			<div>
 				<div className="text-black flex gap-[1vw] px-[4vw] place-self-end">
 					<div className="flex flex-col place-items-end justify-evenly px-[2vw]">
