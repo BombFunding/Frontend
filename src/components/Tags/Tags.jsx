@@ -1,6 +1,8 @@
-function Tags({ tags }) {
+function Tags({ tags, className }) {
 	return (
-		<div className="flex flex-col rtl justify-center items-start bg-white dark:bg-transparent py-4 rounded-lg">
+		<div
+			className={`flex flex-col rtl justify-center place-items-start bg-white dark:bg-transparent py-4 rounded-lg ${className}`}
+		>
 			{/* <p className="font-semibold text-xl text-gray-600 mb-2">Tags</p> */}
 			<div className="flex flex-wrap gap-[0.6vw]">
 				{tags.map((tag, index) => (

@@ -21,6 +21,7 @@ import StarBoard from "@/Pages/StarBoard/StarBoard";
 import AboutUs from "@/Pages/AboutUs/AboutUs";
 import ProjectItem from "@/components/DashBoard/ProjectItem/ProjectItem";
 import Likes from "@/components/Likes/Likes";
+import Project from "@/components/Project/Project";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 
@@ -67,6 +68,10 @@ export const router = createBrowserRouter([
 			{
 				path: "/AboutUs",
 				element: <AboutUs />,
+			},
+			{
+				path: "/projects/:projectId",
+				element: <Project />,
 			},
 		],
 	},

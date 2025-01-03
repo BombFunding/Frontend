@@ -1,110 +1,109 @@
 .comment {
-  width: 80%;
-  max-width: 700px;
-  margin: 0 auto;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid #eee;
+	// width: 80%;
+	// max-width: 700px;
+	// margin: 0 auto;
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 20px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	border: 1px solid #eee;
 }
 
 .comment h2 {
-  text-align: center;
-  font-size: 24px;
-  color: #333; /* Dark grey for text */
-  margin-bottom: 20px;
+	text-align: center;
+	font-size: 24px;
+	color: #333; /* Dark grey for text */
+	margin-bottom: 20px;
 }
 
 .commentInput {
-  
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
 }
 
 .textarea {
-  color: black;
-  padding: 15px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  resize: vertical;
-  min-height: 80px;
-  font-family: 'vazirmatn';
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
-  background-color: #f4f4f4;
+	color: black;
+	padding: 15px;
+	font-size: 16px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	resize: vertical;
+	min-height: 80px;
+	font-family: "vazirmatn";
+	box-sizing: border-box;
+	transition: border-color 0.3s ease;
+	background-color: #f4f4f4;
 }
 
 .textarea:focus {
-  border-color: #FF5722; /* Orange color on focus */
-  outline: none;
-} 
+	border-color: #ff5722; /* Orange color on focus */
+	outline: none;
+}
 
 .commentInput .custom-placeholder-label {
-  background-color: transparent !important;
-  color: #000000;
-  font-family: Vazirmatn, sans-serif;
-  font-size: 12px;
-  opacity: 1;
-  padding: 0 4px;
-  text-align: right;
+	background-color: transparent !important;
+	color: #000000;
+	font-family: Vazirmatn, sans-serif;
+	font-size: 12px;
+	opacity: 1;
+	padding: 0 4px;
+	text-align: right;
 }
 
 .button {
-  padding: 12px 20px;
-  font-size: 16px;
-  font-family: "vazirmatn";
-  color: #fff;
-  background-color: #FF5722; /* Orange button */
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-weight: bold;
-  text-align: center;
+	padding: 12px 20px;
+	font-size: 16px;
+	font-family: "vazirmatn";
+	color: #fff;
+	background-color: #ff5722; /* Orange button */
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	font-weight: bold;
+	text-align: center;
 }
 
 .button:hover {
-  background-color: #E64A19; /* Darker orange on hover */
+	background-color: #e64a19; /* Darker orange on hover */
 }
 
 .commentsList {
-  margin-top: 30px;
-  margin-bottom: 20px;
+	margin-top: 30px;
+	margin-bottom: 20px;
 }
 
 .commentItem {
-  background-color: #fff;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif;
-  position: relative;
+	background-color: #fff;
+	padding: 15px;
+	margin-bottom: 20px;
+	border-radius: 8px;
+	border: 1px solid #ddd;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	font-family: "Arial", sans-serif;
+	position: relative;
 }
 
 .commentItem p {
-  color: #333; /* Dark grey text for readability */
-  font-size: 16px;
-  line-height: 1.5;
-  margin-bottom: 0;
+	color: #333; /* Dark grey text for readability */
+	font-size: 16px;
+	line-height: 1.5;
+	margin-bottom: 0;
 }
 
 .commentItem::before {
-  content: "👤";
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  font-size: 20px;
-  color: #FF5722; /* Orange color for the icon */
+	content: "👤";
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	font-size: 20px;
+	color: #ff5722; /* Orange color for the icon */
 }
 
 .noCommentsMessage {
-  text-align: center;
-  font-size: 18px;
-  color: #777;
-  font-style: italic;
+	text-align: center;
+	font-size: 18px;
+	color: #777;
+	font-style: italic;
 }
