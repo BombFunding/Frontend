@@ -24,49 +24,46 @@ import CustomToast from "../Custom/CustomToast/CustomToast";
 import Joyride from "react-joyride";
 import { useParams } from "react-router-dom";
 import useProjectStore from "@/stores/ProjectStore/ProjectStore";
-import JoyrideSteps from "./JoyrideSteps";
+import JoyrideComponent from "./Joyride.jsx";
 import ColumnTools from "./ColumnTools";
 import EditorTools from "./EditorTools";
 
 const Editor = () => {
   const { projectId } = useParams();
-  const { page: data, updateProject } = useProjectStore();
-
+  const { updateProject } = useProjectStore();
+  const { data, getData, saveData } = useEditorStore();
   const [update, setUpdate] = useState(false);
   const editorRef = useRef(null);
-  const pBoxRef = useRef(null);
+  const holderRef = useRef(null);
+  const [run, setRun] = useState(data ? false : true);
 
   useEffect(() => {
-    const getDataFromServer = async () => {
-      try {
-        const res = await getData(`/projects/${projectId}/`);
-        // await updateData(res.page);
-        console.log("sucessfully got data from server", res.page);
-      } catch (error) {
-        console.log("error: ", error);
-      }
+    const fetchData = async () => {
+      await updateProject(projectId);
+      await getData(projectId);
     };
-    getDataFromServer();
+    fetchData();
   }, []);
 
   useEffect(() => {
     console.log("effectdata: ", data);
-    const editor = new EditorJS({
-      holder: "editorjs",
-      autofocus: true,
-      data: data ?? { blocks: [], time: Date.now() },
-      tools: EditorTools(),
-      i18n: FaTranslation(),
-    });
+    if (holderRef.current) {
+      const editor = new EditorJS({
+        holder: "editorjs",
+        autofocus: true,
+        data: data,
+        tools: EditorTools(),
+        i18n: FaTranslation(),
+      });
 
-    editorRef.current = editor;
-
-    return () => {
-      editor.isReady
-        .then(() => editor.destroy())
-        .catch((error) => console.log(error));
-    };
-  }, [data, update]);
+      editorRef.current = editor;
+      return () => {
+        editor.isReady
+          .then(() => editor.destroy())
+          .catch((error) => console.log(error));
+      };
+    }
+  }, [data, update, editorRef]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -90,100 +87,41 @@ const Editor = () => {
     //   editorRef.current.destroy();
     console.log("id: ", projectId);
     console.log("data:", data);
-
-    // await updateData(savedData);
-    patchData(
-      `/projects/${projectId}/`,
-      { page: JSON.stringify(savedData) },
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    )
-      .then((res) => {
-        console.log("finish", res);
-        toast.success(<CustomToast Header="پروژه با موفقیت ذخیره شد" />);
-        updateProject(projectId);
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error(<CustomToast Header="خطا در ذخیره پروژه" />);
-      });
-
-    // setUpdate(!update);
+    saveData(savedData, projectId);
   };
-
-  // const handleJoyrideCallback = (data) => {
-  //   const { action, index, type } = data;
-
-  //   if (type === "step:after" && index === 0 && action === "next") {
-  //     // editorRef.current.focus();
-  //     // editorRef.current.render();
-  //     const editorHolder = document.getElementById("editorjs");
-  //     if (editorHolder) {
-  //       editorHolder.click(); // Trigger a click event
-  //     }
-  //     else
-  //     {
-  //       console.log("editorHolder not found");
-  //     }
-  //   }
-  // };
+  const handelDiscard = async () => {
+    console.log("imupdating with id: ", projectId);
+    await updateProject(projectId);
+    getData(projectId);
+  };
 
   return (
     <>
-      {/* <Label className="p-8 text-3xl"> ویرایشگر</Label> */}
-      {/* <Joyride
-        steps={steps}
-        callback={handleJoyrideCallback}
-        continuous
-        scrollToFirstStep
-        // showProgress
-        showSkipButton
-        scrollOffset={120}
-        locale={{
-          back: "قبلی",
-          close: "بستن",
-          last: "پایان",
-          next: "بعدی",
-          skip: "رد کردن",
-        }}
-        styles={{
-          options: {
-            arrowColor: "rgba(0, 0, 0, 0.5)",
-            backgroundColor: "#333",
-            textColor: "#fff",
-            overlayColor: "rgba(0, 0, 0, 0.5)",
-            fontFamily: "vazirmatn",
-            zIndex: 1000,
-          },
-          buttonNext: {
-            backgroundColor: "#FF7517",
-            fontFamily: "vazirmatn",
-          },
-          buttonBack: {
-            color: "#FF7517",
-            fontFamily: "vazirmatn",
-          },
-        }}
-      /> */}
+      <JoyrideComponent run={run} />
       <div className=" bg-[#FFF5E1]">
-        <div className={`${styles.holder}`}>
-          <Card id="editorjs" className={`${styles.editor} step1`}></Card>
-          {/* <button className={styles.save_btn} onClick={handelSave}>
-            <SaveIcon className={styles.save_icon} />
-            <span className={styles.save_txt}>ذخیره</span>
-          </button> */}
+        <div className="pt-8 px-6 pb-4 StartTour">
+          <Label className="text-3xl text-gray-600 "> :ویرایشگر</Label>
         </div>
-        <div className="h-24 bg-blue-950 sticky bottom-0 right-0 left-0 z-20 flex justify-center items-center gap-10">
+        <div className={`${styles.holder}`}>
+          <Card
+            ref={holderRef}
+            id="editorjs"
+            className={`${styles.editor} EditorTour`}
+          ></Card>
+        </div>
+        <div className="h-24 bg-blue-950 sticky bottom-0 right-0 left-0 z-[3] flex justify-center items-center gap-10">
           <button
-            className="btn bg-bomborange text-white hover:bg-white hover:text-black animate-kreep hover:animate-none"
+            className="SaveTour btn bg-bomborange text-white hover:bg-white hover:text-black animate-kreep hover:animate-none"
             onClick={handelSave}
           >
-            save
+            ذخیره
           </button>
-          <button>discard</button>
+          <button
+            className="btn bg-bomborange text-white hover:bg-white hover:text-black hover:animate-none"
+            onClick={handelDiscard}
+          >
+            فراموشی
+          </button>
         </div>
       </div>
     </>
