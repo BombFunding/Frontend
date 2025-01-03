@@ -95,16 +95,14 @@ const MetaBox = ({ className }) => {
             onChange={handleBannerChange} // Handle file selection
           />
         </div>
-        <div className="w-full md:w-2/5 p-5 flex flex-col justify-evenly items-center relative">
-          <div className="w-full text-right flex gap-3">
-            <Label className="text-xl text-black">{projectName}</Label>
-            {/* <Label className="place-self-center text-base">
-							یک دو سه چهار
-						</Label> */}
+        <div className="w-full md:w-2/5 p-5 flex flex-col justify-start items-center relative gap-4 mt-3">
+          <div className="w-full text-right flex flex-col gap-2">
+            <Label className="text-xl text-black">نام پروژه</Label>
+            <Label className=" text-base">{projectName}</Label>
           </div>
-          <div className="w-full text-right mb-6 flex gap-3">
+          <div className="w-full flex flex-col mb-6 flex gap-2">
             <Label className="text-xl text-black">توضیحات</Label>
-            <Label className="place-self-center">{description}</Label>
+            <Label className="">{description}</Label>
           </div>
           <div className="absolute bottom-4 flex">
             {/* <Likes /> */}
