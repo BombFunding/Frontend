@@ -19,8 +19,6 @@ function StartupPagination() {
 		setLoading,
 		projects,
 		pages,
-		results,
-		resultsPerPage,
 		totalPages,
 	} = useStarboardStore();
 	const [loadedImagesCount, setLoadedImagesCount] = useState(0);
@@ -52,6 +50,10 @@ function StartupPagination() {
 							subcategories={project.subcategories}
 							key={index}
 							onImageLoad={handleImageLoad}
+							ownerProfile={project.owner_profile_picture}
+							owner={project.owner_username}
+							isBookmarked={project.is_bookmarked}
+							isLiked={project.is_liked}
 						/>
 					))}
 				</div>

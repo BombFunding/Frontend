@@ -121,11 +121,15 @@ function StartupCard({
 	likeCount,
 	description,
 	onImageLoad,
+	owner,
+	ownerProfile,
+	isLiked,
+	isBookmarked,
 }) {
 	const Navigate = useNavigate();
 	const handleShare = () => {
 		// const url = window.location.href;
-		const url = `http://localhost:3000/project/${id}`;
+		const url = `http://localhost:3000/projects/${id}`;
 		navigator.clipboard
 			.writeText(url)
 			.then(() => {
@@ -154,8 +158,9 @@ function StartupCard({
 			<div className="flex justify-between">
 				<div className="flex">
 					<img
-						src={defaultpfp}
-						className="rounded-full w-[4vw] m-[1vw]"
+						src={ownerProfile}
+						className="rounded-full w-[4vw] m-[1vw] hover:cursor-pointer"
+						onClick={() => Navigate(`/profile/${owner}`)}
 					/>
 					<h1 className="text-[1.2vw] place-self-center">{name}</h1>
 				</div>
@@ -163,11 +168,13 @@ function StartupCard({
 					<Like
 						className="pr-[1vw] pl-[1vw] place-self-center"
 						likeCount={likeCount}
-						projectId={id}
+						isLiked={isLiked}
+						// projectId={id}
 					/>
 					<Bookmark
 						className="pl-[1vw] place-self-center"
-						projectId={id}
+						isBookmarked={isBookmarked}
+						// projectId={id}
 					/>
 					<GoPaperAirplane
 						className="-rotate-45 w-[28px] h-[26px] mb-[0.4vh] place-self-center cursor-pointer"
@@ -175,11 +182,12 @@ function StartupCard({
 					/>
 				</div>
 			</div>
-			<Accordion type="single" collapsible className="w-full p-3">
+			<Accordion type="single" collapsible className="w-full px-[1vw]">
 				<AccordionItem value="item-1">
 					<AccordionTrigger>اطلاعات بیشتر</AccordionTrigger>
 					<AccordionContent>
-						<div className="flex m-[1vw] place-content-center rtl justify-around px-[3vw]">
+						<div className="py-[1vw]">{description}</div>
+						<div className="flex place-content-center rtl justify-around px-[3vw]">
 							<div className={`flex ${styles.hover_trigger}`}>
 								<img
 									src={clock}
@@ -192,7 +200,7 @@ function StartupCard({
 							></div>
 							87% سرمایه جمع شده
 						</div>
-						<Tags />
+						<Tags tags={subcategories} />
 					</AccordionContent>
 				</AccordionItem>
 			</Accordion>

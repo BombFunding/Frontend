@@ -101,8 +101,6 @@ function FilterSection() {
 		resultsPerPage,
 		pageNumber,
 		subcategory,
-		persianToEnglishMain,
-		persianToEnglish,
 		setMainCategory,
 		setSubcategory,
 		setSearchQuery,
@@ -129,7 +127,6 @@ function FilterSection() {
 			page_number: pageNumber,
 		};
 		setPageNumber(page ? Number(page) : 1);
-		console.log(formData, mainCategory, subcategory);
 		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
 			setResults(data.result_count);
 			setTotalPages(data.total_pages);
