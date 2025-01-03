@@ -304,9 +304,9 @@ function SignupForm() {
 							استارت‌آپ
 						</RadioInputOption>
 						<RadioInputOption
-							value={"investor"}
+							value={"basic"}
 							id="tab-2"
-							checked={user_type === "investor"}
+							checked={user_type === "basic"}
 							onChange={updateUser_type}
 						>
 							سرمایه‌گذار

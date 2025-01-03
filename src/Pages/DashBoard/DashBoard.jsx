@@ -14,7 +14,7 @@ const DashBoard = () => {
 	switch (userType) {
 		case "startup":
 			return <StartupDashBoard />;
-		case "investor":
+		case "basic":
 			return <InvestorDashBoard />;
 		default:
 			return <Error />;

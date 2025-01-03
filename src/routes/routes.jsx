@@ -22,12 +22,20 @@ import AboutUs from "@/Pages/AboutUs/AboutUs";
 import ProjectItem from "@/components/DashBoard/ProjectItem/ProjectItem";
 import Likes from "@/components/Likes/Likes";
 import Project from "@/components/Project/Project";
+import Navbar from "@/components/Navbar/Navbar";
+import Footer from "@/components/Footer/Footer";
 
 export const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <PublicLayout />,
-		errorElement: <Error />,
+		errorElement: (
+			<>
+				<Navbar />
+				<Error />
+				<Footer />
+			</>
+		),
 		children: [
 			{
 				index: true,
@@ -72,7 +80,7 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: "/test",
-				element: <Editor />,
+				element: <Loading />,
 			},
 			{
 				path: "/EditProfile",

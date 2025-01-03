@@ -32,7 +32,7 @@ function StartupPagination() {
 	return (
 		!loading && (
 			<>
-				<div className="m-[1vw] p-[1vw] grid grid-cols-3 justify-center items-start gap-x-4 gap-y-2 rtl">
+				<div className="m-[1vw] p-[1vw] grid grid-cols-3 justify-center place-items-center items-start gap-x-4 gap-y-2 rtl">
 					{projects?.map((project, index) => (
 						<StartupCard
 							name={project.name}

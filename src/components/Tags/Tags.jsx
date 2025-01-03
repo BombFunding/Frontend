@@ -8,7 +8,7 @@ function Tags({ tags, className }) {
 				{tags.map((tag, index) => (
 					<p
 						className="h-[1.8vw] pt-[0.33vw] px-[0.6vw] text-center text-[0.8vw] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer"
-						key={tag}
+						key={index}
 					>
 						{tag}
 					</p>

@@ -7,21 +7,36 @@ import styles from "./Navbar.module.scss";
 import PushyButton from "../Custom/PushyButton/PushyButton";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu.jsx";
 import NavbarDropDown from "../NavbarDropdown/NavbarDropDown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchResultsList from "../SearchBar/SearchResultsList/SearchResultsList.jsx";
+import { getData } from "@/Services/ApiClient/Services";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import NavbarDropDownSCN from "../NavbarDropDownSCN/NavbarDropDownSCN";
 function Navbar() {
 	const Navigate = useNavigate();
+	const { accessToken } = useTokenStore();
 	const [isOpen, setOpen] = useState(false);
 	const [results, setResults] = useState([]);
 	const [isFocused, setIsFocused] = useState(false);
 	const [input, setInput] = useState("");
-	const TOKEN = useTokenStore((state) => state.accessToken);
+	const { setAvatar } = useProfileStore();
+	useEffect(() => {
+		getData(`/auth/view_own_baseuser_profile/`).then((data) => {
+			setAvatar(
+				`http://104.168.46.4:8000${data.base_profile.profile_picture}`
+			);
+		});
+	}, []);
 	return (
 		<nav
-			className={`flex flex-col justify-around bg-bomborange h-24 top-0 fixed right-0 z-40 w-[100vw] gap-1`}
+			className={`flex flex-col justify-around h-12 top-0 fixed right-0 z-40 w-screen`}
 		>
-			<div className="flex flex-row bg-bomborange w-full h-12 justify-between items-center px-6">
-				<div className="px-4 py-6 flex justify-between items-center w-full">
+			<div
+				className={`flex flex-row ${
+					isOpen ? "bg-black" : "bg-bomborange"
+				} w-full h-12 justify-between items-center px-6`}
+			>
+				<div className="px-4 flex justify-between items-center w-full">
 					<div
 						className="flex text-white hover:cursor-pointer"
 						onClick={() => Navigate("/")}
@@ -39,7 +54,7 @@ function Navbar() {
 							</>
 						)}
 					</div>
-					<div>
+					<div className={`${styles.searchbar}`}>
 						<SearchBar
 							setResults={setResults}
 							setIsFocused={setIsFocused}
@@ -56,13 +71,10 @@ function Navbar() {
 					</div>
 
 					<div className={`${styles.mobile} flex gap-[1vw]`}>
-						<PushyButton onClick={() => Navigate("/invesboard")}>
-							سرمایه گذاران
-						</PushyButton>
 						<PushyButton onClick={() => Navigate("/starboard")}>
 							استارت‌آپ‌ها
 						</PushyButton>
-						{TOKEN ? (
+						{accessToken ? (
 							<div className="place-items-center">
 								<ProfileDropDown />
 							</div>
@@ -79,8 +91,11 @@ function Navbar() {
 					/>
 				</div>
 			</div>
-			<div className="mt-[5vh] h-[2vh] w-[100vw] z-[-20]">
-				<NavbarDropDown />
+			<div
+				className={`h-12 bg-bomborange w-screen z-[-20] place-items-center ${styles.dropdown}`}
+			>
+				{/* <NavbarDropDown /> */}
+				<NavbarDropDownSCN />
 			</div>
 		</nav>
 	);
