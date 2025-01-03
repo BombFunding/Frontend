@@ -45,19 +45,17 @@ const SearchSlider = ({ isVisible, onClose }) => {
           />
           {/* <SearchResultsList results={results} className={"z-50 hidden"} /> */}
           <div
-            // className={`absolute top-14 w-[32.7vw] z-50 rounded-b-full shadow-lg ${
-            //   true == "" ? "hidden" : ""
-            // }`}
             className={`absolute top-28 w-[90vw] z-50 rounded-b-full shadow-lg ${
               styles.listContainer
-            } ${!isFocused || input == "" ? "" : ""}`}
+            } ${!isFocused || input == "" ? "hidden" : ""}`}
+            // className={`absolute top-28 w-[90vw] z-50 rounded-b-full shadow-lg ${styles.listContainer}`}
           >
             <SearchResultsList results={results} />
           </div>
         </div>
-        <footer className="p-4 text-center">
+        {/* <footer className="p-4 text-center">
           <p>Search Footer (Optional)</p>
-        </footer>
+        </footer> */}
       </div>
     </motion.div>
   );

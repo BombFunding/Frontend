@@ -8,26 +8,31 @@ export default function SearchResult({ result }) {
   // console.log(`username: ${result.username}`);
   // console.log(`avatar: ${result.avatar}`);
   const Navigate = useNavigate();
-  console.log(`result is: ${result}`);
+  const handleNavigation = () => {
+    // event.stopPropagation();
+    // alert("chi");
+    if (result.profile_id) {
+      // startup
+      Navigate(`/profile/${result.username}`);
+    } else if (result.id) {
+      // projects
+      Navigate(`/projects/${result.id}`);
+    } else {
+      // investors
+      Navigate(`/profile/${result.username}`);
+    }
+    window.location.reload();
+  };
+  // console.log(`result is: ${result}`);
   return (
     <div
       className="grid grid-cols-3 items-center p-4 gap-4 search-result cursor-pointer bg-inherit"
-      onClick={() =>
-        // alert(`You selected ${result.fullName} (${result.username})!`)
-        {
-          if (result.profile_id) {
-            Navigate("/startup");
-          } else if (result.id) {
-            Navigate("/project");
-          } else {
-            Navigate("/user");
-          }
-        }
-      }
+      onClick={handleNavigation}
+      onMouseDown={(e) => e.preventDefault()}
     >
       {/* Avatar */}
       <div
-        className={`avatar ${
+        className={`avatar w-[15vw] ${
           result.image ? "aspect-video rounded-sm" : "rounded-full"
         } overflow-hidden ${styles.test}`}
       >
@@ -44,7 +49,7 @@ export default function SearchResult({ result }) {
       {/* User Details */}
       <div className="col-span-2 flex flex-col text-right">
         <div className="full-name font-bold lg:text-lg sm:text-sm md:text-lg">
-          {result.image ? result.name : "محمد خاکپور"}
+          {result.name}
           {/* {result.fullName} */}
         </div>
         <div className="username text-gray-500 text-sm">

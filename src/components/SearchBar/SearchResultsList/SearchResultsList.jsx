@@ -3,7 +3,7 @@ import styles from "./SearchResultsList.module.scss";
 import SearchResult from "../SearchResults/SearchResults.jsx";
 import { Separator } from "@/components/ui/separator";
 
-function SearchResultsList({ results }) {
+function SearchResultsList({ results, setInput }) {
   // console.log(`results: ${results}`);
   return (
     <div
@@ -14,7 +14,7 @@ function SearchResultsList({ results }) {
           <label className="font-bold mr-[2vw]">استارت‌آپ‌ها</label>
           <div className={``}>
             {results.startups.map((result, id) => {
-              console.log(result);
+              // console.log(result);
               return <SearchResult result={result} key={id} />;
             })}
           </div>
@@ -26,7 +26,7 @@ function SearchResultsList({ results }) {
           <label className="font-bold mr-[2vw]">سرمایه گذاران</label>
           <div className={``}>
             {results.users.map((result, id) => {
-              console.log(result);
+              // console.log(result);
               return <SearchResult result={result} key={id} />;
             })}
           </div>
@@ -37,7 +37,7 @@ function SearchResultsList({ results }) {
           <label className="font-bold mr-[2vw]">پروژه ها</label>
           <div className={``}>
             {results.projects.map((result, id) => {
-              console.log(result);
+              // console.log(result);
               return <SearchResult result={result} key={id} />;
             })}
           </div>
