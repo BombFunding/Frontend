@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis, Tooltip } from "recharts";
@@ -39,7 +37,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 	return null;
 };
 
-export function BarChart1() {
+function BarChart1() {
 	const [chartData, setChartData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const balls = useProfileStore((state) => state.username);
@@ -101,3 +99,5 @@ export function BarChart1() {
 		</div>
 	);
 }
+
+export default BarChart1;
