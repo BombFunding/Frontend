@@ -1,19 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis, Tooltip } from "recharts";
 import { getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { Loading } from "../Loading/Loading";
-
-// const chartData = [
-//   { month: "مهر", fund: 0 },
-//   { month: "آبان", fund: 200 },
-//   { month: "آذر", fund: 120 },
-//   { month: "دی", fund: 190 },
-//   { month: "بهمن", fund: 130 },
-//   { month: "اسفند", fund: 140 },
-// ];
 
 // Chart configuration
 const chartConfig = {
@@ -51,7 +43,7 @@ export function BarChart1() {
 	const [chartData, setChartData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const balls = useProfileStore((state) => state.username);
-	console.log(`Username is : ${balls}`);
+	console.log(`Final : ${balls}`);
 	useEffect(() => {
 		if (!balls) return;
 		console.log(`Username is: ${balls}`);

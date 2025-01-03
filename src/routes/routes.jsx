@@ -20,6 +20,7 @@ import Editor from "@/components/Editor/Editor";
 import ProjectEditor from "@/Pages/ProjectEditor/ProjectEditor";
 import StarBoard from "@/Pages/StarBoard/StarBoard";
 import BaseUserDashBoard from "@/components/DashBoard/BaseUserDashBoard/BaseUserDashBoard";
+import BlankPage from "@/Pages/Balnkpage";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
       {
 				path: "/starboard",
 				element: <StarBoard />,
+			},
+      {
+				path: "/blank",
+				element: <BlankPage />,
 			},
     ],
   },
