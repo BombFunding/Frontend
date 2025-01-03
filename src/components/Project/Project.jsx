@@ -45,6 +45,7 @@ function Project({ className }) {
 	const [position, setPosition] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [subcategories, setSubCategories] = useState([]);
+	const [totalFunded, setTotalFunded] = useState(0);
 	function timeDiff(time) {
 		const now = new Date(); // Current time
 		const date = new Date(time); // Convert the comment time to a Date object
@@ -88,8 +89,20 @@ function Project({ className }) {
 			);
 			getData(`/position/detail/${data.position_ids[0]}/`).then((res) => {
 				console.log(res);
-				setPosition(res);
+				if (!res.is_closed) {
+					setPosition(res);
+				}
 			});
+			getData(`/invest/history/project/${projectId}/amount/`).then(
+				(data) => {
+					let total = 0;
+					data.forEach((element) => {
+						total += Number(element.investment_amount);
+					});
+					console.log(total);
+					setTotalFunded(total);
+				}
+			);
 			setLoading(false);
 		});
 	}, []);
@@ -171,7 +184,7 @@ function Project({ className }) {
 				<div className="my-[2vw] flex place-items-center">
 					<div className="flex rtl gap-[0.5vw] place-self-start px-[2vw] py-[1vh]">
 						<div className="text-black text-4xl place-self-center">
-							2000
+							{totalFunded}
 						</div>
 						<img
 							src={toman}

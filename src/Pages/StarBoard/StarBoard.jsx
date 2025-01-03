@@ -25,11 +25,10 @@ function StarBoard() {
 		results,
 		setResults,
 		setTotalPages,
-		reset,
 	} = useStarboardStore();
 	useEffect(() => {
 		setLoading(true);
-		reset();
+		// reset();
 		const formData = {
 			category: mainCategory,
 			subcategory: subcategory,
