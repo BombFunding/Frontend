@@ -180,7 +180,11 @@ function Project({ className }) {
 					)}
 					className="place-items-start"
 				/>
-				<div className="border-2 border-solid rounded-full mx-[1vw]" />
+				{subcategories.length > 0 ? (
+					<div className="border-2 border-solid rounded-full mx-[1vw]" />
+				) : (
+					<></>
+				)}
 				<div className="my-[2vw] flex place-items-center">
 					<div className="flex rtl gap-[0.5vw] place-self-start px-[2vw] py-[1vh]">
 						<div className="text-black text-4xl place-self-center">
@@ -195,6 +199,9 @@ function Project({ className }) {
 						:مجموع سرمایه جمع‌آوری شده
 					</div>
 				</div>
+			</div>
+			<div className="text-black text-[1.5vw] rtl hover:cursor-pointer hover:underline hover:text-bomborange">
+				n نفر روی این پروژه سرمایه گذاری کرده‌اند
 			</div>
 			<div>
 				<div className="text-black flex gap-[1vw] px-[4vw] place-self-end">
