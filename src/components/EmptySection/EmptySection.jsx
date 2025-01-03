@@ -15,7 +15,7 @@ function EmptySection({
         className={`w-[30%] ${imageClassName}`}
       />
       <Label
-        className={`text-2xl ${textClassName} `}
+        className={`text-2xl text-center ${textClassName} `}
       >{`هیچ ${type}ی وجود ندارد`}</Label>
     </div>
   );

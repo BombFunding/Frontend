@@ -116,7 +116,7 @@ function HamburgerMenu({ isOpen, setOpen, mode }) {
 	} = useStarboardStore();
 	const searchProject = (category, subcategory) => {
 		setLoading(true);
-		reset();
+		// reset();
 		const formData = {
 			category: category,
 			subcategory: subcategory,

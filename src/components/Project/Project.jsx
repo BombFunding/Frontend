@@ -75,6 +75,7 @@ function Project({ className }) {
 			setOwner(data.username);
 			setDescription(data.description);
 			setSubCategories(data.subcategories);
+			setLoading(true);
 			getData(`/auth/baseuser_search_by_name/${data.username}/`).then(
 				(res) => {
 					console.log(res.baseuser_profile.profile_picture);
@@ -86,14 +87,17 @@ function Project({ className }) {
 							" " +
 							res.baseuser_profile.last_name
 					);
+					setLoading(false);
 				}
 			);
+			setLoading(true);
 			getData(`/position/detail/${data.position_ids[0]}/`).then((res) => {
-				console.log(res);
 				if (!res.is_closed) {
 					setPosition(res);
+					setLoading(false);
 				}
 			});
+			setLoading(true);
 			getData(`/invest/history/project/${projectId}/amount/`).then(
 				(data) => {
 					let total = 0;
@@ -102,9 +106,9 @@ function Project({ className }) {
 					});
 					console.log(total);
 					setTotalFunded(total);
+					setLoading(false);
 				}
 			);
-			setLoading(false);
 		});
 	}, []);
 	if (loading) return <Loading />;

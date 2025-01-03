@@ -105,8 +105,8 @@ const InvestorDialogBox = ({ className, projectId }) => {
 							variant="link"
 							className=" text-bomborange hover:text-black"
 						>
-							{mockData.length} نفر روی این پروژه سرمایه گذاری
-							کرده اند.
+							{investments.length} بار روی این پروژه سرمایه
+							گذاری شده است.
 						</Button>
 					</DialogTrigger>
 					<DialogContent className="pt-10 bg-white text-gray-600 rounded-lg w-96">
@@ -118,12 +118,11 @@ const InvestorDialogBox = ({ className, projectId }) => {
 								placeholder="جستجو کنید ..."
 							/>
 							<CommandList>
-								<CommandEmpty>
+								{/* <CommandEmpty>
 									<EmptySection
-										imageClassName={"w-2"}
 										type="سرمایه گذار"
 									/>
-								</CommandEmpty>
+								</CommandEmpty> */}
 								<CommandGroup heading="نتایج">
 									{(investments ? investments : mockData).map(
 										(item, index) => (
@@ -145,6 +144,11 @@ const InvestorDialogBox = ({ className, projectId }) => {
 										)
 									)}
 								</CommandGroup>
+                <CommandEmpty>
+									<EmptySection
+										type="سرمایه گذار"
+									/>
+								</CommandEmpty>
 							</CommandList>
 						</Command>
 					</DialogContent>

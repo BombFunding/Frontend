@@ -1,4 +1,11 @@
+import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
+import { useEffect } from "react";
+
 function Tags({ tags, className }) {
+	const { persianToEnglishMain } = useStarboardStore();
+	useEffect(() => {
+		console.log(persianToEnglishMain["تکنولوژی"]);
+	}, []);
 	return (
 		<div
 			className={`flex flex-col rtl justify-center place-items-start bg-white dark:bg-transparent py-4 rounded-lg ${className}`}
@@ -13,24 +20,6 @@ function Tags({ tags, className }) {
 						{tag}
 					</p>
 				))}
-				{/* <p className="h-[1.8vw] pt-[0.33vw] px-[0.6vw] text-center text-[0.8vw] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer">
-          هوش مصنوعی
-        </p>
-        <p className="h-[1.8vw] pt-[0.33vw] px-[0.6vw] text-center text-[0.8vw] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer">
-          OS
-        </p>
-        <p className="h-[1.8vw] pt-[0.33vw] px-[0.6vw] text-center text-[0.8vw] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer">
-          تست تگ
-        </p>
-        <p className="h-[1.8vw] pt-[0.33vw] px-[0.6vw] text-center text-[0.8vw] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer">
-          حذف تحلیل
-        </p>
-        <p className="h-[1.8vw] pt-[0.33vw] px-[0.6vw] text-center text-[0.8vw] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer">
-          غذای خوشمزه
-        </p>
-        <p className="h-[1.8vw] pt-[0.33vw] px-[0.6vw] text-center text-[0.8vw] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer">
-          گوشت مرغ
-        </p> */}
 			</div>
 		</div>
 	);

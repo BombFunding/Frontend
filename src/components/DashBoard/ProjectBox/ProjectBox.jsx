@@ -35,7 +35,7 @@ const ProjectBox = ({ className, type, add }) => {
 							key={index}
 							onClick={() => {
 								window.scrollTo(0, 0);
-								Navigate(`/projects/${project.id}`);
+								Navigate(`/ProjectDashboard/${project.id}`);
 							}}
 						/>
 					))}

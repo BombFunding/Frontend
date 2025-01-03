@@ -1,8 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
-
-
 const useStarboardStore = create(
 	persist(
 		(set) => ({
@@ -21,7 +19,7 @@ const useStarboardStore = create(
 			// top-visited
 			pages: [-3, -2, -1, 0, 1, 2, 3],
 			persianToEnglishMain: {
-				تکنولوژی: "Technology",
+				"تکنولوژی": "Technology",
 				گردشگری: "Tourism",
 				آموزش: "Education",
 				مالی: "Finance",

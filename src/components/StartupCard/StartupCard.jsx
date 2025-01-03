@@ -169,12 +169,12 @@ function StartupCard({
 						className="pr-[1vw] pl-[1vw] place-self-center"
 						likeCount={likeCount}
 						isLiked={isLiked}
-						// projectId={id}
+						projectId={id}
 					/>
 					<Bookmark
 						className="pl-[1vw] place-self-center"
 						isBookmarked={isBookmarked}
-						// projectId={id}
+						projectId={id}
 					/>
 					<GoPaperAirplane
 						className="-rotate-45 w-[28px] h-[26px] mb-[0.4vh] place-self-center cursor-pointer"
