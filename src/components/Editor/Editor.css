@@ -26,8 +26,11 @@
   visibility: visible;
 }
 
-.ce-toolbar__actions
-{
+.ce-toolbar__actions {
   background: transparent !important;
   padding-right: 10px !important;
+}
+
+.react-joyride__beacon {
+  z-index: 9999 !important;
 }
