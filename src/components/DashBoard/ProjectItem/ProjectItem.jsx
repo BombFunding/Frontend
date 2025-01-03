@@ -2,8 +2,10 @@ import AddProjectForm from "@/components/Forms/DashBoardForms/AddProjectForm/Add
 import styles from "./ProjectItem.module.scss";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { useNavigate } from "react-router-dom";
 
-const ProjectItem = ({ header, name, add, className, onClick }) => {
+const ProjectItem = ({ header, name, add, className, id }) => {
+  const navigate = useNavigate();
   if (add)
     return (
       <>
@@ -24,7 +26,10 @@ const ProjectItem = ({ header, name, add, className, onClick }) => {
       </>
     );
   return (
-    <Card className={`rounded-lg shadow-lg w-[30vw] ${className}`}>
+    <Card
+      onClick={() => navigate(`/projectDashboard/${id}`)}
+      className={`rounded-lg shadow-lg w-[30vw] ${className}`}
+    >
       <img src={header} className={styles.image} />
       <Label className={styles.text}>{name}</Label>
     </Card>

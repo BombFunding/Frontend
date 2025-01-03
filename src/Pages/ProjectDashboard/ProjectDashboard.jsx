@@ -22,7 +22,7 @@ const ProjectDashboard = () => {
   return (
     <>
       <div className={styles.full_page}>
-        <div className={styles.typer}>
+        {/* <div className={styles.typer}>
           <TypewriterComponent
             options={{
               typeSpeed: 120,
@@ -45,7 +45,8 @@ const ProjectDashboard = () => {
                 });
             }}
           />
-        </div>
+        </div> */}
+        <div ></div>
         <MetaBox
           className={"w-11/12 h-full md:h-[50vh] bg-white rounded-lg shadow-md"}
         />

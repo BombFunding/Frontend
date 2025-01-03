@@ -35,6 +35,7 @@ const ProjectBox = ({
               name={project.name}
               add={false}
               key={index}
+              id = {project.id}
             />
           ))}
           {add ? <ProjectItem add={add} /> : <></>}
