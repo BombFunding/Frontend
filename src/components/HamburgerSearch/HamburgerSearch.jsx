@@ -44,14 +44,21 @@ const SearchSlider = ({ isVisible, onClose }) => {
             setInput={setInput}
           />
           {/* <SearchResultsList results={results} className={"z-50 hidden"} /> */}
-          <div
-            className={`absolute top-28 w-[90vw] z-50 rounded-b-full shadow-lg ${
-              styles.listContainer
-            } ${!isFocused || input == "" ? "hidden" : ""}`}
-            // className={`absolute top-28 w-[90vw] z-50 rounded-b-full shadow-lg ${styles.listContainer}`}
-          >
-            <SearchResultsList results={results} />
-          </div>
+          {!isFocused || input == "" ? (
+            <></>
+          ) : results.users.length +
+              results.startups.length +
+              results.projects.length >
+            0 ? (
+            <div
+              className={`absolute top-28 w-[90vw] mt-[3vw] z-50 rounded-b-full shadow-lg ${styles.listContainer}`}
+              // className={`absolute top-28 w-[90vw] z-50 rounded-b-full shadow-lg ${styles.listContainer}`}
+            >
+              <SearchResultsList results={results} />
+            </div>
+          ) : (
+            <div className="mt-[20vh]">.داده ای یافت نشد</div>
+          )}
         </div>
         {/* <footer className="p-4 text-center">
           <p>Search Footer (Optional)</p>

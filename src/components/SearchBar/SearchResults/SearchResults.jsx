@@ -34,7 +34,7 @@ export default function SearchResult({ result }) {
       <div
         className={`avatar ${styles.sizeCustomizer} ${
           result.image ? "aspect-video rounded-sm" : "rounded-full"
-        } overflow-hidden ${styles.test}`}
+        } overflow-hidden lg:w-[5vw] md:w-[7vw]`}
       >
         <img
           src={`http://104.168.46.4:8000${
@@ -48,12 +48,13 @@ export default function SearchResult({ result }) {
 
       {/* User Details */}
       <div className="col-span-2 flex flex-col text-right">
-        <div className="full-name font-bold lg:text-lg sm:text-sm md:text-lg">
-          {result.name}
+        <div className="full-name font-bold text-neutral-600 lg:text-lg sm:text-sm md:text-lg">
+          {/* {result.name} */}
           {/* {result.fullName} */}
+          {result.username ?? result.name}
         </div>
         <div className="username text-gray-500 text-sm">
-          {result.username ?? ""}
+          {/* {result.username ?? ""} */}
         </div>
       </div>
     </div>
