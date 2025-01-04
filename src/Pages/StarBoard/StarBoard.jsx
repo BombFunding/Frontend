@@ -71,7 +71,7 @@ function StarBoard() {
 		// >
 		<div className="font-vazirmatn text-black w-[100vw]">
 			<FilterSection setResultsPerPage={setResultsPerPage} />
-			{loading ? <Loading /> : <></>}
+			{loading ? <Loading className={"pb-32"} /> : <></>}
 			{loading ? (
 				<></>
 			) : (

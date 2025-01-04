@@ -17,5 +17,5 @@
 }
 
 .container {
-	@apply rounded-lg shadow-lg w-[30vw] mb-[1.5vw];
+	@apply rounded-lg shadow-lg w-[30vw] mb-[1.5vw] hover:animate-shake;
 }

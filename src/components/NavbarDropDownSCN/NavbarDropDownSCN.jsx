@@ -58,7 +58,7 @@ const components = [
 		subs: {
 			"ارز دیجیتال": "/financial",
 			بیمه: "/financial",
-			"سرمایه گذاری": "/financial",
+			"سرمایه‌گذاری": "/financial",
 		},
 		description: "Visually or semantically separates content.",
 	},
