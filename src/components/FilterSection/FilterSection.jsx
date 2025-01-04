@@ -48,7 +48,7 @@ const categories = [
 const subcategories = [
 	{
 		value: "هوش مصنوعی",
-		label: "هوش مصنوعی",
+		label: "هوش مصنوعی",	
 		parent: "تکنولوژی",
 	},
 	{

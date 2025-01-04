@@ -1,4 +1,4 @@
-import Error from "../Error/Error";
+import Error404 from "../Error/404/Error404";
 import useTokenStore from "@/stores/TokenStore";
 import StartupProfile from "@/components/Profile/StartupProfile/StartupProfile";
 import InvestorProfile from "@/components/Profile/InvestorProfile/InvestorProfile";
@@ -12,7 +12,7 @@ const Profile = () => {
 		case "basic":
 			return <InvestorProfile />;
 		default:
-			return <Error />;
+			return <Error404 />;
 	}
 };
 
