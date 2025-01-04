@@ -28,6 +28,7 @@ import JoyrideComponent from "./Joyride.jsx";
 import ColumnTools from "./ColumnTools";
 import EditorTools from "./EditorTools";
 import { set } from "react-hook-form";
+import { Loading } from "../Loading/Loading";
 
 const Editor = () => {
   const { projectId } = useParams();
@@ -36,12 +37,13 @@ const Editor = () => {
   const [update, setUpdate] = useState(false);
   const editorRef = useRef(null);
   const holderRef = useRef(null);
+  const [loading, setLoading] = useState(false);
   const [run, setRun] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       await updateProject(projectId);
-      await getData(projectId);
+      getData(projectId);
     };
     fetchData();
   }, [projectId]);
@@ -96,9 +98,18 @@ const Editor = () => {
     getData(projectId);
   };
 
+  if (loading) {
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
+  }
   return (
     <>
-      <JoyrideComponent run={Object.keys(data).length === 0 ? true : false} />
+      <JoyrideComponent
+        run={Object.keys(data ?? {}).length === 0 ? true : false}
+      />
       <div className=" bg-[#FFF5E1]">
         <div className="pt-8 px-6 pb-4 ">
           <Label className="text-3xl text-gray-600 pl-5 StartTour">

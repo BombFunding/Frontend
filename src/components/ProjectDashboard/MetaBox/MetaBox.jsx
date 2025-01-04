@@ -86,7 +86,8 @@ const MetaBox = ({ className }) => {
             onClick={handleBannerClick}
           >
             تغییر
-          </button>
+          </button>{" "}
+          <Likes className="z-[10] absolute bottom-5 right-5" count={10} />
           <input
             type="file"
             accept="image/*"
@@ -127,10 +128,6 @@ const MetaBox = ({ className }) => {
             >
               <MetaForm setClose={setCloser} />
             </DrawerDialog>
-            <Likes
-              className="z-[10] translate-x-[-23vw] translate-y-[-1vw]"
-              count={10}
-            />
           </div>
         </div>
       </div>

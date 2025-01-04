@@ -31,6 +31,6 @@
   padding-right: 10px !important;
 }
 
-.react-joyride__beacon {
-  z-index: 9999 !important;
+.fixZin {
+  z-index: 1 !important;
 }

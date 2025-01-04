@@ -119,36 +119,51 @@ const JoyrideComponent = ({ children, run }) => {
 
   const handleJoyrideCallback = (data) => {
     const { status, action, index, type } = data;
-    console.log("Joyride event:", data);
+    console.log("data: ", data);
     if (status === "finished" || status === "skipped") {
       console.log("Tour finished or skipped!");
+      return;
     }
-    if (type == "tooltip") {
+
+    if (action === "start") {
+      const beacon = document.querySelector("#react-joyride-step-0");
+      if (beacon) {
+        beacon.classList.add("fixZin");
+      }
+    }
+    if (type === "tooltip") {
+      const beacon = document.querySelector("[id^='react-joyride-step-']");
+      if (beacon) {
+        beacon.classList.remove("fixZin");
+      }
       setActiveStep(index);
       setTypewriterActive(true);
     }
-    if (type == "step:after" && index == 2) {
+    if (type === "beacon") {
+      const beacon = document.querySelector("[id^='react-joyride-step-']");
+      if (beacon) {
+        beacon.classList.add("fixZin");
+      }
+    }
+    if (type === "step:after" && index === 2) {
       openToolsPopover();
     }
   };
 
   const openToolsPopover = () => {
-    // Get the editor toolbar element
     const toolbar = document.querySelector(".ce-toolbar");
     const btn = document.querySelector(".ce-toolbar__actions");
-    if (toolbar) {
-      // Add 'ce-toolbar--opened' class to make it visible
-      console.log("toolbar: ", toolbar);
-      toolbar.classList.add("ce-toolbar--opened");
-      console.log("btn: ", btn);
-      btn.classList.add("ce-toolbar__actions--opened");
-      btn.classList.add("top-0");
 
-      // Now find and click the plus button
+    if (toolbar && btn) {
+      toolbar.classList.add("ce-toolbar--opened");
+      btn.classList.add("ce-toolbar__actions--opened", "top-0");
+
       const plusButton = document.querySelector(".ce-toolbar__plus");
       if (plusButton) {
         plusButton.click();
       }
+    } else {
+      console.warn("Toolbar or button not found!");
     }
   };
   const openPlusButton = () => {

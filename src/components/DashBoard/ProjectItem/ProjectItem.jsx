@@ -27,8 +27,11 @@ const ProjectItem = ({ header, name, add, className, id }) => {
     );
   return (
     <Card
-      onClick={() => navigate(`/projectDashboard/${id}`)}
-      className={`rounded-lg shadow-lg w-[30vw] ${className}`}
+      onClick={() => {
+        window.scrollTo(0, 0);
+        navigate(`/projectDashboard/${id}`);
+      }}
+      className={`rounded-lg shadow-lg w-[30vw] hover:cursor-pointer ${className}`}
     >
       <img src={header} className={styles.image} />
       <Label className={styles.text}>{name}</Label>
