@@ -45,7 +45,7 @@ const PositionBox = ({ className }) => {
 	if (loading) {
 		return (
 			<div className={`${styles.position_box} ${className}`}>
-				<Loading />
+				<Loading className="pb-8" size={8} />
 			</div>
 		);
 	}

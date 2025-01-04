@@ -72,7 +72,7 @@ const StartupDashBoard = () => {
 			setLoading(false);
 		});
 	}, []);
-	if (loading) return <Loading />;
+	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
 
 	return (
 		<>

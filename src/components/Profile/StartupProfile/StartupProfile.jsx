@@ -50,7 +50,7 @@ const StartupProfile = ({ className }) => {
 	}, []);
 
 	if (loading) {
-		return <Loading />;
+		return <Loading className="pt-52 pb-64 place-self-center" />;
 	}
 
 	return (
@@ -84,7 +84,7 @@ const StartupProfile = ({ className }) => {
 							<Label className="text-xl">:بیوگرافی</Label>
 							<p className="text-base">{profileInfo.bio}</p>
 						</div>
-						<ProjectBox type="پروژه‌ا" />
+						{/* <ProjectBox type="پروژه‌ا" /> */}
 						<div className="flex justify-center items-center gap-6 absolute">
 							{profileInfo.linkedinAccoun && (
 								<a href={profileInfo.linkedinAccount}>

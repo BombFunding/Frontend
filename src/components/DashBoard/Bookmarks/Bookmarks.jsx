@@ -20,7 +20,7 @@ const Bookmarks = ({ className, type }) => {
 	if (loading) {
 		return (
 			<div className={`${className} ${styles.box}`}>
-				<Loading />
+				<Loading size={8} className="pt-[8vh] pb-[11vh] place-self-center" />
 			</div>
 		);
 	}
