@@ -110,7 +110,7 @@ const components = [
 // }
 
 function NavbarDropDownSCN() {
-  const [selected, setSelected] = React.useState(1);
+  const [selected, setSelected] = React.useState(null);
   const [isHovering, setIsHovering] = React.useState(false);
   //   console.log(components);
   const handleMouseEnter = (index) => {
