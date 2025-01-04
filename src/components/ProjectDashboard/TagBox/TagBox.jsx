@@ -117,7 +117,7 @@ const TagBox = ({ className }) => {
     <div className={`${className} flex flex-col p-5`}>
       <Label>دسته بندی ها :</Label>
       <div className="flex flex-row gap-[0.6vw]">
-        <Tags tags={subCategories?.map((tag) => tag)} />
+        <Tags tags={subCategories?.map((tag) => tag)} dashboard={true} />
         <Popover>
           <PopoverTrigger>
             <button

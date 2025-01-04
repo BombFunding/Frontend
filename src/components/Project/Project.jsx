@@ -185,6 +185,7 @@ function Project({ className }) {
 							englishToPersian[subcategory] || subcategory
 					)}
 					className="place-items-start"
+					dashboard={false}
 				/>
 				{subcategories.length > 0 ? (
 					<div className="border-2 border-solid rounded-full mx-[1vw]" />

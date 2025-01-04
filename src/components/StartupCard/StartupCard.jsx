@@ -200,7 +200,7 @@ function StartupCard({
 							></div>
 							87% سرمایه جمع شده
 						</div>
-						<Tags tags={subcategories} />
+						<Tags tags={subcategories} dashboard={false} />
 					</AccordionContent>
 				</AccordionItem>
 			</Accordion>

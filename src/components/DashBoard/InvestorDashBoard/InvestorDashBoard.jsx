@@ -88,7 +88,10 @@ const InvestorDashBoard = () => {
 					دسته‌بندی‌های مورد علاقه
 				</Label>
 				<div className="border-solid border-2 border-bomborange rounded-lg place-items-end px-[1vw]">
-					<Tags tags={["تفریحی", "فرهنگی", "سینمایی"]} />
+					<Tags
+						tags={["تفریحی", "فرهنگی", "سینمایی"]}
+						dashboard={true}
+					/>
 				</div>
 				{/* <Card
 					className={`bg-bomborange text-white px-5 py-3 flex gap-2 justify-end items-center`}
