@@ -34,30 +34,26 @@ const useProjectStore = create(
 				set((pre) => ({ ...pre, positionIds: val })),
 			setError: (val) => set((pre) => ({ ...pre, error: val })),
 			setLoading: (val) => set((pre) => ({ ...pre, loading: val })),
-			updateProject: (projectId) => {
-				getData(`/projects/${projectId}`)
-					.then((data) => {
-						set(() => ({
-							projectId: data.id,
-							user: data.user,
-							username: data.username,
-							page: data.page,
-							projectName: data.name,
-							image: data.image,
-							subCategories: data.subcategories,
-							description: data.description,
-							creationDate: data.creation_date,
-							positionIds: data.position_ids,
-							error: null,
-							loading: false,
-						}));
-					})
-					.catch(() => {
-						set((pre) => ({
-							...pre,
-							error: 403,
-						}));
-					});
+			updateProject: async (projectId) => {
+				try {
+					const data = await getData(`/projects/${projectId}`);
+					set((pre) => ({
+						projectId: data.id,
+						user: data.user,
+						username: data.username,
+						page: data.page,
+						projectName: data.name,
+						image: data.image,
+						subCategories: data.subcategories,
+						description: data.description,
+						creationDate: data.creation_date,
+						positionIds: data.position_ids,
+						error: null,
+						loading: false,
+					}));
+				} catch (err) {
+					set((pre) => ({ ...pre, error: 403, loading: false }));
+				}
 			},
 			logout: () =>
 				set({
@@ -71,6 +67,7 @@ const useProjectStore = create(
 					description: null,
 					creationDate: null,
 					positionIds: [],
+					error: null,
 				}),
 		}),
 		{

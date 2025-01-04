@@ -1,35 +1,18 @@
 import React, { useRef, useState } from "react";
 import styles from "./Editor.module.scss";
 import EditorJS from "@editorjs/editorjs";
-import Header from "@editorjs/header";
-import List from "@editorjs/list";
-import ImageTool from "@editorjs/image";
-import Paragraph from "@editorjs/paragraph";
-import Quote from "@editorjs/quote";
-import editorjsColumns from "@calumk/editorjs-columns";
-import ToggleBlock from "editorjs-toggle-block";
-import CodeTool from "@editorjs/code";
-import BreakLine from "editorjs-break-line";
 import FaTranslation from "./FaTranslation.js";
 import { useEffect } from "react";
 import useEditorStore from "@/stores/EditorStore/EditorStore";
-import SaveIcon from "@mui/icons-material/Save";
 import { Card } from "../ui/card";
 import { Label } from "../ui/label";
 import "./Editor.css";
-import { getData, patchData, postData } from "@/Services/ApiClient/Services";
-import axios from "axios";
-import { toast } from "react-toastify";
-import CustomToast from "../Custom/CustomToast/CustomToast";
-import Joyride from "react-joyride";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useProjectStore from "@/stores/ProjectStore/ProjectStore";
 import JoyrideComponent from "./Joyride.jsx";
-import ColumnTools from "./ColumnTools";
 import EditorTools from "./EditorTools";
-import { set } from "react-hook-form";
 import { Loading } from "../Loading/Loading";
-
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 const Editor = () => {
   const { projectId } = useParams();
   const { updateProject } = useProjectStore();
@@ -38,18 +21,19 @@ const Editor = () => {
   const editorRef = useRef(null);
   const holderRef = useRef(null);
   const [loading, setLoading] = useState(false);
-  const [run, setRun] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       await updateProject(projectId);
       getData(projectId);
+      console.log("data in editorStore: ", data);
     };
     fetchData();
-  }, [projectId]);
+  }, []);
 
   useEffect(() => {
     console.log("effectdata: ", data);
+    console.log("holder: ", holderRef.current);
     if (holderRef.current) {
       const editor = new EditorJS({
         holder: "editorjs",
@@ -66,7 +50,7 @@ const Editor = () => {
           .catch((error) => console.log(error));
       };
     }
-  }, [data, update, editorRef]);
+  }, [data, update, editorRef, holderRef]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -111,9 +95,15 @@ const Editor = () => {
         run={Object.keys(data ?? {}).length === 0 ? true : false}
       />
       <div className=" bg-[#FFF5E1]">
-        <div className="pt-8 px-6 pb-4 ">
+        <div className="pt-8 px-6 pb-4 relative">
+          <ArrowBackIosNewIcon
+            className="absolute left-[8vw] top-10 text-2xl text-gray-600 hover:text-bomborange hover:animate-kreep cursor-pointer"
+            onClick={() => {
+              navigate(`/projectDashboard/${projectId}`);
+              window.scrollTo(0, 0);
+            }}
+          />
           <Label className="text-3xl text-gray-600 pl-5 StartTour">
-            {" "}
             :ویرایشگر
           </Label>
         </div>
@@ -122,7 +112,9 @@ const Editor = () => {
             ref={holderRef}
             id="editorjs"
             className={`${styles.editor} EditorTour`}
-          ></Card>
+          >
+            {""}
+          </Card>
         </div>
         <div className="h-24 bg-blue-950 sticky bottom-0 right-0 left-0 z-[3] flex justify-center items-center gap-10">
           <button
