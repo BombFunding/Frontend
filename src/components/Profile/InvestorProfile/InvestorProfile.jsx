@@ -49,7 +49,7 @@ const InvestorProfile = ({ className }) => {
 	}, []);
 
 	if (loading) {
-		return <Loading />;
+		return <Loading className="pt-52 pb-64 place-self-center" />;
 	}
 
 	return (

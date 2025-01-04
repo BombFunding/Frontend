@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Card } from "../ui/card";
 import { useEffect, useState } from "react";
-import { getData } from "@/Services/ApiClient/Services";
+import { getData, postData } from "@/Services/ApiClient/Services";
 import { Progress } from "@/components/ui/progress";
 import toman from "../../assets/toman.png";
 import { Button } from "../ui/button";
@@ -11,6 +11,7 @@ import CommentSection from "../CommentSection/CommentSection";
 import Tags from "../Tags/Tags";
 import InvestorDialogBox from "../ProjectDashboard/InvestorDialogBox/InvestorDialogBox";
 import PageView from "./PageView/PageView";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 const englishToPersian = {
 	"Artificial Intelligence": "هوش مصنوعی",
@@ -48,6 +49,7 @@ function Project({ className }) {
 	const [loading, setLoading] = useState(false);
 	const [subcategories, setSubCategories] = useState([]);
 	const [totalFunded, setTotalFunded] = useState(0);
+	const { username } = useProfileStore();
 	function timeDiff(time) {
 		const now = new Date(); // Current time
 		const date = new Date(time); // Convert the comment time to a Date object
@@ -69,35 +71,42 @@ function Project({ className }) {
 	}
 	useEffect(() => {
 		setLoading(true);
-		getData(`/projects/${projectId}/`).then((data) => {
+		getData(`/projects/detail/${projectId}/`).then((data) => {
 			console.log(data);
 			setImage(data.image);
 			setName(data.name);
-			setOwner(data.username);
+			setOwner(data.owner_username);
+			if (data.owner_username !== username) {
+				postData(`/profile_statics/visit/${projectId}/`);
+			}
 			setDescription(data.description);
 			setSubCategories(data.subcategories);
 			setLoading(true);
-			getData(`/auth/baseuser_search_by_name/${data.username}/`).then(
-				(res) => {
-					console.log(res.baseuser_profile.profile_picture);
-					setProfile(
-						`http://104.168.46.4:8000${res.baseuser_profile.profile_picture}`
-					);
-					setOwnerName(
-						res.baseuser_profile.first_name +
-							" " +
-							res.baseuser_profile.last_name
-					);
-					setLoading(false);
-				}
-			);
-			setLoading(true);
-			getData(`/position/detail/${data.position_ids[0]}/`).then((res) => {
-				if (!res.is_closed) {
-					setPosition(res);
-					setLoading(false);
-				}
+			getData(
+				`/auth/baseuser_search_by_name/${data.owner_username}/`
+			).then((res) => {
+				console.log(res.baseuser_profile.profile_picture);
+				setProfile(
+					`http://104.168.46.4:8000${res.baseuser_profile.profile_picture}`
+				);
+				setOwnerName(
+					res.baseuser_profile.first_name +
+						" " +
+						res.baseuser_profile.last_name
+				);
+				setLoading(false);
 			});
+			setLoading(true);
+			setPosition(data.open_position);
+			// if (data.position_ids?.length > 0) {
+			// 	getData(`/position/detail/${data.open_position}/`).then(
+			// 		(res) => {
+			// 			if (!res.is_closed) {
+			// 				setLoading(false);
+			// 			}
+			// 		}
+			// 	);
+			// }
 			setLoading(true);
 			getData(`/invest/history/project/${projectId}/amount/`).then(
 				(data) => {
@@ -112,7 +121,7 @@ function Project({ className }) {
 			);
 		});
 	}, []);
-	if (loading) return <Loading />;
+	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
 	return (
 		// <Card
 		// 	className={`${className} bg-slate-50 overflow-hidden font-vazirmatn w-[90vw] translate-y-[3vw] mb-[6vw] place-self-center`}
@@ -120,7 +129,7 @@ function Project({ className }) {
 		<div
 			className={`${className} w-[80vw] place-self-center py-[2vw] grid gap-y-[4vw]`}
 		>
-			<div className="place-self-center text-gray-800 text-4xl py-[3vw]">
+			<div className="place-self-center text-gray-800 text-4xl py-[3vw] ">
 				{name}
 			</div>
 			<div className="flex">
@@ -159,7 +168,8 @@ function Project({ className }) {
 								</div>
 							</div>
 							<Progress
-								value={(position.funded / position.total) * 100}
+								// value={(position.funded / position.total) * 100}
+								value={position.percent_funded}
 								className="w-full border-solid border-[1px] border-black my-[1vw]"
 								indicatorColor="bg-blue-300"
 								ProgressColor="bg-bomborange"

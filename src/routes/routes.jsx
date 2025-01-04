@@ -24,6 +24,8 @@ import Project from "@/components/Project/Project";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import ProjectDashboard from "@/Pages/ProjectDashboard/ProjectDashboard";
+import StartupProfile from "@/components/Profile/StartupProfile/StartupProfile";
+import InvestorProfile from "@/components/Profile/InvestorProfile/InvestorProfile";
 
 export const router = createBrowserRouter([
 	{
@@ -50,7 +52,7 @@ export const router = createBrowserRouter([
 				),
 			},
 			{
-				path: "/Profile/:username",
+				path: "/profile/:username",
 				element: <Profile />,
 			},
 			{

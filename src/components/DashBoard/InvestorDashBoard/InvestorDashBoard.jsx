@@ -79,7 +79,7 @@ const InvestorDashBoard = () => {
 		mockup.tax &&
 		mockup.address;
 	console.log(check);
-	if (loading) return <Loading />;
+	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
 	return (
 		<>
 			<Card className={styles.card_style}>
