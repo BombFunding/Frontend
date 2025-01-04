@@ -42,8 +42,9 @@ function StarBoard() {
 			setTotalPages(data.total_pages);
 			setProjects(data.results);
 			setLoading(false);
+			console.log("meow");
 		});
-	}, [pageNumber]);
+	}, [pageNumber, resultsPerPage, mainCategory, subcategory, sorting]);
 
 	// useEffect(() => {
 	// 	// reset();
@@ -63,7 +64,6 @@ function StarBoard() {
 	// 	});
 	// }, []);
 
-	if (loading) return <Loading />;
 	return (
 		// <form
 		// 	className="font-vazirmatn text-black w-[100vw]"
@@ -71,11 +71,16 @@ function StarBoard() {
 		// >
 		<div className="font-vazirmatn text-black w-[100vw]">
 			<FilterSection setResultsPerPage={setResultsPerPage} />
-			<p className="rtl place-self-center">
-				{projects.length === 0
-					? "هیچ استارت‌آپی یافت نشد"
-					: `${results} استارت‌آپ یافت شد`}
-			</p>
+			{loading ? <Loading /> : <></>}
+			{loading ? (
+				<></>
+			) : (
+				<p className="rtl place-self-center">
+					{projects.length === 0
+						? "هیچ استارت‌آپی یافت نشد"
+						: `${results} استارت‌آپ یافت شد`}
+				</p>
+			)}
 			<StartupPagination />
 		</div>
 		// </form>
