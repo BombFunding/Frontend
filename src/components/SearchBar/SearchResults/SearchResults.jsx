@@ -32,7 +32,7 @@ export default function SearchResult({ result }) {
     >
       {/* Avatar */}
       <div
-        className={`avatar w-[15vw] ${
+        className={`avatar ${styles.sizeCustomizer} ${
           result.image ? "aspect-video rounded-sm" : "rounded-full"
         } overflow-hidden ${styles.test}`}
       >

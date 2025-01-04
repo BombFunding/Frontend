@@ -110,7 +110,7 @@ const components = [
 // }
 
 function NavbarDropDownSCN() {
-  const [selected, setSelected] = React.useState(null);
+  const [selected, setSelected] = React.useState(1);
   const [isHovering, setIsHovering] = React.useState(false);
   //   console.log(components);
   const handleMouseEnter = (index) => {
@@ -161,10 +161,10 @@ function NavbarDropDownSCN() {
             </div>
             {/* <Dropdown i={i} comp={comp} /> */}
             <div
-              className={`p-2 container rtl overflow-hidden grid text-center w-[15vw] bg-gray-800 mt-1 rounded-md sm:-translate-x-[1vw] md:-translate-x-[0vw] ${
+              className={`p-2 container rtl overflow-hidden grid grid-cols-2 gap-2 auto-rows-auto text-[1vw] text-center w-[15vw] bg-gray-800 mt-1 rounded-md sm:-translate-x-[1vw] md:-translate-x-[0vw] ${
                 selected === i
-                  ? "grid-cols-2 gap-2 auto-rows-auto text-[1vw] unfader pointer-events-auto"
-                  : "hidden pointer-events-none" // Disable interactions when hidden
+                  ? "unfader pointer-events-auto "
+                  : "fader pointer-events-none"
               }`}
             >
               {Object.entries(comp.subs).map(([label, link], index) => (

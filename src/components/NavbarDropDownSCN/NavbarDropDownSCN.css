@@ -1,6 +1,36 @@
 .unfader {
   opacity: 1;
-  transition: opacity 500ms ease-in-out;
+  animation-name: starter;
+  animation-duration: 1s;
+  transition: oppacity 2s ease-in-out;
   /* transition-delay: 1000ms; */
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+.fader {
+  opacity: 0;
+  animation-name: finisher;
+  animation-duration: 100ms;
+  /* visibility: hidden; */
+  display: none;
+  transition: oppacity 2s ease-in-out;
+  /* transition-delay: 1000ms; */
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes starter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes finisher {
+  from {
+    visibility: visible;
+  }
+  to {
+    visibility: hidden;
+    display: none;
+  }
 }
