@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Error from "@/Pages/Error/Error";
+import Error404 from "@/Pages/Error/404/Error404";
 import Login from "@/Pages/Login/Login";
 import Signup from "@/Pages/Signup/Signup";
 import ForgetPassword from "@/Pages/ForgetPassword/ForgetPassword";
@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
 		errorElement: (
 			<>
 				<Navbar />
-				<Error />
+				<Error404 />
 				<Footer />
 			</>
 		),

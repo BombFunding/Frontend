@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar/Navbar";
-import styles from "./Error.module.scss";
+import styles from "./Error404.module.scss";
 import Footer from "@/components/Footer/Footer";
-const Error = () => {
+const Error404 = () => {
 	return (
 		<>
 			<div className="w-[100vw] h-[88vh] mt-[12vh] bg-bomborange">
@@ -35,4 +35,4 @@ const Error = () => {
 	);
 };
 
-export default Error;
+export default Error404;
