@@ -5,6 +5,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 const useProjectStore = create(
 	persist(
 		(set) => ({
+			loading: false,
 			error: null,
 			projectId: null,
 			user: null,
@@ -32,6 +33,7 @@ const useProjectStore = create(
 			setPositionIds: (val) =>
 				set((pre) => ({ ...pre, positionIds: val })),
 			setError: (val) => set((pre) => ({ ...pre, error: val })),
+			setLoading: (val) => set((pre) => ({ ...pre, loading: val })),
 			updateProject: (projectId) => {
 				getData(`/projects/${projectId}`)
 					.then((data) => {
@@ -47,6 +49,7 @@ const useProjectStore = create(
 							creationDate: data.creation_date,
 							positionIds: data.position_ids,
 							error: null,
+							loading: false,
 						}));
 					})
 					.catch(() => {

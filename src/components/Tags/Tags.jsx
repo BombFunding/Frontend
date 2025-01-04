@@ -1,7 +1,8 @@
 import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
 import { useNavigate } from "react-router-dom";
+import plus from "../../assets/plus.png";
 
-function Tags({ tags, className, dashboard }) {
+function Tags({ tags, className, dashboard, deleteTag }) {
 	const Navigate = useNavigate();
 	const { setSubcategory } = useStarboardStore();
 	// useEffect(() => {
@@ -15,7 +16,8 @@ function Tags({ tags, className, dashboard }) {
 			<div className="flex flex-wrap gap-[0.6vw]">
 				{tags.map((tag, index) => (
 					<p
-						className="h-[1.8vw] pt-[0.33vw] px-[0.6vw] text-center text-[0.8vw] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer"
+						className="flex h-[1.8vw] pt-[0.33vw] px-[0.6vw] text-center text-[0.8vw] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer"
+						style={{ "min-height": "2px" }}
 						onClick={() => {
 							if (!dashboard) {
 								setSubcategory(tag);
@@ -25,6 +27,15 @@ function Tags({ tags, className, dashboard }) {
 						key={index}
 					>
 						{tag}
+						{dashboard ? (
+							<img
+								src={plus}
+								className="h-[70%] mt-[0.1vw] mr-[0.3vw] rotate-45"
+								onClick={() => deleteTag(tag)}
+							/>
+						) : (
+							<></>
+						)}
 					</p>
 				))}
 			</div>

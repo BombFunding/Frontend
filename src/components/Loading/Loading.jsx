@@ -1,13 +1,14 @@
 import styles from "./Loading.module.scss";
 
-export const Loading = ({ className }) => {
+export const Loading = ({ className, size = 10 }) => {
 	return (
 		<>
 			<div
-				className={`${className} place-self-center place-content-center place-items-center my-[22vh] mx-[5vw]`}
+				className={`${className} place-self-center place-content-center place-items-center`}
 			>
 				<svg
-					className={styles.pl}
+					style={{ width: `${size}em`, height: `${size}em` }}
+					// className={styles.pl}
 					viewBox="0 0 176 160"
 					width="176px"
 					height="160px"
