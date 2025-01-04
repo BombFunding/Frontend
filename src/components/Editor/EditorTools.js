@@ -10,6 +10,7 @@ import CodeTool from "@editorjs/code";
 import BreakLine from "editorjs-break-line";
 import ColumnTools from "./ColumnTools";
 import FaTranslation from "./FaTranslation";
+import { postData } from "@/Services/ApiClient/Services";
 
 const uploadByFile = async (file) => {
   // Create a FormData object to send the image file

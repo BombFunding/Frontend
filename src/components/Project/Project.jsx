@@ -10,6 +10,7 @@ import { Label } from "../ui/label";
 import CommentSection from "../CommentSection/CommentSection";
 import Tags from "../Tags/Tags";
 import InvestorDialogBox from "../ProjectDashboard/InvestorDialogBox/InvestorDialogBox";
+import PageView from "./PageView/PageView";
 
 const englishToPersian = {
 	"Artificial Intelligence": "هوش مصنوعی",
@@ -225,6 +226,7 @@ function Project({ className }) {
 			<div className="text-black w-[95%] place-self-center">
 				{description}
 			</div>
+			<PageView />
 			<CommentSection />
 		</div>
 	);
