@@ -26,12 +26,14 @@ const Editor = () => {
     const fetchData = async () => {
       await updateProject(projectId);
       getData(projectId);
+      console.log("data in editorStore: ", data);
     };
     fetchData();
-  }, [projectId]);
+  }, []);
 
   useEffect(() => {
     console.log("effectdata: ", data);
+    console.log("holder: ", holderRef.current);
     if (holderRef.current) {
       const editor = new EditorJS({
         holder: "editorjs",
@@ -48,7 +50,7 @@ const Editor = () => {
           .catch((error) => console.log(error));
       };
     }
-  }, [data, update, editorRef]);
+  }, [data, update, editorRef, holderRef]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -110,7 +112,9 @@ const Editor = () => {
             ref={holderRef}
             id="editorjs"
             className={`${styles.editor} EditorTour`}
-          ></Card>
+          >
+            {""}
+          </Card>
         </div>
         <div className="h-24 bg-blue-950 sticky bottom-0 right-0 left-0 z-[3] flex justify-center items-center gap-10">
           <button

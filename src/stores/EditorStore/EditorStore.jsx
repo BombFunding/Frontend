@@ -22,16 +22,18 @@ const useEditorStore = create(
       // },
       getData: (projectId) => {
         set((pre) => ({
-          ...pre,
           data: null,
         }));
-        useProjectStore.getState().updateProject(projectId);
-        console.log("store updated");
-        set((pre) => ({
-          ...pre,
-          data: useProjectStore.getState().page,
-        }));
-        console.log("projectState: ", useProjectStore.getState());
+        // useProjectStore.getState().updateProject(projectId);
+        // console.log("store updated");
+        set((pre) => {
+          const state = useProjectStore.getState();
+          state.updateProject(projectId);
+          console.log("editor State EE: ", state);
+          return {
+            data: state.page,
+          };
+        });
       },
       saveData: (data, projectId) => {
         patchData(
