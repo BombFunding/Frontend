@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, Tooltip } from "recharts";
 import { getData } from "@/Services/ApiClient/Services";
@@ -11,66 +11,112 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle} from "../../
 import {ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent} from "../../components/ui/chart";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "../../components/ui/select";
 
-const chartData = [
-	{ date: "2024-04-01", desktop: 222, mobile: 150 },
-	{ date: "2024-04-02", desktop: 97, mobile: 180 },
-	{ date: "2024-04-03", desktop: 167, mobile: 120 },
-];
+// const chartData = [
+//   { date: "2024-04-01", desktop: 222, mobile: 150 },
+//   { date: "2024-04-02", desktop: 97, mobile: 180 },
+//   { date: "2024-04-03", desktop: 167, mobile: 120 },
+//   { date: "2024-04-04", desktop: 242, mobile: 260 },
+//   { date: "2024-04-05", desktop: 373, mobile: 290 },
+//   { date: "2024-04-06", desktop: 301, mobile: 340 },
+//   { date: "2024-04-07", desktop: 245, mobile: 180 },
+//   { date: "2024-04-08", desktop: 409, mobile: 320 },
+//   { date: "2024-04-09", desktop: 59, mobile: 110 },
+//   { date: "2024-04-10", desktop: 261, mobile: 190 },
+//   { date: "2024-06-29", desktop: 103, mobile: 160 },
+//   { date: "2024-09-30", desktop: 446, mobile: 400 },
+// ]
 
-// const chartConfig = {
-//   visitors: {
-//     label: "Visitors",
-//   },
-//   desktop: {
-//     label: "بازدید",
-//     color: "hsl(var(--chart-1))",
-//   },
-//   mobile: {
-//     label: "لایک",
-//     color: "hsl(var(--chart-2))",
-//   },
-// }
-// satisfies ChartConfig
 
-function BarChart2() {
-	const [timeRange, setTimeRange] = React.useState("90d");
-
+function LikeAndView() {
+	const [timeRange, setTimeRange] = useState("30d");
+  const [chartData, setChartData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const uname = useProfileStore(state => state.username);
 	const filteredData = chartData.filter((item) => {
 		const date = new Date(item.date);
-		const referenceDate = new Date("2024-06-30");
-		let daysToSubtract = 90;
-		if (timeRange === "30d") {
-			daysToSubtract = 30;
-		} else if (timeRange === "7d") {
-			daysToSubtract = 7;
-		}
+		const referenceDate = new Date();
+		let daysToSubtract = 30;
+		if (timeRange === "90d")
+			daysToSubtract = 90;
+		else if (timeRange === "365d")
+			daysToSubtract = 365;
 		const startDate = new Date(referenceDate);
 		startDate.setDate(startDate.getDate() - daysToSubtract);
 		return date >= startDate;
 	});
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
 
+      // Determine API endpoint based on selected time range
+      const apiEndpoints = {
+        "30d": "/profile_statics/last-30-days/",
+        "90d": "/profile_statics/last-90-days/",
+        "365d": "/profile_statics/last-year/",
+      };
+      const apiUrl = `http://104.168.46.4:8000${apiEndpoints[timeRange]}?username=amin3`; // ${uname} when fixed 
+      try {
+        const response = await fetch(apiUrl, {
+          headers: {
+            Accept: "application/json",
+          },
+        });
+        const data = await response.json();
+        // Transform API data to match the required format
+        var formattedData = data.map((item) => ({
+          date: item.date,
+          mobile: item.view, // Replace "mobile" with "view"
+          desktop: item.like, // Replace "desktop" with "like"
+        })).reverse();
+        // console.log(apiEndpoints[timeRange]);
+        if(apiEndpoints[timeRange]==="/profile_statics/last-year/")
+          formattedData = data.map((item) => ({
+            date: item.month,
+            mobile: item.view, // Replace "mobile" with "view"
+            desktop: item.like, // Replace "desktop" with "like"
+          })).reverse();
+        // console.log(formattedData);
+        setChartData(formattedData);
+      } catch (error) {
+        console.error("Error fetching chart data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [timeRange]);
+
+  const lineRef = useRef(null);
+
+  useEffect(() => {
+    if (lineRef.current) {
+      const pathLength = lineRef.current.getTotalLength();
+      console.log('Path Length:', pathLength);
+    }
+  }, [lineRef]);
 	return (
 		<Card>
 			<CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
-				{/* <div className="grid flex-1 gap-1 text-center sm:text-left">
-					<CardTitle>Area Chart - Interactive</CardTitle>
+				<div className="grid flex-1 gap-1 text-center sm:text-left">
+					<CardTitle>چارت پروفایل</CardTitle>
 					<CardDescription>
-						Showing total visitors for the last 3 months
+						تعداد لایک و ویو
 					</CardDescription>
-				</div> */}
+				</div>
 				<Select value={timeRange} onValueChange={setTimeRange}>
-					<SelectTrigger
-						className="w-[160px] rounded-lg sm:ml-auto font-vazirmatn text-center"
-						aria-label="Select a value"
-					>
-						<SelectValue placeholder="Last 3 months" />
-					</SelectTrigger>
-					<SelectContent className="rounded-xl">
-          <SelectItem value="7d" className="rounded-lg font-vazirmatn"> یک هفته اخیر </SelectItem>
-          <SelectItem value="30d" className="rounded-lg font-vazirmatn"> یک ماه اخیر </SelectItem>
-						<SelectItem value="90d" className="rounded-lg font-vazirmatn"> سه ماه اخیر </SelectItem>
-					</SelectContent>
-				</Select>
+                  <SelectTrigger
+                    className="w-[110px] rounded-lg sm:ml-auto font-vazirmatn text-center justify-center"
+                    aria-label="Select a value"
+                  >
+                    <SelectValue placeholder="Last 3 months" />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-xl">
+                                <SelectItem value="30d" className="rounded-lg font-vazirmatn justify-center "> یک ماه اخیر </SelectItem>
+                    <SelectItem value="90d" className="rounded-lg font-vazirmatn justify-center"> سه ماه اخیر </SelectItem>
+                                <SelectItem value="365d" className="rounded-lg font-vazirmatn justify-center"> یک سال اخیر </SelectItem>
+                  </SelectContent>
+                </Select>
 			</CardHeader>
 			<CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
 				<ChartContainer className="aspect-auto h-[250px] w-full">
@@ -104,7 +150,7 @@ function BarChart2() {
               cursor={false}
               content={
                 <ChartTooltipContent
-                  labelFormatter={(value, payload) => {
+                  labelFormatter={(value) => {
                 // console.log(payload);
                 if (new Date(value).toString() !== "Invalid Date") {
                   return new Date(value).toLocaleDateString("en-US", {
@@ -112,47 +158,15 @@ function BarChart2() {
                           day: "numeric",
                   });
                 } 
-                payload.forEach((item) => {
-                  if (item.dataKey === "mobile")
-                    return "ویو"; // Custom label for "mobile"
-                  else if (item.dataKey === "desktop")
-                    return "لایک"; // Custom label for "desktop"
-              });
-    return value;
-  }}
-  indicator="dot"
+                  return value;
+                }}
+                indicator="line" offset={0}
               />
                     }
             />
-            {/* <Tooltip
-            content={({ payload }) => {
-              // Customize the tooltip content here
-              if (!payload || payload.length === 0) return null;
-              const { date, mobile, desktop } = payload[0].payload;
-              return (
-                <div className="custom-tooltip">
-                  <p>{new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</p>
-                  <p><strong>بازدید: </strong>{mobile}</p>
-                  <p><strong>لایک: </strong>{desktop}</p>
-                </div>
-              );
-            }}
-            cursor={false}
-          /> */}
-						<Area
-							dataKey="mobile"
-							type="natural"
-							fill="url(#fillMobile)"
-							stroke="#FF7043"
-							stackId="a"
-						/>
-						<Area
-							dataKey="desktop"
-							type="natural"
-							fill="url(#fillDesktop)"
-							stroke="#4CAF50"
-							stackId="a"
-						/>
+
+						<Area dataKey="mobile" type="basis" fill="url(#fillMobile)" stroke="#FF7043" stackId="a"/>
+						<Area dataKey="desktop" type="natural" fill="url(#fillDesktop)" stroke="#4CAF50" stackId="a"/>
 						<ChartLegend content={<ChartLegendContent />} />
 					</AreaChart>
 				</ChartContainer>
@@ -161,4 +175,4 @@ function BarChart2() {
 	);
 }
 
-export default BarChart2;
+export default LikeAndView;
