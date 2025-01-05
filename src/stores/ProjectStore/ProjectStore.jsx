@@ -37,6 +37,7 @@ const useProjectStore = create(
 			updateProject: async (projectId) => {
 				try {
 					const data = await getData(`/projects/${projectId}`);
+					console.log(data)
 					set((pre) => ({
 						projectId: data.id,
 						user: data.user,

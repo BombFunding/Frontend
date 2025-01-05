@@ -19,8 +19,6 @@ import { Loading } from "@/components/Loading/Loading";
 const PositionBox = ({ className }) => {
 	const [open, setOpen] = useState(false);
 	const [positions, setPositions] = useState([]);
-	const { username } = useProfileStore();
-	const { projectId } = useParams();
 	const { positionIds } = useProjectStore();
 	const [loading, setLoading] = useState(false);
 	// if (positionIds.length === 0) {
@@ -31,17 +29,21 @@ const PositionBox = ({ className }) => {
 	//   );
 	// }
 	useEffect(() => {
-		if (positionIds.length === 0) {
-			setPositions([]);
-			return;
-		}
 		setLoading(true);
-		getData(`/position/detail/${positionIds[0]}/`).then((data) => {
-			setPositions((prev) => [data]);
-			console.log("position data: ", data);
-			setLoading(false);
+		setPositions([]);
+		positionIds.map((positionId) => {
+			setLoading(true);
+			getData(`/position/detail/${positionId}/`).then((data) => {
+				if (!positions.includes(data)) {
+					setPositions((pre) => [
+						...pre,
+						{ ...data, id: positionId },
+					]);
+				}
+			});
 		});
-	}, [positionIds]);
+		setLoading(false);
+	}, []);
 	if (loading) {
 		return (
 			<div className={`${styles.position_box} ${className}`}>
@@ -83,13 +85,14 @@ const PositionBox = ({ className }) => {
 				</Drawer>
 			</div>
 			<div className={styles.position_list}>
+				{console.log("positions", positions)}
+				{/* {console.log()} */}
 				{positions.length !== 0 &&
 					positions.map((position, index) => (
 						<PositionItem
 							positionData={position}
 							setPositions={setPositions}
 							key={index}
-							id={positionIds[0]}
 						/>
 					))}
 			</div>
