@@ -23,6 +23,7 @@ function StarBoard() {
 		subcategory,
 		sorting,
 		results,
+		favorite,
 		setResults,
 		setTotalPages,
 	} = useStarboardStore();
@@ -35,6 +36,7 @@ function StarBoard() {
 			search: searchQuery,
 			results_per_page: resultsPerPage,
 			page_number: pageNumber,
+			my_favorite: favorite,
 		};
 		setPageNumber(page ? Number(page) : 1);
 		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
@@ -42,9 +44,15 @@ function StarBoard() {
 			setTotalPages(data.total_pages);
 			setProjects(data.results);
 			setLoading(false);
-			console.log("meow");
 		});
-	}, [pageNumber, resultsPerPage, mainCategory, subcategory, sorting]);
+	}, [
+		pageNumber,
+		resultsPerPage,
+		mainCategory,
+		subcategory,
+		sorting,
+		favorite,
+	]);
 
 	// useEffect(() => {
 	// 	// reset();

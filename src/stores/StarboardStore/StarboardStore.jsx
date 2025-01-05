@@ -130,9 +130,11 @@ const useStarboardStore = create(
 			resultsPerPage: "6",
 			mainCategory: "",
 			subcategory: "",
+			favorite: false,
 			sorting: "most-recent", //most-recent top-liked top-visited
 			results: "0",
 			totalPages: 0,
+
 			setPageNumber: (pageNumber) => {
 				pageNumber
 					? set((pre) => ({ ...pre, pageNumber: pageNumber }))
@@ -153,14 +155,19 @@ const useStarboardStore = create(
 					subcategory: "",
 				})),
 			setSubcategory: (subcategory) =>
-				set((pre) => ({ ...pre, subcategory: subcategory, mainCategory: findParent(subcategory) })),
+				set((pre) => ({
+					...pre,
+					subcategory: subcategory,
+					mainCategory: findParent(subcategory),
+				})),
 			setSorting: (sorting) =>
 				set((pre) => ({ ...pre, sorting: sorting })),
 			setResults: (results) =>
 				set((pre) => ({ ...pre, results: results })),
 			setTotalPages: (totalPages) =>
 				set((pre) => ({ ...pre, totalPages: totalPages })),
-			update: () => {},
+			setFavorite: (favorite) =>
+				set((pre) => ({ ...pre, favorite: favorite })),
 		}),
 		{
 			name: "profile-storage",
