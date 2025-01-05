@@ -12,7 +12,8 @@ import Tags from "../Tags/Tags";
 import InvestorDialogBox from "../ProjectDashboard/InvestorDialogBox/InvestorDialogBox";
 import PageView from "./PageView/PageView";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
-
+import { DrawerDialog } from "../Custom/DrawerDialog/DrawerDialog";
+import styles from "./Project.module.scss";
 const englishToPersian = {
 	"Artificial Intelligence": "هوش مصنوعی",
 	"Internet of Things": "اینترنت اشیا",
@@ -50,6 +51,7 @@ function Project({ className }) {
 	const [subcategories, setSubCategories] = useState([]);
 	const [totalFunded, setTotalFunded] = useState(0);
 	const { username } = useProfileStore();
+	const [closer, setCloser] = useState(false);
 	function timeDiff(time) {
 		const now = new Date(); // Current time
 		const date = new Date(time); // Convert the comment time to a Date object
@@ -177,9 +179,31 @@ function Project({ className }) {
 							<div className="text-[1vw]">
 								تا {timeDiff(position.end_time)}
 							</div>
-							<Button className="btn w-full bg-bomborange hover:bg-black hover:text-white ">
-								روی این پروژه سرمایه گذاری کنید
-							</Button>
+
+							<DrawerDialog
+								open={closer}
+								onOpenChange={setCloser}
+								title={"سرمایه گذاری کنید"}
+								triggerButton={
+									// <button
+									// 	className={`${styles.btn} h-8 btn bg-bomborange text-white`}
+									// >
+									// 	ویرایش
+									// </button>
+									<Button className="btn w-full bg-bomborange hover:bg-black hover:text-white ">
+										روی این پروژه سرمایه گذاری کنید
+									</Button>
+								}
+								closeButton={
+									<button
+										className={`${styles.btn} h-6 btn bg-bomborange text-white`}
+									>
+										بستن
+									</button>
+								}
+							>
+
+							</DrawerDialog>
 						</div>
 					) : (
 						<div className="text-black text-[4vw] h-full place-content-center place-self-center">

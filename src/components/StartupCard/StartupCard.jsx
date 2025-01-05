@@ -125,6 +125,7 @@ function StartupCard({
 	ownerProfile,
 	isLiked,
 	isBookmarked,
+	position,
 }) {
 	const Navigate = useNavigate();
 	const handleShare = () => {
@@ -147,11 +148,14 @@ function StartupCard({
 			<img
 				src={image ? image : mockuppic2}
 				className={`${styles.image} hover:cursor-pointer`}
-				onClick={() => Navigate(`/projects/${id}`)}
+				onClick={() => {
+					window.scrollTo(0, 0);
+					Navigate(`/projects/${id}`);
+				}}
 				onLoad={onImageLoad}
 			/>
 			<Progress
-				value={10}
+				value={position.percent_funded}
 				className={styles.progress_bar}
 				ProgressColor="bg-bomborange"
 			/>
@@ -193,12 +197,17 @@ function StartupCard({
 									src={clock}
 									className="w-[1vw] h-[1vw] place-self-center mx-[0.5vw] mb-[0.1vw] "
 								/>
-								2 روز باقیمانده
+								{position.days_remaining} روز باقیمانده
 							</div>
 							<div
 								className={`border-solid border-[0.1vw] w-0 border-gray-300 rounded-full mx-[1vw]`}
 							></div>
-							87% سرمایه جمع شده
+							{Math.round(
+								(Number(position.funded) /
+									Number(position.total)) *
+									100
+							)}
+							% سرمایه جمع شده
 						</div>
 						<Tags tags={subcategories} dashboard={false} />
 					</AccordionContent>

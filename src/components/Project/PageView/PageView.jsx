@@ -12,7 +12,8 @@ const PageView = () => {
   const [data, setData] = useState(null);
   const { projectId } = useParams();
   useEffect(() => {
-    getData(`/projects/${projectId}/`).then((data) => {
+    getData(`/projects/detail/${projectId}/`).then((data) => {
+      console.log("data", data)
       setData(data.page);
     });
   }, []);

@@ -4,7 +4,7 @@ import plus from "../../assets/plus.png";
 
 function Tags({ tags, className, dashboard, deleteTag }) {
 	const Navigate = useNavigate();
-	const { setSubcategory } = useStarboardStore();
+	const { setSubcategory, englishToPersian } = useStarboardStore();
 	// useEffect(() => {
 	// 	console.log(persianToEnglishMain["تکنولوژی"]);
 	// }, []);
@@ -26,7 +26,7 @@ function Tags({ tags, className, dashboard, deleteTag }) {
 						}}
 						key={index}
 					>
-						{tag}
+						{englishToPersian[tag] ?? tag}
 						{dashboard ? (
 							<img
 								src={plus}

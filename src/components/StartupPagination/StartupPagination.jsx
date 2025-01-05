@@ -26,6 +26,7 @@ function StartupPagination() {
 		setLoadedImagesCount((prev) => prev + 1);
 	};
 	useEffect(() => {
+		console.log(projects);
 		if (
 			projects &&
 			projects.length > 0 &&
@@ -54,6 +55,7 @@ function StartupPagination() {
 							owner={project.owner_username}
 							isBookmarked={project.is_bookmarked}
 							isLiked={project.is_liked}
+							position={project.open_position}
 						/>
 					))}
 				</div>
