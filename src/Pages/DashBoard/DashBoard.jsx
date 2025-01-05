@@ -1,9 +1,8 @@
-import BaseUserDashBoard from "@/components/DashBoard/BaseUserDashBoard/BaseUserDashBoard";
 import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
 import StartupDashBoard from "@/components/DashBoard/StartupDashBoard/StartupDashBoard";
 import useTokenStore from "@/stores/TokenStore";
-import React, { useEffect } from "react";
-import Error from "../Error/Error";
+import { useEffect } from "react";
+import Error404 from "../Error/404/Error404";
 // import Voting from "@/components/Voting/Voting";
 // import styles from "./DashBoard";
 
@@ -15,12 +14,10 @@ const DashBoard = () => {
 	switch (userType) {
 		case "startup":
 			return <StartupDashBoard />;
-		case "investor":
-			return <InvestorDashBoard />;
 		case "basic":
-			return <BaseUserDashBoard />;
+			return <InvestorDashBoard />;
 		default:
-			return <Error />;
+			return <Error404 />;
 	}
 };
 

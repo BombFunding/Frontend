@@ -53,6 +53,8 @@ const FaTranslation = () => {
         "Ordered List": "لیست شماره‌گذاری",
         Image: "تصویر",
         Columns: "ستون",
+        Toggle: "منوی کشویی",
+        "Break Line": "خط",
       },
 
       /**
@@ -63,6 +65,10 @@ const FaTranslation = () => {
          * Each subsection is the i18n dictionary that will be passed to the corresponded plugin
          * The name of a plugin should be equal the name you specify in the 'tool' section for that plugin
          */
+        toggle: {
+          "Empty toggle. Click or drop blocks inside":
+            "تاگل خالی. برای قرار دادن بلوک‌ها کلیک کنید یا آنها را درون آن بیندازید",
+        },
         quote: {
           "Align Left": "چپ",
           // "Align right": "راست",

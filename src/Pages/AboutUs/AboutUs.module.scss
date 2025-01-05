@@ -1,0 +1,12 @@
+.mySwiper2 {
+	.swiper-button-prev,
+	.swiper-button-next {
+		color: white; /* یا هر رنگ دیگر */
+	}
+	.swiper-pagination-bullet-active {
+		background-color: white; /* یا هر رنگ دیگر */
+	}
+}
+.team {
+	@apply grid md:grid-cols-2 sm:grid-cols-1;
+}

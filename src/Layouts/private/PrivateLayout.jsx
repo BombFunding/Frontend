@@ -32,11 +32,11 @@ const PrivateLayout = () => {
 				closeButton={false}
 				limit={5}
 			/>
-			<div className="mt-24">
+			<div className="mt-[12vh]">
 				<Navbar />
 				<Outlet />
+				<Footer />
 			</div>
-			<Footer />
 		</>
 	);
 };

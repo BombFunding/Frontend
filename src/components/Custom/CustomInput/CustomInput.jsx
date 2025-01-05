@@ -6,6 +6,7 @@ function CustomInput({
 	type,
 	value,
 	className,
+	holderClassName,
 	inputClassName,
 	name,
 	onChange,
@@ -19,7 +20,7 @@ function CustomInput({
 	}, [value]);
 	return (
 		<>
-			<div className="relative group mt-6">
+			<div className={`relative group mt-6 ${holderClassName}`}>
 				{register ? (
 					<input
 						{...register(name)}
@@ -32,7 +33,7 @@ function CustomInput({
 						}}
 						value={value}
 						className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
-                    text-black text-left transition duration-150 ease-in-out focus:outline-none focus:border-bomborange ${inputClassName}`}
+                    text-black text-left transition duration-150 ease-in-out focus:outline-none focus:ring-0 focus:border-bomborange ${inputClassName}`}
 					/>
 				) : (
 					<input
@@ -44,7 +45,7 @@ function CustomInput({
 							onChange(e.target.value);
 						}}
 						className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
-                    text-black text-left transition duration-150 ease-in-out focus:outline-none focus:border-bomborange ${inputClassName}`}
+                    text-black text-left transition duration-150 ease-in-out focus:outline-none focus:ring-0 focus:border-bomborange ${inputClassName}`}
 					/>
 				)}
 				<label

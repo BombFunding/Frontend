@@ -1,11 +1,11 @@
 import styles from "./StartupDashBoard.module.scss";
 import { Card } from "@/components/ui/card";
-import PositionBox from "../Sections/PositionBox/PositionBox";
+import PositionBox from "../../ProjectDashboard/PositionBox/PositionBox";
 import Accounting from "@/components/Accounting/Accounting";
-import StartupProfiles from "@/components/StartupProfiles/StartupProfiles";
+import baner from "../../../assets/baner.jpg";
 // import CommentSection from "@/components/CommentSection/CommentSection";
 import PersonalInfo from "@/components/PersonalInfo/PersonalInfo";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import TeamBox from "../Sections/TeamBox/TeamBox";
@@ -13,8 +13,10 @@ import { Label } from "@/components/ui/label";
 import { Loading } from "@/components/Loading/Loading";
 import BarChart1 from "@/components/BarChart/BarChart1";
 import BarChart2 from "@/components/BarChart/BarChart2";
-
 import Likes from "@/components/Likes/Likes";
+import ProjectBox from "../ProjectBox/ProjectBox";
+import useProjectBoxStore from "@/stores/ProjectStore/ProjectBoxStore";
+import Bookmarks from "@/components/DashBoard/Bookmarks/Bookmarks";
 const StartupDashBoard = () => {
 	const {
 		username,
@@ -31,6 +33,7 @@ const StartupDashBoard = () => {
 		setHeader,
 		setBalance,
 	} = useProfileStore();
+
 	useEffect(() => {
 		setLoading(true);
 		getData(`/auth/view_own_baseuser_profile/`).then((data) => {
@@ -69,16 +72,7 @@ const StartupDashBoard = () => {
 			setLoading(false);
 		});
 	}, []);
-	if (loading)
-		return (
-			<div
-				className={
-					"flex justify-center items-center w-[100vw] h[100vh]"
-				}
-			>
-				<Loading />
-			</div>
-		);
+	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
 
 	return (
 		<>
@@ -88,8 +82,6 @@ const StartupDashBoard = () => {
 					count={likeCount}
 				/>
 				<PersonalInfo loading={loading} />
-				<Label className={styles.label_style}>پوزیشن‌ها</Label>
-				<PositionBox />
 				<div className="flex flex-row justify-between gap-2 mt-2">
 					<div className="flex flex-col w-2/6 gap-2">
 						<Label className={styles.label_style}>حساب</Label>
@@ -100,6 +92,8 @@ const StartupDashBoard = () => {
 						<TeamBox />
 					</div>
 				</div>
+				<Label className={styles.label_style}>پروژه‌ها</Label>
+				<ProjectBox type="پروژه‌" add={true} />
 				<Label className={styles.label_style}>آمار</Label>
 				<div
 					className={`flex flex-wrap gap-6 p-6 rounded-md ${styles.chartbox}`}
@@ -111,6 +105,9 @@ const StartupDashBoard = () => {
 						<BarChart2 />
 					</div>
 				</div>
+				<Label className={styles.label_style}>ذخیره شده</Label>
+				{/* <ProjectBox type="پروژه‌" /> */}
+				<Bookmarks type="پروژه‌ا" />
 			</Card>
 		</>
 	);

@@ -253,7 +253,7 @@ const SearchBar = ({ setResults, setIsFocused, setInput }) => {
       <FaSearch id="search-icon" />
       <input
         placeholder="...جست و جو"
-        className="font-vazirmatn h-8 w-[20vw] text-[18px] w-[28vw] border-solid border-[3px] outline-none mr-2 border-white px-[2vw] py-3 transition-all outline-none"
+        className="font-vazirmatn h-8 w-[20vw] text-[18px] focus:w-[28vw] border-solid border-[3px] focus:outline-none mr-2 border-white px-[2vw] py-3 transition-all outline-none"
         name="search"
         onFocus={handleFocus}
         onBlur={handleBlur}

@@ -9,21 +9,24 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import LogoutButton from "../Custom/LogoutButton/LogoutButton";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function ProfileDropDown() {
-	const { avatar, username } = useProfileStore();
-	const Navigate = useNavigate();
+	const { avatar, setAvatar, username } = useProfileStore();
+	const [update, setUpdate] = useState(avatar);
 	useEffect(() => {
-		console.log("avatar: ", avatar);
-	}, []);
+		setUpdate(avatar);
+		console.log("change detected");
+	}, [avatar, setAvatar]);
+	const Navigate = useNavigate();
 	return (
 		<DropdownMenu className="z-30">
 			<DropdownMenuTrigger className={styles.trigger}>
 				<img
-					src={avatar}
+					src={avatar ? avatar : profile}
 					alt="Avatar"
 					className={styles.ProfileNavbar}
+					key={update}
 				/>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className={styles.content}>
