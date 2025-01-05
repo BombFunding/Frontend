@@ -2,6 +2,52 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 const findParent = (subcategory) => {
+	// const parents = [
+	// 	{
+	// 		value: "Artificial Intelligence",
+	// 		label: "هوش مصنوعی",
+	// 		parent: "تکنولوژی",
+	// 	},
+	// 	{
+	// 		value: "اینترنت اشیا",
+	// 		label: "اینترنت اشیا",
+	// 		parent: "تکنولوژی",
+	// 	},
+	// 	{ value: "نرم‌افزار", label: "نرم‌افزار", parent: "تکنولوژی" },
+	// 	{ value: "امنیت", label: "امنیت", parent: "تکنولوژی" },
+	// 	{
+	// 		value: "واقعیت افزوده",
+	// 		label: "واقعیت افزوده",
+	// 		parent: "تکنولوژی",
+	// 	},
+	// 	{ value: "موسیقی", label: "موسیقی", parent: "هنری" },
+	// 	{ value: "سینما", label: "سینما", parent: "هنری" },
+	// 	{ value: "صنایع دستی", label: "صنایع دستی", parent: "هنری" },
+	// 	{ value: "تغذیه", label: "تغذیه", parent: "سلامت" },
+	// 	{ value: "روان", label: "روان", parent: "سلامت" },
+	// 	{ value: "درمان", label: "درمان", parent: "سلامت" },
+	// 	{ value: "فرهنگی", label: "فرهنگی", parent: "گردشگری" },
+	// 	{ value: "شهری", label: "شهری", parent: "گردشگری" },
+	// 	{ value: "بین‌المللی", label: "بین‌المللی", parent: "گردشگری" },
+	// 	{
+	// 		value: "کتاب و نشریات",
+	// 		label: "کتاب و نشریات",
+	// 		parent: "آموزش",
+	// 	},
+	// 	{ value: "توسعه فردی", label: "توسعه فردی", parent: "آموزش" },
+	// 	{
+	// 		value: "آموزشگاه",
+	// 		label: "آموزشگاه",
+	// 		parent: "آموزش",
+	// 	},
+	// 	{
+	// 		value: "سرمایه‌گذاری",
+	// 		label: "سرمایه‌گذاری",
+	// 		parent: "مالی",
+	// 	},
+	// 	{ value: "ارز دیجیتال", label: "ارز دیجیتال", parent: "مالی" },
+	// 	{ value: "بیمه", label: "بیمه", parent: "مالی" },
+	// ];
 	const parents = [
 		{
 			value: "هوش مصنوعی",
@@ -24,20 +70,20 @@ const findParent = (subcategory) => {
 		{ value: "سینما", label: "سینما", parent: "هنری" },
 		{ value: "صنایع دستی", label: "صنایع دستی", parent: "هنری" },
 		{ value: "تغذیه", label: "تغذیه", parent: "سلامت" },
-		{ value: "روان‌شناسی", label: "روان‌شناسی", parent: "سلامت" },
+		{ value: "روان", label: "روان", parent: "سلامت" },
 		{ value: "درمان", label: "درمان", parent: "سلامت" },
 		{ value: "فرهنگی", label: "فرهنگی", parent: "گردشگری" },
 		{ value: "شهری", label: "شهری", parent: "گردشگری" },
 		{ value: "بین‌المللی", label: "بین‌المللی", parent: "گردشگری" },
 		{
-			value: "کتب و نشریات",
-			label: "کتب و نشریات",
+			value: "کتاب و نشریات",
+			label: "کتاب و نشریات",
 			parent: "آموزش",
 		},
 		{ value: "توسعه فردی", label: "توسعه فردی", parent: "آموزش" },
 		{
-			value: "مؤسسات آموزشی",
-			label: "مؤسسات آموزشی",
+			value: "آموزشگاه",
+			label: "آموزشگاه",
 			parent: "آموزش",
 		},
 		{
@@ -45,10 +91,11 @@ const findParent = (subcategory) => {
 			label: "سرمایه‌گذاری",
 			parent: "مالی",
 		},
-		{ value: "رمزارز", label: "رمزارز", parent: "مالی" },
+		{ value: "ارز دیجیتال", label: "ارز دیجیتال", parent: "مالی" },
 		{ value: "بیمه", label: "بیمه", parent: "مالی" },
 	];
-	return parents.find((category) => category.value === subcategory).parent;
+	console.log(subcategory, parents.find((category) => category.value === subcategory));
+	return parents.find((category) => category.value === subcategory)?.parent;
 };
 
 const useStarboardStore = create(
@@ -79,11 +126,11 @@ const useStarboardStore = create(
 				فرهنگی: "Cultural",
 				شهری: "Urban",
 				بین‌المللی: "International",
-				"کتب و نشریات": "Books and Publications",
+				"کتاب و نشریات": "Books and Publications",
 				"توسعه فردی": "Personal Development",
-				"مؤسسات آموزشی": "Educational Institutions",
+				آموزشگاه: "Educational Institutions",
 				سرمایه‌گذاری: "Investment Fund",
-				رمزارز: "Cryptocurrency",
+				"ارز دیجیتال": "Cryptocurrency",
 				بیمه: "Insurance",
 			},
 			englishToPersian: {
@@ -101,11 +148,11 @@ const useStarboardStore = create(
 				Cultural: "فرهنگی",
 				Urban: "شهری",
 				International: "بین‌المللی",
-				"Books and Publications": "کتب و نشریات",
+				"Books and Publications": "کتاب و نشریات",
 				"Personal Development": "توسعه فردی",
-				"Educational Institutions": "مؤسسات آموزشی",
+				"Educational Institutions": "آموزشگاه",
 				"Investment Fund": "سرمایه‌گذاری",
-				Cryptocurrency: "رمزارز",
+				Cryptocurrency: "ارز دیجیتال",
 				Insurance: "بیمه",
 			},
 			reset: () => {

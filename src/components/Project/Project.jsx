@@ -31,11 +31,11 @@ const englishToPersian = {
 	Cultural: "فرهنگی",
 	Urban: "شهری",
 	International: "بین‌المللی",
-	"Books and Publications": "کتب و نشریات",
+	"Books and Publications": "کتاب و نشریات",
 	"Personal Development": "توسعه فردی",
-	"Educational Institutions": "مؤسسات آموزشی",
+	"Educational Institutions": "آموزشگاه",
 	"Investment Fund": "سرمایه‌گذاری",
-	Cryptocurrency: "رمزارز",
+	Cryptocurrency: "ارز دیجیتال",
 	Insurance: "بیمه",
 };
 

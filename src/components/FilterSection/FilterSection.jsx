@@ -69,20 +69,20 @@ const subcategories = [
 	{ value: "سینما", label: "سینما", parent: "هنری" },
 	{ value: "صنایع دستی", label: "صنایع دستی", parent: "هنری" },
 	{ value: "تغذیه", label: "تغذیه", parent: "سلامت" },
-	{ value: "روان‌شناسی", label: "روان‌شناسی", parent: "سلامت" },
+	{ value: "روان", label: "روان", parent: "سلامت" },
 	{ value: "درمان", label: "درمان", parent: "سلامت" },
 	{ value: "فرهنگی", label: "فرهنگی", parent: "گردشگری" },
 	{ value: "شهری", label: "شهری", parent: "گردشگری" },
 	{ value: "بین‌المللی", label: "بین‌المللی", parent: "گردشگری" },
 	{
-		value: "کتب و نشریات",
-		label: "کتب و نشریات",
+		value: "کتاب و نشریات",
+		label: "کتاب و نشریات",
 		parent: "آموزش",
 	},
 	{ value: "توسعه فردی", label: "توسعه فردی", parent: "آموزش" },
 	{
-		value: "مؤسسات آموزشی",
-		label: "مؤسسات آموزشی",
+		value: "آموزشگاه",
+		label: "آموزشگاه",
 		parent: "آموزش",
 	},
 	{
@@ -90,7 +90,7 @@ const subcategories = [
 		label: "سرمایه‌گذاری",
 		parent: "مالی",
 	},
-	{ value: "رمزارز", label: "رمزارز", parent: "مالی" },
+	{ value: "ارز دیجیتال", label: "ارز دیجیتال", parent: "مالی" },
 	{ value: "بیمه", label: "بیمه", parent: "مالی" },
 ];
 

@@ -35,16 +35,16 @@ function Tags({ tags, className, dashboard }) {
 		"سینما",
 		"صنایع دستی",
 		"تغذیه",
-		"روان‌شناسی",
+		"روان",
 		"درمان",
 		"فرهنگی",
 		"شهری",
 		"بین‌المللی",
-		"کتب و نشریات",
+		"کتاب و نشریات",
 		"توسعه فردی",
-		"مؤسسات آموزشی",
-		"صندوق سرمایه‌گذاری",
-		"رمزارز",
+		"آموزشگاه",
+		"سرمایه گذاری",
+		"ارز دیجیتال",
 		"بیمه",
 	];
 	const handleAddTag = (tag) => {
@@ -53,16 +53,22 @@ function Tags({ tags, className, dashboard }) {
 			return;
 		}
 		setLoading(true);
-		const formData = new FormData();
-		formData.append(
-			"subcategories",
-			JSON.stringify([...subCategories, tag])
-		);
-		patchData(`/projects/${projectId}/`, formData, {
-			headers: {
-				"Content-Type": "multipart/form-data",
-			},
-		})
+		// const formData = new FormData();
+		// formData.append(
+		// 	"subcategories",
+		// 	JSON.stringify([...subCategories, tag])
+		// );
+		// console.log(formData, tag);
+		console.log("subcategories", { subcategories: tag });
+		patchData(
+			`/projects/${projectId}/`,
+			{ subcategories: [...subCategories, tag] },
+			{
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			}
+		)
 			.then((data) => {
 				console.log("Data: ", data);
 				updateProject(projectId);

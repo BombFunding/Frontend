@@ -27,7 +27,7 @@ const components = [
 			"هوش مصنوعی": "/ai",
 			"اینترنت اشیا": "/iot",
 			امنیت: "/security",
-			"نرم افزار": "/software",
+			نرم‌افزار: "/software",
 			"واقعیت افزوده": "/ar",
 		},
 		description:
@@ -37,7 +37,7 @@ const components = [
 		title: "گردشگری",
 		subs: {
 			فرهنگی: "/cultural",
-			"بین المللی": "/international",
+			بین‌المللی: "/international",
 			شهری: "/urban",
 		},
 		description:
@@ -58,7 +58,7 @@ const components = [
 		subs: {
 			"ارز دیجیتال": "/financial",
 			بیمه: "/financial",
-			"سرمایه‌گذاری": "/financial",
+			سرمایه‌گذاری: "/financial",
 		},
 		description: "Visually or semantically separates content.",
 	},
@@ -76,7 +76,7 @@ const components = [
 		title: "سلامت",
 		subs: {
 			تغذیه: "/health",
-			"سلامت روان": "/health",
+			روان: "/health",
 			درمان: "/health",
 		},
 		description:
