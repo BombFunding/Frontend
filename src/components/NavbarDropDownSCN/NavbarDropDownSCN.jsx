@@ -58,7 +58,7 @@ const components = [
 		subs: {
 			"ارز دیجیتال": "/financial",
 			بیمه: "/financial",
-			"سرمایه گذاری": "/financial",
+			"سرمایه‌گذاری": "/financial",
 		},
 		description: "Visually or semantically separates content.",
 	},
@@ -92,30 +92,35 @@ function NavbarDropDownSCN() {
 		sorting,
 		resultsPerPage,
 		pageNumber,
-		englishToPersian,
+		setProjects,
+		setTotalPages,
+		setLoading,
+		setPageNumber,
+		setResults,
 		setMainCategory,
 		setSubcategory,
-		setProjects,
-		setLoading,
 		reset,
 	} = useStarboardStore();
 	const searchProject = (category, subcategory) => {
-		reset();
+		console.log(category, subcategory);
 		setMainCategory(category);
 		setSubcategory(subcategory);
-		const formData = {
-			category: englishToPersian[category],
-			subcategory: englishToPersian[subcategory],
-			search: searchQuery,
-			results_per_page: resultsPerPage,
-			page_number: pageNumber,
-		};
-		// console.log(`/starboard/${sorting}/`, formData);
-		setLoading(true);
-		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
-			setProjects(data);
-			setLoading(false);
-		});
+		// setLoading(true);
+		// const formData = {
+		// 	category: category,
+		// 	subcategory: subcategory,
+		// 	search: searchQuery,
+		// 	results_per_page: resultsPerPage,
+		// 	page_number: pageNumber,
+		// };
+		// setPageNumber(1);
+		// console.log(formData);
+		// getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
+		// 	setResults(data.result_count);
+		// 	setTotalPages(data.total_pages);
+		// 	setProjects(data.results);
+		// 	setLoading(false);
+		// });
 	};
 	//   console.log(components);
 	return (

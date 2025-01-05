@@ -9,13 +9,13 @@ function EmptySection({
   textClassName,
 }) {
   return (
-    <div className={`flex flex-col place-self-center place-content-center place-items-center gap-5 p-10 ${className}`}>
+    <div className={`flex flex-col place-self-center place-content-center place-items-center w-full gap-5 p-10 ${className}`}>
       <img
         src={image ?? EmptyBox}
-        className={`w-[30%] ${imageClassName}`}
+        className={`w-[10%] ${imageClassName}`}
       />
       <Label
-        className={`text-2xl ${textClassName} `}
+        className={`text-2xl text-center ${textClassName} `}
       >{`هیچ ${type}ی وجود ندارد`}</Label>
     </div>
   );

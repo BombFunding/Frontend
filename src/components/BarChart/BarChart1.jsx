@@ -73,7 +73,7 @@ export function BarChart1() {
 	}, [balls]);
 
 	if (loading) {
-		return <Loading />;
+		return <Loading size={8} className="pt-[8vh] pb-[11vh] place-self-center" />;
 	}
 	return (
 		<div className="p-1 bg-white rounded-lg shadow-md text-xs">

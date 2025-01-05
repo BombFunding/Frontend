@@ -7,13 +7,6 @@ import {
   FiPieChart,
 } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
-import TeamPic from "../../assets/TeamPic.jpg";
-import Inv1 from "../../assets/Investor1.jpg";
-import Inv2 from "../../assets/Investor2.jpg";
-import Inv3 from "../../assets/Investor3.jpg";
-import Inv4 from "../../assets/Investor4.jpg";
-import { Avatar } from "../ui/avatar";
-
 function NavbarDropDown() {
   return (
     <div className="relative w-full z-[-30] justify-start top-[-3.8vh] bg-bomborang place-items-center">

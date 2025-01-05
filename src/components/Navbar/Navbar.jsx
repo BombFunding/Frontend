@@ -22,6 +22,7 @@ function Navbar() {
 	const { setAvatar } = useProfileStore();
 	useEffect(() => {
 		getData(`/auth/view_own_baseuser_profile/`).then((data) => {
+			console.log(accessToken);
 			setAvatar(
 				`http://104.168.46.4:8000${data.base_profile.profile_picture}`
 			);

@@ -19,7 +19,7 @@ const ProjectBox = ({ className, type, add }) => {
 	if (loading) {
 		return (
 			<div className={`${className} ${styles.box}`}>
-				<Loading />
+				<Loading size={8} className="pt-16 pb-20" />
 			</div>
 		);
 	}
@@ -35,7 +35,7 @@ const ProjectBox = ({ className, type, add }) => {
 							key={index}
 							onClick={() => {
 								window.scrollTo(0, 0);
-								Navigate(`/projects/${project.id}`);
+								Navigate(`/projectDashboard/${project.id}`);
 							}}
 						/>
 					))}

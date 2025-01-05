@@ -12,14 +12,21 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 function StartupPagination() {
 	const Navigate = useNavigate();
-	const { pageNumber, setPageNumber, loading, setLoading, projects, pages } =
-		useStarboardStore();
-	console.log(projects);
+	const {
+		pageNumber,
+		setPageNumber,
+		loading,
+		setLoading,
+		projects,
+		pages,
+		totalPages,
+	} = useStarboardStore();
 	const [loadedImagesCount, setLoadedImagesCount] = useState(0);
 	const handleImageLoad = () => {
 		setLoadedImagesCount((prev) => prev + 1);
 	};
 	useEffect(() => {
+		console.log(projects);
 		if (
 			projects &&
 			projects.length > 0 &&
@@ -27,6 +34,7 @@ function StartupPagination() {
 		) {
 			setLoading(false);
 		}
+		console.log(totalPages);
 	}, [loadedImagesCount, projects]);
 
 	return (
@@ -37,12 +45,17 @@ function StartupPagination() {
 						<StartupCard
 							name={project.name}
 							id={project.id}
-							image={`http://104.168.46.4:8000${project.image}`}
+							image={project.image}
 							description={project.description}
 							likeCount={project.like_count}
 							subcategories={project.subcategories}
 							key={index}
 							onImageLoad={handleImageLoad}
+							ownerProfile={project.owner_profile_picture}
+							owner={project.owner_username}
+							isBookmarked={project.is_bookmarked}
+							isLiked={project.is_liked}
+							position={project.open_position}
 						/>
 					))}
 				</div>
@@ -69,7 +82,8 @@ function StartupPagination() {
 								)}
 								{pages.map(
 									(page, index) =>
-										pageNumber + page > 0 && (
+										pageNumber + page > 0 &&
+										pageNumber + page <= totalPages && (
 											<PaginationItem key={index}>
 												<PaginationLink
 													onClick={() => {
@@ -94,7 +108,7 @@ function StartupPagination() {
 											</PaginationItem>
 										)
 								)}
-								{
+								{pageNumber !== totalPages && (
 									<PaginationItem>
 										<PaginationLink
 											className="px-[1.5vw] hover:cursor-pointer"
@@ -110,7 +124,7 @@ function StartupPagination() {
 											<SlArrowLeft />
 										</PaginationLink>
 									</PaginationItem>
-								}
+								)}
 							</PaginationContent>
 						</Pagination>
 					</div>

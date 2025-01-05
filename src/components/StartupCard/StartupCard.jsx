@@ -121,11 +121,16 @@ function StartupCard({
 	likeCount,
 	description,
 	onImageLoad,
+	owner,
+	ownerProfile,
+	isLiked,
+	isBookmarked,
+	position,
 }) {
 	const Navigate = useNavigate();
 	const handleShare = () => {
 		// const url = window.location.href;
-		const url = `http://localhost:3000/project/${id}`;
+		const url = `http://localhost:3000/projects/${id}`;
 		navigator.clipboard
 			.writeText(url)
 			.then(() => {
@@ -143,19 +148,23 @@ function StartupCard({
 			<img
 				src={image ? image : mockuppic2}
 				className={`${styles.image} hover:cursor-pointer`}
-				onClick={() => Navigate(`/projects/${id}`)}
+				onClick={() => {
+					window.scrollTo(0, 0);
+					Navigate(`/projects/${id}`);
+				}}
 				onLoad={onImageLoad}
 			/>
 			<Progress
-				value={10}
+				value={position.percent_funded}
 				className={styles.progress_bar}
 				ProgressColor="bg-bomborange"
 			/>
 			<div className="flex justify-between">
 				<div className="flex">
 					<img
-						src={defaultpfp}
-						className="rounded-full w-[4vw] m-[1vw]"
+						src={ownerProfile}
+						className="rounded-full w-[4vw] m-[1vw] hover:cursor-pointer"
+						onClick={() => Navigate(`/profile/${owner}`)}
 					/>
 					<h1 className="text-[1.2vw] place-self-center">{name}</h1>
 				</div>
@@ -163,10 +172,12 @@ function StartupCard({
 					<Like
 						className="pr-[1vw] pl-[1vw] place-self-center"
 						likeCount={likeCount}
+						isLiked={isLiked}
 						projectId={id}
 					/>
 					<Bookmark
 						className="pl-[1vw] place-self-center"
+						isBookmarked={isBookmarked}
 						projectId={id}
 					/>
 					<GoPaperAirplane
@@ -175,24 +186,30 @@ function StartupCard({
 					/>
 				</div>
 			</div>
-			<Accordion type="single" collapsible className="w-full p-3">
+			<Accordion type="single" collapsible className="w-full px-[1vw]">
 				<AccordionItem value="item-1">
 					<AccordionTrigger>اطلاعات بیشتر</AccordionTrigger>
 					<AccordionContent>
-						<div className="flex m-[1vw] place-content-center rtl justify-around px-[3vw]">
+						<div className="py-[1vw]">{description}</div>
+						<div className="flex place-content-center rtl justify-around px-[3vw]">
 							<div className={`flex ${styles.hover_trigger}`}>
 								<img
 									src={clock}
 									className="w-[1vw] h-[1vw] place-self-center mx-[0.5vw] mb-[0.1vw] "
 								/>
-								2 روز باقیمانده
+								{position.days_remaining} روز باقیمانده
 							</div>
 							<div
 								className={`border-solid border-[0.1vw] w-0 border-gray-300 rounded-full mx-[1vw]`}
 							></div>
-							87% سرمایه جمع شده
+							{Math.round(
+								(Number(position.funded) /
+									Number(position.total)) *
+									100
+							)}
+							% سرمایه جمع شده
 						</div>
-						<Tags />
+						<Tags tags={subcategories} dashboard={false} />
 					</AccordionContent>
 				</AccordionItem>
 			</Accordion>

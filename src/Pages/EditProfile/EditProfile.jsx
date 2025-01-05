@@ -253,7 +253,7 @@ const EditProfile = () => {
 			reader.readAsDataURL(file);
 		}
 	};
-	if (loading) return <Loading />;
+	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
 	return (
 		<div className="font-vazirmatn mt-8 h-auto rtl place-self-center translate-y-[3vw] mb-[6vw]">
 			<Label className=" text-black text-2xl">اطلاعات کاربری</Label>

@@ -22,39 +22,56 @@ function StarBoard() {
 		searchQuery,
 		subcategory,
 		sorting,
-		englishToPersian,
-		reset,
+		results,
+		favorite,
+		setResults,
+		setTotalPages,
 	} = useStarboardStore();
 	useEffect(() => {
 		setLoading(true);
-		setPageNumber(page ? Number(page) : 1);
-		getDataParams("/starboard/most-recent/", null, {
-			results_per_page: resultsPerPage,
-			page_number: pageNumber,
-		}).then((data) => {
-			setProjects(data);
-			setLoading(false);
-		});
-	}, [pageNumber]);
-
-	useEffect(() => {
 		// reset();
 		const formData = {
-			category: englishToPersian[mainCategory],
-			subcategory: englishToPersian[subcategory],
+			category: mainCategory,
+			subcategory: subcategory,
 			search: searchQuery,
 			results_per_page: resultsPerPage,
 			page_number: pageNumber,
+			my_favorite: favorite,
 		};
-		// console.log(`/starboard/${sorting}/`, formData);
-		setLoading(true);
+		setPageNumber(page ? Number(page) : 1);
 		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
-			setProjects(data);
+			setResults(data.result_count);
+			setTotalPages(data.total_pages);
+			setProjects(data.results);
 			setLoading(false);
 		});
-	}, []);
+	}, [
+		pageNumber,
+		resultsPerPage,
+		mainCategory,
+		subcategory,
+		sorting,
+		favorite,
+	]);
 
-	if (loading) return <Loading />;
+	// useEffect(() => {
+	// 	// reset();
+	// 	const formData = {
+	// 		category: englishToPersian[mainCategory],
+	// 		subcategory: englishToPersian[subcategory],
+	// 		search: searchQuery,
+	// 		results_per_page: resultsPerPage,
+	// 		page_number: pageNumber,
+	// 	};
+	// 	// console.log(`/starboard/${sorting}/`, formData);
+	// 	setLoading(true);
+	// 	getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
+	// 		setResults(data.results_count);
+	// 		setProjects(data.results);
+	// 		setLoading(false);
+	// 	});
+	// }, []);
+
 	return (
 		// <form
 		// 	className="font-vazirmatn text-black w-[100vw]"
@@ -62,11 +79,20 @@ function StarBoard() {
 		// >
 		<div className="font-vazirmatn text-black w-[100vw]">
 			<FilterSection setResultsPerPage={setResultsPerPage} />
-			<p className="rtl place-self-center">
-				{projects.length === 0
-					? "هیچ استارت‌آپی یافت نشد"
-					: `${projects.length} استارت‌آپ یافت شد`}
-			</p>
+			{loading ? (
+				<Loading className="pt-20 pb-64 place-self-center" />
+			) : (
+				<></>
+			)}
+			{loading ? (
+				<></>
+			) : (
+				<p className="rtl place-self-center">
+					{projects.length === 0
+						? "هیچ استارت‌آپی یافت نشد"
+						: `${results} استارت‌آپ یافت شد`}
+				</p>
+			)}
 			<StartupPagination />
 		</div>
 		// </form>

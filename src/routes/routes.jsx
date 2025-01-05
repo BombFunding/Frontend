@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Error from "@/Pages/Error/Error";
+import Error404 from "@/Pages/Error/404/Error404";
 import Login from "@/Pages/Login/Login";
 import Signup from "@/Pages/Signup/Signup";
 import ForgetPassword from "@/Pages/ForgetPassword/ForgetPassword";
@@ -16,7 +16,6 @@ import ChargeAccount from "@/Pages/ChargeAccount/ChargeAccount";
 import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
 import { Loading } from "@/components/Loading/Loading";
 import Editor from "@/components/Editor/Editor";
-import ProjectEditor from "@/Pages/ProjectDashboard/ProjectDashboard";
 import StarBoard from "@/Pages/StarBoard/StarBoard";
 import AboutUs from "@/Pages/AboutUs/AboutUs";
 import ProjectItem from "@/components/DashBoard/ProjectItem/ProjectItem";
@@ -24,6 +23,9 @@ import Likes from "@/components/Likes/Likes";
 import Project from "@/components/Project/Project";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import ProjectDashboard from "@/Pages/ProjectDashboard/ProjectDashboard";
+import StartupProfile from "@/components/Profile/StartupProfile/StartupProfile";
+import InvestorProfile from "@/components/Profile/InvestorProfile/InvestorProfile";
 
 export const router = createBrowserRouter([
 	{
@@ -32,7 +34,7 @@ export const router = createBrowserRouter([
 		errorElement: (
 			<>
 				<Navbar />
-				<Error />
+				<Error404 />
 				<Footer />
 			</>
 		),
@@ -50,7 +52,7 @@ export const router = createBrowserRouter([
 				),
 			},
 			{
-				path: "/Profile/:username",
+				path: "/profile/:username",
 				element: <Profile />,
 			},
 			{
@@ -95,8 +97,12 @@ export const router = createBrowserRouter([
 				element: <ChargeAccount />,
 			},
 			{
-				path: "/Editor/:projectId",
-				element: <ProjectEditor />,
+				path: "/ProjectDashboard/:projectId",
+				element: <ProjectDashboard />,
+			},
+			{
+				path: "Editor/:projectId",
+				element: <Editor />,
 			},
 		],
 	},

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Card } from "../ui/card";
 import { useEffect, useState } from "react";
-import { getData } from "@/Services/ApiClient/Services";
+import { getData, postData } from "@/Services/ApiClient/Services";
 import { Progress } from "@/components/ui/progress";
 import toman from "../../assets/toman.png";
 import { Button } from "../ui/button";
@@ -9,7 +9,13 @@ import { Loading } from "../Loading/Loading";
 import { Label } from "../ui/label";
 import CommentSection from "../CommentSection/CommentSection";
 import Tags from "../Tags/Tags";
-
+import InvestorDialogBox from "../ProjectDashboard/InvestorDialogBox/InvestorDialogBox";
+import PageView from "./PageView/PageView";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import { DrawerDialog } from "../Custom/DrawerDialog/DrawerDialog";
+import styles from "./Project.module.scss";
+import Like from "../Like/Like";
+import Bookmark from "../Bookmark/Bookmark";
 const englishToPersian = {
 	"Artificial Intelligence": "هوش مصنوعی",
 	"Internet of Things": "اینترنت اشیا",
@@ -45,6 +51,11 @@ function Project({ className }) {
 	const [position, setPosition] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [subcategories, setSubCategories] = useState([]);
+	const [totalFunded, setTotalFunded] = useState(0);
+	const { username } = useProfileStore();
+	const [closer, setCloser] = useState(false);
+	const [isLiked, setIsLiked] = useState(false);
+	const [isBookmarked, setIsBookmarked] = useState(false);
 	function timeDiff(time) {
 		const now = new Date(); // Current time
 		const date = new Date(time); // Convert the comment time to a Date object
@@ -66,42 +77,64 @@ function Project({ className }) {
 	}
 	useEffect(() => {
 		setLoading(true);
-		getData(`/projects/${projectId}/`).then((data) => {
-			console.log(data);
+		getData(`/projects/detail/${projectId}/`).then((data) => {
+			console.log("project", data);
 			setImage(data.image);
 			setName(data.name);
-			setOwner(data.username);
+			setOwner(data.owner_username);
+			if (data.owner_username !== username) {
+				postData(`/profile_statics/visit/${projectId}/`);
+			}
 			setDescription(data.description);
 			setSubCategories(data.subcategories);
-			getData(`/auth/baseuser_search_by_name/${data.username}/`).then(
-				(res) => {
-					console.log(res.baseuser_profile.profile_picture);
-					setProfile(
-						`http://104.168.46.4:8000${res.baseuser_profile.profile_picture}`
-					);
-					setOwnerName(
-						res.baseuser_profile.first_name +
-							" " +
-							res.baseuser_profile.last_name
-					);
+			setIsLiked(data.is_liked);
+			setIsBookmarked(data.is_bookmarked);
+			setLoading(true);
+			getData(
+				`/auth/baseuser_search_by_name/${data.owner_username}/`
+			).then((res) => {
+				setProfile(
+					`http://104.168.46.4:8000${res.baseuser_profile.profile_picture}`
+				);
+				setOwnerName(
+					res.baseuser_profile.first_name +
+						" " +
+						res.baseuser_profile.last_name
+				);
+				setLoading(false);
+			});
+			setLoading(true);
+			setPosition(data.open_position);
+			// if (data.position_ids?.length > 0) {
+			// 	getData(`/position/detail/${data.open_position}/`).then(
+			// 		(res) => {
+			// 			if (!res.is_closed) {
+			// 				setLoading(false);
+			// 			}
+			// 		}
+			// 	);
+			// }
+			setLoading(true);
+			getData(`/invest/history/project/${projectId}/amount/`).then(
+				(data) => {
+					let total = 0;
+					data.forEach((element) => {
+						total += Number(element.investment_amount);
+					});
+					setTotalFunded(total);
 				}
 			);
-			getData(`/position/detail/${data.position_ids[0]}/`).then((res) => {
-				console.log(res);
-				setPosition(res);
-			});
-			setLoading(false);
 		});
 	}, []);
-	if (loading) return <Loading />;
+	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
 	return (
 		// <Card
 		// 	className={`${className} bg-slate-50 overflow-hidden font-vazirmatn w-[90vw] translate-y-[3vw] mb-[6vw] place-self-center`}
 		// >
 		<div
-			className={`${className} w-[80vw] place-self-center py-[2vw] grid gap-y-[4vw]`}
+			className={`${className} w-[80vw] place-self-center py-[2vw] grid gap-y-[2vw]`}
 		>
-			<div className="place-self-center text-gray-800 text-4xl py-[3vw]">
+			<div className="place-self-center text-gray-800 text-4xl py-[3vw] ">
 				{name}
 			</div>
 			<div className="flex">
@@ -140,7 +173,8 @@ function Project({ className }) {
 								</div>
 							</div>
 							<Progress
-								value={(position.funded / position.total) * 100}
+								// value={(position.funded / position.total) * 100}
+								value={position.percent_funded}
 								className="w-full border-solid border-[1px] border-black my-[1vw]"
 								indicatorColor="bg-blue-300"
 								ProgressColor="bg-bomborange"
@@ -148,15 +182,54 @@ function Project({ className }) {
 							<div className="text-[1vw]">
 								تا {timeDiff(position.end_time)}
 							</div>
-							<Button className="btn w-full bg-bomborange hover:bg-black hover:text-white ">
-								روی این پروژه سرمایه گذاری کنید
-							</Button>
+
+							<DrawerDialog
+								open={closer}
+								onOpenChange={setCloser}
+								title={"سرمایه گذاری کنید"}
+								triggerButton={
+									// <button
+									// 	className={`${styles.btn} h-8 btn bg-bomborange text-white`}
+									// >
+									// 	ویرایش
+									// </button>
+									<Button className="btn w-full bg-bomborange hover:bg-black hover:text-white ">
+										روی این پروژه سرمایه گذاری کنید
+									</Button>
+								}
+								closeButton={
+									<button
+										className={`${styles.btn} h-6 btn bg-bomborange text-white`}
+									>
+										بستن
+									</button>
+								}
+							></DrawerDialog>
 						</div>
 					) : (
 						<div className="text-black text-[4vw] h-full place-content-center place-self-center">
 							این پروژه فعلا هیچ پوزیشن بازی ندارد
 						</div>
 					)}
+				</div>
+			</div>
+			{/* <div className="flex rtl place-items-start">
+				<Like />
+				<Bookmark />
+			</div> */}
+			<div className="place-items-start">
+				<div className="flex rtl">
+					<Like
+						className="pr-[1vw] pl-[1vw] place-self-center"
+						likeCount={10}
+						isLiked={isLiked}
+						projectId={projectId}
+					/>
+					<Bookmark
+						className="pl-[1vw] place-self-center"
+						isBookmarked={isBookmarked}
+						projectId={projectId}
+					/>
 				</div>
 			</div>
 			<div className="flex justify-between">
@@ -166,12 +239,17 @@ function Project({ className }) {
 							englishToPersian[subcategory] || subcategory
 					)}
 					className="place-items-start"
+					dashboard={false}
 				/>
-				<div className="border-2 border-solid rounded-full mx-[1vw]" />
+				{subcategories.length > 0 ? (
+					<div className="border-2 border-solid rounded-full mx-[1vw]" />
+				) : (
+					<></>
+				)}
 				<div className="my-[2vw] flex place-items-center">
 					<div className="flex rtl gap-[0.5vw] place-self-start px-[2vw] py-[1vh]">
 						<div className="text-black text-4xl place-self-center">
-							2000
+							{totalFunded}
 						</div>
 						<img
 							src={toman}
@@ -183,6 +261,10 @@ function Project({ className }) {
 					</div>
 				</div>
 			</div>
+			{/* <div className="text-black text-[1.5vw] rtl hover:cursor-pointer hover:underline hover:text-bomborange">
+				n نفر روی این پروژه سرمایه گذاری کرده‌اند
+			</div> */}
+			<InvestorDialogBox className="rtl" projectId={projectId} />
 			<div>
 				<div className="text-black flex gap-[1vw] px-[4vw] place-self-end">
 					<div className="flex flex-col place-items-end justify-evenly px-[2vw]">
@@ -199,6 +281,7 @@ function Project({ className }) {
 			<div className="text-black w-[95%] place-self-center">
 				{description}
 			</div>
+			<PageView />
 			<CommentSection />
 		</div>
 	);

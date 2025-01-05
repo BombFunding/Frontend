@@ -1,21 +1,69 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
+const findParent = (subcategory) => {
+	const parents = [
+		{
+			value: "هوش مصنوعی",
+			label: "هوش مصنوعی",
+			parent: "تکنولوژی",
+		},
+		{
+			value: "اینترنت اشیا",
+			label: "اینترنت اشیا",
+			parent: "تکنولوژی",
+		},
+		{ value: "نرم‌افزار", label: "نرم‌افزار", parent: "تکنولوژی" },
+		{ value: "امنیت", label: "امنیت", parent: "تکنولوژی" },
+		{
+			value: "واقعیت افزوده",
+			label: "واقعیت افزوده",
+			parent: "تکنولوژی",
+		},
+		{ value: "موسیقی", label: "موسیقی", parent: "هنری" },
+		{ value: "سینما", label: "سینما", parent: "هنری" },
+		{ value: "صنایع دستی", label: "صنایع دستی", parent: "هنری" },
+		{ value: "تغذیه", label: "تغذیه", parent: "سلامت" },
+		{ value: "روان‌شناسی", label: "روان‌شناسی", parent: "سلامت" },
+		{ value: "درمان", label: "درمان", parent: "سلامت" },
+		{ value: "فرهنگی", label: "فرهنگی", parent: "گردشگری" },
+		{ value: "شهری", label: "شهری", parent: "گردشگری" },
+		{ value: "بین‌المللی", label: "بین‌المللی", parent: "گردشگری" },
+		{
+			value: "کتب و نشریات",
+			label: "کتب و نشریات",
+			parent: "آموزش",
+		},
+		{ value: "توسعه فردی", label: "توسعه فردی", parent: "آموزش" },
+		{
+			value: "مؤسسات آموزشی",
+			label: "مؤسسات آموزشی",
+			parent: "آموزش",
+		},
+		{
+			value: "سرمایه‌گذاری",
+			label: "سرمایه‌گذاری",
+			parent: "مالی",
+		},
+		{ value: "رمزارز", label: "رمزارز", parent: "مالی" },
+		{ value: "بیمه", label: "بیمه", parent: "مالی" },
+	];
+	return parents.find((category) => category.value === subcategory).parent;
+};
+
 const useStarboardStore = create(
 	persist(
 		(set) => ({
-			pageNumber: 1,
-			searchQuery: "",
-			loading: true,
-			projects: [],
-			resultsPerPage: "6",
-			mainCategory: "",
-			subcategory: "",
-			sorting: "most-recent",
-			// most-recent
-			// top-liked
-			// top-visited
 			pages: [-3, -2, -1, 0, 1, 2, 3],
+
+			persianToEnglishMain: {
+				تکنولوژی: "Technology",
+				گردشگری: "Tourism",
+				آموزش: "Education",
+				مالی: "Finance",
+				هنری: "Art",
+				سلامت: "Wellness",
+			},
 			persianToEnglish: {
 				"هوش مصنوعی": "Artificial Intelligence",
 				"اینترنت اشیا": "Internet of Things",
@@ -38,7 +86,6 @@ const useStarboardStore = create(
 				رمزارز: "Cryptocurrency",
 				بیمه: "Insurance",
 			},
-
 			englishToPersian: {
 				"Artificial Intelligence": "هوش مصنوعی",
 				"Internet of Things": "اینترنت اشیا",
@@ -71,9 +118,23 @@ const useStarboardStore = create(
 					resultsPerPage: "6",
 					mainCategory: "",
 					subcategory: "",
-					sorting: "most-recent",
+					sorting: "most-recent", //most-recent top-liked top-visited
+					results: "0",
+					totalPages: 0,
 				}));
 			},
+			pageNumber: 1,
+			searchQuery: "",
+			loading: true,
+			projects: [],
+			resultsPerPage: "6",
+			mainCategory: "",
+			subcategory: "",
+			favorite: false,
+			sorting: "most-recent", //most-recent top-liked top-visited
+			results: "0",
+			totalPages: 0,
+
 			setPageNumber: (pageNumber) => {
 				pageNumber
 					? set((pre) => ({ ...pre, pageNumber: pageNumber }))
@@ -94,9 +155,19 @@ const useStarboardStore = create(
 					subcategory: "",
 				})),
 			setSubcategory: (subcategory) =>
-				set((pre) => ({ ...pre, subcategory: subcategory })),
+				set((pre) => ({
+					...pre,
+					subcategory: subcategory,
+					mainCategory: findParent(subcategory),
+				})),
 			setSorting: (sorting) =>
 				set((pre) => ({ ...pre, sorting: sorting })),
+			setResults: (results) =>
+				set((pre) => ({ ...pre, results: results })),
+			setTotalPages: (totalPages) =>
+				set((pre) => ({ ...pre, totalPages: totalPages })),
+			setFavorite: (favorite) =>
+				set((pre) => ({ ...pre, favorite: favorite })),
 		}),
 		{
 			name: "profile-storage",
