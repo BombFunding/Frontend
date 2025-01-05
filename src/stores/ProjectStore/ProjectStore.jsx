@@ -17,6 +17,7 @@ const useProjectStore = create(
 			description: null,
 			creationDate: null,
 			positionIds: [],
+			positions: [],
 			setProjectId: (val) => set((pre) => ({ ...pre, projectId: val })),
 			setUser: (val) => set((pre) => ({ ...pre, user: val })),
 			setUsername: (val) => set((pre) => ({ ...pre, username: val })),
@@ -32,12 +33,13 @@ const useProjectStore = create(
 				set((pre) => ({ ...pre, creationDate: val })),
 			setPositionIds: (val) =>
 				set((pre) => ({ ...pre, positionIds: val })),
+			setPositions: (val) => set((pre) => ({ ...pre, positions: val })),
 			setError: (val) => set((pre) => ({ ...pre, error: val })),
 			setLoading: (val) => set((pre) => ({ ...pre, loading: val })),
 			updateProject: async (projectId) => {
 				try {
 					const data = await getData(`/projects/${projectId}`);
-					console.log(data)
+					console.log("project:", data);
 					set((pre) => ({
 						projectId: data.id,
 						user: data.user,
@@ -49,6 +51,7 @@ const useProjectStore = create(
 						description: data.description,
 						creationDate: data.creation_date,
 						positionIds: data.position_ids,
+						positions: data.positions,
 						error: null,
 						loading: false,
 					}));

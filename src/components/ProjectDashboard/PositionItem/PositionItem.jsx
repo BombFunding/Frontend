@@ -21,7 +21,8 @@ import useProjectStore from "@/stores/ProjectStore/ProjectStore";
 import { useParams } from "react-router-dom";
 
 const PositionItem = ({ positionData, setPositions }) => {
-  const id = positionData.id;
+	const id = positionData.id;
+	const nowtime = new Date().getTime();
 	const { projectId } = useParams();
 	const [editFormOpen, setEditFormOpen] = useState(false);
 	const [deletePositionOpen, setDeletePositionOpen] = useState(false);
@@ -76,17 +77,20 @@ const PositionItem = ({ positionData, setPositions }) => {
 
 				<>
 					<div className="self-start">
-						<Label>زمان باقیمانده: </Label>
-						{positionData.is_closed ? (
+						{/* {positionData.is_done ? ( */}
+						{end.getTime() < nowtime ? (
 							<Label>بسته شده</Label>
 						) : (
-							<Label>
-								{Math.round(
-									(end.getTime() - now.getTime()) /
-										day_duration
-								)}{" "}
-								روز
-							</Label>
+							<>
+								<Label>زمان باقیمانده: </Label>
+								<Label>
+									{Math.round(
+										(end.getTime() - now.getTime()) /
+											day_duration
+									)}{" "}
+									روز
+								</Label>
+							</>
 						)}
 					</div>
 					<Progress
@@ -101,7 +105,14 @@ const PositionItem = ({ positionData, setPositions }) => {
 					/>
 				</>
 			</div>
-			{positionData.is_closed ? (
+			{console.log(
+				"isdone",
+				end.getTime(),
+				nowtime,
+				end.getTime() < nowtime
+			)}
+			{/* {positionData.is_done ? ( */}
+			{end.getTime() < nowtime ? (
 				<></>
 			) : (
 				<>

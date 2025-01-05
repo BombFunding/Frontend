@@ -96,7 +96,7 @@ const EditPositionForm = ({
         toast.success(<CustomToast Header="پوزیشن با موفقیت ویرایش شد" />);
         setEditFormOpen(false);
         updateProject(projectId);
-        
+        // setPositions(res)
       })
       .catch((err) => {
         console.log(err);

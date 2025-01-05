@@ -18,8 +18,8 @@ import { Loading } from "@/components/Loading/Loading";
 
 const PositionBox = ({ className }) => {
 	const [open, setOpen] = useState(false);
-	const [positions, setPositions] = useState([]);
-	const { positionIds } = useProjectStore();
+	// const [positions, setPositions] = useState([]);
+	const { positionIds, positions } = useProjectStore();
 	const [loading, setLoading] = useState(false);
 	// if (positionIds.length === 0) {
 	//   return (
@@ -28,22 +28,26 @@ const PositionBox = ({ className }) => {
 	//     </div>
 	//   );
 	// }
-	useEffect(() => {
-		setLoading(true);
-		setPositions([]);
-		positionIds.map((positionId) => {
-			setLoading(true);
-			getData(`/position/detail/${positionId}/`).then((data) => {
-				if (!positions.includes(data)) {
-					setPositions((pre) => [
-						...pre,
-						{ ...data, id: positionId },
-					]);
-				}
-			});
-		});
-		setLoading(false);
-	}, []);
+	// useEffect(() => {
+	// 	var loaded = 0;
+	// 	setLoading(true);
+	// 	setPositions([]);
+	// 	positionIds.map((positionId) => {
+	// 		getData(`/position/detail/${positionId}/`).then((data) => {
+	// 			if (!positions.includes(data)) {
+	// 				setPositions((pre) => [
+	// 					...pre,
+	// 					{ ...data, id: positionId },
+	// 				]);
+	// 			}
+	// 			loaded++;
+	// 			console.log("loaded", loaded, positionIds.length);
+	// 		});
+	// 	});
+	// 	if (loaded === positionIds.length) {
+	// 		setLoading(false);
+	// 	}
+	// }, [positionIds]);
 	if (loading) {
 		return (
 			<div className={`${styles.position_box} ${className}`}>
@@ -70,7 +74,7 @@ const PositionBox = ({ className }) => {
 						<AddPositionForm
 							setOpen={setOpen}
 							positions={positions}
-							setPositions={setPositions}
+							// setPositions={setPositions}
 						/>
 						<DrawerClose asChild>
 							<Button
@@ -91,7 +95,7 @@ const PositionBox = ({ className }) => {
 					positions.map((position, index) => (
 						<PositionItem
 							positionData={position}
-							setPositions={setPositions}
+							// setPositions={setPositions}
 							key={index}
 						/>
 					))}
