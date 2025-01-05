@@ -16,7 +16,7 @@ const Bookmarks = ({ className, type }) => {
 			setProjects(data);
 			setLoading(false);
 		});
-	}, []);
+	}, [setProjects]);
 	if (loading) {
 		return (
 			<div className={`${className} ${styles.box}`}>
@@ -26,6 +26,7 @@ const Bookmarks = ({ className, type }) => {
 	}
 	return (
 		<div className={`${className} ${styles.box}`}>
+			{console.log("bookmarks", projects)}
 			{projects?.length > 0 ? (
 				<div className={styles.project_list}>
 					{projects?.map((project, index) => (

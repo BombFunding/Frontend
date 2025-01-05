@@ -10,6 +10,7 @@ import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { useNavigate } from "react-router-dom";
 
 const ProjectBox = ({ className, type, add }) => {
+	const Navigate = useNavigate();
 	const { projects, loading, updateProjects } = useProjectBoxStore();
 	const { username } = useProfileStore();
 	useEffect(() => {
@@ -32,7 +33,10 @@ const ProjectBox = ({ className, type, add }) => {
 							name={project.name}
 							add={false}
 							key={index}
-							id={project.id}
+							onClick={() => {
+								window.scrollTo(0, 0);
+								Navigate(`/projectDashboard/${project.id}`);
+							}}
 						/>
 					))}
 					{add ? <ProjectItem add={add} /> : <></>}

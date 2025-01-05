@@ -4,8 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
 
-const ProjectItem = ({ header, name, add, className, id }) => {
-  const navigate = useNavigate();
+const ProjectItem = ({ header, name, add, className, onClick }) => {
   if (add)
     return (
       <>
@@ -27,10 +26,7 @@ const ProjectItem = ({ header, name, add, className, id }) => {
     );
   return (
     <Card
-      onClick={() => {
-        window.scrollTo(0, 0);
-        navigate(`/projectDashboard/${id}`);
-      }}
+    onClick={onClick}
       className={`rounded-lg shadow-lg w-[30vw] hover:cursor-pointer ${className}`}
     >
       <img src={header} className={styles.image} />
