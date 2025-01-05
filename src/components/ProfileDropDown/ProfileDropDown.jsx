@@ -23,7 +23,7 @@ function ProfileDropDown() {
 		<DropdownMenu className="z-30">
 			<DropdownMenuTrigger className={styles.trigger}>
 				<img
-					src={avatar}
+					src={avatar ? avatar : profile}
 					alt="Avatar"
 					className={styles.ProfileNavbar}
 					key={update}

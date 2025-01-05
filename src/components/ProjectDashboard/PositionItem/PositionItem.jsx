@@ -105,12 +105,6 @@ const PositionItem = ({ positionData, setPositions }) => {
 					/>
 				</>
 			</div>
-			{console.log(
-				"isdone",
-				end.getTime(),
-				nowtime,
-				end.getTime() < nowtime
-			)}
 			{/* {positionData.is_done ? ( */}
 			{end.getTime() < nowtime ? (
 				<></>

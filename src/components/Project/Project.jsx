@@ -14,6 +14,8 @@ import PageView from "./PageView/PageView";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { DrawerDialog } from "../Custom/DrawerDialog/DrawerDialog";
 import styles from "./Project.module.scss";
+import Like from "../Like/Like";
+import Bookmark from "../Bookmark/Bookmark";
 const englishToPersian = {
 	"Artificial Intelligence": "هوش مصنوعی",
 	"Internet of Things": "اینترنت اشیا",
@@ -52,6 +54,8 @@ function Project({ className }) {
 	const [totalFunded, setTotalFunded] = useState(0);
 	const { username } = useProfileStore();
 	const [closer, setCloser] = useState(false);
+	const [isLiked, setIsLiked] = useState(false);
+	const [isBookmarked, setIsBookmarked] = useState(false);
 	function timeDiff(time) {
 		const now = new Date(); // Current time
 		const date = new Date(time); // Convert the comment time to a Date object
@@ -74,7 +78,7 @@ function Project({ className }) {
 	useEffect(() => {
 		setLoading(true);
 		getData(`/projects/detail/${projectId}/`).then((data) => {
-			console.log(data);
+			console.log("project", data);
 			setImage(data.image);
 			setName(data.name);
 			setOwner(data.owner_username);
@@ -83,11 +87,12 @@ function Project({ className }) {
 			}
 			setDescription(data.description);
 			setSubCategories(data.subcategories);
+			setIsLiked(data.is_liked);
+			setIsBookmarked(data.is_bookmarked);
 			setLoading(true);
 			getData(
 				`/auth/baseuser_search_by_name/${data.owner_username}/`
 			).then((res) => {
-				console.log(res.baseuser_profile.profile_picture);
 				setProfile(
 					`http://104.168.46.4:8000${res.baseuser_profile.profile_picture}`
 				);
@@ -116,7 +121,6 @@ function Project({ className }) {
 					data.forEach((element) => {
 						total += Number(element.investment_amount);
 					});
-					console.log(total);
 					setTotalFunded(total);
 				}
 			);
@@ -128,7 +132,7 @@ function Project({ className }) {
 		// 	className={`${className} bg-slate-50 overflow-hidden font-vazirmatn w-[90vw] translate-y-[3vw] mb-[6vw] place-self-center`}
 		// >
 		<div
-			className={`${className} w-[80vw] place-self-center py-[2vw] grid gap-y-[4vw]`}
+			className={`${className} w-[80vw] place-self-center py-[2vw] grid gap-y-[2vw]`}
 		>
 			<div className="place-self-center text-gray-800 text-4xl py-[3vw] ">
 				{name}
@@ -207,6 +211,25 @@ function Project({ className }) {
 							این پروژه فعلا هیچ پوزیشن بازی ندارد
 						</div>
 					)}
+				</div>
+			</div>
+			{/* <div className="flex rtl place-items-start">
+				<Like />
+				<Bookmark />
+			</div> */}
+			<div className="place-items-start">
+				<div className="flex rtl">
+					<Like
+						className="pr-[1vw] pl-[1vw] place-self-center"
+						likeCount={10}
+						isLiked={isLiked}
+						projectId={projectId}
+					/>
+					<Bookmark
+						className="pl-[1vw] place-self-center"
+						isBookmarked={isBookmarked}
+						projectId={projectId}
+					/>
 				</div>
 			</div>
 			<div className="flex justify-between">

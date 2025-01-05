@@ -15,20 +15,25 @@ import {
 	CommandList,
 } from "@/components/ui/command";
 import EmptySection from "../EmptySection/EmptySection";
-import useProjectStore from "@/stores/ProjectStore/ProjectStore";
 import CustomToast from "../Custom/CustomToast/CustomToast";
 import { toast } from "react-toastify";
-import { patchData } from "@/Services/ApiClient/Services";
-import styles from "./Tags.module.scss";
-function Tags({ tags, className, dashboard }) {
-	const Navigate = useNavigate();
+import { deleteData, patchData, postData } from "@/Services/ApiClient/Services";
+import styles from "./InvestorTags.module.scss";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+function InvestorTags({
+	tags,
+	className,
+	dashboard,
+	setLoading,
+	setSubcategories,
+}) {
 	const { setSubcategory, englishToPersian } = useStarboardStore();
-	const { subCategories, projectId, updateProject, setLoading } =
-		useProjectStore();
+	const Navigate = useNavigate();
+	const { username } = useProfileStore();
 	const tagCategories = [
 		"هوش مصنوعی",
 		"اینترنت اشیا",
-		"نرم‌افزار",
+		"نرم‌ افزار",
 		"امنیت",
 		"واقعیت افزوده",
 		"موسیقی",
@@ -48,52 +53,56 @@ function Tags({ tags, className, dashboard }) {
 		"بیمه",
 	];
 	const handleAddTag = (tag) => {
-		if (subCategories.includes(tag)) {
+		if (tags.includes(tag)) {
 			toast.error(<CustomToast Header="این دسته‌بندی تکراری است" />);
 			return;
 		}
 		setLoading(true);
-		const formData = new FormData();
-		formData.append(
-			"subcategories",
-			JSON.stringify([...subCategories, tag])
+		postData(`/categories/${username}/`, { subcategory: tag }).then(
+			(data) => {
+				setSubcategories((prev) => [...prev, tag]);
+				setLoading(false);
+			}
 		);
-		patchData(`/projects/${projectId}/`, formData, {
-			headers: {
-				"Content-Type": "multipart/form-data",
-			},
-		})
-			.then((data) => {
-				console.log("Data: ", data);
-				updateProject(projectId);
-			})
-			.catch((err) => {
-				console.log("Error: ", err);
-			});
+		// patchData(`/projects/${projectId}/`, formData, {
+		// 	headers: {
+		// 		"Content-Type": "multipart/form-data",
+		// 	},
+		// })
+		// 	.then((data) => {
+		// 		console.log("Data: ", data);
+		// 		updateProject(projectId);
+		// 	})
+		// 	.catch((err) => {
+		// 		console.log("Error: ", err);
+		// 	});
 		// .finally(() => setLoading(false));
 	};
 
 	const deleteTag = (tag) => {
 		setLoading(true);
-		const formData = new FormData();
-		formData.append(
-			"subcategories",
-			JSON.stringify(
-				subCategories.filter((subcategory) => subcategory !== tag)
-			)
+        console.log({ subcategory: tag })
+		deleteData(`/categories/${username}/`, { subcategory: tag }).then(
+			(data) => {
+				// subCategories.filter((subcategory) => subcategory !== tag)
+				setSubcategories((prev) =>
+					prev.filter((subcategory) => subcategory !== tag)
+				);
+				setLoading(false);
+			}
 		);
-		patchData(`/projects/${projectId}/`, formData, {
-			headers: {
-				"Content-Type": "multipart/form-data",
-			},
-		})
-			.then((data) => {
-				console.log("Data: ", data);
-				updateProject(projectId);
-			})
-			.catch((err) => {
-				console.log("Error: ", err);
-			});
+		// patchData(`/projects/${projectId}/`, formData, {
+		// 	headers: {
+		// 		"Content-Type": "multipart/form-data",
+		// 	},
+		// })
+		// 	.then((data) => {
+		// 		console.log("Data: ", data);
+		// 		updateProject(projectId);
+		// 	})
+		// 	.catch((err) => {
+		// 		console.log("Error: ", err);
+		// 	});
 	};
 	// useEffect(() => {
 	// 	console.log(persianToEnglishMain["تکنولوژی"]);
@@ -191,4 +200,4 @@ function Tags({ tags, className, dashboard }) {
 	);
 }
 
-export default Tags;
+export default InvestorTags;

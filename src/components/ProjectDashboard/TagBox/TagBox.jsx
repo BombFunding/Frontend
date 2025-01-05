@@ -91,64 +91,14 @@ const TagBox = ({ className }) => {
 		Cryptocurrency: "رمزارز",
 		Insurance: "بیمه",
 	};
-	const { subCategories, projectId, updateProject, loading, setLoading } =
-		useProjectStore();
+	const { subCategories, loading } = useProjectStore();
 
-	const handleAddTag = (tag) => {
-		if (subCategories.includes(tag)) {
-			toast.error(<CustomToast Header="این دسته‌بندی تکراری است" />);
-			return;
-		}
-		setLoading(true);
-		const formData = new FormData();
-		formData.append(
-			"subcategories",
-			JSON.stringify([...subCategories, tag])
+	if (loading)
+		return (
+			<div className={`bg-white w-full h-full`}>
+				<Loading className={`place-self-center`} />
+			</div>
 		);
-		patchData(`/projects/${projectId}/`, formData, {
-			headers: {
-				"Content-Type": "multipart/form-data",
-			},
-		})
-			.then((data) => {
-				console.log("Data: ", data);
-				updateProject(projectId);
-			})
-			.catch((err) => {
-				console.log("Error: ", err);
-			});
-		// .finally(() => setLoading(false));
-	};
-
-	const deleteTag = (tag) => {
-		setLoading(true);
-		const formData = new FormData();
-		formData.append(
-			"subcategories",
-			JSON.stringify(
-				subCategories.filter((subcategory) => subcategory !== tag)
-			)
-		);
-		patchData(`/projects/${projectId}/`, formData, {
-			headers: {
-				"Content-Type": "multipart/form-data",
-			},
-		})
-			.then((data) => {
-				console.log("Data: ", data);
-				updateProject(projectId);
-			})
-			.catch((err) => {
-				console.log("Error: ", err);
-			});
-		// .finally(() => setLoading(false));
-	};
-	// if (loading)
-	// 	return (
-	// 		<div className={`bg-white w-full h-full`}>
-	// 			<Loading className={`place-self-center`} />
-	// 		</div>
-	// 	);
 	return (
 		<div className={`${className} flex flex-col p-5`}>
 			<Label className="text-black text-lg">دسته‌بندی‌ها</Label>
@@ -158,63 +108,8 @@ const TagBox = ({ className }) => {
 				<div className="flex flex-row gap-[0.6vw]">
 					<Tags
 						tags={subCategories?.map((tag) => tag)}
-						deleteTag={deleteTag}
 						dashboard={true}
 					/>
-					<Popover>
-						<PopoverTrigger>
-							<button
-								// className="btn h-8 bg-bomborange text-white"
-								className="flex h-[1.8vw] pt-[0.33vw] px-[0.6vw] text-center text-[0.8vw] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3]"
-								style={{ "min-height": "2px" }}
-							>
-								اضافه کردن
-								<img
-									src={plus}
-									className="h-[70%] mt-[0.1vw] mr-[0.2vw]"
-								/>
-							</button>
-						</PopoverTrigger>
-						<PopoverContent>
-							<Command
-								className={`border-solid border-2 border-gray-200 p-3 ${styles.box}`}
-							>
-								<CommandInput
-									className={`rtl ${styles.searchBox}`}
-									placeholder="جستجو کنید ..."
-								/>
-								<CommandList>
-									<CommandEmpty>
-										<EmptySection
-											textClassName="text-xs"
-											imageClassName="w-2"
-											type="سرمایه گذار"
-										/>
-									</CommandEmpty>
-									<CommandGroup
-										className={`rtl font-vazirmatn ${styles.box}`}
-									>
-										{tagCategories.map((item, index) => (
-											<CommandItem
-												value={item}
-												key={index}
-												className={`cursor-pointer ${styles.box}`}
-											>
-												<p
-													onClick={() =>
-														handleAddTag(item)
-													}
-													className={`px-2 py-[2px] text-center text-xs  max-w-max rounded font-semibold text-[#7281a3] ${styles.box}`}
-												>
-													{item}
-												</p>
-											</CommandItem>
-										))}
-									</CommandGroup>
-								</CommandList>
-							</Command>
-						</PopoverContent>
-					</Popover>
 				</div>
 			)}
 		</div>

@@ -1,12 +1,17 @@
-/* From Uiverse.io by Galahhad */
 .ui_bookmark {
 	--icon-size: 24px;
 	--icon-secondary-color: rgb(77, 77, 77);
 	--icon-hover-color: rgb(97, 97, 97);
-	--icon-primary-color: #FF7517;
+	--icon-primary-color: #ff7517;
 	--icon-circle-border: 1px solid var(--icon-primary-color);
 	--icon-circle-size: 35px;
 	--icon-anmt-duration: 0.3s;
+}
+
+@media (max-width: 768px) {
+	.ui_bookmark {
+		--icon-size: 18px;
+	}
 }
 
 .ui_bookmark input {

@@ -164,10 +164,14 @@ export const putData = async (endPoint, data) => {
 		throw new Error(error);
 	}
 };
-export const deleteData = async (endPoint) => {
+export const deleteData = async (endPoint, data, additionalHeaders) => {
 	await RefreshToken();
 	try {
-		const response = await apiClient.delete(endPoint);
+		const response = await apiClient.delete(
+			endPoint,
+			{data},
+			additionalHeaders
+		);
 		return response.data;
 	} catch (error) {
 		throw new Error(error);

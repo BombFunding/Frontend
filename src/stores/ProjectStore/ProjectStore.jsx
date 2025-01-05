@@ -16,6 +16,7 @@ const useProjectStore = create(
 			subCategories: [],
 			description: null,
 			creationDate: null,
+			likes: 0,
 			positionIds: [],
 			positions: [],
 			setProjectId: (val) => set((pre) => ({ ...pre, projectId: val })),
@@ -36,10 +37,12 @@ const useProjectStore = create(
 			setPositions: (val) => set((pre) => ({ ...pre, positions: val })),
 			setError: (val) => set((pre) => ({ ...pre, error: val })),
 			setLoading: (val) => set((pre) => ({ ...pre, loading: val })),
+			setLikes: (val) => set((pre) => ({ ...pre, likes: val })),
 			updateProject: async (projectId) => {
 				try {
 					const data = await getData(`/projects/${projectId}`);
-					console.log("project:", data);
+					const res = await getData(`/like/${projectId}/count/`);
+					console.log("project:", data, res);
 					set((pre) => ({
 						projectId: data.id,
 						user: data.user,
@@ -52,6 +55,7 @@ const useProjectStore = create(
 						creationDate: data.creation_date,
 						positionIds: data.position_ids,
 						positions: data.positions,
+						likes: res.likes,
 						error: null,
 						loading: false,
 					}));
