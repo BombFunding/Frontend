@@ -118,7 +118,6 @@ function Project({ className }) {
 					});
 					console.log(total);
 					setTotalFunded(total);
-					setLoading(false);
 				}
 			);
 		});
@@ -201,9 +200,7 @@ function Project({ className }) {
 										بستن
 									</button>
 								}
-							>
-
-							</DrawerDialog>
+							></DrawerDialog>
 						</div>
 					) : (
 						<div className="text-black text-[4vw] h-full place-content-center place-self-center">

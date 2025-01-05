@@ -11,16 +11,19 @@ import TagBox from "@/components/ProjectDashboard/TagBox/TagBox";
 import styles from "./ProjectDashboard.module.scss";
 import useProjectStore from "@/stores/ProjectStore/ProjectStore";
 import Error403 from "../Error/403/Error403";
+import { Loading } from "@/components/Loading/Loading";
 
 const ProjectDashboard = () => {
 	const { projectId } = useParams();
 	const navigate = useNavigate();
 
-	const { updateProject, error } = useProjectStore();
+	const { updateProject, error, setLoading, loading } = useProjectStore();
 	useEffect(() => {
+		setLoading(true);
 		updateProject(projectId);
 	}, []);
 	if (error) return <Error403 />;
+	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
 	return (
 		<>
 			<div className={styles.full_page}>
