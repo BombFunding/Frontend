@@ -76,7 +76,7 @@
 		"react-search-autocomplete": "^8.5.2",
 		"react-toastify": "^10.0.6",
 		"react-use": "^17.5.1",
-		"recharts": "^2.14.1",
+		"recharts": "^2.15.0",
 		"tailwind-merge": "^2.5.4",
 		"tailwindcss-animate": "^1.0.7",
 		"tailwindcss-rtl": "^0.9.0",

@@ -11,11 +11,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle} from "../../
 import {ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent} from "../../components/ui/chart";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "../../components/ui/select";
 
-function Fund() {
+function ProjectFund() {
 	const [timeRange, setTimeRange] = useState("30d");
   const [chartData, setChartData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const uname = useProfileStore(state => state.username);
+  const project_id = 2;
 	const filteredData = chartData.filter((item) => {
 		const date = new Date(item.date);
 		const referenceDate = new Date();
@@ -31,14 +31,13 @@ function Fund() {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-
       // Determine API endpoint based on selected time range
       const apiEndpoints = {
-        "30d": "/profile_statics/fund/last-30-days/",
-        "90d": "/profile_statics/fund/last-90-days/",
-        "365d": "/profile_statics/fund/last-year/",
+        "30d": `/profile_statics/project/${project_id}/fund/last-30-days/`,
+        "90d": `/profile_statics/project/${project_id}/fund/last-90-days/`,
+        "365d": `/profile_statics/project/${project_id}/fund/last-year/`,
       };
-      const apiUrl = `http://104.168.46.4:8000${apiEndpoints[timeRange]}?username=amin3`; // ${uname} when fixed 
+      const apiUrl = `http://104.168.46.4:8000${apiEndpoints[timeRange]}`; // ${uname} when fixed 
       try {
         const response = await fetch(apiUrl, {
           headers: {
@@ -46,16 +45,16 @@ function Fund() {
           },
         });
         const data = await response.json();
+        // console.log(`Data: ${data}`);
         // Transform API data to match the required format
         var formattedData = data.map((item) => ({
           date: item.date,
           mobile: item.fund, // Replace "mobile" with "view"
         })).reverse();
-        console.log(apiEndpoints[timeRange]);
-        if(apiEndpoints[timeRange]===`/profile_statics/fund/last-year/`)
+        if(apiEndpoints[timeRange]===`/profile_statics/project/${project_id}/fund/last-year/`)
           formattedData = data.map((item) => ({
             date: item.month,
-            mobile: item.fund // Replace "mobile" with "view"
+            mobile: item.fund, // Replace "mobile" with "view"
           })).reverse();
         // console.log(formattedData);
         setChartData(formattedData);
@@ -65,31 +64,30 @@ function Fund() {
         setIsLoading(false);
       }
     };
-
     fetchData();
   }, [timeRange]);
 	return (
 		<Card>
 			<CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
 				<div className="grid flex-1 gap-1 text-center sm:text-left">
-					<CardTitle>چارت پروفایل</CardTitle>
-					<CardDescription>
-						مقدار فاندینگ
+					<CardTitle className='font-vazirmatn'>چارت پروفایل</CardTitle>
+					<CardDescription className='font-vazirmatn'>
+					 مقدار فاندینگ پروژه
 					</CardDescription>
 				</div>
 				<Select value={timeRange} onValueChange={setTimeRange}>
-                  <SelectTrigger
-                    className="w-[110px] rounded-lg sm:ml-auto font-vazirmatn text-center justify-center"
-                    aria-label="Select a value"
-                  >
-                    <SelectValue placeholder="Last 3 months" />
-                  </SelectTrigger>
-                  <SelectContent className="rounded-xl">
-                                <SelectItem value="30d" className="rounded-lg font-vazirmatn justify-center "> یک ماه اخیر </SelectItem>
-                    <SelectItem value="90d" className="rounded-lg font-vazirmatn justify-center"> سه ماه اخیر </SelectItem>
-                                <SelectItem value="365d" className="rounded-lg font-vazirmatn justify-center"> یک سال اخیر </SelectItem>
-                  </SelectContent>
-                </Select>
+					<SelectTrigger
+						className="w-[110px] rounded-lg sm:ml-auto font-vazirmatn text-center justify-center"
+						aria-label="Select a value"
+					>
+						<SelectValue placeholder="Last 3 months" />
+					</SelectTrigger>
+					<SelectContent className="rounded-xl">
+                        <SelectItem value="30d" className="rounded-lg font-vazirmatn justify-center "> یک ماه اخیر </SelectItem>
+						<SelectItem value="90d" className="rounded-lg font-vazirmatn justify-center"> سه ماه اخیر </SelectItem>
+                        <SelectItem value="365d" className="rounded-lg font-vazirmatn justify-center"> یک سال اخیر </SelectItem>
+					</SelectContent>
+				</Select>
 			</CardHeader>
 			<CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
 				<ChartContainer className="aspect-auto h-[250px] w-full">
@@ -110,7 +108,7 @@ function Fund() {
 							tickLine={false}
 							axisLine={false}
 							tickMargin={8}
-							minTickGap={32}
+							minTickGap={0}
 							tickFormatter={(value) => {
 								const date = new Date(value);
 								return date.toLocaleDateString("en-US", {
@@ -147,4 +145,4 @@ function Fund() {
 	);
 }
 
-export default Fund;
+export default ProjectFund;

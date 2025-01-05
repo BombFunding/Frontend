@@ -11,7 +11,7 @@ import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import TeamBox from "../Sections/TeamBox/TeamBox";
 import { Label } from "@/components/ui/label";
 import { Loading } from "@/components/Loading/Loading";
-import { BarChart1 } from "@/components/BarChart/BarChart1";
+import BarChart1 from "@/components/BarChart/BarChart1";
 import BarChart2 from "@/components/BarChart/BarChart2";
 import Likes from "@/components/Likes/Likes";
 import ProjectBox from "../ProjectBox/ProjectBox";
