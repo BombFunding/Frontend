@@ -4,7 +4,7 @@ import Footer from "@/components/Footer/Footer";
 const Error404 = () => {
   return (
     <>
-      <div className="w-screen h-[88vh] mt-12 bg-bomborange">
+      <div className={`w-screen h-[88vh] mt-12 sm:mt-24 bg-bomborange`}>
         <div className={styles.top}>
           <h1 className={styles.error404}>404</h1>
           <h3 className={styles.notfound}>صفحه پیدا نشد</h3>
