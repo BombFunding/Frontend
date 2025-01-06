@@ -12,13 +12,13 @@
 
 .CustomInput::-webkit-outer-spin-button,
 .CustomInput::-webkit-inner-spin-button {
-	-webkit-appearance: none;
+  -webkit-appearance: none;
 }
 
 /* Firefox */
 .CustomInput[type="number"] {
-	-moz-appearance: textfield;
-	appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
 }
 
 // .CustomInput {
