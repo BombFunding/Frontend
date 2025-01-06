@@ -23,7 +23,7 @@ const PublicLayout = () => {
         closeButton={false}
         limit={5}
       />
-      <div className={styles.topMargin}>
+      <div className={`mt-12 sm:mt-24`}>
         <Navbar />
         <Outlet />
         <Footer />
