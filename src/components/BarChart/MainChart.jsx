@@ -76,7 +76,6 @@ function MainChart({ color, label, apiEndpoints, projectId, className }) {
 				// });
 				// const data = response.json();
 				getData(apiUrl).then((data) => {
-					console.log(data);
 					if (timeRange === "365d") {
 						const newdata = data.map((item) => ({
 							...item,
@@ -94,28 +93,6 @@ function MainChart({ color, label, apiEndpoints, projectId, className }) {
 
 		fetchData();
 	}, [timeRange]);
-
-	const areaRef = useRef(null);
-
-	useEffect(() => {
-		if (areaRef.current) {
-			// Access the underlying SVG path element
-			const pathElement = areaRef.current.querySelector(
-				".recharts-area-curve"
-			); // Or other selector
-
-			if (pathElement) {
-				// Now you can manipulate the path element (use with caution!)
-				// For example, get the total length:
-				const pathLength = pathElement.getTotalLength();
-				console.log("Path Length:", pathLength);
-
-				// Or get a point at a specific length:
-				const point = pathElement.getPointAtLength(pathLength / 2);
-				console.log("Midpoint:", point);
-			}
-		}
-	}, [areaRef]);
 	return (
 		<Card className={`border-solid border-2 border-bomborange ${className}`}>
 			<CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
@@ -170,7 +147,6 @@ function MainChart({ color, label, apiEndpoints, projectId, className }) {
 					{/* config={chartConfig} */}
 					<AreaChart data={filteredData}>
 						<defs>
-							{console.log(color)}
 							{/* <linearGradient
 								x1="0"
 								y1="0"
@@ -228,7 +204,6 @@ function MainChart({ color, label, apiEndpoints, projectId, className }) {
 							content={
 								<ChartTooltipContent
 									labelFormatter={(value) => {
-										// console.log(payload);
 										if (
 											new Date(value).toString() !==
 											"Invalid Date"
