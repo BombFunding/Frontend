@@ -22,7 +22,7 @@ const PublicLayout = () => {
         closeButton={false}
         limit={5}
       />
-      <div className="mt-[12vh]">
+      <div className="mt-24">
         <Navbar />
         <Outlet />
         <Footer />

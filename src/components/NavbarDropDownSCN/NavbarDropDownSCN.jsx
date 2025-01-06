@@ -7,13 +7,13 @@ import "./NavbarDropDownSCN.css";
 import { cn } from "@/lib/utils";
 // import { Icons } from "@/components/icons";
 import {
-	NavigationMenu,
-	NavigationMenuContent,
-	NavigationMenuItem,
-	NavigationMenuLink,
-	NavigationMenuList,
-	NavigationMenuTrigger,
-	navigationMenuTriggerStyle,
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 // import { Link } from "radix-ui";
 import { FiChevronDown } from "react-icons/fi";
@@ -22,67 +22,67 @@ import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
 import { getDataParams } from "@/Services/ApiClient/Services";
 
 const components = [
-	{
-		title: "تکنولوژی",
-		subs: {
-			"هوش مصنوعی": "/ai",
-			"اینترنت اشیا": "/iot",
-			امنیت: "/security",
-			نرم‌افزار: "/software",
-			"واقعیت افزوده": "/ar",
-		},
-		description:
-			"A modal dialog that interrupts the user with important content and expects a response.",
-	},
-	{
-		title: "گردشگری",
-		subs: {
-			فرهنگی: "/cultural",
-			بین‌المللی: "/international",
-			شهری: "/urban",
-		},
-		description:
-			"For sighted users to preview content available behind a link.",
-	},
-	{
-		title: "آموزش",
-		subs: {
-			"کتاب و نشریات": "/books",
-			"توسعه فردی": "/self-development",
-			آموزشگاه: "/academy",
-		},
-		description:
-			"Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-	},
-	{
-		title: "مالی",
-		subs: {
-			"ارز دیجیتال": "/financial",
-			بیمه: "/financial",
-			سرمایه‌گذاری: "/financial",
-		},
-		description: "Visually or semantically separates content.",
-	},
-	{
-		title: "هنری",
-		subs: {
-			سینما: "/arts",
-			موسیقی: "/arts",
-			"صنایع دستی": "/arts",
-		},
-		description:
-			"A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-	},
-	{
-		title: "سلامت",
-		subs: {
-			تغذیه: "/health",
-			روان: "/health",
-			درمان: "/health",
-		},
-		description:
-			"A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-	},
+  {
+    title: "تکنولوژی",
+    subs: {
+      "هوش مصنوعی": "/ai",
+      "اینترنت اشیا": "/iot",
+      امنیت: "/security",
+      نرم‌افزار: "/software",
+      "واقعیت افزوده": "/ar",
+    },
+    description:
+      "A modal dialog that interrupts the user with important content and expects a response.",
+  },
+  {
+    title: "گردشگری",
+    subs: {
+      فرهنگی: "/cultural",
+      بین‌المللی: "/international",
+      شهری: "/urban",
+    },
+    description:
+      "For sighted users to preview content available behind a link.",
+  },
+  {
+    title: "آموزش",
+    subs: {
+      "کتاب و نشریات": "/books",
+      "توسعه فردی": "/self-development",
+      آموزشگاه: "/academy",
+    },
+    description:
+      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+  },
+  {
+    title: "مالی",
+    subs: {
+      "ارز دیجیتال": "/financial",
+      بیمه: "/financial",
+      سرمایه‌گذاری: "/financial",
+    },
+    description: "Visually or semantically separates content.",
+  },
+  {
+    title: "هنری",
+    subs: {
+      سینما: "/arts",
+      موسیقی: "/arts",
+      "صنایع دستی": "/arts",
+    },
+    description:
+      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+  },
+  {
+    title: "سلامت",
+    subs: {
+      تغذیه: "/health",
+      روان: "/health",
+      درمان: "/health",
+    },
+    description:
+      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+  },
 ];
 
 // function Dropdown({ selected, i, comp }) {
