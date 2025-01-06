@@ -6,10 +6,16 @@
   .buttonWidth {
     @apply w-[50%];
   }
+  .formWidth {
+    @apply w-[80vw];
+  }
 }
 
 @media (min-width: 851px) {
   .flexBox {
     @apply flex flex-row;
+  }
+  .formWidth {
+    @apply w-[95vw];
   }
 }
