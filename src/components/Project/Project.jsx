@@ -14,9 +14,10 @@ import PageView from "./PageView/PageView";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { DrawerDialog } from "../Custom/DrawerDialog/DrawerDialog";
 import styles from "./Project.module.scss";
-import CustomInput from "../Custom/CustomInput/CustomInput";
-import InvestingForm from "../Forms/ProjectForms/InvestingForm/InvestingForm";
+import Like from "../Like/Like";
+import Bookmark from "../Bookmark/Bookmark";
 import usePublicProjectStore from "@/stores/ProjectStore/publicProjectStore";
+import InvestingForm from "../Forms/ProjectForms/InvestingForm/InvestingForm";
 const englishToPersian = {
   "Artificial Intelligence": "هوش مصنوعی",
   "Internet of Things": "اینترنت اشیا",
@@ -32,11 +33,11 @@ const englishToPersian = {
   Cultural: "فرهنگی",
   Urban: "شهری",
   International: "بین‌المللی",
-  "Books and Publications": "کتب و نشریات",
+  "Books and Publications": "کتاب و نشریات",
   "Personal Development": "توسعه فردی",
-  "Educational Institutions": "مؤسسات آموزشی",
+  "Educational Institutions": "آموزشگاه",
   "Investment Fund": "سرمایه‌گذاری",
-  Cryptocurrency: "رمزارز",
+  Cryptocurrency: "ارز دیجیتال",
   Insurance: "بیمه",
 };
 
@@ -67,9 +68,10 @@ function Project({ className }) {
     updatePublicProject,
     getLog,
   } = usePublicProjectStore();
-
   const { username } = useProfileStore();
   const [closer, setCloser] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
   function timeDiff(time) {
     const now = new Date(); // Current time
     const date = new Date(time); // Convert the comment time to a Date object
@@ -89,14 +91,10 @@ function Project({ className }) {
       return `${days} روز دیگر`;
     }
   }
-  useEffect(() => {
-    updatePublicProject(projectId);
-    getLog();
-  }, []);
   //   useEffect(() => {
   //     setLoading(true);
   //     getData(`/projects/detail/${projectId}/`).then((data) => {
-  //       console.log(data);
+  //       console.log("project", data);
   //       setImage(data.image);
   //       setName(data.name);
   //       setOwner(data.owner_username);
@@ -105,10 +103,11 @@ function Project({ className }) {
   //       }
   //       setDescription(data.description);
   //       setSubCategories(data.subcategories);
+  //       setIsLiked(data.is_liked);
+  //       setIsBookmarked(data.is_bookmarked);
   //       setLoading(true);
   //       getData(`/auth/baseuser_search_by_name/${data.owner_username}/`).then(
   //         (res) => {
-  //           console.log(res.baseuser_profile.profile_picture);
   //           setProfile(
   //             `http://104.168.46.4:8000${res.baseuser_profile.profile_picture}`
   //           );
@@ -137,18 +136,22 @@ function Project({ className }) {
   //         data.forEach((element) => {
   //           total += Number(element.investment_amount);
   //         });
-  //         console.log(total);
   //         setTotalFunded(total);
   //       });
   //     });
   //   }, []);
+  useEffect(() => {
+    updatePublicProject(projectId);
+    getLog();
+  }, []);
+
   if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
   return (
     // <Card
     // 	className={`${className} bg-slate-50 overflow-hidden font-vazirmatn w-[90vw] translate-y-[3vw] mb-[6vw] place-self-center`}
     // >
     <div
-      className={`${className} w-[80vw] place-self-center py-[2vw] grid gap-y-[4vw]`}
+      className={`${className} w-[80vw] place-self-center py-[2vw] grid gap-y-[2vw]`}
     >
       <div className="place-self-center text-gray-800 text-4xl py-[3vw] ">
         {name}
@@ -219,14 +222,33 @@ function Project({ className }) {
                   </button>
                 }
               >
-                <InvestingForm position={position} setCloser={setCloser} />
-              </DrawerDialog>
+				<InvestingForm position={position} setCloser={setCloser} />
+			  </DrawerDialog>
             </div>
           ) : (
             <div className="text-black text-[4vw] h-full place-content-center place-self-center">
               این پروژه فعلا هیچ پوزیشن بازی ندارد
             </div>
           )}
+        </div>
+      </div>
+      {/* <div className="flex rtl place-items-start">
+				<Like />
+				<Bookmark />
+			</div> */}
+      <div className="place-items-start">
+        <div className="flex rtl">
+          <Like
+            className="pr-[1vw] pl-[1vw] place-self-center"
+            likeCount={10}
+            isLiked={isLiked}
+            projectId={projectId}
+          />
+          <Bookmark
+            className="pl-[1vw] place-self-center"
+            isBookmarked={isBookmarked}
+            projectId={projectId}
+          />
         </div>
       </div>
       <div className="flex justify-between">

@@ -1,0 +1,8 @@
+@media (max-width: 641) {
+  .test {
+    @apply h-[20vw] w-[20vw];
+  }
+  .sizeCustomizer {
+    @apply w-3;
+  }
+}

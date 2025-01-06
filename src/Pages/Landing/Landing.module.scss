@@ -25,3 +25,23 @@
     filter: hue-rotate(180deg);
 	text-align: center;
 }
+
+.image-text-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  padding: 1vw;
+
+  section {
+    flex: 1; 
+  }
+
+  img {
+    width: 150px; 
+    height: 150px;
+    object-fit: cover; 
+    margin-left: 1rem; 
+  }
+}
+
+

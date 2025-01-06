@@ -12,6 +12,7 @@ import styles from "./ProjectDashboard.module.scss";
 import useProjectStore from "@/stores/ProjectStore/ProjectStore";
 import Error403 from "../Error/403/Error403";
 import { Loading } from "@/components/Loading/Loading";
+import MainChart from "@/components/BarChart/MainChart";
 
 const ProjectDashboard = () => {
 	const { projectId } = useParams();
@@ -75,11 +76,45 @@ const ProjectDashboard = () => {
 						/>
 					</div>
 					<TagBox
+						dashboard={true}
 						className={
 							"bg-white shadow-sm h-full rounded-lg md:w-1/2 w-full"
 						}
 					/>
 				</div>
+				<MainChart
+					projectId={projectId}
+					className="w-11/12 mb-6"
+					color={"#FF7517"}
+					label="fund"
+					apiEndpoints={{
+						"30d": `/profile_statics/project/${projectId}/fund/last-30-days/`,
+						"90d": `/profile_statics/project/${projectId}/fund/last-90-days/`,
+						"365d": `/profile_statics/project/${projectId}/fund/last-year/`,
+					}}
+				/>
+				<MainChart
+					projectId={projectId}
+					className="w-11/12 mb-6"
+					color={"#FF0000"}
+					label="like"
+					apiEndpoints={{
+						"30d": `/profile_statics/project/${projectId}/last-30-days/`,
+						"90d": `/profile_statics/project/${projectId}/last-90-days/`,
+						"365d": `/profile_statics/project/${projectId}/last-year/`,
+					}}
+				/>
+				<MainChart
+					projectId={projectId}
+					className="w-11/12 mb-6"
+					color={"#0000FF"}
+					label="view"
+					apiEndpoints={{
+						"30d": `/profile_statics/project/${projectId}/last-30-days/`,
+						"90d": `/profile_statics/project/${projectId}/last-90-days/`,
+						"365d": `/profile_statics/project/${projectId}/last-year/`,
+					}}
+				/>
 			</div>
 		</>
 	);

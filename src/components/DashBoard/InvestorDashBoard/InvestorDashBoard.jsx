@@ -24,6 +24,8 @@ import { Separator } from "@/components/ui/separator";
 import { Loading } from "@/components/Loading/Loading";
 import Tags from "@/components/Tags/Tags";
 import Bookmarks from "../Bookmarks/Bookmarks";
+import InvestorTags from "@/components/InvestorTags/InvestorTags";
+import EmptySection from "@/components/EmptySection/EmptySection";
 
 const mockup = {
 	ssn: "4444444444",
@@ -48,6 +50,7 @@ const InvestorDashBoard = () => {
 		setPhone,
 		setBalance,
 	} = useProfileStore();
+	const [subcategories, setSubcategories] = useState([]);
 	console.log("Investor dashboard");
 	useEffect(() => {
 		setLoading(true);
@@ -66,19 +69,15 @@ const InvestorDashBoard = () => {
 			setHeader(
 				`http://104.168.46.4:8000${data.base_profile.header_picture}`
 			);
+			getData(`/categories/${data.base_profile.name}/`).then((data) => {
+				setSubcategories(data.subcategories);
+			});
 			getData(`/balance/balance/`).then((data) => {
 				setBalance(data.balance);
 				setLoading(false);
 			});
 		});
 	}, []);
-	const check =
-		mockup.ssn &&
-		mockup.legal &&
-		mockup.shaba &&
-		mockup.tax &&
-		mockup.address;
-	console.log(check);
 	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
 	return (
 		<>
@@ -88,9 +87,20 @@ const InvestorDashBoard = () => {
 					دسته‌بندی‌های مورد علاقه
 				</Label>
 				<div className="border-solid border-2 border-bomborange rounded-lg place-items-end px-[1vw]">
-					<Tags
+					{/* <Tags
 						tags={["تفریحی", "فرهنگی", "سینمایی"]}
 						dashboard={true}
+					/> */}
+					{subcategories.length === 0 ? (
+						<EmptySection type="دسته‌بند" />
+					) : (
+						<></>
+					)}
+					<InvestorTags
+						tags={subcategories}
+						dashboard={true}
+						setSubcategories={setSubcategories}
+						setLoading={setLoading}
 					/>
 				</div>
 				{/* <Card

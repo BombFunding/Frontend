@@ -1,6 +1,36 @@
 .progress_bar {
 	@apply w-full h-[1vw] top-[-0.6vw] z-[-10];
 }
+.name {
+	@apply text-lg place-self-center;
+}
+@media (max-width: 1100px) {
+	.name {
+		@apply text-lg place-self-center; /* Hide the element above 1100px */
+	}
+}
+
+@media (max-width: 1024px) {
+	.name {
+		@apply text-lg place-self-center; /* Apply styles below 1024px */
+	}
+}
+
+/* Optional: Styles for the in-between range (1024px - 1100px) */
+@media (min-width: 1025px) and (max-width: 1099px) {
+	.name {
+		@apply hidden;
+	}
+}
+
+.projectName {
+	@apply lg:text-lg md:text-base text-sm m-4;
+}
+
+.share {
+	@apply lg:w-[32px] md:w-[28px] sm:w-[24px] w-[20px] h-auto;
+	@apply -rotate-45 h-auto mb-[0.4vh] place-self-center cursor-pointer;
+}
 
 .hover_content {
 	display: none;
@@ -10,12 +40,21 @@
 	display: flex;
 }
 
+
 .image {
 	@apply rounded-t-lg;
 	aspect-ratio: 16/9;
 	object-fit: cover;
 }
 
+.ownerProfile {
+	@apply rounded-full lg:w-16 md:w-14 sm:w-14 w-12 h-auto lg:mx-4 md:mx-3 sm:mx-3 m-2 hover:cursor-pointer;
+}
+
 .container {
-	@apply rounded-lg shadow-lg w-[30vw] mb-[1.5vw] hover:animate-shake;
+	@apply rounded-lg shadow-lg lg:w-[30vw] md:w-[45vw] sm:w-[90vw] w-[85vw] mb-[1.5vw] hover:animate-shake;
+}
+
+.days_remaining {
+	@apply lg:text-sm sm:text-sm text-xs place-self-center;
 }
