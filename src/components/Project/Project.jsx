@@ -153,7 +153,7 @@ function Project({ className }) {
     // >
     <>
       <div
-          className={`${className} w-[80vw] place-self-center py-[2vw] grid gap-y-[2vw]`}
+        className={`${className} w-[80vw] place-self-center py-[2vw] grid gap-y-[2vw]`}
         // className={`${className} w-[80vw] flex flex-col justify-start items-end mx-auto bg-white my-5 gap-3`}
       >
         <div className="place-self-center text-gray-800 text-4xl py-[3vw] ">
@@ -256,7 +256,8 @@ function Project({ className }) {
 				<Like />
 				<Bookmark />
 			</div> */}
-        <div className="flex flex-col-reverse lg:flex-row">
+        {/* <div className="flex flex-col-reverse lg:flex-row"> */}
+        <div className="flex flex-col-reverse">
           <Tags
             tags={subcategories.map(
               (subcategory) => englishToPersian[subcategory] || subcategory
@@ -265,7 +266,7 @@ function Project({ className }) {
             dashboard={false}
           />
           {subcategories.length > 0 ? (
-            <div className="border-2 border-solid rounded-full mx-[1vw]" />
+            <div className="border-2 border-solid rounded-full" />
           ) : (
             <></>
           )}

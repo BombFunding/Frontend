@@ -59,14 +59,12 @@ function Tags({ tags, className, dashboard }) {
 			JSON.stringify([...subCategories, tag])
 		);
 		// console.log(formData, tag);
-		console.log("subcategories", { subcategories: tag });
 		patchData(`/projects/${projectId}/`, formData, {
 			headers: {
 				"Content-Type": "multipart/form-data",
 			},
 		})
 			.then((data) => {
-				console.log("Data: ", data);
 				updateProject(projectId);
 			})
 			.catch((err) => {
@@ -108,7 +106,7 @@ function Tags({ tags, className, dashboard }) {
 			<div className="flex flex-wrap gap-2">
 				{tags.map((tag, index) => (
 					<button
-						className="flex place-items-start pt-0 pr-2 pl-1 h-5 text-center lg:text-[12px] text-[10px] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer"
+						className="flex place-items-start pt-0 pr-1 pl-1 h-5 text-center lg:text-[12px] text-[10px] bg-[#d9dfe3] rounded font-semibold text-[#7281a3] cursor-pointer"
 						style={{ "min-height": "2px" }}
 						onClick={() => {
 							if (!dashboard) {
