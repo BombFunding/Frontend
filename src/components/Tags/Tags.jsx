@@ -112,7 +112,7 @@ function Tags({ tags, className, dashboard }) {
 			<div className="flex flex-wrap gap-[0.6vw]">
 				{tags.map((tag, index) => (
 					<p
-						className="flex h-[1.8vw] pt-[0.33vw] px-[0.6vw] text-center text-[0.8vw] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer"
+						className="flex place-self-start pt-0 px-2 text-center lg:text-[12px] text-[10px] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer"
 						style={{ "min-height": "2px" }}
 						onClick={() => {
 							if (!dashboard) {
@@ -139,13 +139,13 @@ function Tags({ tags, className, dashboard }) {
 						<PopoverTrigger>
 							<button
 								// className="btn h-8 bg-bomborange text-white"
-								className="flex h-[1.8vw] pt-[0.33vw] px-[0.6vw] text-center text-[0.8vw] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3]"
+								className="flex place-items-start pt-0 pr-2 pl-1 h-5 text-center lg:text-[12px] text-[10px] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer"
 								style={{ "min-height": "2px" }}
 							>
-								اضافه کردن
+								<p className="place-self-center place-content-center place-items-center">اضافه کردن</p>
 								<img
 									src={plus}
-									className="h-[70%] mt-[0.1vw] mr-[0.2vw]"
+									className="h-[80%] place-self-center pr-[2px]"
 								/>
 							</button>
 						</PopoverTrigger>
