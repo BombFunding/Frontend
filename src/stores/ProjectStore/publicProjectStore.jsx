@@ -8,6 +8,7 @@ const usePublicProjectStore = create(
       image: "",
       name: "",
       owner: "",
+      likes: 0,
       description: "",
       profile: "",
       ownerName: "",
@@ -26,6 +27,7 @@ const usePublicProjectStore = create(
       setLoading: (val) => set((pre) => ({ ...pre, loading: val })),
       setSubcategories: (val) => set((pre) => ({ ...pre, subcategories: val })),
       setTotalFunded: (val) => set((pre) => ({ ...pre, totalFunded: val })),
+      setLikes: (val) => set((pre) => ({ ...pre, likes: val })),
       updatePublicProject: async (projectId) => {
         set((pre) => ({ ...pre, loading: true }));
         try {
@@ -39,6 +41,7 @@ const usePublicProjectStore = create(
             subcategories: data.subcategories,
             position: data.open_position,
             profile: data.owner_profile_picture,
+            likes: data.like_count
           }));
           //   set(async (pre) => {
           //     try {
