@@ -15,12 +15,13 @@ import { useEffect, useState } from "react";
 import { getData } from "@/Services/ApiClient/Services";
 import { Link } from "react-router-dom";
 import img9 from "../../assets/landing_back5.png";
+import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
 
 const Landing = () => {
 	const [topFunded, setTopFunded] = useState([]);
 	const [topVisited, setTopVisited] = useState([]);
 	const [topLiked, setTopLiked] = useState([]);
-    
+	const { setSorting } = useStarboardStore();
 	useEffect(() => {
 		getData("/landing/get_statistics/").then((data) => {
 			console.log(data);
@@ -291,6 +292,7 @@ const Landing = () => {
 						پربازدیدترین استارت‌آپ‌ها
 					</Label>
 					<Link
+						onClick={() => {setSorting("top-visited")}}
 						to="/Starboard"
 						className="text-black font-vazirmatn text-sm md:text-base lg:text-lg xl:text-xl px-3 py-1 rounded hover:bg-gray-200 transition-all duration-300"
 					>
@@ -319,7 +321,7 @@ const Landing = () => {
 					</Label>
 					<Link
 						to="/Starboard"
-						onClick={() => {}}
+						onClick={() => {setSorting("top-liked")}}
 						className="text-black font-vazirmatn text-sm md:text-base lg:text-lg xl:text-xl px-3 py-1 rounded hover:bg-gray-200 transition-all duration-300"
 					>
 						دیدن بیشتر...
