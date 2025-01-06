@@ -18,6 +18,7 @@ import { MdSpaceDashboard } from "react-icons/md";
 import useTokenStore from "@/stores/TokenStore";
 import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
 import { useNavigate } from "react-router-dom";
+import { Avatar, AvatarImage } from "../ui/avatar";
 // import { pic } from "../../assets/defaultpfp.png";
 function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
   const ref = useRef(null);
@@ -188,12 +189,16 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
                       ) : route.title !== "پروفایل" ? (
                         <Icon className="text-xl" />
                       ) : (
-                        <div className="w-[90px] rounded-full overflow-hidden border-solid border-2 border-bomborange">
-                          <img
-                            className="object-cover p-[0.125rem] rounded-full"
-                            src={avatar}
-                          />
-                        </div>
+                        // <div className="object-scale-down w-[90px] h-[90px] rounded-full overflow-hidden border-solid border-2 border-bomborange">
+                        //   <img
+                        //     className="p-[0.125rem] rounded-full h-[90px]"
+                        //     src={avatar}
+                        //     alt={`${fullname}'s avatar picture`}
+                        //   />
+                        // </div>
+                        <Avatar className="w-[17vw] h-[17vw] border-solid border-2 border-bomborange">
+                          <AvatarImage src={avatar} />
+                        </Avatar>
                       )}
                       {route.title !== "پروفایل" ? (
                         <span className="flex gap-1 text-lg">
@@ -202,9 +207,9 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
                       ) : (
                         <div className="flex flex-col gap-2">
                           <div className="font-extrabold text-[4.5vw]">
-                            {userdata.fullname}
+                            {fullname}
                           </div>
-                          <div className="text-[2vw]">@{userdata.username}</div>
+                          <div className="text-[2vw]">@{username}</div>
                         </div>
                       )}
                     </a>
