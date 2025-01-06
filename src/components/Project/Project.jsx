@@ -42,6 +42,7 @@ const englishToPersian = {
 };
 
 function Project({ className }) {
+<<<<<<< HEAD
 	const { projectId } = useParams();
 	const Navigate = useNavigate();
 	// const [image, setImage] = useState("");
@@ -76,6 +77,42 @@ function Project({ className }) {
 	function timeDiff(time) {
 		const now = new Date(); // Current time
 		const date = new Date(time); // Convert the comment time to a Date object
+=======
+  const { projectId } = useParams();
+  const Navigate = useNavigate();
+  // const [image, setImage] = useState("");
+  // const [name, setName] = useState("");
+  // const [owner, setOwner] = useState("");
+  // const [description, setDescription] = useState("");
+  // const [profile, setProfile] = useState("");
+  // const [ownerName, setOwnerName] = useState("");
+  // const [position, setPosition] = useState(null);
+  // const [loading, setLoading] = useState(false);
+  // const [subcategories, setSubCategories] = useState([]);
+  // const [totalFunded, setTotalFunded] = useState(0);
+  const {
+    image,
+    name,
+    owner,
+    description,
+    profile,
+    ownerName,
+    position,
+    loading,
+    subcategories,
+    totalFunded,
+    updatePublicProject,
+    getLog,
+    likes,
+  } = usePublicProjectStore();
+  const { username } = useProfileStore();
+  const [closer, setCloser] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  function timeDiff(time) {
+    const now = new Date(); // Current time
+    const date = new Date(time); // Convert the comment time to a Date object
+>>>>>>> cd45ea4445a267d6b016fc95640eeb5be4b9b017
 
 		const timeDifference = Math.floor((date - now) / 1000); // Difference in seconds
 
@@ -178,141 +215,130 @@ function Project({ className }) {
 					</div>
 				</div>
 				<div className="w-full lg:w-2/5 flex flex-col justify-between mb-7">
-					{/* <Progress
-						value={10}
-						className="w-full border-solid border-[1px] border-black"
-						indicatorColor="bg-blue-300"
-						ProgressColor="bg-bomborange"
-					/> */}
-					{position ? (
-						<div className="flex flex-col p-[2vw] justify-between h-full gap-3 lg:gap-0">
-							<div>
-								<div className="flex rtl gap-[1vw] mt-[2vw] px-[1vw]">
-									<div className="text-black text-2xl lg:text-3xl place-self-center">
-										{position.funded}
-									</div>
-									<img
-										src={toman}
-										className="w-8 h-auto lg:w-12 place-self-center mb-[0.4vw]"
-									/>
-								</div>
-								<div className="flex rtl gap-[0.5vw] place-items-center">
-									<div className="text-black text-2xl">
-										سرمایه جمع‌آوری شده از
-									</div>
-									<div className="text-black text-[3vw] place-self-center">
-										{/* 16000 */}
-										{position.total}
-									</div>
-									<img
-										src={toman}
-										className="w-[4vw] h-[2.8vw] place-self-center mb-[0.4vw]"
-									/>
-								</div>
-							</div>
-							<Progress
-								// value={(position.funded / position.total) * 100}
-								value={position.percent_funded}
-								className="w-full border-solid border-[1px] border-black my-[1vw]"
-								indicatorColor="bg-blue-300"
-								ProgressColor="bg-bomborange"
-							/>
-							<div className="text-xl">
-								تا {timeDiff(position.end_time)}
-							</div>
+            {position ? (
+              <div className="flex flex-col p-[2vw] justify-between h-full gap-3 lg:gap-0">
+                <div>
+                  <div className="flex rtl gap-[1vw] mt-[2vw] px-[1vw]">
+                    <div className="text-black text-2xl lg:text-3xl place-self-center">
+                      {position.funded}
+                    </div>
+                    <img
+                      src={toman}
+                      className="w-8 h-auto lg:w-12 place-self-center mb-[0.4vw]"
+                    />
+                  </div>
+                  <div className="flex rtl gap-[0.5vw] place-items-center">
+                    <div className="text-black text-2xl">
+                      سرمایه جمع‌آوری شده از
+                    </div>
+                    <div className="text-black text-[3vw] place-self-center">
+                      {/* 16000 */}
+                      {position.total}
+                    </div>
+                    <img
+                      src={toman}
+                      className="w-[4vw] h-[2.8vw] place-self-center mb-[0.4vw]"
+                    />
+                  </div>
+                </div>
+                <Progress
+                  // value={(position.funded / position.total) * 100}
+                  value={position.percent_funded}
+                  className="w-full border-solid border-[1px] border-black my-[1vw]"
+                  indicatorColor="bg-blue-300"
+                  ProgressColor="bg-bomborange"
+                />
+                <div className="text-xl">تا {timeDiff(position.end_time)}</div>
 
-							<DrawerDialog
-								open={closer}
-								onOpenChange={setCloser}
-								title={"سرمایه گذاری کنید"}
-								triggerButton={
-									// <button
-									// 	className={`${styles.btn} h-8 btn bg-bomborange text-white`}
-									// >
-									// 	ویرایش
-									// </button>
-									<Button className="btn w-full bg-bomborange hover:bg-black hover:text-white text-xl">
-										روی این پروژه سرمایه گذاری کنید
-									</Button>
-								}
-								closeButton={
-									<button
-										className={`${styles.btn} h-6 btn bg-bomborange text-white`}
-									>
-										بستن
-									</button>
-								}
-							>
-								<InvestingForm
-									position={position}
-									setCloser={setCloser}
-								/>
-							</DrawerDialog>
-						</div>
-					) : (
-						<div className="text-black text-[4vw] h-full place-content-center place-self-center">
-							این پروژه فعلا هیچ پوزیشن بازی ندارد
-						</div>
-					)}
-				</div>
-			</div>
-			{/* <div className="flex rtl place-items-start">
+                <DrawerDialog
+                  open={closer}
+                  onOpenChange={setCloser}
+                  title={"سرمایه گذاری کنید"}
+                  triggerButton={
+                    // <button
+                    // 	className={`${styles.btn} h-8 btn bg-bomborange text-white`}
+                    // >
+                    // 	ویرایش
+                    // </button>
+                    <Button className="btn w-full bg-bomborange hover:bg-black hover:text-white text-xl">
+                      روی این پروژه سرمایه گذاری کنید
+                    </Button>
+                  }
+                  closeButton={
+                    <button
+                      className={`${styles.btn} h-6 btn bg-bomborange text-white`}
+                    >
+                      بستن
+                    </button>
+                  }
+                >
+                  <InvestingForm position={position} setCloser={setCloser} />
+                </DrawerDialog>
+              </div>
+            ) : (
+              <div className="text-black text-[4vw] h-full place-content-center place-self-center">
+                این پروژه فعلا هیچ پوزیشن بازی ندارد
+              </div>
+            )}
+          </div>
+        </div>
+        {/* <div className="flex rtl place-items-start">
 				<Like />
 				<Bookmark />
 			</div> */}
-			<div className="flex flex-col-reverse lg:flex-row">
-				<Tags
-					tags={subcategories.map(
-						(subcategory) =>
-							englishToPersian[subcategory] || subcategory
-					)}
-					className="place-items-start"
-					dashboard={false}
-				/>
-				{subcategories.length > 0 ? (
-					<div className="border-2 border-solid rounded-full mx-[1vw]" />
-				) : (
-					<></>
-				)}
-				<div className="my-[2vw] flex place-items-center w-full justify-end">
-					<div className="flex rtl gap-[0.5vw] place-self-start px-[2vw] py-[1vh]">
-						<div className="text-black text-3xl place-self-center">
-							{totalFunded}
-						</div>
-						<img
-							src={toman}
-							className="w-[3vw] h-[2.1vw] place-self-center mb-[0.4vw]"
-						/>
-					</div>
-					<div className="text-black text-2xl">
-						:مجموع سرمایه جمع‌آوری شده
-					</div>
-				</div>
-			</div>
-			{/* <div className="text-black text-[1.5vw] rtl hover:cursor-pointer hover:underline hover:text-bomborange">
+        <div className="flex flex-col-reverse lg:flex-row">
+          <Tags
+            tags={subcategories.map(
+              (subcategory) => englishToPersian[subcategory] || subcategory
+            )}
+            className="place-items-start"
+            dashboard={false}
+          />
+          {subcategories.length > 0 ? (
+            <div className="border-2 border-solid rounded-full mx-[1vw]" />
+          ) : (
+            <></>
+          )}
+          <div className="my-[2vw] flex place-items-center w-full justify-end">
+            <div className="flex rtl gap-[0.5vw] place-self-start px-[2vw] py-[1vh]">
+              <div className="text-black text-3xl place-self-center">
+                {totalFunded}
+              </div>
+              <img
+                src={toman}
+                className="w-[3vw] h-[2.1vw] place-self-center mb-[0.4vw]"
+              />
+            </div>
+            <div className="text-black text-2xl">
+              :مجموع سرمایه جمع‌آوری شده
+            </div>
+          </div>
+        </div>
+        {/* <div className="text-black text-[1.5vw] rtl hover:cursor-pointer hover:underline hover:text-bomborange">
 				n نفر روی این پروژه سرمایه گذاری کرده‌اند
 			</div> */}
-			<InvestorDialogBox className="rtl" projectId={projectId} />
-			<div>
-				<div className="text-black flex gap-[1vw] px-[4vw] place-self-end">
-					<div className="flex flex-col place-items-end justify-evenly px-[2vw]">
-						<Label className="text-5xl">{ownerName}</Label>
-						<Label className="text-3xl">{owner}</Label>
-					</div>
-					<img
-						src={profile}
-						className="rounded-full w-[16vw] h-[16vw] hover:cursor-pointer"
-						onClick={() => Navigate(`/profile/${owner}`)}
-					/>
-				</div>
-			</div>
-			<div className="text-black w-[95%] place-self-center">
-				{description}
-			</div>
-			<PageView />
-			<CommentSection />
-		</div>
-	);
+        <InvestorDialogBox className="rtl" projectId={projectId} />
+        <div>
+          <div className="text-black flex gap-[1vw] px-[4vw] place-self-end">
+            <div className="flex flex-col place-items-end justify-evenly px-[2vw]">
+              <Label className="text-5xl">{ownerName}</Label>
+              <Label className="text-3xl">{owner}</Label>
+            </div>
+            <img
+              src={profile}
+              className="rounded-full w-[16vw] h-[16vw] hover:cursor-pointer"
+              onClick={() => Navigate(`/profile/${owner}`)}
+            />
+          </div>
+        </div>
+        <div className="text-black w-[95%] place-self-center">
+          {description}
+        </div>
+        <PageView />
+        <CommentSection />
+      </div>
+    </>
+  );
 }
 
 export default Project;
