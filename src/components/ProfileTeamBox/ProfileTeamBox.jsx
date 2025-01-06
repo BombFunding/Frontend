@@ -1,57 +1,67 @@
-import ProfileTeamItem from "../ProfileTeamItem/ProfileTeamItem";
-import prof01 from "../../assets/Profile01.jpg";
-import prof02 from "../../assets/A1.jpg";
-import prof03 from "../../assets/baner.jpg";
-import prof04 from "../../assets/defaultpfp.png";
-import prof05 from "../../assets/logo1.png";
-import "./scrollBox.css";
-// import p from "../../assets/";
+import React, { useEffect, useState } from "react";
+import ProfileTeamItem from "../ProfileTeamItem/ProfileTeamItem"; // Assuming this is the child component
+import axios from "axios"; // Using axios for HTTP requests
+import { getData } from "@/Services/ApiClient/Services";
+import defaultPic from "../../assets/defaultpfp.png";
 
-const children = [
-  {
-    name: "علیرضا رحیمی",
-    role: "فرانت فلک زده",
-    details: ".لطفا در پروسه حذف کمکم کنید",
-    profile: prof01,
-  },
-  {
-    name: "عرفان تاجیک میرزایی",
-    role: "فرانت خر",
-    details: "بستنی میخوام، خوشمزه باشه",
-    profile: prof02,
-  },
-  {
-    name: "امین فیروزی",
-    role: "فرانت خسته",
-    details: ".غلامرضا هستم",
-    profile: prof03,
-  },
-  {
-    name: "میلاد زارعی",
-    role: "بک لایق و کارکن",
-    details: "بی پلنه",
-    profile: prof04,
-  },
-  {
-    name: "ترانه عبداللهی",
-    role: "بک سریع و پیگیر",
-    details: ".اسپرینت فیل شه همتونو میکشم به ولای علی",
-    profile: prof05,
-  },
-];
+function ProfileTeamBox({ username }) {
+  const [children, setChildren] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-function ProfileTeamBox() {
+  useEffect(() => {
+    const fetchTeamData = async () => {
+      try {
+        setLoading(true);
+        const response = await getData(
+          // `/startup/profile/team/list/${username}`
+          `/startup/profile/team/list/alireza_start1/`
+        );
+        setChildren(response); // Adjust based on the API response structure
+        setLoading(false);
+        console.log(`response: ${response}`);
+      } catch (err) {
+        console.error("Error fetching team data:", err);
+        setError("Failed to fetch team data.");
+        setLoading(false);
+      }
+    };
+
+    fetchTeamData();
+  }, [username]); // Re-run the fetch if `username` changes
+
+  if (loading) {
+    return (
+      <div className="w-[90vw] py-5 px-5 bg-neutral-100 mt-24 text-yellow-500">
+        Loading team data...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="w-[90vw] py-5 px-5 bg-neutral-100 mt-24 text-red-500">
+        {error}
+      </div>
+    );
+  }
+
   return (
-    <div className="hide-scrollbar place-items-center rounded-lg flex flex-row overflow-hidden overflow-x-scroll hide-scrollbar w-[90vw] py-5 px-5 bg-neutral-100 mt-24 text-yellow-500 gap-7">
-      {children.map((child, i) => (
-        <ProfileTeamItem
-          name={child.name}
-          role={child.role}
-          details={child.details}
-          profile={child.profile}
-          key={i}
-        />
-      ))}
+    <div className="hide-scrollbar place-items-center rounded-lg flex flex-row overflow-hidden overflow-x-scroll py-5 px-5 bg-neutral-100 mt-24 text-yellow-500 gap-7">
+      {children.length > 0 ? (
+        children.map((child, i) => (
+          <ProfileTeamItem
+            name={child.name}
+            role={child.role}
+            details={child.description}
+            profile={child.profile_pic ?? defaultPic}
+            username={child.username}
+            key={i}
+          />
+        ))
+      ) : (
+        <p className="text-gray-500">No team members found.</p>
+      )}
     </div>
   );
 }
