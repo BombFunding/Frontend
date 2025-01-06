@@ -33,6 +33,7 @@ const useProfileStore = create(
 			balance: 0,
 			likeCount: 0,
 			positions: [],
+			userType: "basic",
 			socialMedias: {},
 			setProfileId: (profileId) =>
 				set((pre) => ({ ...pre, profileId: profileId })),
@@ -45,6 +46,8 @@ const useProfileStore = create(
 			setBio: (bio) => set((pre) => ({ ...pre, bio: bio })),
 			setAvatar: (avatar) => set((pre) => ({ ...pre, avatar: avatar })),
 			setHeader: (header) => set((pre) => ({ ...pre, header: header })),
+			setUserType: (userType) =>
+				set((pre) => ({ ...pre, userType: userType })),
 			logout: () =>
 				set({
 					profileId: null,
@@ -59,6 +62,7 @@ const useProfileStore = create(
 					balance: 0,
 					likeCount: 0,
 					positions: [],
+					userType: "basic",
 					socialMedias: {},
 				}),
 			setLikeCount: (count) =>

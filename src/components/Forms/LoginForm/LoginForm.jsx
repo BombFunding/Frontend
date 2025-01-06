@@ -31,6 +31,7 @@ function LoginForm() {
 		setAvatar,
 		setHeader,
 		setBalance,
+		setUserType
 	} = useProfileStore();
 	const profileManager = useProfileStore((state) => state);
 	const formData = { usernameEmail, password };
@@ -65,7 +66,7 @@ function LoginForm() {
 							data.base_profile.last_name
 					);
 					setUsername(data.base_profile.name);
-					console.log(data.base_profile.name);
+					setUserType(data.base_profile.user_type);
 					setPhone(data.base_profile.phone);
 					setAvatar(
 						`http://104.168.46.4:8000${data.base_profile.profile_picture}`
