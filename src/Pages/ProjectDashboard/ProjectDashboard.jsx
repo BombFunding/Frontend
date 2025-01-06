@@ -55,7 +55,7 @@ const ProjectDashboard = () => {
 				<div></div>
 				<MetaBox
 					className={
-						"w-11/12 h-full md:h-[50vh] bg-white rounded-lg shadow-md"
+						"w-11/12 h-full md:h-[50vh] bg-white rounded-lg shadow-top-bottom"
 					}
 				/>
 				<PositionBox className={"w-11/12"} />
@@ -72,14 +72,14 @@ const ProjectDashboard = () => {
 						<InvestorDialogBox
 							projectId={projectId}
 							className={
-								"bg-white shadow-sm rounded-lg w-full flex justify-center items-center"
+								"bg-white shadow-top-bottom rounded-lg w-full flex justify-center items-center"
 							}
 						/>
 					</div>
 					<TagBox
 						dashboard={true}
 						className={
-							"bg-white shadow-sm h-full rounded-lg md:w-1/2 w-full"
+							"bg-white shadow-top-bottom h-full rounded-lg md:w-1/2 w-full"
 						}
 					/>
 				</div>
