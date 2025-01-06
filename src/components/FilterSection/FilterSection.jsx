@@ -87,7 +87,7 @@ const subcategories = [
     parent: "آموزش",
   },
   {
-    value: "سرمایه‌گذاری",
+    value: "سرمایه‌ گذاری",
     label: "سرمایه‌گذاری",
     parent: "مالی",
   },

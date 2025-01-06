@@ -90,7 +90,6 @@ const InvestorDialogBox = ({ className, projectId }) => {
   const [investments, setInvestments] = useState([]);
   useEffect(() => {
     getData(`/invest/history/project/${projectId}/amount/`).then((data) => {
-      console.log(data);
       setInvestments(data);
     });
   }, []);
