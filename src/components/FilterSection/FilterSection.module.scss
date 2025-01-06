@@ -1,3 +1,14 @@
+@media (max-width: 641px) {
+  .topMargin {
+    @apply mt-24;
+  }
+}
+@media (min-width: 642px) {
+  .topMargin {
+    @apply mt-36;
+  }
+}
+
 @media (max-width: 850px) {
   .flexBox {
     @apply grid grid-cols-2 grid-rows-6 text-sm;

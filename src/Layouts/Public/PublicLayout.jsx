@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import styles from "./PublicLayout.module.scss";
 
 const PublicLayout = () => {
   return (
@@ -22,7 +23,7 @@ const PublicLayout = () => {
         closeButton={false}
         limit={5}
       />
-      <div className="mt-24">
+      <div className={styles.topMargin}>
         <Navbar />
         <Outlet />
         <Footer />

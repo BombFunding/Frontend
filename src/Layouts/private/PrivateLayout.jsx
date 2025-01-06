@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import styles from "./PrivateLayout.module.scss";
 
 const PrivateLayout = () => {
   const TOKEN = useTokenStore((state) => state.accessToken);
@@ -32,7 +33,7 @@ const PrivateLayout = () => {
         closeButton={false}
         limit={5}
       />
-      <div className="mt-24">
+      <div className={`mt-12 sm:mt-24`}>
         <Navbar />
         <Outlet />
         <Footer />
