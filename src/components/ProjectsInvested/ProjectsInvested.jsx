@@ -6,10 +6,11 @@ import useProjectBoxStore from "@/stores/ProjectStore/ProjectBoxStore";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { useNavigate } from "react-router-dom";
 import { Card } from "../ui/card";
-import { Label } from "recharts";
+import { Label } from "@/components/ui/label";
 import EmptySection from "../EmptySection/EmptySection";
+import toman from "../../assets/toman.png";
 
-const InvestedItem = ({ header, className, onClick, amount }) => {
+const InvestedItem = ({ header, className, onClick, amount, name }) => {
 	return (
 		<Card
 			onClick={onClick}
@@ -17,18 +18,25 @@ const InvestedItem = ({ header, className, onClick, amount }) => {
 		>
 			<img src={header} className={styles.image} />
 			<Label className={styles.text}>{name}</Label>
+			<div className="flex pb-2 place-self-center gap-1">
+				<img
+					src={toman}
+					className="w-8 h-auto lg:w-10 place-self-center mb-[0.4vw]"
+				/>
+                <Label className="text-lg">{amount}</Label>
+			</div>
 		</Card>
 	);
 };
 
 const ProjectsInvested = ({ className }) => {
 	const Navigate = useNavigate();
-	const { projects, loading } = useProjectBoxStore();
+	const { projects, setProjects, loading } = useProjectBoxStore();
 	const { username } = useProfileStore();
 	useEffect(() => {
 		getData(`/invest/history/${username}/amount/`).then((data) => {
 			console.log("history", data);
-            
+			setProjects(data);
 		});
 	}, []);
 	if (loading) {
@@ -40,19 +48,17 @@ const ProjectsInvested = ({ className }) => {
 	}
 	return (
 		<div className={`${className} ${styles.box}`}>
-            {console.log("projects", projects)}
 			{projects?.length > 0 ? (
 				<div className={styles.project_list}>
-					{projects?.map((project, index) => (
+					{projects?.map((item, index) => (
 						<InvestedItem
-							header={project.image}
-							name={project.name}
-							add={false}
+							header={`http://104.168.46.4:8000${item.project.image}`}
+							name={item.project.name}
 							key={index}
-                            amount={project.investment_amount}
+							amount={item.investment_amount}
 							onClick={() => {
 								window.scrollTo(0, 0);
-								Navigate(`/projects/${project.id}`);
+								Navigate(`/projects/${item.project.id}`);
 							}}
 						/>
 					))}

@@ -26,105 +26,103 @@ import Footer from "@/components/Footer/Footer";
 import ProjectDashboard from "@/Pages/ProjectDashboard/ProjectDashboard";
 import StartupProfile from "@/components/Profile/StartupProfile/StartupProfile";
 import InvestorProfile from "@/components/Profile/InvestorProfile/InvestorProfile";
+import FilterSection from "@/components/FilterSection/FilterSection";
+import ProfileTeamBox from "@/components/ProfileTeamBox/ProfileTeamBox";
 
 export const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <PublicLayout />,
-		errorElement: (
-			<>
-				<Navbar />
-				<Error404 />
-				<Footer />
-			</>
-		),
-		children: [
-			{
-				index: true,
-				element: <Landing />,
-			},
-			{
-				path: "/test",
-				element: (
-					<div className="p-20">
-						<Likes />
-					</div>
-				),
-			},
-			{
-				path: "/profile/:username",
-				element: <Profile />,
-			},
-			{
-				path: "/reset-password/:uid/:token",
-				element: <ChangePassword />,
-			},
-			{
-				path: "/profile/:username",
-				element: <Profile />,
-			},
-			{
-				path: "/starboard/:page?",
-				element: <StarBoard />,
-			},
-			{
-				path: "/AboutUs",
-				element: <AboutUs />,
-			},
-			{
-				path: "/projects/:projectId",
-				element: <Project />,
-			},
-		],
-	},
-	{
-		element: <PrivateLayout />,
-		children: [
-			{
-				path: "/test",
-				element: <Loading />,
-			},
-			{
-				path: "/EditProfile",
-				element: <EditProfile />,
-			},
-			{
-				path: "/DashBoard",
-				element: <DashBoard />,
-			},
-			{
-				path: "/ChargeAccount",
-				element: <ChargeAccount />,
-			},
-			{
-				path: "/ProjectDashboard/:projectId",
-				element: <ProjectDashboard />,
-			},
-			{
-				path: "Editor/:projectId",
-				element: <Editor />,
-			},
-		],
-	},
-	{
-		element: <NoNavbarLayout />,
-		children: [
-			{
-				path: "/login",
-				element: <Login />,
-			},
-			{
-				path: "/signup",
-				element: <Signup />,
-			},
-			{
-				path: "/emailverification",
-				element: <EmailVerification />,
-			},
-			{
-				path: "/forgetpassword",
-				element: <ForgetPassword />,
-			},
-		],
-	},
+  {
+    path: "/",
+    element: <PublicLayout />,
+    errorElement: (
+      <>
+        <Navbar />
+        <Error404 />
+        <Footer />
+      </>
+    ),
+    children: [
+      {
+        index: true,
+        element: <Landing />,
+      },
+      {
+        path: "/test",
+        element: <ProfileTeamBox />,
+      },
+      {
+        path: "/profile/:username",
+        element: <Profile />,
+      },
+      {
+        path: "/reset-password/:uid/:token",
+        element: <ChangePassword />,
+      },
+      {
+        path: "/profile/:username",
+        element: <Profile />,
+      },
+      {
+        path: "/starboard/:page?",
+        element: <StarBoard />,
+      },
+      {
+        path: "/AboutUs",
+        element: <AboutUs />,
+      },
+      {
+        path: "/projects/:projectId",
+        element: <Project />,
+      },
+    ],
+  },
+  {
+    element: <PrivateLayout />,
+    children: [
+      {
+        path: "/test",
+        element: <Loading />,
+      },
+      {
+        path: "/EditProfile",
+        element: <EditProfile />,
+      },
+      {
+        path: "/DashBoard",
+        element: <DashBoard />,
+      },
+      {
+        path: "/ChargeAccount",
+        element: <ChargeAccount />,
+      },
+      {
+        path: "/ProjectDashboard/:projectId",
+        element: <ProjectDashboard />,
+      },
+      {
+        path: "Editor/:projectId",
+        element: <Editor />,
+      },
+    ],
+  },
+  {
+    element: <NoNavbarLayout />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+      {
+        path: "/emailverification",
+        element: <EmailVerification />,
+      },
+      {
+        path: "/forgetpassword",
+        element: <ForgetPassword />,
+      },
+    ],
+  },
 ]);
