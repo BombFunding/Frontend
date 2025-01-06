@@ -79,7 +79,7 @@ const MetaBox = ({ className }) => {
 					<img
 						src={image}
 						alt="project image"
-						className="h-full aspect-[16/9] object-cover"
+						className="w-full aspect-[16/9] object-cover"
 					/>
 					<button
 						className={`${styles.btn} btn h-6 rounded-full bg-bomborange text-white absolute bottom-5 left-5`}
