@@ -61,13 +61,11 @@ const StartupDashBoard = () => {
 				setBalance(data.balance)
 			);
 			getData(`/startup/get_startup_profile/${username}/`).then((d) => {
-				console.log("d: ", d.profile.id);
-				getData(`/startup/profile/${d.profile.id}/vote/`).then(
-					(data1) => {
-						console.log(data1.vote_count);
-						setLikeCount(data1.vote_count);
-					}
-				);
+				console.log("d: ", d.profile);
+				getData(`/like/startup/${d.profile.id}/`).then((d2) => {
+					setLikeCount(d2.likes);
+					console.log("likes", d2.likes);
+				});
 			});
 
 			setLoading(false);
@@ -78,10 +76,10 @@ const StartupDashBoard = () => {
 	return (
 		<>
 			<Card className={styles.card_style}>
-				<Likes
+				{/* <Likes
 					className="translate-x-[1vw] translate-y-[11.5vw]"
 					count={likeCount}
-				/>
+				/> */}
 				<PersonalInfo loading={loading} />
 				<div className="flex flex-row justify-between gap-2 mt-2">
 					<div className="flex flex-col w-2/6 gap-2">
@@ -110,7 +108,7 @@ const StartupDashBoard = () => {
 				{/* <ProjectBox type="پروژه‌" /> */}
 				<Bookmarks type="پروژه‌ا" />
 				<MainChart
-				color={"#FF7517"}
+					color={"#FF7517"}
 					label="fund"
 					apiEndpoints={{
 						"30d": "/profile_statics/fund/last-30-days/",

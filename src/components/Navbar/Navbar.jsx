@@ -35,7 +35,7 @@ function Navbar() {
   }, []);
   return (
     <nav
-      className={`flex flex-col justify-around h-12 top-0 fixed right-0 z-40 w-screen`}
+      className={`flex flex-col justify-around top-0 fixed right-0 z-40 w-screen`}
     >
       <div
         className={`flex flex-row ${
@@ -81,13 +81,10 @@ function Navbar() {
           </div>
 
           <div className={`${styles.mobile} flex gap-[1vw]`}>
-            <PushyButton onClick={() => Navigate("/invesboard")}>
-              سرمایه گذاران
-            </PushyButton>
             <PushyButton onClick={() => Navigate("/starboard")}>
               استارت‌آپ‌ها
             </PushyButton>
-            {accessToken  ? (
+            {accessToken ? (
               <div className="place-items-center">
                 <ProfileDropDown />
               </div>
@@ -99,7 +96,7 @@ function Navbar() {
             isOpen={isOpen}
             setOpen={setOpen}
             mode={"sm:hidden font-vazirmatn"}
-            token={accessToken }
+            token={accessToken}
             isVisible={isVisible}
             setIsVisible={setIsVisible}
           />
@@ -122,7 +119,7 @@ function Navbar() {
 export default Navbar;
 
 {
-	/* <>
+  /* <>
   <div class="relative">
     <div class="flex justify-between items-center">
       <div class="flex-1 BaseLayoutSearch_BaseLayoutSearch__QHPTB">
