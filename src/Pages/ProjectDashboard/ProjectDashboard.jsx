@@ -76,6 +76,7 @@ const ProjectDashboard = () => {
 						/>
 					</div>
 					<TagBox
+						dashboard={true}
 						className={
 							"bg-white shadow-sm h-full rounded-lg md:w-1/2 w-full"
 						}

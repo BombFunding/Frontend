@@ -53,22 +53,18 @@ function Tags({ tags, className, dashboard }) {
 			return;
 		}
 		setLoading(true);
-		// const formData = new FormData();
-		// formData.append(
-		// 	"subcategories",
-		// 	JSON.stringify([...subCategories, tag])
-		// );
+		const formData = new FormData();
+		formData.append(
+			"subcategories",
+			JSON.stringify([...subCategories, tag])
+		);
 		// console.log(formData, tag);
 		console.log("subcategories", { subcategories: tag });
-		patchData(
-			`/projects/${projectId}/`,
-			{ subcategories: [...subCategories, tag] },
-			{
-				headers: {
-					"Content-Type": "multipart/form-data",
-				},
-			}
-		)
+		patchData(`/projects/${projectId}/`, formData, {
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
+		})
 			.then((data) => {
 				console.log("Data: ", data);
 				updateProject(projectId);
@@ -109,10 +105,10 @@ function Tags({ tags, className, dashboard }) {
 			className={`flex flex-col rtl justify-center place-items-start bg-white dark:bg-transparent py-4 rounded-lg ${className}`}
 		>
 			{/* <p className="font-semibold text-xl text-gray-600 mb-2">Tags</p> */}
-			<div className="flex flex-wrap gap-[0.6vw]">
+			<div className="flex flex-wrap gap-2">
 				{tags.map((tag, index) => (
-					<p
-						className="flex place-self-start pt-0 px-2 text-center lg:text-[12px] text-[10px] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer"
+					<button
+						className="flex place-items-start pt-0 pr-2 pl-1 h-5 text-center lg:text-[12px] text-[10px] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer"
 						style={{ "min-height": "2px" }}
 						onClick={() => {
 							if (!dashboard) {
@@ -122,17 +118,19 @@ function Tags({ tags, className, dashboard }) {
 						}}
 						key={index}
 					>
-						{englishToPersian[tag] ?? tag}
+						<p className="place-self-center place-content-center place-items-center">
+							{englishToPersian[tag] ?? tag}
+						</p>
 						{dashboard ? (
 							<img
 								src={plus}
-								className="h-[70%] mt-[0.1vw] mr-[0.3vw] rotate-45"
+								className="h-[80%] place-self-center pr-[2px] rotate-45"
 								onClick={() => deleteTag(tag)}
 							/>
 						) : (
 							<></>
 						)}
-					</p>
+					</button>
 				))}
 				{dashboard ? (
 					<Popover>
@@ -142,7 +140,9 @@ function Tags({ tags, className, dashboard }) {
 								className="flex place-items-start pt-0 pr-2 pl-1 h-5 text-center lg:text-[12px] text-[10px] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer"
 								style={{ "min-height": "2px" }}
 							>
-								<p className="place-self-center place-content-center place-items-center">اضافه کردن</p>
+								<p className="place-self-center place-content-center place-items-center">
+									اضافه کردن
+								</p>
 								<img
 									src={plus}
 									className="h-[80%] place-self-center pr-[2px]"
