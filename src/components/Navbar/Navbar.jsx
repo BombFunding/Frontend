@@ -81,9 +81,6 @@ function Navbar() {
           </div>
 
           <div className={`${styles.mobile} flex gap-[1vw]`}>
-            <PushyButton onClick={() => Navigate("/invesboard")}>
-              سرمایه گذاران
-            </PushyButton>
             <PushyButton onClick={() => Navigate("/starboard")}>
               استارت‌آپ‌ها
             </PushyButton>
