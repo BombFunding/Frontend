@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import "./NavbarDropDownSCN.css";
 // import Link from "next/link";
 
 import { cn } from "@/lib/utils";
@@ -84,10 +85,36 @@ const components = [
 	},
 ];
 
+// function Dropdown({ selected, i, comp }) {
+//   const [isVisible, setIsVisible] = React.useState(false);
+//   console.log(`selected: ${selected}, i: ${i}, comp: ${comp}`);
+//   console.log(isVisible);
+
+//   return (
+//     <div
+//       className={`p-2 container rtl overflow-hidden grid text-center w-[15vw] bg-gray-800 mt-1 rounded-md sm:-translate-x-[1vw] md:-translate-x-[0vw] ${
+//         selected === i
+//           ? "grid-cols-2 gap-2 auto-rows-auto text-[1vw] unfader"
+//           : "hidden"
+//         // : "opacity-0"
+//       } pointer-events-${isVisible ? "all" : "none"}`}
+//     >
+//       {Object.entries(comp.subs).map(([label, link], index) => (
+//         <a
+//           key={index}
+//           href={link}
+//           className="text-white hover:bg-gray-700 p-2 rounded-md"
+//         >
+//           {label}
+//         </a>
+//       ))}
+//     </div>
+//   );
+// }
+
 function NavbarDropDownSCN() {
-	const Navigate = useNavigate();
-	const [selected, setSelected] = React.useState(null);
-	const {
+  const Navigate = useNavigate();
+  const {
 		searchQuery,
 		sorting,
 		resultsPerPage,
@@ -101,113 +128,87 @@ function NavbarDropDownSCN() {
 		setSubcategory,
 		reset,
 	} = useStarboardStore();
-	const searchProject = (category, subcategory) => {
+  const [selected, setSelected] = React.useState(null);
+  const [isHovering, setIsHovering] = React.useState(false);
+  //   console.log(components);
+  const handleMouseEnter = (index) => {
+    setSelected(index);
+    setIsHovering(true);
+  };
+  const searchProject = (category, subcategory) => {
 		console.log(category, subcategory);
 		setMainCategory(category);
 		setSubcategory(subcategory);
-		// setLoading(true);
-		// const formData = {
-		// 	category: category,
-		// 	subcategory: subcategory,
-		// 	search: searchQuery,
-		// 	results_per_page: resultsPerPage,
-		// 	page_number: pageNumber,
-		// };
-		// setPageNumber(1);
-		// console.log(formData);
-		// getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
-		// 	setResults(data.result_count);
-		// 	setTotalPages(data.total_pages);
-		// 	setProjects(data.results);
-		// 	setLoading(false);
-		// });
 	};
-	//   console.log(components);
-	return (
-		// <NavigationMenu className="translate-y-[-1.5vw] bg-transparent">
-		//   <NavigationMenuList className="left-40">
-		//     {components.map((comp, i) => {
-		//       return (
-		//         <NavigationMenuItem key={i} className="">
-		//           <NavigationMenuTrigger className="bg-transparent text-black">
-		//             {comp.title}
-		//           </NavigationMenuTrigger>
-		//           <NavigationMenuContent className={`ml-40`}>
-		//             <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px]">
-		//               <li className="row-span-3">
-		//                 <NavigationMenuLink asChild>
-		//                   <a
-		//                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-		//                     href={comp.href}
-		//                   >
-		//                     <div className="mb-2 mt-4 text-lg font-medium">
-		//                       {comp.title}
-		//                     </div>
-		//                     <p className="text-sm leading-tight text-muted-foreground">
-		//                       {comp.description}
-		//                     </p>
-		//                   </a>
-		//                 </NavigationMenuLink>
-		//               </li>
-		//             </ul>
-		//           </NavigationMenuContent>
-		//         </NavigationMenuItem>
-		//       );
-		//     })}
-		//   </NavigationMenuList>
-		// </NavigationMenu>
-		<div className="w-screen -translate-y-[1.5vh] h-7 mt-6 grid grid-cols-6 px-[9vw] gap-[1.5vw] sm:text-[1.6vw] md:text-[1.5vw] lg:text-[1.2vw] font-vazirmatn">
-			{components.map((comp, i) => {
-				return (
-					<div
-						key={i}
-						className="place-items-center"
-						onMouseEnter={() => setSelected(i)}
-						onMouseLeave={() => setSelected(null)}
-					>
-						<div className="hover:cursor-pointer place-content-center h-fit ml-[2.5vw] px-[1vw] w-[12vw] flex  flex-row text-black">
-							{comp.title}
-							<FiChevronDown
-								className={`mt-[0.7vh] ml-[0.2vw] transition ${
-									selected == i
-										? "rotate-180  duration-300"
-										: ""
-								}`}
-							/>
-						</div>
-						<div
-							className={`p-2 container rtl overflow-hidden grid text-center w-[15vw] bg-gray-800 mt-[1vh] rounded-md sm:-translate-x-[1vw] md:-translate-x-[0vw] ${
-								selected === i
-									? "grid-cols-2 gap-2 auto-rows-auto text-[1vw]"
-									: "hidden"
-							}`}
-						>
-							{Object.entries(comp.subs).map(([label], index) => (
-								// <a
-								// 	key={index}
-								// 	href={link}
-								// 	className="text-white hover:bg-gray-700 p-2 rounded-md"
-								// >
-								// 	{label}
-								// </a>
-								<div
-									key={index}
-									className="text-white hover:bg-gray-700 p-2 rounded-md hover:cursor-pointer"
-									onClick={() => {
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    setTimeout(() => setSelected(null), 500); // Delay hiding for smooth opacity transition
+  };
+  const Dropdown = ({ i, comp }) => (
+    <div
+      className={`p-2 container rtl overflow-hidden grid text-center w-[15vw] bg-gray-800 mt-1 rounded-md sm:-translate-x-[1vw] md:-translate-x-[0vw] ${
+        selected === i ? `${isHovering ? "unfader" : "opacity-0"}` : "hidden"
+      }`}
+    >
+      {Object.entries(comp.subs).map(([label, link], index) => (
+        <a
+          key={index}
+          href={link}
+          className="text-white hover:bg-gray-700 p-2 rounded-md"
+        >
+          {label}
+        </a>
+      ))}
+    </div>
+  );
+  return (
+    <div className="w-screen -translate-y-2 h-7 mt-6 grid grid-cols-6 px-[9vw] gap-[1.5vw] sm:text-[1.6vw] md:text-[1.5vw] lg:text-[1.2vw] font-vazirmatn">
+      {components.map((comp, i) => {
+        return (
+          <div
+            key={i}
+            className="place-items-center"
+            onMouseEnter={() => setSelected(i)}
+            // onMouseEnter={() => handleMouseEnter()}
+            onMouseLeave={() => setSelected(null)}
+            // onMouseLeave={() => handleMouseLeave()}
+          >
+            <div className="hover:cursor-pointer place-content-center h-fit ml-[2.5vw] px-[1vw] w-[12vw] flex  flex-row text-black">
+              {comp.title}
+              <FiChevronDown
+                className={`mt-1.5 ml-[0.2vw] transition ${
+                  selected == i ? "rotate-180  duration-500" : ""
+                }`}
+              />
+            </div>
+            {/* <Dropdown i={i} comp={comp} /> */}
+            <div
+              className={`p-2 container rtl overflow-hidden grid grid-cols-2 gap-2 auto-rows-auto text-[1vw] text-center w-[15vw] bg-gray-800 mt-1 rounded-md sm:-translate-x-[1vw] md:-translate-x-[0vw] ${
+                selected === i
+                  ? "unfader pointer-events-auto "
+                  : "fader pointer-events-none"
+              }`}
+            >
+              {Object.entries(comp.subs).map(([label, link], index) => (
+                <a
+                  key={index}
+                  href={link}
+                  className="text-white hover:bg-gray-700 p-2 rounded-md"
+                  onClick={() => {
 										console.log("label", comp.title, label);
 										searchProject(comp.title, label);
 										Navigate("/starboard");
 									}}
-								>
-									{label}
-								</div>
-							))}
-						</div>
-					</div>
-				);
-			})}
-		</div>
-	);
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 export default NavbarDropDownSCN;
