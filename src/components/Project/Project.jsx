@@ -254,7 +254,7 @@ function Project({ className }) {
 				<Like />
 				<Bookmark />
 			</div> */}
-      <div className="flex justify-between">
+      <div className="flex">
         <Tags
           tags={subcategories.map(
             (subcategory) => englishToPersian[subcategory] || subcategory
@@ -267,7 +267,7 @@ function Project({ className }) {
         ) : (
           <></>
         )}
-        <div className="my-[2vw] flex place-items-center">
+        <div className="my-[2vw] flex place-items-center bg-red-600">
           <div className="flex rtl gap-[0.5vw] place-self-start px-[2vw] py-[1vh]">
             <div className="text-black text-4xl place-self-center">
               {totalFunded}
