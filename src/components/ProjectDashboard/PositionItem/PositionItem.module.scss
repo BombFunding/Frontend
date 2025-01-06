@@ -1,21 +1,21 @@
 .card_style {
-	@apply w-[60vw] rounded-lg shadow-lg p-4 text-black flex overflow-hidden rtl  !important;
+  @apply w-full md:w-[60wv] rounded-lg shadow-lg p-4 text-black flex overflow-hidden rtl  !important;
 }
 
 .button_box {
-	@apply flex flex-col justify-between items-center p-0 text-black !important;
-	// border: 2px solid #ff7517 !important;
+  @apply flex flex-col justify-between items-center p-0 text-black !important;
+  // border: 2px solid #ff7517 !important;
 }
 
 .button_style {
-	@apply btn;
-	@apply bg-gray-100 w-24 text-black !important;
+  @apply btn;
+  @apply bg-gray-100 w-24 text-black !important;
 }
 
 .col_box {
-	@apply flex flex-col justify-center items-center gap-3 text-sm w-full !important;
+  @apply flex flex-col justify-center items-center gap-3 text-sm w-full !important;
 }
 
 .progress_bar {
-	@apply w-full h-3 border-black border-solid border-2;
+  @apply w-full h-3 border-black border-solid border-2;
 }

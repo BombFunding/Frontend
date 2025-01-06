@@ -52,7 +52,9 @@ function PersonalInfo({ loading }) {
           <h1 className="text-gray-500 text-[1.25vw] place-self-center">
             @{username}
           </h1>
-          <h1 className={`text-[2vw]`}>{fullname}</h1>
+          {fullname !== "null null" && (
+            <h1 className={`text-[2vw]`}>{fullname}</h1>
+          )}
         </div>
         {/* <div className="flex gap-[0.75vw]">
 					<img src={calendarIcon} className="h-[2vw]" />
@@ -63,23 +65,22 @@ function PersonalInfo({ loading }) {
         <p className="rtl text-[1.5vw] border-solid border-2 my-[1vw] p-[2vw] rounded-lg">
           {bio}
         </p>
-        <div className="flex justify-between items-center w-full rtl text-[1.5vw]">
+        <div className="flex justify-between items-center w-full text-[1.5vw]">
           {/* Left Section (Empty or for other content) */}
-          {phone && (
-            <div className="w-1/2 flex justify-between pl-5 items-center gap-2">
-              <Label className="lg:text-xl md:text-lg sm:text-xs">
-                شماره تماس
-              </Label>
-              <div className="phone-value text-[#555]">{phone}</div>
-            </div>
-          )}
+
           {/* Right Section */}
-          {email && (
-            <div className="w-1/2 flex justify-between pr-5 items-center gap-2">
-              <Label className="lg:text-xl md:text-lg sm:text-xs">ایمیل</Label>
-              <div className="phone-value text-[#555]">{email}</div>
-            </div>
-          )}
+          <div className="w-1/2 flex justify-end pl-5 items-center gap-2">
+            {phone && (
+              <>
+                <div className="phone-value text-[#555]">{phone}</div>
+                <Label className="text-xl">شماره تماس</Label>
+              </>
+            )}
+          </div>
+          <div className="w-1/2 flex justify-end pr-5 items-center gap-2">
+            <div className="phone-value text-[#555]">{email}</div>
+            <Label className="text-xl">ایمیل</Label>
+          </div>
         </div>
       </section>
     </>

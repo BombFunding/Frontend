@@ -46,7 +46,8 @@ const InvestorProfile = ({ className }) => {
 					}
 				}
 			});
-	}, []);
+		window.scrollTo(0, 0);
+	}, [username]);
 
 	if (loading) {
 		return <Loading className="pt-52 pb-64 place-self-center" />;

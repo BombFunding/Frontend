@@ -49,6 +49,7 @@ const StartupProfile = ({ className }) => {
           }
         }
       });
+    window.scrollTo(0, 0);
   }, [username]);
 
   if (loading) {
