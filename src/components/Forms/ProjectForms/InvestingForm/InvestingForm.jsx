@@ -33,7 +33,7 @@ const InvestingForm = ({ position, setCloser }) => {
   useEffect(() => {
     console.log(errors);
     Object.keys(errors).forEach((key) => {
-      toast.error(<CustomToast Header="خطا" Message={errors[key].message} />);
+      toast.error(<CustomToast Header={errors[key].message} />);
     });
   }, [errors]);
 
@@ -43,14 +43,18 @@ const InvestingForm = ({ position, setCloser }) => {
     const bodyData = {
       investment_amount: data.investAmount,
     };
-    postData(`/invest/create_investment/${position.id}/`, bodyData).then(
-      (res) => {
+    postData(`/invest/create_investment/${position.id}/`, bodyData)
+      .then((res) => {
         console.log(res);
         toast.success(<CustomToast Header="سرمایه‌گذاری با موفقیت انجام شد" />);
         setCloser(false);
         updatePublicProject(projectId);
-      }
-    );
+      })
+      .catch((err) => {
+        console.log("error: ", err.response.data.detail);
+        if (err.response.data.detail === "Insufficient balance for investment.")
+          toast.error(<CustomToast Header="موجودی کافی نمی‌باشد." />);
+      });
   };
   return (
     <>
