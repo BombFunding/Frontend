@@ -1,0 +1,91 @@
+import { getData } from "@/Services/ApiClient/Services";
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
+
+const usePublicProjectStore = create(
+  persist(
+    (set) => ({
+      image: "",
+      name: "",
+      owner: "",
+      description: "",
+      profile: "",
+      ownerName: "",
+      position: null,
+      loading: false,
+      subcategories: [],
+      totalFunded: 0,
+      setProjectId: (val) => set((pre) => ({ ...pre, projectId: val })),
+      setImage: (val) => set((pre) => ({ ...pre, image: val })),
+      setName: (val) => set((pre) => ({ ...pre, name: val })),
+      setOwner: (val) => set((pre) => ({ ...pre, owner: val })),
+      setDescription: (val) => set((pre) => ({ ...pre, description: val })),
+      setProfile: (val) => set((pre) => ({ ...pre, profile: val })),
+      setOwnerName: (val) => set((pre) => ({ ...pre, ownerName: val })),
+      setPosition: (val) => set((pre) => ({ ...pre, position: val })),
+      setLoading: (val) => set((pre) => ({ ...pre, loading: val })),
+      setSubcategories: (val) => set((pre) => ({ ...pre, subcategories: val })),
+      setTotalFunded: (val) => set((pre) => ({ ...pre, totalFunded: val })),
+      updatePublicProject: async (projectId) => {
+        set((pre) => ({ ...pre, loading: true }));
+        try {
+          let data = await getData(`/projects/detail/${projectId}/`);
+          set((pre) => ({
+            ...pre,
+            image: data.image,
+            name: data.name,
+            owner: data.owner_username,
+            description: data.description,
+            subcategories: data.subcategories,
+            position: data.open_position,
+            profile: data.owner_profile_picture,
+          }));
+          //   set(async (pre) => {
+          //     try {
+          //       console.log("befor data:", data);
+          //       data = await getData(
+          //         `/auth/baseuser_search_by_name/${pre.owner}/`
+          //       );
+          //       return {
+          //         ...pre,
+          //         profile: `http://104.168.46.4:8000${data.baseuser_profile.profile_picture}`,
+          //         ownerName:
+          //           data.baseuser_profile.first_name +
+          //           " " +
+          //           data.baseuser_profile.last_name,
+          //       };
+          //     } catch (err) {
+          //       console.log("faile to get profile");
+          //     }
+          //   });
+          data = await getData(`/invest/history/project/${projectId}/amount/`);
+          set((pre) => {
+            let total = 0;
+            data.forEach((element) => {
+              total += Number(element.investment_amount);
+            });
+            return {
+              ...pre,
+              totalFunded: total,
+            };
+          });
+          set((pre) => ({ ...pre, loading: false }));
+        } catch (err) {
+          console.log("fail to get public");
+          set((pre) => ({ ...pre, loading: false }));
+        }
+      },
+      getLog: () =>
+        set((pre) => {
+          console.log("publicProject: ", pre);
+          return { ...pre };
+        }),
+    }),
+    {
+      name: "publicProject-storage",
+      storage: createJSONStorage(() => sessionStorage),
+    }
+  )
+);
+
+export default usePublicProjectStore;
