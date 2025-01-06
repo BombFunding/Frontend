@@ -70,6 +70,7 @@ const StartupDashBoard = () => {
 
 			setLoading(false);
 		});
+		window.scrollTo(0, 0);
 	}, []);
 	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
 
