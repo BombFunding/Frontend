@@ -28,7 +28,7 @@ $color: #FF7517;
 }
 
 .like {
-    @apply text-center place-content-center place-self-center align-middle text-white pr-[0.4vw] mt-[0.4vw];
+    @apply text-center place-content-center place-self-center align-middle pl-[5px] text-white mt-[0.4vw];
 }
 
 .leftContainer {
