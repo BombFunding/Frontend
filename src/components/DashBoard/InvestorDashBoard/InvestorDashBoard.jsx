@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./InvestorDashBoard.module.scss";
 import { Card } from "@/components/ui/card";
-import PositionBox from "../Sections/PositionBox/PositionBox";
+import PositionBox from "../../ProjectDashboard/PositionBox/PositionBox";
 import Accounting from "@/components/Accounting/Accounting";
 import StartupProfiles from "@/components/StartupProfiles/StartupProfiles";
 import CommentSection from "@/components/CommentSection/CommentSection";
@@ -22,6 +22,10 @@ import {
 import MoreInfo from "@/components/Forms/DashBoardForms/MoreInfoForm/MoreInfoForm";
 import { Separator } from "@/components/ui/separator";
 import { Loading } from "@/components/Loading/Loading";
+import Tags from "@/components/Tags/Tags";
+import Bookmarks from "../Bookmarks/Bookmarks";
+import InvestorTags from "@/components/InvestorTags/InvestorTags";
+import EmptySection from "@/components/EmptySection/EmptySection";
 
 const mockup = {
 	ssn: "4444444444",
@@ -46,6 +50,7 @@ const InvestorDashBoard = () => {
 		setPhone,
 		setBalance,
 	} = useProfileStore();
+	const [subcategories, setSubcategories] = useState([]);
 	console.log("Investor dashboard");
 	useEffect(() => {
 		setLoading(true);
@@ -64,24 +69,40 @@ const InvestorDashBoard = () => {
 			setHeader(
 				`http://104.168.46.4:8000${data.base_profile.header_picture}`
 			);
+			getData(`/categories/${data.base_profile.name}/`).then((data) => {
+				setSubcategories(data.subcategories);
+			});
 			getData(`/balance/balance/`).then((data) => {
 				setBalance(data.balance);
 				setLoading(false);
 			});
 		});
 	}, []);
-	const check =
-		mockup.ssn &&
-		mockup.legal &&
-		mockup.shaba &&
-		mockup.tax &&
-		mockup.address;
-	console.log(check);
-	if (loading) return <Loading />;
+	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
 	return (
 		<>
 			<Card className={styles.card_style}>
 				<PersonalInfo loading={loading} />
+				<Label className={styles.label_style}>
+					دسته‌بندی‌های مورد علاقه
+				</Label>
+				<div className="border-solid border-2 border-bomborange rounded-lg place-items-end px-[1vw]">
+					{/* <Tags
+						tags={["تفریحی", "فرهنگی", "سینمایی"]}
+						dashboard={true}
+					/> */}
+					{subcategories.length === 0 ? (
+						<EmptySection type="دسته‌بند" />
+					) : (
+						<></>
+					)}
+					<InvestorTags
+						tags={subcategories}
+						dashboard={true}
+						setSubcategories={setSubcategories}
+						setLoading={setLoading}
+					/>
+				</div>
 				{/* <Card
 					className={`bg-bomborange text-white px-5 py-3 flex gap-2 justify-end items-center`}
 				>
@@ -149,14 +170,8 @@ const InvestorDashBoard = () => {
 						<ProjectBox type="پروژه‌ا" />
 					</div>
 				</div>
-				<Label className={styles.label_style}>ذخیره</Label>
-				<ProjectBox type="پروژه‌ا" />
-				{/* <div className={styles.position_box}>Team</div> */}
-				{/* <div className={styles.team_row}></div> */}
-				{/* <div className={styles.position_box}>profiles</div> */}
-				{/* <StartupProfiles /> */}
-				{/* <CommentSection /> */}
-				{/* <div className={styles.position_box}>history</div> */}
+				<Label className={styles.label_style}>ذخیره شده</Label>
+				<Bookmarks type="پروژه‌ا" />
 			</Card>
 		</>
 	);

@@ -25,3 +25,12 @@
 .vivi {
   visibility: visible;
 }
+
+.ce-toolbar__actions {
+  background: transparent !important;
+  padding-right: 10px !important;
+}
+
+.fixZin {
+  z-index: 1 !important;
+}

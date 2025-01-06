@@ -5,15 +5,15 @@ import useTokenStore from "@/stores/TokenStore";
 import { toast } from "react-toastify";
 import CustomToast from "../Custom/CustomToast/CustomToast";
 import { useNavigate } from "react-router-dom";
-function Bookmark({ className, username, projectId }) {
-	const [checked, setChecked] = useState(false);
+function Bookmark({ className, username, projectId, isBookmarked }) {
+	const [checked, setChecked] = useState(isBookmarked);
 	const Navigate = useNavigate();
 	const { accessToken } = useTokenStore();
-	useEffect(() => {
-		getData(`/bookmark/${projectId}/status/`).then((data) => {
-			setChecked(data.has_bookmarked);
-		});
-	}, []);
+	// useEffect(() => {
+	// 	getData(`/bookmark/${projectId}/status/`).then((data) => {
+	// 		setChecked(data.has_bookmarked);
+	// 	});
+	// }, []);
 
 	const onChange = () => {
 		if (accessToken) {

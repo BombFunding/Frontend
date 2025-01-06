@@ -1,9 +1,8 @@
-/* From Uiverse.io by Galahhad */
 .ui_bookmark {
-	--icon-size: 24px;
+	// --icon-size: 24px;
 	--icon-secondary-color: rgb(77, 77, 77);
 	--icon-hover-color: rgb(97, 97, 97);
-	--icon-primary-color: #FF7517;
+	--icon-primary-color: #ff7517;
 	--icon-circle-border: 1px solid var(--icon-primary-color);
 	--icon-circle-size: 35px;
 	--icon-anmt-duration: 0.3s;
@@ -17,7 +16,8 @@
 }
 
 .ui_bookmark .bookmark {
-	width: var(--icon-size);
+	@apply lg:w-[32px] md:w-[28px] sm:w-[24px] w-[20px] h-auto;
+	// width: var(--icon-size);
 	height: auto;
 	fill: var(--icon-secondary-color);
 	cursor: pointer;

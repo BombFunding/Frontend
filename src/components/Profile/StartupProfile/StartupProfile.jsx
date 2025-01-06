@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { getData } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
 import { Separator } from "@/components/ui/separator";
+import ProjectBox from "@/components/DashBoard/ProjectBox/ProjectBox";
 
 const StartupProfile = ({ className }) => {
 	const { username } = useParams();
@@ -49,7 +50,7 @@ const StartupProfile = ({ className }) => {
 	}, []);
 
 	if (loading) {
-		return <Loading />;
+		return <Loading className="pt-52 pb-64 place-self-center" />;
 	}
 
 	return (
@@ -83,6 +84,7 @@ const StartupProfile = ({ className }) => {
 							<Label className="text-xl">:بیوگرافی</Label>
 							<p className="text-base">{profileInfo.bio}</p>
 						</div>
+						{/* <ProjectBox type="پروژه‌ا" /> */}
 						<div className="flex justify-center items-center gap-6 absolute">
 							{profileInfo.linkedinAccoun && (
 								<a href={profileInfo.linkedinAccount}>

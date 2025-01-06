@@ -18,32 +18,82 @@ function StarBoard() {
 		setLoading,
 		projects,
 		setProjects,
+		mainCategory,
+		searchQuery,
+		subcategory,
+		sorting,
+		results,
+		favorite,
+		setResults,
+		setTotalPages,
 	} = useStarboardStore();
 	useEffect(() => {
 		setLoading(true);
-		setPageNumber(page ? Number(page) : 1);
-		getDataParams("/starboard/most-recent/", null, {
+		// reset();
+		const formData = {
+			category: mainCategory,
+			subcategory: subcategory,
+			search: searchQuery,
 			results_per_page: resultsPerPage,
 			page_number: pageNumber,
-		}).then((data) => {
-			setProjects(data);
+			my_favorite: favorite,
+		};
+		setPageNumber(page ? Number(page) : 1);
+		console.log(formData);
+		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
+			setResults(data.result_count);
+			setTotalPages(data.total_pages);
+			setProjects(data.results);
 			setLoading(false);
 		});
-	}, [pageNumber]);
-	
-	if (loading) return <Loading />;
+	}, [
+		pageNumber,
+		resultsPerPage,
+		mainCategory,
+		subcategory,
+		sorting,
+		favorite,
+	]);
+
+	// useEffect(() => {
+	// 	// reset();
+	// 	const formData = {
+	// 		category: englishToPersian[mainCategory],
+	// 		subcategory: englishToPersian[subcategory],
+	// 		search: searchQuery,
+	// 		results_per_page: resultsPerPage,
+	// 		page_number: pageNumber,
+	// 	};
+	// 	// console.log(`/starboard/${sorting}/`, formData);
+	// 	setLoading(true);
+	// 	getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
+	// 		setResults(data.results_count);
+	// 		setProjects(data.results);
+	// 		setLoading(false);
+	// 	});
+	// }, []);
+
 	return (
 		// <form
 		// 	className="font-vazirmatn text-black w-[100vw]"
 		// 	onSubmit={onSubmit}
 		// >
-		<div className="font-vazirmatn text-black">
+		<div className="font-vazirmatn text-black w-[100vw]">
 			<FilterSection setResultsPerPage={setResultsPerPage} />
-			<p className="rtl place-self-center">
-				{projects.length === 0
-					? "هیچ استارت‌آپی یافت نشد"
-					: `${projects.length} استارت‌آپ یافت شد`}
-			</p>
+			{loading ? (
+				<Loading className="pt-20 pb-64 place-self-center" />
+			) : (
+				<></>
+			)}
+			{loading ? (
+				<></>
+			) : (
+				<p className="rtl place-self-center">
+					{projects.length === 0
+						? "هیچ استارت‌آپی یافت نشد"
+						: `${results} استارت‌آپ یافت شد`}
+				</p>
+			)}
 			<StartupPagination />
 		</div>
 		// </form>

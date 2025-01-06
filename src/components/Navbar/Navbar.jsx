@@ -15,6 +15,7 @@ import NavbarDropDownSCN from "../NavbarDropDownSCN/NavbarDropDownSCN";
 import HamburgerSearch from "../HamburgerSearch/HamburgerSearch";
 function Navbar() {
   const Navigate = useNavigate();
+  const { accessToken } = useTokenStore();
   const [isOpen, setOpen] = useState(false);
   const [results, setResults] = useState({
     users: [],
@@ -25,7 +26,6 @@ function Navbar() {
   const [input, setInput] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const { avatar, setAvatar } = useProfileStore();
-  const TOKEN = useTokenStore((state) => state.accessToken);
   useEffect(() => {
     getData(`/auth/view_own_baseuser_profile/`).then((data) => {
       console.log("navbar: ", data.base_profile.profile_picture);
@@ -87,7 +87,7 @@ function Navbar() {
             <PushyButton onClick={() => Navigate("/starboard")}>
               استارت‌آپ‌ها
             </PushyButton>
-            {TOKEN ? (
+            {accessToken  ? (
               <div className="place-items-center">
                 <ProfileDropDown />
               </div>
@@ -99,7 +99,7 @@ function Navbar() {
             isOpen={isOpen}
             setOpen={setOpen}
             mode={"sm:hidden font-vazirmatn"}
-            token={TOKEN}
+            token={accessToken }
             isVisible={isVisible}
             setIsVisible={setIsVisible}
           />
@@ -122,7 +122,7 @@ function Navbar() {
 export default Navbar;
 
 {
-  /* <>
+	/* <>
   <div class="relative">
     <div class="flex justify-between items-center">
       <div class="flex-1 BaseLayoutSearch_BaseLayoutSearch__QHPTB">

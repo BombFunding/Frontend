@@ -1,16 +1,27 @@
+import LandingIntroduce from "@/components/LandingIntroduce/LandingIntroduce";
+import landing5 from "../../assets/landing5.png";
+import landing6 from "../../assets/landing6.png";
+import landing7 from "../../assets/landing7.png";
+
+import PieChartComponent from "@/components/LandingIntroduce/PieChart";
+import Cityan1 from "@/components/LandingIntroduce/cityFirst";
+import Cityan2 from "@/components/LandingIntroduce/citySec";
+import IranMap from "@/components/LandingIntroduce/IranMap";
+
 import InfiniteCarousel from "@/components/InfiniteCarousel/InfiniteCarousel";
-import shakinghands from "../../assets/shakinghands.png";
-import handshaking from "../../assets/handshaking.png";
-import teamwork1 from "../../assets/teamwork1.png";
-import howtouse from "../../assets/howtouse.png";
 import { Label } from "@radix-ui/react-label";
 import styles from "./Landing.module.scss";
 import { useEffect, useState } from "react";
 import { getData } from "@/Services/ApiClient/Services";
+import { Link } from "react-router-dom";
+import img9 from "../../assets/landing_back5.png";
+import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
+
 const Landing = () => {
 	const [topFunded, setTopFunded] = useState([]);
 	const [topVisited, setTopVisited] = useState([]);
 	const [topLiked, setTopLiked] = useState([]);
+	const { setSorting } = useStarboardStore();
 	useEffect(() => {
 		getData("/landing/get_statistics/").then((data) => {
 			console.log(data);
@@ -28,105 +39,267 @@ const Landing = () => {
 			setTopLiked(data);
 		});
 	}, []);
+
 	return (
 		<>
-			<div className="flex p-10">
-				<img
-					src={teamwork1}
-					className="w-5/12 place-self-center object-contain"
-				/>
-				<section className="place-items-center place-content-center">
-					<div className="text-black font-vazirmatn text-[3vw] p-[3vw] text-center align-middle place-self-center">
-						جایی که ایده‌ها زنده می‌شوند
-					</div>
-					<div className="text-black font-vazirmatn text-[1.8vw] p-[3vw] text-center align-middle place-self-center">
-						به جامعه‌ای از نوآوران، سرمایه‌گذاران و حمایت‌کنندگان
-						بپیوندید تا دنیای بهتری بسازید
-					</div>
-					<div className="place-self-center flex gap-5">
-						<button className="btn font-vazirmatn text-black bg-bomborange hover:text-white text-[0.9vw] w-[10vw] h-[2vw]">
-							ایجاد موقعیت جدید
-						</button>
-						<button className="btn font-vazirmatn text-black bg-bomborange hover:text-white text-[0.9vw] w-[8vw] h-[3vw]">
-							کشف پروژه‌ها
-						</button>
-					</div>
-				</section>
+			<div>
+				<LandingIntroduce />
 			</div>
-			<div className="flex px-10">
-				<section className="place-items-center place-content-center">
-					<div
-						className={`text-black font-vazirmatn text-[3vw] p-[5vw] text-center align-middle place-self-center ${styles.bigtext}`}
+
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "row-reverse",
+					alignItems: "center",
+					justifyContent: "space-between",
+					flexWrap: "wrap",
+					textAlign: "right",
+					padding: "20px",
+				}}
+			>
+				{/* Text Section */}
+				<div
+					style={{
+						flex: "1",
+						minWidth: "300px",
+						marginBottom: "10px",
+						direction: "rtl",
+						paddingRight: "40px",
+						width: "100%",
+					}}
+				>
+					<h1
+						style={{
+							fontSize: "2rem",
+							marginBottom: "10px",
+							fontWeight: "bold",
+							color: "#0C084B",
+							textAlign: "center",
+						}}
 					>
-						با ما دسترسی به سرمایه آسان‌تر از همیشه است
-					</div>
-				</section>
-				<img
-					src={shakinghands}
-					className="w-1/2 place-self-center object-contain"
-				/>
-			</div>
-			<div className="flex justify-evenly place-items-center place-content-center rtl">
-				<section>
-					<div className="text-black font-vazirmatn text-[4vw] p-[3vw] text-center align-middle place-self-center">
-						ما چه کار می‌کنیم؟
-					</div>
-					<div className="text-black font-vazirmatn text-[1.5vw] px-[6vw] text-center align-middle place-self-center">
-						پلتفرم ما برای کمک به استارتاپ‌ها، هنرمندان، و
-						کارآفرینان طراحی شده است تا از طریق جذب سرمایه جمعی،
-						رویاهایشان را محقق کنند. چه یک ایده بزرگ داشته باشید، چه
-						علاقه به سرمایه‌گذاری در پروژه‌های نوآورانه، اینجا جایی
-						برای شماست.
-					</div>
-				</section>
-				<img
-					src={handshaking}
-					className="w-5/12 place-self-center object-contain"
-				/>
-			</div>
-			<div className="flex place-items-center place-content-center p-[1vw] justify-evenly">
-				<section>
-					<h2 className="text-black font-vazirmatn text-[3vw] p-[1vw] text-center">
-						چطور از پلتفرم ما استفاده کنید؟
-					</h2>
-					<p className="text-black font-vazirmatn text-[1.5vw] p-[1vw] text-center align-middle place-self-center rtl">
-						فقط با سه مرحله ساده می‌توانید از پلتفرم ما استفاده
-						کنید:
+						<span style={{ color: "#FF7F00" }}>&lt;</span>
+						<span style={{ color: "#FF7F00" }}>&lt;</span>هدف ما
+						چیه؟
+						<span style={{ color: "#FF7F00" }}>&gt;</span>
+						<span style={{ color: "#FF7F00" }}>&gt;</span>
+					</h1>
+					<p style={{ fontSize: "1.5rem", lineHeight: "1.8" }}>
+						بمب فاندینگ با هدف ارائه سایتی ایرانی برای نزدیک تر کردن
+						استارتاپ ها و سرمایه گذاران ساخته شده است.
 					</p>
-					<ol
-						className={`text-black font-vazirmatn text-[1vw] align-middle place-self-center rtl ${styles.steps}`}
-					>
-						<li className={styles.step}>
-							<div className={styles.step_icon}>1️⃣</div>
-							ثبت‌ نام کنید: به‌راحتی حساب کاربری خود را بسازید
-						</li>
-						<li className={styles.step}>
-							<div className={styles.step_icon}>2️⃣</div>
-							استارت‌آپ راه‌اندازی کنید یا پروژه‌ها را جستجو کنید
-						</li>
-						<li className={styles.step}>
-							<div className={styles.step_icon}>3️⃣</div>
-							از ایده‌ها حمایت کنید یا سرمایه جذب کنید
-						</li>
-					</ol>
-				</section>
-				<img
-					src={howtouse}
-					className="w-5/12 place-self-center object-contain"
-				/>
+					<p style={{ fontSize: "1.5rem", lineHeight: "1.8" }}>
+						این پلتفرم، شرکت های نوپای استارتاپی را به سرمایه گذاران
+						و کاربران عادی معرفی میکند و هم سرمایه گذاران و هم
+						کاربران عادی میتوانند با هرمقدار سرمایه ای که مدنظرشان
+						است روی شرکت ها سرمایه گذاری کنند و به همان نسبت در سود
+						سهام آن شریک شوند.{" "}
+					</p>
+				</div>
+
+				{/* Lottie Animation Section */}
+				<div
+					style={{
+						flex: "1",
+						minWidth: "300px",
+						display: "flex",
+						justifyContent: "center",
+					}}
+				>
+					<Cityan1 />
+				</div>
 			</div>
+
+			{/* Media Query for Smaller Screens */}
+			<style>
+				{`
+    @media (max-width: 768px) {
+        div > div {
+            margin-bottom: 5px; /* Reduce vertical space between divs on small screens */
+        }
+    }
+    `}
+			</style>
+
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "row",
+					alignItems: "center",
+					justifyContent: "space-between",
+					flexWrap: "wrap",
+					textAlign: "right",
+					padding: "20px",
+				}}
+			>
+				{/* Text Section */}
+				<div
+					style={{
+						flex: "1",
+						minWidth: "300px",
+						marginBottom: "10px",
+						paddingRight: "40px",
+					}}
+				>
+					<h1
+						style={{
+							fontSize: "2rem",
+							marginBottom: "10px",
+							fontWeight: "bold",
+							color: "#0C084B",
+							textAlign: "center",
+						}}
+					>
+						<span style={{ color: "#FF7F00" }}>&lt;</span>
+						<span style={{ color: "#FF7F00" }}>&lt;</span>تفاوت ما
+						با سایت های مشابه چیه؟
+						<span style={{ color: "#FF7F00" }}>&gt;</span>
+						<span style={{ color: "#FF7F00" }}>&gt;</span>
+					</h1>
+					<p style={{ fontSize: "1.5rem", lineHeight: "1.8" }}>
+						بمب فاندینگ اولین سایت ایرانی خواهد بود که قیمت پایه ای
+						برای خرید سهام ندارد و هرکسی با هرمقدار بودجه دلخواه خود
+						میتواند سهامی از شرکتی را خریداری کند
+					</p>
+					<p style={{ fontSize: "1.5rem", lineHeight: "1.8" }}>
+						شما حتی میتوانید به اندازه 10 هزارتومان در پروژه یک شرکت
+						نوپا سهیم باشید و از آن حمایت کنید
+					</p>
+				</div>
+
+				{/* Lottie Animation Section */}
+				<div
+					style={{
+						flex: "1",
+						minWidth: "300px",
+						display: "flex",
+						justifyContent: "center",
+					}}
+				>
+					<Cityan2 />
+				</div>
+			</div>
+
+			{/* Media Query for Smaller Screens */}
+			<style>
+				{`
+    @media (max-width: 768px) {
+        div > div {
+            margin-bottom: 5px; /* Reduce vertical space between divs on small screens */
+        }
+    }
+    `}
+			</style>
+
+			<div
+				className="custom-container"
+				style={{
+					display: "flex",
+					flexDirection: "row-reverse",
+					alignItems: "center",
+					justifyContent: "space-between",
+					flexWrap: "wrap",
+					textAlign: "right",
+					padding: "20px",
+				}}
+			>
+				<style>
+					{`
+            @media (max-width: 960px) { /* زمانی که عرض صفحه به نصف می‌رسد */
+                .custom-container {
+                    flex-direction: column !important; /* عناصر به صورت عمودی */
+                }
+                .text-section {
+                    order: 1; /* متن در بالا قرار بگیرد */
+                    text-align: center; /* مرکز متن‌ها */
+                }
+                .map-section {
+                    order: 2; /* نقشه در پایین قرار بگیرد */
+                }
+            }
+        `}
+				</style>
+				<div
+					className="text-section"
+					style={{
+						flex: "1",
+						minWidth: "300px",
+						marginBottom: "10px",
+						direction: "rtl",
+						paddingRight: "40px",
+						width: "100%",
+					}}
+				>
+					<h1
+						style={{
+							fontSize: "2rem",
+							marginBottom: "10px",
+							fontWeight: "bold",
+							color: "#0C084B",
+							textAlign: "center",
+						}}
+					>
+						<span style={{ color: "#FF7F00" }}>&lt;</span>
+						<span style={{ color: "#FF7F00" }}>&lt;</span>چه شهرهایی
+						در پلتفرم ما استارتاپ دارند؟
+						<span style={{ color: "#FF7F00" }}>&gt;</span>
+						<span style={{ color: "#FF7F00" }}>&gt;</span>
+					</h1>
+					<p style={{ fontSize: "1.5rem", lineHeight: "1.8" }}>
+						هدف بمب فاندنیگ از بین بردن مرزها و محدودیت هایی ست که
+						سر راه شرکت های استارتاپی قرار گرفته اند.
+					</p>
+					<p style={{ fontSize: "1.5rem", lineHeight: "1.8" }}>
+						ما تلاش کرده ایم محدودیت هایی مانند قیمت های خرید سهام،
+						ارتباط انحصاری بین شرکت ها و سرمایه گذاران و مرزهای
+						جغرافیایی را کمتر کنیم.
+					</p>
+					<p style={{ fontSize: "1.5rem", lineHeight: "1.8" }}>
+						در نمودار مقابل توزیع استارتاپ ها را در استان های مختلف
+						میتوانید ببینید.
+					</p>
+				</div>
+				<div
+					className="map-section"
+					style={{
+						flex: "1",
+						minWidth: "300px",
+						display: "flex",
+						justifyContent: "center",
+					}}
+				>
+					<IranMap />
+				</div>
+			</div>
+
+			{/* Media Query for Smaller Screens */}
+			<style>
+				{`
+    @media (max-width: 768px) {
+        div > div {
+            margin-bottom: 5px; /* Reduce vertical space between divs on small screens */
+        }
+    }
+    `}
+			</style>
+
+			<div>
+				<PieChartComponent />
+			</div>
+
 			<div className="py-20">
-				<div className="rtl flex justify-between px-5">
-					<Label className="text-black font-vazirmatn text-2xl pr-10 top-10 place-content-center">
+				<div className="rtl flex justify-between px-5 items-center">
+					<Label className="text-black font-vazirmatn text-2xl pr-10">
 						پربازدیدترین استارت‌آپ‌ها
 					</Label>
-					<button
-						className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
-						onClick={() => {}}
+					<Link
+						onClick={() => {setSorting("top-visited")}}
+						to="/Starboard"
+						className="text-black font-vazirmatn text-sm md:text-base lg:text-lg xl:text-xl px-3 py-1 rounded hover:bg-gray-200 transition-all duration-300"
 					>
 						دیدن بیشتر...
-					</button>
+					</Link>
 				</div>
+
 				<InfiniteCarousel items={topVisited} />
 
 				{/* <div className="rtl flex justify-between px-5">
@@ -134,7 +307,7 @@ const Landing = () => {
 						جذاب‌ترین استارت‌آپ‌ها
 					</Label>
 					<button
-						className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
+    className="text-black font-vazirmatn text-sm md:text-base lg:text-lg xl:text-xl px-3 py-1 rounded hover:bg-gray-200 transition-all duration-300"
 						onClick={() => {}}
 					>
 						دیدن بیشتر...
@@ -146,12 +319,13 @@ const Landing = () => {
 					<Label className="text-black font-vazirmatn text-2xl pr-10 top-10 place-content-center">
 						محبوب‌ترین استارت‌آپ‌ها
 					</Label>
-					<button
-						className="text-blue-700 font-vazirmatn place-content-center text-[1.1vw]"
-						onClick={() => {}}
+					<Link
+						to="/Starboard"
+						onClick={() => {setSorting("top-liked")}}
+						className="text-black font-vazirmatn text-sm md:text-base lg:text-lg xl:text-xl px-3 py-1 rounded hover:bg-gray-200 transition-all duration-300"
 					>
 						دیدن بیشتر...
-					</button>
+					</Link>
 				</div>
 				<InfiniteCarousel items={topLiked} />
 			</div>

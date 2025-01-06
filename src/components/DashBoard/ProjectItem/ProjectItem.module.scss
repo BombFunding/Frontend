@@ -9,5 +9,5 @@
 }
 
 .text {
-	@apply p-[2vw] flex place-self-center text-center text-xl;
+	@apply p-[2vw] flex place-self-center text-center text-xl hover:cursor-pointer;
 }

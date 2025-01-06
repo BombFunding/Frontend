@@ -13,107 +13,117 @@ import { FaBookOpen } from "react-icons/fa";
 import { FaCoins } from "react-icons/fa";
 import { SlLogin, SlLogout } from "react-icons/sl";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
-import { getData } from "@/Services/ApiClient/Services";
+import { getDataParams } from "@/Services/ApiClient/Services";
+import { MdSpaceDashboard } from "react-icons/md";
 import useTokenStore from "@/stores/TokenStore";
+import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
+import { useNavigate } from "react-router-dom";
 // import { pic } from "../../assets/defaultpfp.png";
 function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
-  const routes = [
-    token
-      ? {
-          title: "پروفایل",
-          href: "dashboard",
-          Icon: CgProfile,
-        }
-      : {
-          title: "ورود",
-          href: "login",
-          Icon: SlLogin,
-        },
-    {
-      title: "خانه",
-      href: "/",
-      Icon: BiHomeAlt2,
-    },
-    {
-      title: "جستجو",
-      href: "",
-      Icon: FiSearch,
-    },
-    {
-      title: "دسته بندی ها",
-      href: "",
-      Icon: FiChevronDown,
-      categories: [
-        {
-          title: "تکنولوژی",
-          href: "/",
-          Icon: GrTechnology,
-        },
-        {
-          title: "هنری",
-          href: "/",
-          Icon: IoMdBrush,
-        },
-        {
-          title: "سلامت",
-          href: "/",
-          Icon: BsHeartPulse,
-        },
-        {
-          title: "گردشگری",
-          href: "/",
-          Icon: LuPlane,
-        },
-        {
-          title: "آموزشی",
-          href: "/",
-          Icon: FaBookOpen,
-        },
-        {
-          title: "مالی",
-          href: "/",
-          Icon: FaCoins,
-        },
-      ],
-    },
-    {
-      title: "درباره ما",
-      href: "/aboutus",
-      Icon: BsInfoCircle,
-    },
-    {
-      title: "خروج",
-      href: "#",
-      Icon: SlLogout,
-    },
-  ];
-  // const [isOpen, setOpen] = useState(false);
   const ref = useRef(null);
   const [showCategories, toggleShowCategories] = useState(false);
-  const [userdata, setUserdata] = useState({ username: "", fullname: "" });
   const [color, setColor] = useState("black");
   const { deleteToken } = useTokenStore();
-  const { avatar } = useProfileStore();
+	const Navigate = useNavigate();
+	const { username, fullname, avatar } = useProfileStore();
+	const { accessToken } = useTokenStore();
+	const {
+		searchQuery,
+		sorting,
+		resultsPerPage,
+		pageNumber,
+		setProjects,
+		setLoading,
+		setTotalPages,
+		setPageNumber,
+		setMainCategory,
+		setResults,
+		reset,
+	} = useStarboardStore();
+	const searchProject = (category, subcategory) => {
+		setLoading(true);
+		setMainCategory(category);
+		Navigate("/starboard");
+	};
 
-  useEffect(() => {
-    getData(`/auth/view_own_baseuser_profile/`).then((data) => {
-      setUserdata({
-        username: data.base_profile.name,
-        fullname:
-          data.base_profile.first_name + " " + data.base_profile.last_name,
-      });
-    });
-  }, []);
-
-  const handleToggle = (value) => {
-    setOpen(value);
-    if (value === true) {
-      setColor("gray");
-    } else {
-      setColor("black");
-    }
-  };
-
+	const handleToggle = (value) => {
+		setOpen(value);
+		if (value === true) {
+			setColor("gray");
+		} else {
+			setColor("black");
+		}
+	};
+	const routes = [
+		accessToken
+			? {
+					title: "پروفایل",
+					href: `profile/${username}`,
+					Icon: CgProfile,
+			  }
+			: {
+					title: "ورود",
+					href: "login",
+					Icon: SlLogin,
+			  },
+		{
+			title: "خانه",
+			href: "/",
+			Icon: BiHomeAlt2,
+		},
+		{
+			title: "جستجو",
+			href: "",
+			Icon: FiSearch,
+		},
+		{
+			title: "دسته بندی ها",
+			href: "",
+			Icon: FiChevronDown,
+			categories: [
+				{
+					title: "تکنولوژی",
+					href: "/starboard",
+					Icon: GrTechnology,
+				},
+				{
+					title: "هنری",
+					href: "/starboard",
+					Icon: IoMdBrush,
+				},
+				{
+					title: "سلامت",
+					href: "/starboard",
+					Icon: BsHeartPulse,
+				},
+				{
+					title: "گردشگری",
+					href: "/starboard",
+					Icon: LuPlane,
+				},
+				{
+					title: "آموزشی",
+					href: "/starboard",
+					Icon: FaBookOpen,
+				},
+				{
+					title: "مالی",
+					href: "/starboard",
+					Icon: FaCoins,
+				},
+			],
+		},
+		{
+			title: "درباره ما",
+			href: "/aboutus",
+			Icon: BsInfoCircle,
+		},
+		{
+			title: "خروج",
+			href: "#",
+			Icon: SlLogout,
+		},
+	];
   return (
     <div ref={ref} className={`${mode}`}>
       <Hamburger
@@ -215,7 +225,15 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
                             className="px-3 text-[#7e8089]"
                           >
                             <a
-                              onClick={() => setOpen(false)}
+                              onClick={() => {
+																	setOpen(
+																		false
+																	);
+																	searchProject(
+																		category.title,
+																		""
+																	);
+																}}
                               className={
                                 "flex justify-between w-full p-1 bg-inherit"
                               }

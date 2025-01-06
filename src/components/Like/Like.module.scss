@@ -8,7 +8,7 @@
 }
 
 .ui_like {
-	--icon-size: 2em;
+	// --icon-size: 32px;
 	// --icon-secondary-color: rgb(255, 255, 255);
 	--icon-secondary-color: rgb(77, 77, 77);
 	// --icon-hover-color: rgb(211, 205, 205);
@@ -28,7 +28,8 @@
 }
 
 .ui_like .like {
-	width: var(--icon-size);
+	@apply lg:w-[40px] md:w-[36px] sm:w-[32px] w-[28px];
+	// width: var(--icon-size);
 	height: auto;
 	fill: var(--icon-secondary-color);
 	cursor: pointer;

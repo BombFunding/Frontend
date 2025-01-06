@@ -2,6 +2,7 @@ import AddProjectForm from "@/components/Forms/DashBoardForms/AddProjectForm/Add
 import styles from "./ProjectItem.module.scss";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { useNavigate } from "react-router-dom";
 
 const ProjectItem = ({ header, name, add, className, onClick }) => {
   if (add)
@@ -24,7 +25,10 @@ const ProjectItem = ({ header, name, add, className, onClick }) => {
       </>
     );
   return (
-    <Card className={`rounded-lg shadow-lg w-[30vw] ${className}`}>
+    <Card
+    onClick={onClick}
+      className={`rounded-lg shadow-lg w-[30vw] hover:cursor-pointer ${className}`}
+    >
       <img src={header} className={styles.image} />
       <Label className={styles.text}>{name}</Label>
     </Card>

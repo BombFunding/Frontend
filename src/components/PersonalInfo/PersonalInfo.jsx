@@ -27,12 +27,23 @@ function PersonalInfo({ loading }) {
 					loading ? "" : "ring-[0.5vw]"
 				} ring-bomborange`}
 			/>
-			<Button
-				className="absolute border-solid border-2 bg-bomborange hover:bg-white translate-x-[0.5vw] mt-[1vw]"
-				onClick={() => Navigate("/editprofile")}
-			>
-				ویرایش اطلاعات
-			</Button>
+<Button
+    className="absolute border-solid border-2 bg-bomborange hover:bg-white flex items-center justify-center"
+    style={{
+		width: 'clamp(60px, 10vw, 150px)',
+		height: 'calc(clamp(60px, 10vw, 150px) / 3)',
+		fontSize: 'calc(clamp(60px, 10vw, 150px) / 10)',
+		top: 'clamp(2px, 5vh, 40px)',
+		left: 'clamp(10px, 5vw, 25px)',
+    }}
+    onClick={() => Navigate("/editprofile")}
+>
+    <span>ویرایش اطلاعات</span>
+</Button>
+
+
+
+
 			{/* <Likes count={2} className="absolute mt-[11.2vw] ml-[1.5vw]" /> */}
 			<section
 				className={`${

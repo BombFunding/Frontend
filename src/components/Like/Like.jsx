@@ -6,17 +6,17 @@ import { toast } from "react-toastify";
 import CustomToast from "../Custom/CustomToast/CustomToast";
 import useTokenStore from "@/stores/TokenStore";
 import { useNavigate } from "react-router-dom";
-function Like({ className, _username, likeCount, projectId }) {
+function Like({ className, _username, likeCount, projectId, isLiked }) {
 	const Naviagte = useNavigate();
 	const [likes, setLikes] = useState(likeCount);
 	const [userProfileId, setUserProfileId] = useState(null);
-	const [checked, setChecked] = useState(false);
+	const [checked, setChecked] = useState(isLiked);
 	const { accessToken } = useTokenStore();
-	useEffect(() => {
-		getData(`/like/check/${projectId}/`).then((data) => {
-			setChecked(data.has_liked);
-		});
-	}, []);
+	// useEffect(() => {
+	// 	getData(`/like/check/${projectId}/`).then((data) => {
+	// 		setChecked(data.has_liked);
+	// 	});
+	// }, []);
 	useEffect(() => {
 		// postData("/profile_statics/check-like/", {
 		// 	liker_username: username,

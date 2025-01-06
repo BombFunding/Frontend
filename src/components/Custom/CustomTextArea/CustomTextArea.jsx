@@ -5,6 +5,7 @@ function CustomTextArea({
   placeholder,
   autofocus,
   type,
+  value,
   onKey,
   className,
   holderClassName,
@@ -29,6 +30,7 @@ function CustomTextArea({
               onChange(e.target.value);
             }}
             style={style}
+            value={value}
             className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
                     text-black text-left transition duration-150 ease-in-out focus:outline-none focus:ring-0 focus:border-bomborange ${inputClassName}`}
           />
@@ -42,6 +44,7 @@ function CustomTextArea({
               onChange(e.target.value);
             }}
             style={style}
+            value={value}
             className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
                     text-black text-left transition duration-150 ease-in-out focus:outline-none focus:ring-0 focus:border-bomborange ${inputClassName}`}
 					/>
