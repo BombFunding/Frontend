@@ -65,6 +65,7 @@ function LoginForm() {
 							data.base_profile.last_name
 					);
 					setUsername(data.base_profile.name);
+					console.log(data.base_profile.name);
 					setPhone(data.base_profile.phone);
 					setAvatar(
 						`http://104.168.46.4:8000${data.base_profile.profile_picture}`

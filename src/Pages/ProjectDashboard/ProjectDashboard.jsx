@@ -70,6 +70,7 @@ const ProjectDashboard = () => {
 							</button>
 						</div>
 						<InvestorDialogBox
+							projectId={projectId}
 							className={
 								"bg-white shadow-sm rounded-lg w-full flex justify-center items-center"
 							}
