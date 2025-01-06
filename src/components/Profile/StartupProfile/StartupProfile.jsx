@@ -47,7 +47,7 @@ const StartupProfile = ({ className }) => {
 					}
 				}
 			});
-	}, []);
+	}, [username]);
 
 	if (loading) {
 		return <Loading className="pt-52 pb-64 place-self-center" />;
