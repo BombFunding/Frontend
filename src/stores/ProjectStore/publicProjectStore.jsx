@@ -14,6 +14,8 @@ const usePublicProjectStore = create(
       ownerName: "",
       position: null,
       loading: false,
+      isLiked: false,
+      isBookmarked: false,
       subcategories: [],
       totalFunded: 0,
       setProjectId: (val) => set((pre) => ({ ...pre, projectId: val })),
@@ -28,14 +30,19 @@ const usePublicProjectStore = create(
       setSubcategories: (val) => set((pre) => ({ ...pre, subcategories: val })),
       setTotalFunded: (val) => set((pre) => ({ ...pre, totalFunded: val })),
       setLikes: (val) => set((pre) => ({ ...pre, likes: val })),
+      setIsLiked: (val) => set((pre) => ({ ...pre, isLiked: val })),
+      setIsBookmarked: (val) => set((pre) => ({ ...pre, isBookmarked: val })),
       updatePublicProject: async (projectId) => {
         set((pre) => ({ ...pre, loading: true }));
         try {
           let data = await getData(`/projects/detail/${projectId}/`);
+          console.log(data)
           set((pre) => ({
             ...pre,
             image: data.image,
             name: data.name,
+            isLiked: data.is_liked,
+            isBookmarked: data.is_bookmarked,
             owner: data.owner_username,
             description: data.description,
             subcategories: data.subcategories,
