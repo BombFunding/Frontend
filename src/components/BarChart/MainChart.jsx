@@ -44,7 +44,7 @@ import {
 //   { date: "2024-09-30", desktop: 446, mobile: 400 },
 // ]
 
-function MainChart({ color, label, apiEndpoints, projectId }) {
+function MainChart({ color, label, apiEndpoints, projectId, className }) {
 	const [timeRange, setTimeRange] = useState("30d");
 	const [chartData, setChartData] = useState([]);
 	const uname = useProfileStore((state) => state.username);
@@ -117,7 +117,7 @@ function MainChart({ color, label, apiEndpoints, projectId }) {
 		}
 	}, [areaRef]);
 	return (
-		<Card className="border-solid border-2 border-bomborange">
+		<Card className={`border-solid border-2 border-bomborange ${className}`}>
 			<CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
 				<div className="grid flex-1 gap-1 text-center sm:text-left">
 					{projectId ? (
