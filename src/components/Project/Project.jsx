@@ -67,6 +67,7 @@ function Project({ className }) {
     totalFunded,
     updatePublicProject,
     getLog,
+    likes
   } = usePublicProjectStore();
   const { username } = useProfileStore();
   const [closer, setCloser] = useState(false);
@@ -164,7 +165,7 @@ function Project({ className }) {
             <div className="flex rtl">
               <Like
                 className="pr-[1vw] pl-[1vw] place-self-center"
-                likeCount={10}
+                likeCount={likes}
                 isLiked={isLiked}
                 projectId={projectId}
               />

@@ -7,7 +7,7 @@
 }
 
 .profile {
-	@apply rounded-full h-[10vh] hover:cursor-pointer;
+	@apply rounded-full w-20 h-20 object-cover hover:cursor-pointer;
 }
 
 .username {
