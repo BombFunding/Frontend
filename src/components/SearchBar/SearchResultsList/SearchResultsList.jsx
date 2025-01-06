@@ -35,7 +35,7 @@ function SearchResultsList({ results }) {
           {/* <Separator className="w-[50vw] place-self-center bg-neutral-400" /> */}
         </div>
       )}
-      {results.projects && (
+      {results.projects.length > 0 && (
         <div className="pt-3">
           <label className="font-bold mr-[2vw]">پروژه ها</label>
           <div className={``}>
