@@ -90,7 +90,6 @@ const InvestorDialogBox = ({ className, projectId }) => {
   const [investments, setInvestments] = useState([]);
   useEffect(() => {
     getData(`/invest/history/project/${projectId}/amount/`).then((data) => {
-      console.log(data);
       setInvestments(data);
     });
   }, []);
@@ -101,7 +100,7 @@ const InvestorDialogBox = ({ className, projectId }) => {
           <DialogTrigger asChild>
             <Button
               variant="link"
-              className=" text-bomborange hover:text-black"
+              className=" text-bomborange hover:text-black text-xl mb-3"
             >
               {investments.length} بار روی این پروژه سرمایه گذاری شده است.
             </Button>

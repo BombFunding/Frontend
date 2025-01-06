@@ -93,8 +93,7 @@ const StartupDashBoard = () => {
 				</div>
 				<Label className={styles.label_style}>پروژه‌ها</Label>
 				<ProjectBox type="پروژه‌" add={true} />
-				<Label className={styles.label_style}>آمار</Label>
-				<div
+				{/* <div
 					className={`flex flex-wrap gap-6 p-6 rounded-md ${styles.chartbox}`}
 				>
 					<div className="flex-1 min-w-[300px]">
@@ -103,10 +102,11 @@ const StartupDashBoard = () => {
 					<div className="flex-1 min-w-[300px]">
 						<BarChart2 />
 					</div>
-				</div>
+				</div> */}
 				<Label className={styles.label_style}>ذخیره شده</Label>
 				{/* <ProjectBox type="پروژه‌" /> */}
 				<Bookmarks type="پروژه‌ا" />
+				<Label className={styles.label_style}>آمار</Label>
 				<MainChart
 					color={"#FF7517"}
 					label="fund"

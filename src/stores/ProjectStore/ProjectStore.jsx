@@ -42,7 +42,6 @@ const useProjectStore = create(
 				try {
 					const data = await getData(`/projects/${projectId}`);
 					const res = await getData(`/like/${projectId}/count/`);
-					console.log("project:", data, res);
 					set((pre) => ({
 						projectId: data.id,
 						user: data.user,
@@ -60,6 +59,7 @@ const useProjectStore = create(
 						loading: false,
 					}));
 				} catch (err) {
+					console.log("project store", err)
 					set((pre) => ({ ...pre, error: 403, loading: false }));
 				}
 			},

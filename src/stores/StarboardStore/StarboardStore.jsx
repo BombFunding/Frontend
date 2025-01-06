@@ -87,7 +87,7 @@ const findParent = (subcategory) => {
 			parent: "آموزش",
 		},
 		{
-			value: "سرمایه‌گذاری",
+			value: "سرمایه‌ گذاری",
 			label: "سرمایه‌گذاری",
 			parent: "مالی",
 		},
@@ -151,7 +151,7 @@ const useStarboardStore = create(
 				"Books and Publications": "کتاب و نشریات",
 				"Personal Development": "توسعه فردی",
 				"Educational Institutions": "آموزشگاه",
-				"Investment Fund": "سرمایه‌گذاری",
+				"Investment Fund": "سرمایه گذاری",
 				Cryptocurrency: "ارز دیجیتال",
 				Insurance: "بیمه",
 			},

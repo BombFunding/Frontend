@@ -18,20 +18,10 @@ import { toast } from "react-toastify";
 const MetaBox = ({ className }) => {
 	const fileInputRef = useRef(null);
 	// const [bannerFile, setBannerFile] = React.useState(Baner);
-	const {
-		projectName,
-		description,
-		image,
-		updateProject,
-	} = useProjectStore();
+	const { projectName, description, image, updateProject, likes } =
+		useProjectStore();
 	const [closer, setCloser] = useState(false);
-	const [likes, setLikes] = useState(false);
 	const { projectId } = useParams();
-	useEffect(() => {
-		getData(`/like/${projectId}/count/`).then((data) => {
-			setLikes(data.likes);
-		});
-	}, []);
 	const handleBannerClick = () => {
 		fileInputRef.current.click();
 	};

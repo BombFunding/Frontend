@@ -28,9 +28,8 @@ function Navbar() {
   const { avatar, setAvatar } = useProfileStore();
   useEffect(() => {
     getData(`/auth/view_own_baseuser_profile/`).then((data) => {
-      console.log("navbar: ", data.base_profile.profile_picture);
+      console.log("navbar: ", data);
       setAvatar(`http://104.168.46.4:8000${data.base_profile.profile_picture}`);
-      console.log(avatar);
     });
   }, []);
   return (
@@ -40,7 +39,7 @@ function Navbar() {
       <div
         className={`flex flex-row ${
           isOpen ? "bg-black" : "bg-bomborange"
-        } w-full h-12 justify-between items-center px-6`}
+        } w-full h-12 justify-between items-center px-6 pt-2`}
       >
         <div className="px-4 flex justify-between items-center w-full">
           <div
