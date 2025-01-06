@@ -24,106 +24,106 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
   const [showCategories, toggleShowCategories] = useState(false);
   const [color, setColor] = useState("black");
   const { deleteToken } = useTokenStore();
-	const Navigate = useNavigate();
-	const { username, fullname, avatar } = useProfileStore();
-	const { accessToken } = useTokenStore();
-	const {
-		searchQuery,
-		sorting,
-		resultsPerPage,
-		pageNumber,
-		setProjects,
-		setLoading,
-		setTotalPages,
-		setPageNumber,
-		setMainCategory,
-		setResults,
-		reset,
-	} = useStarboardStore();
-	const searchProject = (category, subcategory) => {
-		setLoading(true);
-		setMainCategory(category);
-		Navigate("/starboard");
-	};
+  const Navigate = useNavigate();
+  const { username, fullname, avatar } = useProfileStore();
+  const { accessToken } = useTokenStore();
+  const {
+    searchQuery,
+    sorting,
+    resultsPerPage,
+    pageNumber,
+    setProjects,
+    setLoading,
+    setTotalPages,
+    setPageNumber,
+    setMainCategory,
+    setResults,
+    reset,
+  } = useStarboardStore();
+  const searchProject = (category, subcategory) => {
+    setLoading(true);
+    setMainCategory(category);
+    Navigate("/starboard");
+  };
 
-	const handleToggle = (value) => {
-		setOpen(value);
-		if (value === true) {
-			setColor("gray");
-		} else {
-			setColor("black");
-		}
-	};
-	const routes = [
-		accessToken
-			? {
-					title: "پروفایل",
-					href: `profile/${username}`,
-					Icon: CgProfile,
-			  }
-			: {
-					title: "ورود",
-					href: "login",
-					Icon: SlLogin,
-			  },
-		{
-			title: "خانه",
-			href: "/",
-			Icon: BiHomeAlt2,
-		},
-		{
-			title: "جستجو",
-			href: "",
-			Icon: FiSearch,
-		},
-		{
-			title: "دسته بندی ها",
-			href: "",
-			Icon: FiChevronDown,
-			categories: [
-				{
-					title: "تکنولوژی",
-					href: "/starboard",
-					Icon: GrTechnology,
-				},
-				{
-					title: "هنری",
-					href: "/starboard",
-					Icon: IoMdBrush,
-				},
-				{
-					title: "سلامت",
-					href: "/starboard",
-					Icon: BsHeartPulse,
-				},
-				{
-					title: "گردشگری",
-					href: "/starboard",
-					Icon: LuPlane,
-				},
-				{
-					title: "آموزشی",
-					href: "/starboard",
-					Icon: FaBookOpen,
-				},
-				{
-					title: "مالی",
-					href: "/starboard",
-					Icon: FaCoins,
-				},
-			],
-		},
-		{
-			title: "درباره ما",
-			href: "/aboutus",
-			Icon: BsInfoCircle,
-		},
-		{
-			title: "خروج",
-			href: "#",
-			Icon: SlLogout,
-		},
-	];
+  const handleToggle = (value) => {
+    setOpen(value);
+    if (value === true) {
+      setColor("gray");
+    } else {
+      setColor("black");
+    }
+  };
+  const routes = [
+    accessToken
+      ? {
+          title: "پروفایل",
+          href: `profile/${username}`,
+          Icon: CgProfile,
+        }
+      : {
+          title: "ورود",
+          href: "login",
+          Icon: SlLogin,
+        },
+    {
+      title: "خانه",
+      href: "/",
+      Icon: BiHomeAlt2,
+    },
+    {
+      title: "جستجو",
+      href: "",
+      Icon: FiSearch,
+    },
+    {
+      title: "دسته بندی ها",
+      href: "",
+      Icon: FiChevronDown,
+      categories: [
+        {
+          title: "تکنولوژی",
+          href: "/starboard",
+          Icon: GrTechnology,
+        },
+        {
+          title: "هنری",
+          href: "/starboard",
+          Icon: IoMdBrush,
+        },
+        {
+          title: "سلامت",
+          href: "/starboard",
+          Icon: BsHeartPulse,
+        },
+        {
+          title: "گردشگری",
+          href: "/starboard",
+          Icon: LuPlane,
+        },
+        {
+          title: "آموزشی",
+          href: "/starboard",
+          Icon: FaBookOpen,
+        },
+        {
+          title: "مالی",
+          href: "/starboard",
+          Icon: FaCoins,
+        },
+      ],
+    },
+    {
+      title: "درباره ما",
+      href: "/aboutus",
+      Icon: BsInfoCircle,
+    },
+    {
+      title: "خروج",
+      href: "#",
+      Icon: SlLogout,
+    },
+  ];
   return (
     <div ref={ref} className={`${mode}`}>
       <Hamburger
@@ -226,14 +226,9 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
                           >
                             <a
                               onClick={() => {
-																	setOpen(
-																		false
-																	);
-																	searchProject(
-																		category.title,
-																		""
-																	);
-																}}
+                                setOpen(false);
+                                searchProject(category.title, "");
+                              }}
                               className={
                                 "flex justify-between w-full p-1 bg-inherit"
                               }

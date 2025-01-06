@@ -151,14 +151,32 @@ function Project({ className }) {
     // 	className={`${className} bg-slate-50 overflow-hidden font-vazirmatn w-[90vw] translate-y-[3vw] mb-[6vw] place-self-center`}
     // >
     <div
-      className={`${className} w-[80vw] place-self-center py-[2vw] grid gap-y-[2vw]`}
+    //   className={`${className} w-[80vw] place-self-center py-[2vw] grid gap-y-[2vw]`}
+      className={`${className} w-[80vw] flex flex-col justify-start items-end mx-auto`}
     >
       <div className="place-self-center text-gray-800 text-4xl py-[3vw] ">
         {name}
       </div>
-      <div className="flex">
-        <img src={image} className="w-3/5" />
-        <div className="w-full flex flex-col justify-between">
+      <div className="flex flex-col lg:flex-row">
+        <div className="w-full lg:w-3/5 flex flex-col gap-3">
+          <img src={image} className="w-full" />
+          <div className="place-items-start">
+            <div className="flex rtl">
+              <Like
+                className="pr-[1vw] pl-[1vw] place-self-center"
+                likeCount={10}
+                isLiked={isLiked}
+                projectId={projectId}
+              />
+              <Bookmark
+                className="pl-[1vw] place-self-center"
+                isBookmarked={isBookmarked}
+                projectId={projectId}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="w-full lg:w-2/5 flex flex-col justify-between mb-7">
           {/* <Progress
 						value={10}
 						className="w-full border-solid border-[1px] border-black"
@@ -166,19 +184,19 @@ function Project({ className }) {
 						ProgressColor="bg-bomborange"
 					/> */}
           {position ? (
-            <div className="flex flex-col p-[2vw] justify-between h-full">
+            <div className="flex flex-col p-[2vw] justify-between h-full gap-3 lg:gap-0">
               <div>
                 <div className="flex rtl gap-[1vw] mt-[2vw] px-[1vw]">
-                  <div className="text-black text-[2vw] place-self-center">
+                  <div className="text-black text-2xl lg:text-3xl place-self-center">
                     {position.funded}
                   </div>
                   <img
                     src={toman}
-                    className="w-[2vw] h-[1.4vw] place-self-center mb-[0.4vw]"
+                    className="w-8 h-auto lg:w-12 place-self-center mb-[0.4vw]"
                   />
                 </div>
                 <div className="flex rtl gap-[0.5vw] place-items-center">
-                  <div className="text-black text-[1.5vw]">
+                  <div className="text-black text-2xl">
                     سرمایه جمع‌آوری شده از
                   </div>
                   <div className="text-black text-[3vw] place-self-center">
@@ -198,7 +216,7 @@ function Project({ className }) {
                 indicatorColor="bg-blue-300"
                 ProgressColor="bg-bomborange"
               />
-              <div className="text-[1vw]">تا {timeDiff(position.end_time)}</div>
+              <div className="text-xl">تا {timeDiff(position.end_time)}</div>
 
               <DrawerDialog
                 open={closer}
@@ -210,7 +228,7 @@ function Project({ className }) {
                   // >
                   // 	ویرایش
                   // </button>
-                  <Button className="btn w-full bg-bomborange hover:bg-black hover:text-white ">
+                  <Button className="btn w-full bg-bomborange hover:bg-black hover:text-white text-xl">
                     روی این پروژه سرمایه گذاری کنید
                   </Button>
                 }
@@ -222,8 +240,8 @@ function Project({ className }) {
                   </button>
                 }
               >
-				<InvestingForm position={position} setCloser={setCloser} />
-			  </DrawerDialog>
+                <InvestingForm position={position} setCloser={setCloser} />
+              </DrawerDialog>
             </div>
           ) : (
             <div className="text-black text-[4vw] h-full place-content-center place-self-center">
@@ -236,21 +254,6 @@ function Project({ className }) {
 				<Like />
 				<Bookmark />
 			</div> */}
-      <div className="place-items-start">
-        <div className="flex rtl">
-          <Like
-            className="pr-[1vw] pl-[1vw] place-self-center"
-            likeCount={10}
-            isLiked={isLiked}
-            projectId={projectId}
-          />
-          <Bookmark
-            className="pl-[1vw] place-self-center"
-            isBookmarked={isBookmarked}
-            projectId={projectId}
-          />
-        </div>
-      </div>
       <div className="flex justify-between">
         <Tags
           tags={subcategories.map(

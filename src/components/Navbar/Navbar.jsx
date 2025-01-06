@@ -39,7 +39,7 @@ function Navbar() {
       <div
         className={`flex flex-row ${
           isOpen ? "bg-black" : "bg-bomborange"
-        } w-full h-12 justify-between items-center px-6`}
+        } w-full h-12 justify-between items-center px-6 pt-2`}
       >
         <div className="px-4 flex justify-between items-center w-full">
           <div
