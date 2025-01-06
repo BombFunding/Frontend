@@ -111,27 +111,31 @@ function HamburgerMenu({ isOpen, setOpen, mode }) {
 		setLoading,
 		setTotalPages,
 		setPageNumber,
+		setMainCategory,
+
 		setResults,
 		reset,
 	} = useStarboardStore();
 	const searchProject = (category, subcategory) => {
 		setLoading(true);
+		setMainCategory(category);
+		Navigate("/starboard");
 		// reset();
-		const formData = {
-			category: category,
-			subcategory: subcategory,
-			search: searchQuery,
-			results_per_page: resultsPerPage,
-			page_number: pageNumber,
-		};
-		setPageNumber(1);
-		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
-			setResults(data.result_count);
-			setTotalPages(data.total_pages);
-			setProjects(data.results);
-			console.log(data.results);
-			setLoading(false);
-		});
+		// const formData = {
+		// 	category: category,
+		// 	subcategory: subcategory,
+		// 	search: searchQuery,
+		// 	results_per_page: resultsPerPage,
+		// 	page_number: pageNumber,
+		// };
+		// setPageNumber(1);
+		// getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
+		// 	setResults(data.result_count);
+		// 	setTotalPages(data.total_pages);
+		// 	setProjects(data.results);
+		// 	console.log(data.results);
+		// 	setLoading(false);
+		// });
 	};
 	// useEffect(() => {
 	// 	getData(`/auth/view_own_baseuser_profile/`).then((data) => {
@@ -274,10 +278,6 @@ function HamburgerMenu({ isOpen, setOpen, mode }) {
 																onClick={() => {
 																	setOpen(
 																		false
-																	);
-																	console.log(
-																		"label",
-																		category.title
 																	);
 																	searchProject(
 																		category.title,

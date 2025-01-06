@@ -17,7 +17,6 @@ import Likes from "@/components/Likes/Likes";
 import ProjectBox from "../ProjectBox/ProjectBox";
 import useProjectBoxStore from "@/stores/ProjectStore/ProjectBoxStore";
 import Bookmarks from "@/components/DashBoard/Bookmarks/Bookmarks";
-import StartupLikesChart from "@/components/BarChart/StartupLikesChart";
 import MainChart from "@/components/BarChart/MainChart";
 const StartupDashBoard = () => {
 	const {
