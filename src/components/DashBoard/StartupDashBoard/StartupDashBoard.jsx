@@ -17,6 +17,8 @@ import Likes from "@/components/Likes/Likes";
 import ProjectBox from "../ProjectBox/ProjectBox";
 import useProjectBoxStore from "@/stores/ProjectStore/ProjectBoxStore";
 import Bookmarks from "@/components/DashBoard/Bookmarks/Bookmarks";
+import StartupLikesChart from "@/components/BarChart/StartupLikesChart";
+import MainChart from "@/components/BarChart/MainChart";
 const StartupDashBoard = () => {
 	const {
 		username,
@@ -108,6 +110,33 @@ const StartupDashBoard = () => {
 				<Label className={styles.label_style}>ذخیره شده</Label>
 				{/* <ProjectBox type="پروژه‌" /> */}
 				<Bookmarks type="پروژه‌ا" />
+				<MainChart
+				color={"#FF7517"}
+					label="fund"
+					apiEndpoints={{
+						"30d": "/profile_statics/fund/last-30-days/",
+						"90d": "/profile_statics/fund/last-90-days/",
+						"365d": "/profile_statics/fund/last-year/",
+					}}
+				/>
+				<MainChart
+					color={"#FF0000"}
+					label="like"
+					apiEndpoints={{
+						"30d": "/profile_statics/last-30-days/",
+						"90d": "/profile_statics/last-90-days/",
+						"365d": "/profile_statics/last-year/",
+					}}
+				/>
+				<MainChart
+					color={"#0000FF"}
+					label="view"
+					apiEndpoints={{
+						"30d": "/profile_statics/last-30-days/",
+						"90d": "/profile_statics/last-90-days/",
+						"365d": "/profile_statics/last-year/",
+					}}
+				/>
 			</Card>
 		</>
 	);
