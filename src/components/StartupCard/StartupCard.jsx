@@ -163,12 +163,12 @@ function StartupCard({
 				<div className="flex">
 					<img
 						src={ownerProfile}
-						className="rounded-full w-[4vw] m-[1vw] hover:cursor-pointer"
+						className={styles.ownerProfile}
 						onClick={() => Navigate(`/profile/${owner}`)}
 					/>
-					<h1 className="text-[1.2vw] place-self-center">{name}</h1>
+					<h1 className={styles.name}>{owner}</h1>
 				</div>
-				<div className="flex pl-[1.5vw]">
+				<div className="flex lg:pl-5 md:pl-5 sm:pl-4 pl-4">
 					<Like
 						className="pr-[1vw] pl-[1vw] place-self-center"
 						likeCount={likeCount}
@@ -181,33 +181,39 @@ function StartupCard({
 						projectId={id}
 					/>
 					<GoPaperAirplane
-						className="-rotate-45 w-[28px] h-[26px] mb-[0.4vh] place-self-center cursor-pointer"
+						className={styles.share}
 						onClick={handleShare}
 					/>
 				</div>
 			</div>
-			<Accordion type="single" collapsible className="w-full px-[1vw]">
+
+			<div className={styles.projectName}>{name}</div>
+			<Accordion type="single" collapsible className="w-full px-5">
 				<AccordionItem value="item-1">
 					<AccordionTrigger>اطلاعات بیشتر</AccordionTrigger>
 					<AccordionContent>
 						<div className="py-[1vw]">{description}</div>
-						<div className="flex place-content-center rtl justify-around px-[3vw]">
+						<div className="flex place-content-center rtl justify-around px-4">
 							<div className={`flex ${styles.hover_trigger}`}>
 								<img
 									src={clock}
-									className="w-[1vw] h-[1vw] place-self-center mx-[0.5vw] mb-[0.1vw] "
+									className="w-4 h-auto place-self-center mx-2 mb-[0.1vw] "
 								/>
-								{position.days_remaining} روز باقیمانده
+								<p className={styles.days_remaining}>
+									{position.days_remaining} روز باقیمانده
+								</p>
 							</div>
 							<div
-								className={`border-solid border-[0.1vw] w-0 border-gray-300 rounded-full mx-[1vw]`}
+								className={`border-solid border-[0.1vw] w-0 border-gray-300 rounded-full mx-4`}
 							></div>
-							{Math.round(
-								(Number(position.funded) /
-									Number(position.total)) *
-									100
-							)}
-							% سرمایه جمع شده
+							<p className={styles.days_remaining}>
+								{Math.round(
+									(Number(position.funded) /
+										Number(position.total)) *
+										100
+								)}
+								% سرمایه جمع شده
+							</p>
 						</div>
 						<Tags tags={subcategories} dashboard={false} />
 					</AccordionContent>
