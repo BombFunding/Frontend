@@ -101,7 +101,7 @@ const InvestorDialogBox = ({ className, projectId }) => {
           <DialogTrigger asChild>
             <Button
               variant="link"
-              className=" text-bomborange hover:text-black"
+              className=" text-bomborange hover:text-black text-xl mb-3"
             >
               {investments.length} بار روی این پروژه سرمایه گذاری شده است.
             </Button>
