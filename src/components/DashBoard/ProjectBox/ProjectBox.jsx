@@ -42,7 +42,8 @@ const ProjectBox = ({ className, type, add }) => {
 					{add ? <ProjectItem add={add} /> : <></>}
 				</div>
 			) : (
-				<EmptySection type={type} />
+				<ProjectItem add={add} />
+				// <EmptySection type={type} />
 			)}
 		</div>
 	);

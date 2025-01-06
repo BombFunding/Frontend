@@ -36,7 +36,7 @@ const englishToPersian = {
   "Books and Publications": "کتاب و نشریات",
   "Personal Development": "توسعه فردی",
   "Educational Institutions": "آموزشگاه",
-  "Investment Fund": "سرمایه‌گذاری",
+  "Investment Fund": "سرمایه‌ گذاری",
   Cryptocurrency: "ارز دیجیتال",
   Insurance: "بیمه",
 };

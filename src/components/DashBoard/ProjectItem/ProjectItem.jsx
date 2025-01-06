@@ -11,10 +11,10 @@ const ProjectItem = ({ header, name, add, className, onClick }) => {
         <AddProjectForm
           addProjectCard={
             <Card
-              className={`rounded-lg shadow-lg w-[30vw] h-full place-content-center text-gray-400 bg-gray-200 hover:cursor-pointer ${className}`}
+              className={`rounded-lg shadow-lg w-[30vw] h-full place-content-center text-gray-400 bg-gray-200 hover:cursor-pointer min-h-[150px] ${className}`}
             >
               <Label
-                className={`text-[2vw] place-self-center place-content-center place-items-center flex flex-col`}
+                className={`text-[2vw] place-self-center place-content-center place-items-center flex flex-col h-full`}
               >
                 <p>+</p>
                 <p>پروژه جدید</p>
