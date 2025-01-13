@@ -12,6 +12,7 @@ import styles from "./ProjectDashboard.module.scss";
 import useProjectStore from "@/stores/ProjectStore/ProjectStore";
 import Error403 from "../Error/403/Error403";
 import { Loading } from "@/components/Loading/Loading";
+import MainChart from "@/components/BarChart/MainChart";
 
 const ProjectDashboard = () => {
 	const { projectId } = useParams();
@@ -21,6 +22,7 @@ const ProjectDashboard = () => {
 	useEffect(() => {
 		setLoading(true);
 		updateProject(projectId);
+		window.scrollTo(0, 0);
 	}, []);
 	if (error) return <Error403 />;
 	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
@@ -54,7 +56,7 @@ const ProjectDashboard = () => {
 				<div></div>
 				<MetaBox
 					className={
-						"w-11/12 h-full md:h-[50vh] bg-white rounded-lg shadow-md"
+						"w-11/12 h-full md:h-[50vh] bg-white rounded-lg shadow-top-bottom"
 					}
 				/>
 				<PositionBox className={"w-11/12"} />
@@ -69,17 +71,52 @@ const ProjectDashboard = () => {
 							</button>
 						</div>
 						<InvestorDialogBox
+							projectId={projectId}
 							className={
-								"bg-white shadow-sm rounded-lg w-full flex justify-center items-center"
+								"bg-white shadow-top-bottom rounded-lg w-full flex justify-center items-center"
 							}
 						/>
 					</div>
 					<TagBox
+						dashboard={true}
 						className={
-							"bg-white shadow-sm h-full rounded-lg md:w-1/2 w-full"
+							"bg-white shadow-top-bottom h-full rounded-lg md:w-1/2 w-full"
 						}
 					/>
 				</div>
+				<MainChart
+					projectId={projectId}
+					className="w-11/12 mb-6"
+					color={"#FF7517"}
+					label="fund"
+					apiEndpoints={{
+						"30d": `/profile_statics/project/${projectId}/fund/last-30-days/`,
+						"90d": `/profile_statics/project/${projectId}/fund/last-90-days/`,
+						"365d": `/profile_statics/project/${projectId}/fund/last-year/`,
+					}}
+				/>
+				<MainChart
+					projectId={projectId}
+					className="w-11/12 mb-6"
+					color={"#FF0000"}
+					label="like"
+					apiEndpoints={{
+						"30d": `/profile_statics/project/${projectId}/last-30-days/`,
+						"90d": `/profile_statics/project/${projectId}/last-90-days/`,
+						"365d": `/profile_statics/project/${projectId}/last-year/`,
+					}}
+				/>
+				<MainChart
+					projectId={projectId}
+					className="w-11/12 mb-6"
+					color={"#0000FF"}
+					label="view"
+					apiEndpoints={{
+						"30d": `/profile_statics/project/${projectId}/last-30-days/`,
+						"90d": `/profile_statics/project/${projectId}/last-90-days/`,
+						"365d": `/profile_statics/project/${projectId}/last-year/`,
+					}}
+				/>
 			</div>
 		</>
 	);

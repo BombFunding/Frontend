@@ -1,5 +1,6 @@
 import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
 import CustomInput from "../Custom/CustomInput/CustomInput";
+import styles from "./FilterSection.module.scss";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Check } from "lucide-react";
@@ -29,6 +30,7 @@ import { getDataParams } from "@/Services/ApiClient/Services";
 import { useParams } from "react-router-dom";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "../ui/label";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
 // const categories = [
 // 	{ value: "تکنولوژی", label: "تکنولوژی " },
@@ -69,28 +71,28 @@ const subcategories = [
 	{ value: "سینما", label: "سینما", parent: "هنری" },
 	{ value: "صنایع دستی", label: "صنایع دستی", parent: "هنری" },
 	{ value: "تغذیه", label: "تغذیه", parent: "سلامت" },
-	{ value: "روان‌شناسی", label: "روان‌شناسی", parent: "سلامت" },
+	{ value: "روان", label: "روان", parent: "سلامت" },
 	{ value: "درمان", label: "درمان", parent: "سلامت" },
 	{ value: "فرهنگی", label: "فرهنگی", parent: "گردشگری" },
 	{ value: "شهری", label: "شهری", parent: "گردشگری" },
 	{ value: "بین‌المللی", label: "بین‌المللی", parent: "گردشگری" },
 	{
-		value: "کتب و نشریات",
-		label: "کتب و نشریات",
+		value: "کتاب و نشریات",
+		label: "کتاب و نشریات",
 		parent: "آموزش",
 	},
 	{ value: "توسعه فردی", label: "توسعه فردی", parent: "آموزش" },
 	{
-		value: "مؤسسات آموزشی",
-		label: "مؤسسات آموزشی",
+		value: "آموزشگاه",
+		label: "آموزشگاه",
 		parent: "آموزش",
 	},
 	{
-		value: "سرمایه‌گذاری",
+		value: "سرمایه‌ گذاری",
 		label: "سرمایه‌گذاری",
 		parent: "مالی",
 	},
-	{ value: "رمزارز", label: "رمزارز", parent: "مالی" },
+	{ value: "ارز دیجیتال", label: "ارز دیجیتال", parent: "مالی" },
 	{ value: "بیمه", label: "بیمه", parent: "مالی" },
 ];
 
@@ -114,10 +116,11 @@ function FilterSection() {
 		setResults,
 		setPageNumber,
 		setTotalPages,
-		setFavorite
+		setFavorite,
 	} = useStarboardStore();
 	const [open1, setOpen1] = useState(false);
 	const [open2, setOpen2] = useState(false);
+	const { userType } = useProfileStore();
 	const onSubmit = (e) => {
 		e?.preventDefault();
 		setLoading(true);
@@ -128,7 +131,7 @@ function FilterSection() {
 			search: searchQuery,
 			results_per_page: resultsPerPage,
 			page_number: pageNumber,
-			my_favorite: favorite
+			my_favorite: favorite,
 		};
 		setPageNumber(page ? Number(page) : 1);
 		console.log(formData);
@@ -141,20 +144,36 @@ function FilterSection() {
 		});
 	};
 
+	const [width, setWidth] = useState(window.innerWidth);
+
+	useEffect(() => {
+		const handleResize = () => {
+			setWidth(window.innerWidth);
+		};
+
+		window.addEventListener("resize", handleResize);
+
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, []);
+
 	return (
 		<form
 			onSubmit={onSubmit}
-			className="mt-36 mb-12 pt-6 pb-6 border-solid border-2 border-bomborange rounded-lg w-[95%] place-items-center place-content-center place-self-center"
+			className={`${styles.topMargin} mb-12 py-6 px-2 border-solid border-2 border-bomborange rounded-lg w-[95vw] text-[1vw] place-items-center place-self-center ${styles.formWidth}`}
 		>
-			<div className="flex flex-row rtl gap-3">
+			<div className={`flex flex-row rtl gap-3 ${styles.flexBox}`}>
 				<p className="place-self-center translate-y-[0.7vw]">
-					به من پروژه های
+					{" "}
+					پروژه های
 				</p>
 				<CustomInput
 					placeholder="جستجو"
 					value={searchQuery}
 					onChange={setSearchQuery}
-					inputClassName="text-right text-[1rem]"
+					inputClassName="text-right text-sm -translate-y-0 placeholder:text-[0]"
+					labelClassname="-translate-y-1"
 				/>
 				<p className="place-self-center translate-y-[0.7vw]">
 					{mainCategory ? "از دسته بندی" : "از"}
@@ -363,19 +382,24 @@ function FilterSection() {
 						</SelectItem>
 					</SelectContent>
 				</Select>
-				<p className="place-self-center translate-y-[0.7vw]">پروژه‌</p>
-				<Button className="place-self-center translate-y-[0.7vw] bg-bomborange hover:bg-black hover:text-white">
+				{/* <p className="place-self-center translate-y-[0.7vw]">پروژه‌</p> */}
+				<Button
+					className={`place-self-center translate-y-[0.7vw] bg-bomborange hover:bg-black hover:text-white col-span-2 ${styles.buttonWidth}`}
+				>
 					نمایش بده
 				</Button>
 			</div>
-
-			<div className="flex gap-2 place-self-end pt-5 pr-5">
-				<Label>فقط دسته‌بندی‌های مورد علاقه من</Label>
-				<Checkbox
-					checked={favorite}
-					onCheckedChange={setFavorite}
-				/>
-			</div>
+			{userType === "basic" ? (
+				<div className="flex gap-2 place-self-end pt-5 pr-5">
+					<Label>فقط دسته‌بندی‌های مورد علاقه من</Label>
+					<Checkbox
+						checked={favorite}
+						onCheckedChange={setFavorite}
+					/>
+				</div>
+			) : (
+				<></>
+			)}
 		</form>
 	);
 }

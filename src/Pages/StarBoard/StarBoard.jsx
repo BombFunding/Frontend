@@ -39,6 +39,7 @@ function StarBoard() {
 			my_favorite: favorite,
 		};
 		setPageNumber(page ? Number(page) : 1);
+		console.log(formData);
 		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
 			setResults(data.result_count);
 			setTotalPages(data.total_pages);

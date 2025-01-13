@@ -3,7 +3,7 @@
 }
 
 .full_page {
-  @apply min-h-screen bg-[#FFF5E1] relative flex flex-col gap-5 items-center justify-start rtl font-vazirmatn;
+  @apply min-h-screen relative flex flex-col gap-5 items-center justify-start rtl font-vazirmatn;
 }
 
 .typer {
@@ -11,5 +11,5 @@
 }
 
 .down_box {
-  @apply w-11/12 flex md:flex-row justify-between items-start gap-5 mb-5 flex-col;
+  @apply w-11/12 flex md:flex-row justify-between items-start gap-5 flex-col;
 }

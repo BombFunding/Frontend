@@ -61,6 +61,8 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
+        bombBlue: "#0C0C42",
+        bombCreme: "#FFF5E1",
         bomborange: "#FF7517",
         bombgray: "#3E3939",
         bombblack: "#2C2727",

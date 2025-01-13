@@ -35,16 +35,16 @@ function Tags({ tags, className, dashboard }) {
 		"سینما",
 		"صنایع دستی",
 		"تغذیه",
-		"روان‌شناسی",
+		"روان",
 		"درمان",
 		"فرهنگی",
 		"شهری",
 		"بین‌المللی",
-		"کتب و نشریات",
+		"کتاب و نشریات",
 		"توسعه فردی",
-		"مؤسسات آموزشی",
-		"صندوق سرمایه‌گذاری",
-		"رمزارز",
+		"آموزشگاه",
+		"سرمایه گذاری",
+		"ارز دیجیتال",
 		"بیمه",
 	];
 	const handleAddTag = (tag) => {
@@ -58,13 +58,13 @@ function Tags({ tags, className, dashboard }) {
 			"subcategories",
 			JSON.stringify([...subCategories, tag])
 		);
+		// console.log(formData, tag);
 		patchData(`/projects/${projectId}/`, formData, {
 			headers: {
 				"Content-Type": "multipart/form-data",
 			},
 		})
 			.then((data) => {
-				console.log("Data: ", data);
 				updateProject(projectId);
 			})
 			.catch((err) => {
@@ -103,10 +103,10 @@ function Tags({ tags, className, dashboard }) {
 			className={`flex flex-col rtl justify-center place-items-start bg-white dark:bg-transparent py-4 rounded-lg ${className}`}
 		>
 			{/* <p className="font-semibold text-xl text-gray-600 mb-2">Tags</p> */}
-			<div className="flex flex-wrap gap-[0.6vw]">
+			<div className="flex flex-wrap gap-2">
 				{tags.map((tag, index) => (
-					<p
-						className="flex h-[1.8vw] pt-[0.33vw] px-[0.6vw] text-center text-[0.8vw] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer"
+					<button
+						className="flex place-items-start pt-0 pr-1 pl-1 h-5 text-center lg:text-[12px] text-[10px] bg-[#d9dfe3] rounded font-semibold text-[#7281a3] cursor-pointer"
 						style={{ "min-height": "2px" }}
 						onClick={() => {
 							if (!dashboard) {
@@ -116,30 +116,34 @@ function Tags({ tags, className, dashboard }) {
 						}}
 						key={index}
 					>
-						{englishToPersian[tag] ?? tag}
+						<p className="place-self-center place-content-center place-items-center">
+							{englishToPersian[tag] ?? tag}
+						</p>
 						{dashboard ? (
 							<img
 								src={plus}
-								className="h-[70%] mt-[0.1vw] mr-[0.3vw] rotate-45"
+								className="h-[80%] place-self-center pr-[2px] rotate-45"
 								onClick={() => deleteTag(tag)}
 							/>
 						) : (
 							<></>
 						)}
-					</p>
+					</button>
 				))}
 				{dashboard ? (
 					<Popover>
 						<PopoverTrigger>
 							<button
 								// className="btn h-8 bg-bomborange text-white"
-								className="flex h-[1.8vw] pt-[0.33vw] px-[0.6vw] text-center text-[0.8vw] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3]"
+								className="flex place-items-start pt-0 pr-2 pl-1 h-5 text-center lg:text-[12px] text-[10px] bg-[#d9dfe3] max-w-max rounded font-semibold text-[#7281a3] cursor-pointer"
 								style={{ "min-height": "2px" }}
 							>
-								اضافه کردن
+								<p className="place-self-center place-content-center place-items-center">
+									اضافه کردن
+								</p>
 								<img
 									src={plus}
-									className="h-[70%] mt-[0.1vw] mr-[0.2vw]"
+									className="h-[80%] place-self-center pr-[2px]"
 								/>
 							</button>
 						</PopoverTrigger>

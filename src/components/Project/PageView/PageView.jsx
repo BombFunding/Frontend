@@ -37,7 +37,7 @@ const PageView = () => {
     }
   }, [data]);
   return <Card
-  className="w-[85vw] rtl shadow-top-bottom" id="editorjs"></Card>;
+  className="w-full rtl shadow-top-bottom text-xl" id="editorjs"></Card>;
 };
 
 export default PageView;

@@ -8,6 +8,7 @@ import editorjsColumns from "@calumk/editorjs-columns";
 import ToggleBlock from "editorjs-toggle-block";
 import CodeTool from "@editorjs/code";
 import BreakLine from "editorjs-break-line";
+import { postData } from "@/Services/ApiClient/Services";
 
 const uploadByFile = async (file) => {
   // Create a FormData object to send the image file

@@ -33,23 +33,23 @@ function InvestorTags({
 	const tagCategories = [
 		"هوش مصنوعی",
 		"اینترنت اشیا",
-		"نرم‌ افزار",
+		"نرم‌افزار",
 		"امنیت",
 		"واقعیت افزوده",
 		"موسیقی",
 		"سینما",
 		"صنایع دستی",
 		"تغذیه",
-		"روان‌شناسی",
+		"روان",
 		"درمان",
 		"فرهنگی",
 		"شهری",
 		"بین‌المللی",
-		"کتب و نشریات",
+		"کتاب و نشریات",
 		"توسعه فردی",
-		"مؤسسات آموزشی",
-		"صندوق سرمایه‌گذاری",
-		"رمزارز",
+		"آموزشگاه",
+		"سرمایه گذاری",
+		"ارز دیجیتال",
 		"بیمه",
 	];
 	const handleAddTag = (tag) => {
@@ -81,7 +81,7 @@ function InvestorTags({
 
 	const deleteTag = (tag) => {
 		setLoading(true);
-        console.log({ subcategory: tag })
+		console.log({ subcategory: tag });
 		deleteData(`/categories/${username}/`, { subcategory: tag }).then(
 			(data) => {
 				// subCategories.filter((subcategory) => subcategory !== tag)

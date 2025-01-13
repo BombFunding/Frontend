@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { getData } from "@/Services/ApiClient/Services";
 import { useNavigate } from "react-router-dom";
 
-const InvestotItem = ({ username, valueOfInvestment, investTime, id }) => {
+const InvestotItem = ({ username, valueOfInvestment, investTime, id, profile }) => {
 	const Navigate = useNavigate();
 	function timeDiff(time) {
 		const now = new Date(); // Current time
@@ -59,7 +59,7 @@ const InvestotItem = ({ username, valueOfInvestment, investTime, id }) => {
 				<AvatarFallback>
 					{username.slice(0, 2).toUpperCase()}
 				</AvatarFallback>
-				<AvatarImage src={avatar} />
+				<AvatarImage src={profile} />
 			</Avatar>
 			<div className="flex rtl justify-between w-full">
 				<Label className="rtl text-gray-400 hover:cursor-pointer place-self-center">
@@ -92,8 +92,8 @@ const InvestorDialogBox = ({ className, projectId }) => {
 	const [investments, setInvestments] = useState([]);
 	useEffect(() => {
 		getData(`/invest/history/project/${projectId}/amount/`).then((data) => {
-			console.log(data);
 			setInvestments(data);
+			console.log("invest", data);
 		});
 	}, []);
 	return (
@@ -103,10 +103,10 @@ const InvestorDialogBox = ({ className, projectId }) => {
 					<DialogTrigger asChild>
 						<Button
 							variant="link"
-							className=" text-bomborange hover:text-black"
+							className=" text-bomborange hover:text-black text-xl mb-3"
 						>
-							{investments.length} بار روی این پروژه سرمایه
-							گذاری شده است.
+							{investments.length} بار روی این پروژه سرمایه گذاری
+							شده است.
 						</Button>
 					</DialogTrigger>
 					<DialogContent className="pt-10 bg-white text-gray-600 rounded-lg w-96">
@@ -139,15 +139,14 @@ const InvestorDialogBox = ({ className, projectId }) => {
 														item.investment_date
 													}
 													id={Math.random()}
+                          profile={item.user_picture}
 												/>
 											</CommandItem>
 										)
 									)}
 								</CommandGroup>
-                <CommandEmpty>
-									<EmptySection
-										type="سرمایه گذار"
-									/>
+								<CommandEmpty>
+									<EmptySection type="سرمایه گذار" />
 								</CommandEmpty>
 							</CommandList>
 						</Command>

@@ -17,6 +17,7 @@ import Likes from "@/components/Likes/Likes";
 import ProjectBox from "../ProjectBox/ProjectBox";
 import useProjectBoxStore from "@/stores/ProjectStore/ProjectBoxStore";
 import Bookmarks from "@/components/DashBoard/Bookmarks/Bookmarks";
+import MainChart from "@/components/BarChart/MainChart";
 const StartupDashBoard = () => {
 	const {
 		username,
@@ -60,27 +61,26 @@ const StartupDashBoard = () => {
 				setBalance(data.balance)
 			);
 			getData(`/startup/get_startup_profile/${username}/`).then((d) => {
-				console.log("d: ", d.profile.id);
-				getData(`/startup/profile/${d.profile.id}/vote/`).then(
-					(data1) => {
-						console.log(data1.vote_count);
-						setLikeCount(data1.vote_count);
-					}
-				);
+				console.log("d: ", d.profile);
+				getData(`/like/startup/${d.profile.id}/`).then((d2) => {
+					setLikeCount(d2.likes);
+					console.log("likes", d2.likes);
+				});
 			});
 
 			setLoading(false);
 		});
+		window.scrollTo(0, 0);
 	}, []);
 	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
 
 	return (
 		<>
 			<Card className={styles.card_style}>
-				<Likes
+				{/* <Likes
 					className="translate-x-[1vw] translate-y-[11.5vw]"
 					count={likeCount}
-				/>
+				/> */}
 				<PersonalInfo loading={loading} />
 				<div className="flex flex-row justify-between gap-2 mt-2">
 					<div className="flex flex-col w-2/6 gap-2">
@@ -94,8 +94,7 @@ const StartupDashBoard = () => {
 				</div>
 				<Label className={styles.label_style}>پروژه‌ها</Label>
 				<ProjectBox type="پروژه‌" add={true} />
-				<Label className={styles.label_style}>آمار</Label>
-				<div
+				{/* <div
 					className={`flex flex-wrap gap-6 p-6 rounded-md ${styles.chartbox}`}
 				>
 					<div className="flex-1 min-w-[300px]">
@@ -104,10 +103,38 @@ const StartupDashBoard = () => {
 					<div className="flex-1 min-w-[300px]">
 						<BarChart2 />
 					</div>
-				</div>
+				</div> */}
 				<Label className={styles.label_style}>ذخیره شده</Label>
 				{/* <ProjectBox type="پروژه‌" /> */}
 				<Bookmarks type="پروژه‌ا" />
+				<Label className={styles.label_style}>آمار</Label>
+				<MainChart
+					color={"#FF7517"}
+					label="fund"
+					apiEndpoints={{
+						"30d": "/profile_statics/fund/last-30-days/",
+						"90d": "/profile_statics/fund/last-90-days/",
+						"365d": "/profile_statics/fund/last-year/",
+					}}
+				/>
+				<MainChart
+					color={"#FF0000"}
+					label="like"
+					apiEndpoints={{
+						"30d": "/profile_statics/last-30-days/",
+						"90d": "/profile_statics/last-90-days/",
+						"365d": "/profile_statics/last-year/",
+					}}
+				/>
+				<MainChart
+					color={"#0000FF"}
+					label="view"
+					apiEndpoints={{
+						"30d": "/profile_statics/last-30-days/",
+						"90d": "/profile_statics/last-90-days/",
+						"365d": "/profile_statics/last-year/",
+					}}
+				/>
 			</Card>
 		</>
 	);
