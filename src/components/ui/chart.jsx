@@ -47,7 +47,6 @@ const ChartContainer = React.forwardRef(
 	}
 );
 ChartContainer.displayName = "Chart";
-
 // const ChartStyle = ({
 //   id,
 //   config
