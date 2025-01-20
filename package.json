@@ -59,6 +59,7 @@
 		"lottie-react": "^2.4.0",
 		"lucide-react": "^0.454.0",
 		"mdb-react-ui-kit": "^9.0.0",
+		"moment-jalaali": "^0.10.4",
 		"motion": "^11.13.1",
 		"radix-ui": "^1.0.1",
 		"react": "^18.3.1",
