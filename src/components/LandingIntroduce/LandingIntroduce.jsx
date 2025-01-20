@@ -243,7 +243,7 @@ const observer = new IntersectionObserver(
         const { total_base_profiles, total_startup_profiles, total_positions } = data;
 
         counter("count1", 0, total_positions, 2000);
-        counter("count2", 100, total_base_profiles, 2500);
+        counter("count2", 0, total_base_profiles, 2500);
         counter("count3", 0, total_startup_profiles, 3000);
 
         observer.disconnect();
