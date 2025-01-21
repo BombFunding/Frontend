@@ -418,7 +418,6 @@ const BarChartComponent = () => {
     threshold: 1, 
   });
 
-  // تنظیمات chartConfig بر اساس داده‌ها
   const chartConfig = chartData.reduce((acc, { category, startup, fill }) => {
     acc[category] = {
       label: category,

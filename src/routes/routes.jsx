@@ -13,6 +13,7 @@ import EditProfile from "@/Pages/EditProfile/EditProfile";
 import Profile from "@/Pages/Profile/Profile";
 import DashBoard from "@/Pages/DashBoard/DashBoard.jsx";
 import ChargeAccount from "@/Pages/ChargeAccount/ChargeAccount";
+import GoogleMap from "@/Pages/googlemap/googlemap";
 import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/InvestorDashBoard";
 import { Loading } from "@/components/Loading/Loading";
 import Editor from "@/components/Editor/Editor";
@@ -93,6 +94,10 @@ export const router = createBrowserRouter([
       {
         path: "/ChargeAccount",
         element: <ChargeAccount />,
+      },
+      {
+        path: "/GoogleMap",
+        element: <GoogleMap/>,
       },
       {
         path: "/ProjectDashboard/:projectId",
