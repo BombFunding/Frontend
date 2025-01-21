@@ -7,6 +7,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { useInView } from 'react-intersection-observer'; 
 import moment from 'moment-jalaali'; 
+import { Bar, BarChart, XAxis, YAxis } from "recharts"
+
 
 const colors = [
   '#FF7517',  
@@ -29,47 +31,34 @@ const colors = [
 let colorIndex = 0;
 
 
-const getRandomData = async () => {
+const get_revenue_data = async () => {
   try {
-    
     const response = await fetch('http://localhost:8000/landing/category-revenue/', {
       method: 'GET',
     });
-    
-    
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-
-    
     const data = await response.json();
-
-    
     console.log("Received Data from API:", data);
-
-    
     const categories = [
-      { browser: "تکنولوژی", visitors: data["تکنولوژی"] || 0 },
-      { browser: "هنری", visitors: data["هنری"] || 0 },
-      { browser: "سلامت", visitors: data["سلامت"] || 0 },
-      { browser: "گردشگری", visitors: data["گردشگری"] || 0 },
-      { browser: "آموزش", visitors: data["آموزش"] || 0 },
-      { browser: "مالی", visitors: data["مالی"] || 0 },
+      { category: "تکنولوژی", startup: data["تکنولوژی"] || 0 },
+      { category: "هنری", startup: data["هنری"] || 0 },
+      { category: "سلامت", startup: data["سلامت"] || 0 },
+      { category: "گردشگری", startup: data["گردشگری"] || 0 },
+      { category: "آموزش", startup: data["آموزش"] || 0 },
+      { category: "مالی", startup: data["مالی"] || 0 },
     ];
 
-    
-    console.log("Formatted Categories:", categories);
+    // console.log("Formatted Categories:", categories);
 
-    
     let colorIndex = 0;
-    
-    
     return categories.map((category) => {
       const color = colors[colorIndex % colors.length];
       colorIndex++;
       return {
-        browser: category.browser,
-        visitors: category.visitors,
+        category: category.category,
+        startup: category.startup,
         fill: color,
       };
     });
@@ -79,13 +68,123 @@ const getRandomData = async () => {
   }
 };
 
+const get_count_data = async () => {
+  try {
+    const response = await fetch('http://localhost:8000/landing/category-count/', {
+      method: 'GET',
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    console.log("Received Data from API:", data);
+    const categories = [
+      { category: "تکنولوژی", startup: data["تکنولوژی"] || 0 },
+      { category: "هنری", startup: data["هنری"] || 0 },
+      { category: "سلامت", startup: data["سلامت"] || 0 },
+      { category: "گردشگری", startup: data["گردشگری"] || 0 },
+      { category: "آموزش", startup: data["آموزش"] || 0 },
+      { category: "مالی", startup: data["مالی"] || 0 },
+    ];
+
+    // console.log("Formatted Categories:", categories);
+
+    let colorIndex = 0;
+    return categories.map((category) => {
+      const color = colors[colorIndex % colors.length];
+      colorIndex++;
+      return {
+        category: category.category,
+        startup: category.startup,
+        fill: color,
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+};
+const get_liked_data = async () => {
+  try {
+    const response = await fetch('http://localhost:8000/landing/category-liked/', {
+      method: 'GET',
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    console.log("Received Data from API:", data);
+    const categories = [
+      { category: "تکنولوژی", startup: data["تکنولوژی"] || 0 },
+      { category: "هنری", startup: data["هنری"] || 0 },
+      { category: "سلامت", startup: data["سلامت"] || 0 },
+      { category: "گردشگری", startup: data["گردشگری"] || 0 },
+      { category: "آموزش", startup: data["آموزش"] || 0 },
+      { category: "مالی", startup: data["مالی"] || 0 },
+    ];
+
+    // console.log("Formatted Categories:", categories);
+
+    let colorIndex = 0;
+    return categories.map((category) => {
+      const color = colors[colorIndex % colors.length];
+      colorIndex++;
+      return {
+        category: category.category,
+        startup: category.startup,
+        fill: color,
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+};
+const get_viewd_data = async () => {
+  try {
+    const response = await fetch('http://localhost:8000/landing/category-viewd/', {
+      method: 'GET',
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    console.log("Received Data from API:", data);
+    const categories = [
+      { category: "تکنولوژی", startup: data["تکنولوژی"] || 0 },
+      { category: "هنری", startup: data["هنری"] || 0 },
+      { category: "سلامت", startup: data["سلامت"] || 0 },
+      { category: "گردشگری", startup: data["گردشگری"] || 0 },
+      { category: "آموزش", startup: data["آموزش"] || 0 },
+      { category: "مالی", startup: data["مالی"] || 0 },
+    ];
+
+    // console.log("Formatted Categories:", categories);
+
+    let colorIndex = 0;
+    return categories.map((category) => {
+      const color = colors[colorIndex % colors.length];
+      colorIndex++;
+      return {
+        category: category.category,
+        startup: category.startup,
+        fill: color,
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+};
+
+//////////////////////////////////////////////////////////////////////////////////////
 const PieChartComponent = () => {
   const [chartData, setChartData] = React.useState([]); 
 
   React.useEffect(() => {
     
     const fetchData = async () => {
-      const data = await getRandomData();
+      const data = await get_revenue_data();
       console.log("Chart Data:", data); 
       setChartData(data); 
     };
@@ -93,8 +192,8 @@ const PieChartComponent = () => {
     fetchData();
   }, []); 
 
-  const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
+  const totalstartup = React.useMemo(() => {
+    return chartData.reduce((acc, curr) => acc + curr.startup, 0);
   }, [chartData]);
 
   const { ref, inView } = useInView({
@@ -114,8 +213,8 @@ const PieChartComponent = () => {
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
             <Pie
               data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
+              dataKey="startup"
+              nameKey="category"
               innerRadius={60}
               strokeWidth={5}
               isAnimationActive={inView}
@@ -126,7 +225,7 @@ const PieChartComponent = () => {
                     return (
                       <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle" dominantBaseline="middle">
                         <tspan x={viewBox.cx} y={viewBox.cy} className="fill-foreground text-3xl font-bold">
-                          {totalVisitors.toLocaleString()}
+                          {totalstartup.toLocaleString()}
                         </tspan>
                         <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 24} className="fill-muted-foreground">
                           هزار تومان
@@ -158,7 +257,7 @@ const PieChartComponent2 = () => {
   React.useEffect(() => {
     
     const fetchData = async () => {
-      const data = await getRandomData();
+      const data = await get_liked_data();
       console.log("Chart Data:", data); 
       setChartData(data); 
     };
@@ -166,8 +265,8 @@ const PieChartComponent2 = () => {
     fetchData();
   }, []); 
 
-  const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
+  const totalstartup = React.useMemo(() => {
+    return chartData.reduce((acc, curr) => acc + curr.startup, 0);
   }, [chartData]);
 
   const { ref, inView } = useInView({
@@ -187,8 +286,8 @@ const PieChartComponent2 = () => {
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
             <Pie
               data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
+              dataKey="startup"
+              nameKey="category"
               innerRadius={60}
               strokeWidth={5}
               isAnimationActive={inView}
@@ -199,10 +298,10 @@ const PieChartComponent2 = () => {
                     return (
                       <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle" dominantBaseline="middle">
                         <tspan x={viewBox.cx} y={viewBox.cy} className="fill-foreground text-3xl font-bold">
-                          {totalVisitors.toLocaleString()}
+                          {totalstartup.toLocaleString()}
                         </tspan>
                         <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 24} className="fill-muted-foreground">
-                          هزار تومان
+نفر
                         </tspan>
                       </text>
                     );
@@ -215,11 +314,11 @@ const PieChartComponent2 = () => {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-          مجموع درآمد همه استارتاپ ها در یک ماه گذشته<TrendingUp className="h-4 w-4" />
+          مجموع لایک همه استارتاپ ها در یک ماه گذشته<TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-        مقادیر برحسب هزار تومان است
-        </div>
+       برحسب حوزه هایی که در آن فعالیت میکند
+   </div>
       </CardFooter>
     </Card>
   );
@@ -231,7 +330,7 @@ const PieChartComponent3 = () => {
   React.useEffect(() => {
     
     const fetchData = async () => {
-      const data = await getRandomData();
+      const data = await get_viewd_data();
       console.log("Chart Data:", data); 
       setChartData(data); 
     };
@@ -239,8 +338,8 @@ const PieChartComponent3 = () => {
     fetchData();
   }, []); 
 
-  const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
+  const totalstartup = React.useMemo(() => {
+    return chartData.reduce((acc, curr) => acc + curr.startup, 0);
   }, [chartData]);
 
   const { ref, inView } = useInView({
@@ -251,7 +350,7 @@ const PieChartComponent3 = () => {
   return (
     <Card ref={ref} className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>توزیع بازدید استارتاپ ها</CardTitle>
+        <CardTitle>توزیع بازدیدهای استارتاپ ها</CardTitle>
                 <CardDescription>{`${lastMonthName} - ${persianMonthName} ${persianYear}`}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
@@ -260,8 +359,8 @@ const PieChartComponent3 = () => {
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
             <Pie
               data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
+              dataKey="startup"
+              nameKey="category"
               innerRadius={60}
               strokeWidth={5}
               isAnimationActive={inView}
@@ -272,10 +371,10 @@ const PieChartComponent3 = () => {
                     return (
                       <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle" dominantBaseline="middle">
                         <tspan x={viewBox.cx} y={viewBox.cy} className="fill-foreground text-3xl font-bold">
-                          {totalVisitors.toLocaleString()}
+                          {totalstartup.toLocaleString()}
                         </tspan>
                         <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 24} className="fill-muted-foreground">
-                          هزار تومان
+                          بار بازدید
                         </tspan>
                       </text>
                     );
@@ -288,10 +387,90 @@ const PieChartComponent3 = () => {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-          مجموع درآمد همه استارتاپ ها در یک ماه گذشته<TrendingUp className="h-4 w-4" />
+          مجموع بازدید استارتاپهای فعال در آن حوزه<TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-        مقادیر برحسب هزار تومان است
+          تعداد بازدید ها در یک ماه گذشته حساب شده است
+        </div>
+      </CardFooter>
+    </Card>
+  );
+};
+
+const BarChartComponent = () => {
+  const [chartData, setChartData] = React.useState([]); 
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const data = await get_count_data();
+      console.log("Chart Data:", data); 
+      setChartData(data); 
+    };
+    fetchData();
+  }, []); 
+
+  const totalstartup = React.useMemo(() => {
+    return chartData.reduce((acc, curr) => acc + curr.startup, 0);
+  }, [chartData]);
+
+  const { ref, inView } = useInView({
+    triggerOnce: true, 
+    threshold: 1, 
+  });
+
+  // تنظیمات chartConfig بر اساس داده‌ها
+  const chartConfig = chartData.reduce((acc, { category, startup, fill }) => {
+    acc[category] = {
+      label: category,
+      color: fill,
+    };
+    return acc;
+  }, {});
+
+  return (
+    <Card ref={ref} className="flex flex-col">
+      <CardHeader className="items-center pb-0">
+        <CardTitle>توزیع تعداد استارتاپ ها</CardTitle>
+        <CardDescription>{`از زمان شروع تا - ${persianMonthName} ${persianYear}`}</CardDescription>
+      </CardHeader>
+      <CardContent className="flex-1 pb-0">
+        <ChartContainer className="mx-auto aspect-square max-h-[250px]">
+          <BarChart
+            data={chartData}
+            layout="vertical"
+            margin={{
+              left: 0,
+            }}
+          >
+            <YAxis
+              dataKey="category"
+              type="category"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) =>
+                chartConfig[value]?.label || value
+              }
+            />
+            <XAxis dataKey="startup" type="number" hide />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+            <Bar
+              dataKey="startup"
+              layout="vertical"
+              radius={5}
+              fill={(data) => chartConfig[data.category]?.color || "gray"}
+              isAnimationActive={inView}
+            />
+          </BarChart>
+        </ChartContainer>
+      </CardContent>
+      <CardFooter className="flex-col gap-2 text-sm">
+        <div className="flex items-center gap-2 font-medium leading-none">
+          تعداد استارتاپ های کل سایت
+          <TrendingUp className="h-4 w-4" />
+        </div>
+        <div className="leading-none text-muted-foreground">
+  برحسب حوزه هایی که در آن فعالیت میکند
         </div>
       </CardFooter>
     </Card>
@@ -300,10 +479,11 @@ const PieChartComponent3 = () => {
 
 function ThreePieCharts() {
   return (
-<div className="flex flex-wrap lg:flex-nowrap flex-col lg:flex-row justify-around items-center gap-4">
-  <PieChartComponent3 />
+<div className="flex flex-wrap lg:flex-nowrap flex-col lg:flex-row justify-around items-center gap-0">
+
+  <BarChartComponent />
   <PieChartComponent2 />
-  <PieChartComponent />
+  <PieChartComponent3 />
   <PieChartComponent />
 </div>
 
