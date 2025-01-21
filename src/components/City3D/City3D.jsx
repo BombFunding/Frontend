@@ -1,187 +1,202 @@
-import React, { useEffect, useRef } from "react";
-import * as THREE from "three";
+import React, { useEffect } from 'react';
+import * as THREE from 'three';
 
-const City3D = () => {
-  const city3DRef = useRef(null);
-
+const ThreeJSApp = () => {
   useEffect(() => {
-    // Three.js Setup
+    // Basic parameters
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth * 0.9, window.innerHeight * 0.9); // Adjust size to 90% of viewport
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    
+    if (window.innerWidth > 800) {
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.shadowMap.needsUpdate = true;
+    }
+    document.body.appendChild(renderer.domElement);
+
+    // Define onWindowResize function
+    const onWindowResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    window.addEventListener('resize', onWindowResize, false);
+
+    const camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 1, 500);
+    // camera.position.set(0, 2, 14);
+  camera.position.set(0, 10.8, 10); // دوربین بالاتر و دورتر
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(
-      20,
-      (window.innerWidth * 0.9) / (window.innerHeight * 0.9),
-      1,
-      500
-    );
-    camera.position.set(0, 2, 14);
+    const city = new THREE.Object3D();
+    const smoke = new THREE.Object3D();
+    const town = new THREE.Object3D();
 
-    const city3DObject = new THREE.Object3D();
-    const city3DSmoke = new THREE.Object3D();
-    const city3DTown = new THREE.Object3D();
+    const uSpeed = 0.001;
 
-    scene.add(city3DObject);
-    city3DObject.add(city3DSmoke);
-    city3DObject.add(city3DTown);
+    // Fog background
+const setcolor = 0xFF7517;
+scene.background = new THREE.Color(setcolor);
 
-    scene.background = new THREE.Color(0x0C0C42);
-    scene.fog = new THREE.Fog(0xFF7517, 10, 16);
-// const colors = [
-//   '#FF7517',  
-//   '#024CAA',  
-//   '#821131',  
-//   '#C7253E',  
-//   '#E2A701', 
-//   '#556B2F',
-//   '#87A922',  
-//   '#9B3922',  
-//   '#0C084B',  
-// ];
-    const mathRandom = (num = 8) => -Math.random() * num + Math.random() * num;
+// برای رقیق‌تر کردن مه، مقدار رنگ را کاهش می‌دهیم
+const fogColor = new THREE.Color(setcolor).multiplyScalar(0.5); // کاهش شدت رنگ به نصف
 
-    const setTintColor = (() => {
-      let setTintNum = true;
-      return () => {
-        setTintNum = !setTintNum;
-        return setTintNum ? 0x000000 : 0x222222;
-      };
-    })();
+scene.fog = new THREE.Fog(fogColor, 10, 16);  // استفاده از رنگ رقیق‌شده برای مه
 
-    const initCity3D = () => {
-      for (let i = 1; i < 100; i++) {
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
+    // Random function
+    const mathRandom = (num = 8) => {
+      return -Math.random() * num + Math.random() * num;
+    };
+
+    // Change building colors
+    let setTintNum = true;
+    const setTintColor = () => {
+      let setColor;
+      if (setTintNum) {
+        setTintNum = false;
+        setColor = 0x000000;
+      } else {
+        setTintNum = true;
+        setColor = 0x000000;
+      }
+      return setColor;
+    };
+
+      const colors = [
+      '#020212',  
+      // '#04041f',
+      '#000000',  
+      '#02021f',
+      '#00001a',
+      '#000000',  
+      '#000000',  
+      '#000000',  
+        '#0c111c',
+        '#0f131c',
+      
+    ];
+
+    // Function to create buildings
+    const init = () => {
+      const segments = 2;
+
+      for (let i = 1; i < 400; i++) {
+        const width = Math.random() * 0.5 + 0.5; // Random width
+        const height = Math.random() * 1.5 + 1; // Random height
+        const depth = Math.random() * 0.5 + 0.5; // Random depth
+        const geometry = new THREE.BoxGeometry(width, height, depth, segments, segments, segments);
+
+        // Randomly pick a color from the list
+        const color = colors[Math.floor(Math.random() * colors.length)];
         const material = new THREE.MeshStandardMaterial({
-          color: setTintColor(),
-        });
-        const wireMaterial = new THREE.MeshLambertMaterial({
-          color: 0xffffff,
-          wireframe: true,
-          transparent: true,
-          opacity: 0.03,
+          color: new THREE.Color(color),
+          wireframe: false,
         });
 
         const cube = new THREE.Mesh(geometry, material);
-        const wire = new THREE.Mesh(geometry, wireMaterial);
 
-        cube.add(wire);
         cube.castShadow = true;
         cube.receiveShadow = true;
 
-        cube.scale.y = 0.1 + Math.abs(mathRandom(8));
-        cube.position.set(mathRandom(), 0, mathRandom());
+        // Positioning cubes with overlap
+        const posX = Math.random() * 20 - 10; // Random X position
+        const posZ = Math.random() * 20 - 10; // Random Z position
 
-        city3DTown.add(cube);
+        cube.position.set(posX, height / 2, posZ);
+
+        town.add(cube); // Add cube to the city
       }
-    };
 
-    const initCity3DSmoke = () => {
-      const smokeMaterial = new THREE.MeshToonMaterial({
-        color: 0xffff00,
-      });
-      const smokeGeometry = new THREE.CircleGeometry(0.01, 3);
+      // Particle system (smoke)
+      const gmaterial = new THREE.MeshToonMaterial({ color: 0xFFFFFF, side: THREE.DoubleSide });
+      const gparticular = new THREE.CircleGeometry(0.01, 3);
+      const aparticular = 5;
 
-      for (let i = 0; i < 300; i++) {
-        const particle = new THREE.Mesh(smokeGeometry, smokeMaterial);
-        particle.position.set(mathRandom(5), mathRandom(5), mathRandom(5));
-        city3DSmoke.add(particle);
+      for (let h = 1; h < 300; h++) {
+        const particular = new THREE.Mesh(gparticular, gmaterial);
+        particular.position.set(mathRandom(aparticular), mathRandom(aparticular), mathRandom(aparticular));
+        particular.rotation.set(mathRandom(), mathRandom(), mathRandom());
+        smoke.add(particular);
       }
-    };
 
-    const initCity3DGround = () => {
-      const groundMaterial = new THREE.MeshPhongMaterial({
+      const pmaterial = new THREE.MeshPhongMaterial({
         color: 0x000000,
         side: THREE.DoubleSide,
+        roughness: 10,
+        metalness: 0.6,
         opacity: 0.9,
         transparent: true,
       });
-      const groundGeometry = new THREE.PlaneGeometry(60, 60);
-      const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-      ground.rotation.x = -Math.PI / 2;
-      ground.position.y = -0.001;
-      ground.receiveShadow = true;
-      city3DObject.add(ground);
+      const pgeometry = new THREE.PlaneGeometry(60, 60);
+      const pelement = new THREE.Mesh(pgeometry, pmaterial);
+      pelement.rotation.x = -90 * Math.PI / 180;
+      pelement.position.y = -0.001;
+      pelement.receiveShadow = true;
+
+      city.add(pelement);
     };
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 4);
-    const spotLight = new THREE.SpotLight(0xffffff, 1);
-    spotLight.position.set(5, 5, 5);
-    spotLight.castShadow = true;
+    // Mouse move function
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
 
-    scene.add(ambientLight);
-    scene.add(spotLight);
-
-    // Mouse Interaction
-    const mouse = { x: 0, y: 0 };
     const onMouseMove = (event) => {
+      event.preventDefault();
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     };
-    window.addEventListener("mousemove", onMouseMove);
 
+    window.addEventListener('mousemove', onMouseMove, false);
+
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xFFFFFF, 4);
+    const lightFront = new THREE.SpotLight(0xFFFFFF, 20, 10);
+    const lightBack = new THREE.PointLight(0xFFFFFF, 0.5);
+
+    lightFront.rotation.x = 45 * Math.PI / 180;
+    lightFront.rotation.z = -45 * Math.PI / 180;
+    lightFront.position.set(5, 5, 5);
+    lightFront.castShadow = true;
+    lightFront.shadow.mapSize.width = 6000;
+    lightFront.shadow.mapSize.height = lightFront.shadow.mapSize.width;
+    lightFront.penumbra = 0.1;
+    lightBack.position.set(0, 6, 0);
+
+    smoke.position.y = 2;
+
+    scene.add(ambientLight);
+    city.add(lightFront);
+    scene.add(lightBack);
+    scene.add(city);
+    city.add(smoke);
+    city.add(town);
+
+    // Add grid helper
+    const gridHelper = new THREE.GridHelper(60, 120, 0xFF0000, 0x000000);
+    city.add(gridHelper);
+
+    // Animate function
     const animate = () => {
+      const time = Date.now() * 0.00005;
       requestAnimationFrame(animate);
 
-      city3DObject.rotation.y += (mouse.x * 0.1 - city3DObject.rotation.y) * 0.05;
-      city3DObject.rotation.x += (-mouse.y * 0.1 - city3DObject.rotation.x) * 0.05;
+      city.rotation.y -= (mouse.x * 8 - camera.rotation.y) * uSpeed;
+      city.rotation.x -= (-(mouse.y * 2) - camera.rotation.x) * uSpeed;
+      if (city.rotation.x < -0.05) city.rotation.x = -0.05;
+      else if (city.rotation.x > 1) city.rotation.x = 1;
 
-      if (city3DObject.rotation.x < -0.05) city3DObject.rotation.x = -0.05;
-      if (city3DObject.rotation.x > 0.1) city3DObject.rotation.x = 0.1;
+      smoke.rotation.y += 0.01;
+      smoke.rotation.x += 0.01;
 
-      city3DSmoke.rotation.y += 0.01;
+      camera.lookAt(city.position);
       renderer.render(scene, camera);
     };
 
-    const onResize = () => {
-      camera.aspect = (window.innerWidth * 0.9) / (window.innerHeight * 0.9);
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth * 0.9, window.innerHeight * 0.9);
-    };
-    window.addEventListener("resize", onResize);
-
-    // Append renderer to DOM
-    if (city3DRef.current) {
-      city3DRef.current.appendChild(renderer.domElement);
-    }
-
-    initCity3D();
-    initCity3DSmoke();
-    initCity3DGround();
+    init();
     animate();
-
-    return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("resize", onResize);
-      if (city3DRef.current) {
-        city3DRef.current.removeChild(renderer.domElement);
-      }
-    };
   }, []);
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "100vw",
-        height: "100vh",
-      }}
-    >
-      <div
-        ref={city3DRef}
-        style={{
-          width: "90%",
-          height: "90%",
-          border: "2px solid #ccc",
-          borderRadius: "10px",
-        }}
-      />
-    </div>
-  );
+  return <div />;
 };
 
-export default City3D;
+export default ThreeJSApp;
