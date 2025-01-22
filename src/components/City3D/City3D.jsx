@@ -1,178 +1,142 @@
-import React, { useEffect } from 'react';
-import * as THREE from 'three';
+import React, { useEffect } from "react";
+import * as THREE from "three";
 
 const ThreeJSApp = () => {
   useEffect(() => {
-    
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-
-    renderer.domElement.style.position = 'absolute';
-    renderer.domElement.style.top = '0';
-    renderer.domElement.style.left = '0';
-
+    renderer.domElement.style.position = "absolute";
+    renderer.domElement.style.top = "0";
+    renderer.domElement.style.left = "0";
 
     if (window.innerWidth > 800) {
       renderer.shadowMap.enabled = true;
       renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-      renderer.shadowMap.needsUpdate = true;
     }
+
     document.body.appendChild(renderer.domElement);
 
-    
     const onWindowResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
-    window.addEventListener('resize', onWindowResize, false);
+    window.addEventListener("resize", onWindowResize, false);
 
-    const camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 1, 500);
+    const camera = new THREE.PerspectiveCamera(
+      20,
+      window.innerWidth / window.innerHeight,
+      1,
+      500
+    );
     camera.position.set(0, 8, 14);
-  
 
     const scene = new THREE.Scene();
     const city = new THREE.Object3D();
     const smoke = new THREE.Object3D();
     const town = new THREE.Object3D();
 
-    const uSpeed = 0.001;
+    scene.add(city);
+    city.add(smoke);
+    city.add(town);
 
-    
-const setcolor = 0xFF7517;
-scene.background = new THREE.Color(setcolor);
+    const setcolor = 0xff7517;
+    scene.background = new THREE.Color(setcolor);
+    scene.fog = new THREE.Fog(
+      new THREE.Color(setcolor).multiplyScalar(0.5),
+      10,
+      16
+    );
 
+    const mathRandom = (num = 8) => -Math.random() * num + Math.random() * num;
 
-const fogColor = new THREE.Color(setcolor).multiplyScalar(0.5); 
+    const colors = ["#020212", "#000000"];
 
-scene.fog = new THREE.Fog(fogColor, 10, 16);  
+    const init = () => {
+      const segments = 2;
 
-    
-    const mathRandom = (num = 8) => {
-      return -Math.random() * num + Math.random() * num;
-    };
+      for (let i = 1; i < 400; i++) {
+        const width = Math.random() * 0.5 + 0.5;
+        const height = Math.random() * 1.5 + 1;
+        const depth = Math.random() * 0.5 + 0.5;
 
-    
-    let setTintNum = true;
-    const setTintColor = () => {
-      let setColor;
-      if (setTintNum) {
-        setTintNum = false;
-        setColor = 0x000000;
-      } else {
-        setTintNum = true;
-        setColor = 0x000000;
-      }
-      return setColor;
-    };
+        const geometry = new THREE.BoxGeometry(
+          width,
+          height,
+          depth,
+          segments,
+          segments,
+          segments
+        );
 
-      const colors = [
-      '#020212',  
-      
-      '#000000',  
-      '#02021f',
-      '#00001a',
-      '#000000',  
-      '#000000',  
-      '#000000',  
-        '#0c111c',
-        '#0f131c',
-      
-    ];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const material = new THREE.MeshStandardMaterial({
+          color: new THREE.Color(color),
+          wireframe: false,
+        });
 
+        const cube = new THREE.Mesh(geometry, material);
+        cube.castShadow = true;
+        cube.receiveShadow = true;
 
+        const wireframeGeometry = new THREE.EdgesGeometry(geometry);
+        const wireframeMaterial = new THREE.LineBasicMaterial({
+          color: 0x525151,
+        });
+        const wireframe = new THREE.LineSegments(
+          wireframeGeometry,
+          wireframeMaterial
+        );
+        cube.add(wireframe);
 
-const init = () => {
-  const segments = 2;
+        const numWindowsX = Math.min(
+          Math.random() < 0.5 ? 3 : 4,
+          Math.floor(width / 0.2)
+        );
+        const numWindowsY = Math.floor(height / 0.2);
 
-  for (let i = 1; i < 400; i++) {
-    const width = Math.random() * 0.5 + 0.5; 
-    const height = Math.random() * 1.5 + 1; 
-    const depth = Math.random() * 0.5 + 0.5; 
-    const geometry = new THREE.BoxGeometry(width, height, depth, segments, segments, segments);
+        const windowGeometry = new THREE.PlaneGeometry(0.1, 0.1);
+        const windowMaterial = new THREE.MeshBasicMaterial({
+          color: 0x525151,
+        });
 
-    
-    const color = colors[Math.floor(Math.random() * colors.length)];
-    const material = new THREE.MeshStandardMaterial({
-      color: new THREE.Color(color),
-      wireframe: false,
-    });
+        const faces = [0, 1, 2, 3];
 
-    const cube = new THREE.Mesh(geometry, material);
-    cube.castShadow = true;
-    cube.receiveShadow = true;
+        faces.forEach((faceIndex) => {
+          const faceWidth = faceIndex < 2 ? width : depth;
 
-    
-    const wireframeGeometry = new THREE.EdgesGeometry(geometry);
-    const wireframeMaterial = new THREE.LineBasicMaterial({ color: 0x525151 });
-    const wireframe = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
-    cube.add(wireframe);
+          for (let x = 0; x < numWindowsX; x++) {
+            for (let y = 0; y < numWindowsY; y++) {
+              const window = new THREE.Mesh(windowGeometry, windowMaterial);
 
-    
-    const maxColumns = Math.random() < 0.5 ? 3 : 4; 
-    const numWindowsX = Math.min(maxColumns, Math.floor(width / 0.2)); 
-    const numWindowsY = Math.floor(height / 0.2); 
+              const offsetX =
+                -faceWidth / 2 + (x + 0.5) * (faceWidth / numWindowsX);
+              const offsetY = -height / 2 + (y + 0.5) * 0.2;
 
-    const windowGeometry = new THREE.PlaneGeometry(0.1, 0.1); 
-    const windowMaterial = new THREE.MeshBasicMaterial({ color: 0x525151 });
+              if (faceIndex === 0)
+                window.position.set(offsetX, offsetY, depth / 2 + 0.01);
+              if (faceIndex === 1)
+                window.position.set(offsetX, offsetY, -depth / 2 - 0.01);
+              if (faceIndex === 2)
+                window.position.set(width / 2 + 0.01, offsetY, offsetX);
+              if (faceIndex === 3)
+                window.position.set(-width / 2 - 0.01, offsetY, offsetX);
 
-    const faces = [0, 1, 2, 3]; 
+              if (faceIndex === 2 || faceIndex === 3)
+                window.rotation.y = Math.PI / 2;
 
-    faces.forEach((faceIndex) => {
-      const faceWidth = faceIndex < 2 ? width : depth; 
+              cube.add(window);
+            }
+          }
+        });
 
-      for (let x = 0; x < numWindowsX; x++) {
-        for (let y = 0; y < numWindowsY; y++) {
-          const window = new THREE.Mesh(windowGeometry, windowMaterial);
+        const posX = Math.random() * 20 - 10;
+        const posZ = Math.random() * 20 - 10;
 
-          
-          const offsetX = -faceWidth / 2 + (x + 0.5) * (faceWidth / numWindowsX); 
-          const offsetY = -height / 2 + (y + 0.5) * 0.2; 
+        cube.position.set(posX, height / 2, posZ);
 
-          if (faceIndex === 0) window.position.set(offsetX, offsetY, depth / 2 + 0.01); 
-          if (faceIndex === 1) window.position.set(offsetX, offsetY, -depth / 2 - 0.01); 
-          if (faceIndex === 2) window.position.set(width / 2 + 0.01, offsetY, offsetX); 
-          if (faceIndex === 3) window.position.set(-width / 2 - 0.01, offsetY, offsetX); 
-
-          if (faceIndex === 2 || faceIndex === 3) window.rotation.y = Math.PI / 2;
-
-          cube.add(window);
-        }
-      }
-    });
-
-    
-    const posX = Math.random() * 20 - 10; 
-    const posZ = Math.random() * 20 - 10; 
-
-    cube.position.set(posX, height / 2, posZ);
-
-    town.add(cube); 
-  }
-
-
-
-  
-  
-  
-
-  
-
-  
-  
-
-
-      
-      const gmaterial = new THREE.MeshToonMaterial({ color: 0xFFFFFF, side: THREE.DoubleSide });
-      const gparticular = new THREE.CircleGeometry(0.01, 3);
-      const aparticular = 5;
-
-      for (let h = 1; h < 200; h++) {
-        const particular = new THREE.Mesh(gparticular, gmaterial);
-        particular.position.set(mathRandom(aparticular), mathRandom(aparticular), mathRandom(aparticular));
-        particular.rotation.set(mathRandom(), mathRandom(), mathRandom());
-        smoke.add(particular);
+        town.add(cube);
       }
 
       const pmaterial = new THREE.MeshPhongMaterial({
@@ -185,85 +149,71 @@ const init = () => {
       });
       const pgeometry = new THREE.PlaneGeometry(60, 60);
       const pelement = new THREE.Mesh(pgeometry, pmaterial);
-      pelement.rotation.x = -90 * Math.PI / 180;
+      pelement.rotation.x = (-90 * Math.PI) / 180;
       pelement.position.y = -0.001;
       pelement.receiveShadow = true;
 
       city.add(pelement);
     };
 
-    
-    const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
-
     const onMouseMove = (event) => {
       event.preventDefault();
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     };
 
-    window.addEventListener('mousemove', onMouseMove, false);
+    window.addEventListener("mousemove", onMouseMove);
 
-    
-    const ambientLight = new THREE.AmbientLight(0xFFFFFF, 4);
-    const lightFront = new THREE.SpotLight(0xFFFFFF, 20, 10);
-    const lightBack = new THREE.PointLight(0xFFFFFF, 0.5);
-
-    lightFront.rotation.x = 45 * Math.PI / 180;
-    lightFront.rotation.z = -45 * Math.PI / 180;
+    const ambientLight = new THREE.AmbientLight(0xffffff, 4);
+    const lightFront = new THREE.SpotLight(0xffffff, 20, 10);
     lightFront.position.set(5, 5, 5);
     lightFront.castShadow = true;
-    lightFront.shadow.mapSize.width = 6000;
-    lightFront.shadow.mapSize.height = lightFront.shadow.mapSize.width;
-    lightFront.penumbra = 0.1;
-    lightBack.position.set(0, 6, 0);
-
-    smoke.position.y = 2;
 
     scene.add(ambientLight);
     city.add(lightFront);
-    scene.add(lightBack);
-    scene.add(city);
-    city.add(smoke);
-    city.add(town);
 
-    
-    const gridHelper = new THREE.GridHelper(60, 120, 0xFF0000, 0x000000);
-    city.add(gridHelper);
-
-    
-    const animate = () => {
-      const time = Date.now() * 0.00005;
+     const animate = () => {
       requestAnimationFrame(animate);
 
-      city.rotation.y -= (mouse.x * 8 - camera.rotation.y) * uSpeed;
-      city.rotation.x -= (-(mouse.y * 2) - camera.rotation.x) * uSpeed;
-      if (city.rotation.x < -0.05) city.rotation.x = -0.05;
-      else if (city.rotation.x > 1) city.rotation.x = 1;
+      city.rotation.y -= (mouse.x * 8 - camera.rotation.y) * 0.001;
+
+      const minRotationX = -0.05;
+       const maxRotationX = 0.1;
+      city.rotation.x -= (-(mouse.y * 2) - camera.rotation.x) * 0.001;
+      city.rotation.x = Math.max(minRotationX, Math.min(maxRotationX, city.rotation.x));
 
       smoke.rotation.y += 0.01;
-      smoke.rotation.x += 0.01;
 
       camera.lookAt(city.position);
       renderer.render(scene, camera);
     };
 
+
     init();
     animate();
+
     return () => {
-      container.removeChild(renderer.domElement);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("resize", onWindowResize);
+
+      document.body.removeChild(renderer.domElement);
       renderer.dispose();
+
+      scene.traverse((object) => {
+        if (object.geometry) object.geometry.dispose();
+        if (object.material) {
+          if (Array.isArray(object.material)) {
+            object.material.forEach((mat) => mat.dispose());
+          } else {
+            object.material.dispose();
+          }
+        }
+      });
     };
   }, []);
 
-    return (
-    <div className="intro">
-      <div className="visual">
-        <canvas className="bg-img bg-overlay"></canvas>
-      </div>
-    </div>
-  );
-  
+  return null;
 };
 
 export default ThreeJSApp;
