@@ -11,6 +11,8 @@ import img7 from "../../assets/landing7.png";
 import img8 from "../../assets/landing8.png";
 import img9 from "../../assets/landing_back5.png";
 // import BarChart from './BarChart';
+import City3D from '@/components/City3D/City3D';  // مسیر فایل کامپوننت شما
+  
 import landing6 from "../../assets/landing6.png"
 import landing5 from "../../assets/landing5.png"
 import FlipAnimation from "@/components/LandingIntroduce/FlipAnimation";
@@ -268,11 +270,7 @@ const observer = new IntersectionObserver(
 
       <div className={styles.intro}>
         <div className={styles.visual}>
-          <img
-            src={img1}
-            className={`${styles['bg-img']} ${styles['bg-overlay']}`}
-            alt="Intro Background"
-          />
+                <City3D />
         </div>
         <div className={styles.content}>
         <AnimatedText
@@ -294,19 +292,21 @@ const observer = new IntersectionObserver(
 </p>
 
 <div className="mt-8 flex gap-4 justify-start text-right md:justify-right md:text-center">
-  <Link
-    to="/Starboard"
-    className="btn font-vazirmatn text-black bg-bomborange hover:text-white text-[1rem] w-[10rem] h-[2vw] md:w-[8rem] sm:w-[9rem]"
-  >
-    کشف پروژه‌ها
-  </Link>
-  <Link
-    to="/SignUp"
-    className="btn font-vazirmatn text-black bg-bomborange hover:text-white text-[1rem] w-[10rem] h-[3vw] md:w-[8rem] sm:w-[9rem]"
-  >
-    ثبت نام
-  </Link>
+<Link
+  to="/Starboard"
+  className="btn font-vazirmatn text-[#0C0C42] bg-[#FFFFFFAD] hover:bg-[#FFBB00AD] hover:text-white text-[1rem] w-[10rem] h-[2vw] md:w-[8rem] sm:w-[9rem]"
+>
+  کشف پروژه‌ها
+</Link>
+<Link
+  to="/SignUp"
+  className="btn font-vazirmatn text-[#0C0C42] bg-[#FFFFFFAD] hover:bg-[#FFBB00AD] hover:text-white text-[1rem] w-[10rem] h-[3vw] md:w-[8rem] sm:w-[9rem]"
+>
+  ثبت نام
+</Link>
+           
 </div>
+
 
 
         </div>

@@ -7,7 +7,7 @@ const ThreeJSApp = () => {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.domElement.style.position = 'absolute'; // اطمینان از قرارگیری درست
+renderer.domElement.style.position = 'absolute'; 
 renderer.domElement.style.top = '0';
 renderer.domElement.style.left = '0';
 
@@ -249,6 +249,10 @@ const init = () => {
 
     init();
     animate();
+    return () => {
+      container.removeChild(renderer.domElement);
+      renderer.dispose();
+    };
   }, []);
 
     return (
@@ -258,7 +262,7 @@ const init = () => {
       </div>
     </div>
   );
-  // return <div />;
+  
 };
 
 export default ThreeJSApp;
