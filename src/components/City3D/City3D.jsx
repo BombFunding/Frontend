@@ -6,10 +6,11 @@ const ThreeJSApp = () => {
     
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.domElement.style.position = 'absolute'; 
-renderer.domElement.style.top = '0';
-renderer.domElement.style.left = '0';
+
+    renderer.domElement.style.position = 'absolute';
+    renderer.domElement.style.top = '0';
+    renderer.domElement.style.left = '0';
+
 
     if (window.innerWidth > 800) {
       renderer.shadowMap.enabled = true;

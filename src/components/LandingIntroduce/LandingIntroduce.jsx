@@ -11,7 +11,7 @@ import img7 from "../../assets/landing7.png";
 import img8 from "../../assets/landing8.png";
 import img9 from "../../assets/landing_back5.png";
 // import BarChart from './BarChart';
-import City3D from '@/components/City3D/City3D';  // مسیر فایل کامپوننت شما
+import City3D from '@/components/City3D/City3D';
   
 import landing6 from "../../assets/landing6.png"
 import landing5 from "../../assets/landing5.png"
