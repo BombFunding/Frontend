@@ -3,10 +3,14 @@ import * as THREE from 'three';
 
 const ThreeJSApp = () => {
   useEffect(() => {
-    // Basic parameters
+    
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.domElement.style.position = 'absolute'; // اطمینان از قرارگیری درست
+renderer.domElement.style.top = '0';
+renderer.domElement.style.left = '0';
+
     if (window.innerWidth > 800) {
       renderer.shadowMap.enabled = true;
       renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -14,7 +18,7 @@ const ThreeJSApp = () => {
     }
     document.body.appendChild(renderer.domElement);
 
-    // Define onWindowResize function
+    
     const onWindowResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -24,8 +28,8 @@ const ThreeJSApp = () => {
     window.addEventListener('resize', onWindowResize, false);
 
     const camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 1, 500);
-    // camera.position.set(0, 2, 14);
-  camera.position.set(0, 10.8, 10); // دوربین بالاتر و دورتر
+    camera.position.set(0, 8, 14);
+  
 
     const scene = new THREE.Scene();
     const city = new THREE.Object3D();
@@ -34,21 +38,21 @@ const ThreeJSApp = () => {
 
     const uSpeed = 0.001;
 
-    // Fog background
+    
 const setcolor = 0xFF7517;
 scene.background = new THREE.Color(setcolor);
 
-// برای رقیق‌تر کردن مه، مقدار رنگ را کاهش می‌دهیم
-const fogColor = new THREE.Color(setcolor).multiplyScalar(0.5); // کاهش شدت رنگ به نصف
 
-scene.fog = new THREE.Fog(fogColor, 10, 16);  // استفاده از رنگ رقیق‌شده برای مه
+const fogColor = new THREE.Color(setcolor).multiplyScalar(0.5); 
 
-    // Random function
+scene.fog = new THREE.Fog(fogColor, 10, 16);  
+
+    
     const mathRandom = (num = 8) => {
       return -Math.random() * num + Math.random() * num;
     };
 
-    // Change building colors
+    
     let setTintNum = true;
     const setTintColor = () => {
       let setColor;
@@ -64,7 +68,7 @@ scene.fog = new THREE.Fog(fogColor, 10, 16);  // استفاده از رنگ رق
 
       const colors = [
       '#020212',  
-      // '#04041f',
+      
       '#000000',  
       '#02021f',
       '#00001a',
@@ -76,43 +80,94 @@ scene.fog = new THREE.Fog(fogColor, 10, 16);  // استفاده از رنگ رق
       
     ];
 
-    // Function to create buildings
-    const init = () => {
-      const segments = 2;
 
-      for (let i = 1; i < 400; i++) {
-        const width = Math.random() * 0.5 + 0.5; // Random width
-        const height = Math.random() * 1.5 + 1; // Random height
-        const depth = Math.random() * 0.5 + 0.5; // Random depth
-        const geometry = new THREE.BoxGeometry(width, height, depth, segments, segments, segments);
 
-        // Randomly pick a color from the list
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        const material = new THREE.MeshStandardMaterial({
-          color: new THREE.Color(color),
-          wireframe: false,
-        });
+const init = () => {
+  const segments = 2;
 
-        const cube = new THREE.Mesh(geometry, material);
+  for (let i = 1; i < 400; i++) {
+    const width = Math.random() * 0.5 + 0.5; 
+    const height = Math.random() * 1.5 + 1; 
+    const depth = Math.random() * 0.5 + 0.5; 
+    const geometry = new THREE.BoxGeometry(width, height, depth, segments, segments, segments);
 
-        cube.castShadow = true;
-        cube.receiveShadow = true;
+    
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const material = new THREE.MeshStandardMaterial({
+      color: new THREE.Color(color),
+      wireframe: false,
+    });
 
-        // Positioning cubes with overlap
-        const posX = Math.random() * 20 - 10; // Random X position
-        const posZ = Math.random() * 20 - 10; // Random Z position
+    const cube = new THREE.Mesh(geometry, material);
+    cube.castShadow = true;
+    cube.receiveShadow = true;
 
-        cube.position.set(posX, height / 2, posZ);
+    
+    const wireframeGeometry = new THREE.EdgesGeometry(geometry);
+    const wireframeMaterial = new THREE.LineBasicMaterial({ color: 0x525151 });
+    const wireframe = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
+    cube.add(wireframe);
 
-        town.add(cube); // Add cube to the city
+    
+    const maxColumns = Math.random() < 0.5 ? 3 : 4; 
+    const numWindowsX = Math.min(maxColumns, Math.floor(width / 0.2)); 
+    const numWindowsY = Math.floor(height / 0.2); 
+
+    const windowGeometry = new THREE.PlaneGeometry(0.1, 0.1); 
+    const windowMaterial = new THREE.MeshBasicMaterial({ color: 0x525151 });
+
+    const faces = [0, 1, 2, 3]; 
+
+    faces.forEach((faceIndex) => {
+      const faceWidth = faceIndex < 2 ? width : depth; 
+
+      for (let x = 0; x < numWindowsX; x++) {
+        for (let y = 0; y < numWindowsY; y++) {
+          const window = new THREE.Mesh(windowGeometry, windowMaterial);
+
+          
+          const offsetX = -faceWidth / 2 + (x + 0.5) * (faceWidth / numWindowsX); 
+          const offsetY = -height / 2 + (y + 0.5) * 0.2; 
+
+          if (faceIndex === 0) window.position.set(offsetX, offsetY, depth / 2 + 0.01); 
+          if (faceIndex === 1) window.position.set(offsetX, offsetY, -depth / 2 - 0.01); 
+          if (faceIndex === 2) window.position.set(width / 2 + 0.01, offsetY, offsetX); 
+          if (faceIndex === 3) window.position.set(-width / 2 - 0.01, offsetY, offsetX); 
+
+          if (faceIndex === 2 || faceIndex === 3) window.rotation.y = Math.PI / 2;
+
+          cube.add(window);
+        }
       }
+    });
 
-      // Particle system (smoke)
+    
+    const posX = Math.random() * 20 - 10; 
+    const posZ = Math.random() * 20 - 10; 
+
+    cube.position.set(posX, height / 2, posZ);
+
+    town.add(cube); 
+  }
+
+
+
+  
+  
+  
+
+  
+
+  
+  
+
+
+      
       const gmaterial = new THREE.MeshToonMaterial({ color: 0xFFFFFF, side: THREE.DoubleSide });
       const gparticular = new THREE.CircleGeometry(0.01, 3);
       const aparticular = 5;
 
-      for (let h = 1; h < 300; h++) {
+      for (let h = 1; h < 200; h++) {
         const particular = new THREE.Mesh(gparticular, gmaterial);
         particular.position.set(mathRandom(aparticular), mathRandom(aparticular), mathRandom(aparticular));
         particular.rotation.set(mathRandom(), mathRandom(), mathRandom());
@@ -136,7 +191,7 @@ scene.fog = new THREE.Fog(fogColor, 10, 16);  // استفاده از رنگ رق
       city.add(pelement);
     };
 
-    // Mouse move function
+    
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
 
@@ -148,7 +203,7 @@ scene.fog = new THREE.Fog(fogColor, 10, 16);  // استفاده از رنگ رق
 
     window.addEventListener('mousemove', onMouseMove, false);
 
-    // Lights
+    
     const ambientLight = new THREE.AmbientLight(0xFFFFFF, 4);
     const lightFront = new THREE.SpotLight(0xFFFFFF, 20, 10);
     const lightBack = new THREE.PointLight(0xFFFFFF, 0.5);
@@ -171,11 +226,11 @@ scene.fog = new THREE.Fog(fogColor, 10, 16);  // استفاده از رنگ رق
     city.add(smoke);
     city.add(town);
 
-    // Add grid helper
+    
     const gridHelper = new THREE.GridHelper(60, 120, 0xFF0000, 0x000000);
     city.add(gridHelper);
 
-    // Animate function
+    
     const animate = () => {
       const time = Date.now() * 0.00005;
       requestAnimationFrame(animate);
@@ -196,7 +251,14 @@ scene.fog = new THREE.Fog(fogColor, 10, 16);  // استفاده از رنگ رق
     animate();
   }, []);
 
-  return <div />;
+    return (
+    <div className="intro">
+      <div className="visual">
+        <canvas className="bg-img bg-overlay"></canvas>
+      </div>
+    </div>
+  );
+  // return <div />;
 };
 
 export default ThreeJSApp;
