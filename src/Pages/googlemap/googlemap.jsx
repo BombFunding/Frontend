@@ -1,28 +1,14 @@
-// import React from "react";
-// import OpenLayersComponent from "./MapPage";
-// import styles from './googlemap.module.scss'; // وارد کردن CSS Modules
+import React from "react";
+import OpenLayersComponent from "./MapPage";
+import styles from './googlemap.module.scss';
 
-// const GoogleMap = () => {
-//   return (
-//     <div className={styles["no-navbar-footer"]}>
-//       <OpenLayersComponent />
-//     </div>
-//   );
-// };
-
-// export default GoogleMap;
-
-
-import React from 'react';
-import City3D from '@/components/City3D/City3D';  // مسیر فایل کامپوننت شما
-
-const App = () => {
+const GoogleMap = () => {
   return (
-      <div>
-          {/* <p>hi</p> */}
-      <City3D />
+    <div className={styles["no-navbar-footer"]}>
+      <OpenLayersComponent />
     </div>
   );
 };
 
-export default App;
+export default GoogleMap;
+

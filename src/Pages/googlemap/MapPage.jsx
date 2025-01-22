@@ -1,93 +1,105 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import 'ol/ol.css';
-import { Map, View } from 'ol';
+import { Map, View, Overlay } from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import { Feature } from 'ol';
 import { Point } from 'ol/geom';
-import { Style, Icon } from 'ol/style';
+import { Style, Circle, Fill, Stroke } from 'ol/style';
 import { fromLonLat } from 'ol/proj';
-import { Vector as VectorLayer } from 'ol/layer';
-import { Vector as VectorSource } from 'ol/source';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
 
 const OpenLayersComponent = () => {
   const mapRef = useRef(null);
-  const [markers, setMarkers] = useState([]);
-  const vectorSource = useRef(new VectorSource()).current;
-
-  const markersLayer = new VectorLayer({
-    source: vectorSource,
-  });
-
-  // تابع برای افزودن مارکر
-  const addMarker = (event) => {
-    const coordinate = event.coordinate;
-
-    // ایجاد ویژگی جدید (مارکر)
-    const markerFeature = new Feature({
-      geometry: new Point(coordinate),
-    });
-
-    // اعمال استایل به مارکر (آیکون)
-    markerFeature.setStyle(
-      new Style({
-        image: new Icon({
-          anchor: [0.5, 1],
-          src: '/pin.svg', // مسیر آیکون پین شما
-          scale: 0.1, // اندازه آیکون
-        }),
-      })
-    );
-
-    // افزودن ویژگی به منبع داده‌ها
-    vectorSource.addFeature(markerFeature);
-
-    // ذخیره مارکر جدید در state
-    setMarkers((prevMarkers) => [...prevMarkers, markerFeature]);
-  };
-
-  // تابع برای حذف آخرین مارکر
-  const removeLastMarker = () => {
-    if (markers.length > 0) {
-      const lastMarker = markers[markers.length - 1];
-      vectorSource.removeFeature(lastMarker);
-      setMarkers(markers.slice(0, -1)); // حذف آخرین مارکر از state
-    }
-  };
+  const tooltipRef = useRef(null);
 
   useEffect(() => {
-    // ایجاد نقشه
+    const vectorSource = new VectorSource();
+    const markersLayer = new VectorLayer({
+      source: vectorSource,
+    });
+
     const map = new Map({
       target: mapRef.current,
       layers: [
         new TileLayer({
           source: new OSM(),
         }),
-        markersLayer, // اضافه کردن لایه مارکرها به نقشه
+        markersLayer,
       ],
       view: new View({
-        center: fromLonLat([53.6880, 32.4279]), // مرکز نقشه بر روی ایران
-        zoom: 5, // زوم پیش‌فرض
+        center: fromLonLat([53.6880, 32.4279]), 
+        zoom: 5,
       }),
     });
 
-    // افزودن رویداد کلیک برای افزودن مارکر
-    map.on('click', addMarker);
+    
+    const tooltip = new Overlay({
+      element: tooltipRef.current,
+      offset: [0, -15], 
+      positioning: 'bottom-center',
+    });
+    map.addOverlay(tooltip);
 
-    return () => map.setTarget(null); // پاک کردن ارجاع به نقشه هنگام حذف کامپوننت
-  }, [markers]);
+    
+    map.on('click', (event) => {
+      const coordinate = event.coordinate;
+
+      const marker = new Feature({
+        geometry: new Point(coordinate),
+      });
+
+      marker.setStyle(
+        new Style({
+          image: new Circle({
+            radius: 6, 
+            fill: new Fill({ color: '#FF7517' }), 
+            stroke: new Stroke({ color: '#FFFFFF', width: 2 }), 
+          }),
+        })
+      );
+
+      vectorSource.addFeature(marker);
+    });
+
+    
+    map.on('pointermove', (event) => {
+      const feature = map.forEachFeatureAtPixel(event.pixel, (feature) => feature);
+      if (feature) {
+        const coordinates = feature.getGeometry().getCoordinates();
+        tooltip.setPosition(coordinates);
+        tooltipRef.current.innerHTML = `
+          <div style="font-size: 14px; font-weight: bold; color: #0C0C42;">سلام چطوری</div>
+          <hr style="border: 1px solid #0C0C42; margin: 5px 0;" />
+          <div style="font-size: 12px; color: #0C0C42;">مرسی</div>
+        `;
+        tooltipRef.current.style.display = 'block';
+      } else {
+        tooltipRef.current.style.display = 'none';
+      }
+    });
+
+    return () => map.setTarget(null);
+  }, []);
 
   return (
-    <div>
+    <>
+      <div ref={mapRef} style={{ width: '100%', height: '80vh' }} />
       <div
-        ref={mapRef}
+        ref={tooltipRef}
         style={{
-          width: '100%',
-          height: '80vh',
+          position: 'absolute',
+          backgroundColor: '#e8e8e8',
+          padding: '10px',
+          borderRadius: '8px',
+          border: '2px solid #0c0c42',
+          display: 'none',
+          pointerEvents: 'none',
+          boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.4)',
         }}
       />
-      <button onClick={removeLastMarker}>حذف آخرین مارکر</button>
-    </div>
+    </>
   );
 };
 
