@@ -194,18 +194,35 @@ button {
   }
   &:nth-of-type(1) {
     i {
-      background: -webkit-linear-gradient(300deg, #acccea, #000da1);
+      background: -webkit-linear-gradient(300deg, #fff9ab, rgb(161, 89, 0));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
   }
   &:nth-of-type(2) i {
-    background: -webkit-linear-gradient(300deg, #fff9ab, rgb(161, 89, 0));
+    background: -webkit-linear-gradient(300deg, #acccea, #000da1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 }
 
+// .num-count {
+//   position: absolute;
+//   user-select: none;
+//   cursor: default;
+//   font-size: 0.6rem;
+//   background: $clr-a300;
+//   width: 1.2rem;
+//   height: 1.2rem;
+//   color: $clr-white-1;
+//   display: inline-flex;
+//   justify-content: center;
+//   align-items: center;
+//   border-radius: 50%;
+//   top: -0.33rem;
+//   right: -.66rem;
+//   box-sizing: border-box;
+// }
 .num-count {
   position: absolute;
   user-select: none;
@@ -222,6 +239,27 @@ button {
   top: -0.33rem;
   right: -.66rem;
   box-sizing: border-box;
+
+  animation-name: scaleCount;
+  animation-iteration-count: 1;
+  animation-timing-function: all;
+  animation-duration: 1s;
+  animation-delay: 0s;
+
+  @keyframes scaleCount {
+    0% {
+      transform: scale(0);
+    }
+    40% {
+      transform: scale(1);
+    }
+    60% {
+      transform: scale(.5);
+    }
+    80% {
+      transform: scale(1.25);
+    }
+  }
 }
 
 .menu {
@@ -421,3 +459,4 @@ input.check-toggle-round-flat + label:after {
 input.check-toggle-round-flat:checked + label:after {
   margin-left: ($toggle-width/2) - ($toggle-gutter*2);
 }
+

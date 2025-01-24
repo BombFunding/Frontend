@@ -14,7 +14,7 @@ import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import NavbarDropDownSCN from "../NavbarDropDownSCN/NavbarDropDownSCN";
 import HamburgerSearch from "../HamburgerSearch/HamburgerSearch";
 // import Inbox from "../Inbox/Inbox";
-// import inboxstyles from '../Inbox/Inbox.module.scss';
+import inboxstyles from '../Inbox/Inbox.module.scss';
 
 
 function Navbar() {
@@ -91,30 +91,30 @@ function Navbar() {
             
         {/* <div className={inboxstyles.spacer}></div> */}
 
-{/* <div className={`${inboxstyles['notification-icons']}`}>
+<div className={`${inboxstyles['notification-icons']}`}>
   {accessToken && (
     <>
       {userType === "startup" && (
         <>
           <div className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}>
-            <i className="material-icons dp48">email</i>
-            <span className={inboxstyles['num-count']}>2</span>
-          </div>
-          <div className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}>
             <i className="material-icons dp48">notifications</i>
             <span className={inboxstyles['num-count']}>13</span>
+          </div>
+          <div className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}>
+            <i className="material-icons dp48">email</i>
+            <span className={inboxstyles['num-count']}>2</span>
           </div>
         </>
       )}
       {userType !== "startup" && (
-        <div className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}>
-          <i className="material-icons dp48">email</i>
-          <span className={inboxstyles['num-count']}>2</span>
-        </div>
+          <div className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}>
+            <i className="material-icons dp48">notifications</i>
+            <span className={inboxstyles['num-count']}>13</span>
+          </div>
       )}
     </>
   )}
-</div> */}
+</div>
 
 
 
@@ -150,40 +150,8 @@ function Navbar() {
         setIsSliderVisible={setIsVisible}
       />
     </nav>
+    
   );
 }
 
 export default Navbar;
-
-{
-  /* <>
-  <div class="relative">
-    <div class="flex justify-between items-center">
-      <div class="flex-1 BaseLayoutSearch_BaseLayoutSearch__QHPTB">
-        <div
-          data-cro-id="searchbox-click"
-          class="flex items-center SearchInput_SearchInput__HB9qi SearchInput_SearchInput__searchInput__CEpaj ellipsis bg-neutral-100 grow rounded px-0 lg:px-4 text-body-2"
-        >
-          <div class="w-full rounded-full">
-            <div class="flex items-center justify-between grow min-w-0 h-9">
-              <div class="flex cursor-pointer">
-                <svg style="width: 24px; height: 24px; fill: var(--color-icon-low-emphasis);">
-                  <use xlink:href="#searchSearch"></use>
-                </svg>
-              </div>
-              <span
-                data-cro-id="searchbox-type"
-                class="grow px-2 lg:px-4 ellipsis"
-              >
-                <div class="lg:text-body-2 text-button-1 flex items-center h-full text-body-2 text-neutral-500">
-                  جستجو
-                </div>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</>; */
-}
