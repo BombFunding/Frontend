@@ -18,6 +18,8 @@ import ProjectBox from "../ProjectBox/ProjectBox";
 import useProjectBoxStore from "@/stores/ProjectStore/ProjectBoxStore";
 import Bookmarks from "@/components/DashBoard/Bookmarks/Bookmarks";
 import MainChart from "@/components/BarChart/MainChart";
+import { Button } from "@/components/ui/button";
+
 const StartupDashBoard = () => {
 	const {
 		username,
@@ -80,7 +82,7 @@ const StartupDashBoard = () => {
 				{/* <Likes
 					className="translate-x-[1vw] translate-y-[11.5vw]"
 					count={likeCount}
-				/> */}
+					/> */}
 				<PersonalInfo loading={loading} />
 				<div className="flex flex-row justify-between gap-2 mt-2">
 					<div className="flex flex-col w-2/6 gap-2">
@@ -135,6 +137,17 @@ const StartupDashBoard = () => {
 						"365d": "/profile_statics/last-year/",
 					}}
 				/>
+        <div className="flex justify-center mt-4">
+        <div
+            onClick={() => (window.location.href = "/googlemap")}
+            className="bg-bomborange text-white text-center px-4 py-2 rounded cursor-pointer w-full max-w-[400px] font-bold text-lg"
+            style={{
+				width: "calc(110% - 2rem)",
+            }}
+        >
+            تغییر موقعیت روی نقشه
+        </div>
+    </div>
 			</Card>
 		</>
 	);
