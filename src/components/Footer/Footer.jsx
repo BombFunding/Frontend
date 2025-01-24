@@ -4,6 +4,10 @@ import LottieAnimation from "./animation";
 
 function Footer() {
 	const Navigate = useNavigate();
+	const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+	};
+
 	return (
 		<footer className="w-[100vw]">
 			<div className="footer bg-bomborange text-bombblack p-10 rtl w-full">
@@ -44,7 +48,7 @@ function Footer() {
 					<a className={styles.option}>حریم خصوصی</a>
 				</nav>
 				<nav>
-					<LottieAnimation />
+					<LottieAnimation onClick={scrollToTop} />
 				</nav>
 			</div>
 			<div className="footer bg-white text-bombblack border-t px-10 py-4 rtl">
