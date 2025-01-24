@@ -1,0 +1,19 @@
+.box {
+	@apply flex gap-5 my-[2vh] border-solid border-2 rounded-lg bg-gray-50 border-gray-300 py-[2vh] px-[1vw] w-full place-content-end;
+}
+
+.comment_section {
+	@apply flex flex-col w-full;
+}
+
+.profile {
+	@apply rounded-full w-20 h-20 object-cover hover:cursor-pointer;
+}
+
+.username {
+    @apply text-2xl text-black place-self-end;
+}
+
+.comment {
+    @apply text-base text-black;
+}

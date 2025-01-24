@@ -4,18 +4,14 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import ErrorMessage from "@/components/messages/ErrorMessage/ErrorMessage";
 import { toast } from "react-toastify";
-import { postImageData } from "@/Services/ApiClient/Services";
-
-const AvatarWithFileUpload = ({
-	className,
-	defaultAvatar,
-	avatarFileState,
-}) => {
+import { getData, postImageData } from "@/Services/ApiClient/Services";
+import styles from "./AvatarWithFileUpload.module.scss";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+const AvatarWithFileUpload = ({ className, avatarFileState }) => {
 	const [imageURL, setImageURL] = avatarFileState ?? useState("");
 	const [imageLoading, setImageLoading] = useState(false);
 	const fileInputRef = useRef(null);
-
-	// Function to handle file input change
+	const { setAvatar } = useProfileStore();
 	const handleImageChange = (event) => {
 		const file = event.target.files[0];
 		if (file) {
@@ -26,19 +22,20 @@ const AvatarWithFileUpload = ({
 				formData.append("profile_picture", file);
 				setImageLoading(true);
 				const toastId = toast.success(
-					<ErrorMessage message={"آواتار در حال بروزرسانی ..."} />,
-					{
-						autoClose: 20000,
-					}
+					<ErrorMessage message={"آواتار در حال بارگزاری ..."} />,
+					{ autoClose: 20000 }
 				);
 				postImageData("/auth/update_baseuser_profile/", formData)
 					.then((res) => {
 						console.log("Image posted successfully:", res);
 						setImageLoading(false);
+						setAvatar(
+							`http://104.168.46.4:8000${res.profile.profile_picture}`
+						);
 						toast.dismiss(toastId);
 						toast.success(
 							<ErrorMessage
-								message={"آواتار با موفقیت بروزرسانی شد"}
+								message={"آواتار با موفقیت بارگزاری شد"}
 							/>
 						);
 					})
@@ -47,7 +44,7 @@ const AvatarWithFileUpload = ({
 						setImageLoading(false);
 						toast.dismiss(toastId);
 						toast.error(
-							<ErrorMessage message={"آواتار بروزرسانی نشد"} />
+							<ErrorMessage message={"آواتار بارگزاری نشد"} />
 						);
 					});
 			};
@@ -55,35 +52,27 @@ const AvatarWithFileUpload = ({
 		}
 	};
 
-	// Function to trigger file input click
-	const handleAvatarClick = () => {
-		fileInputRef.current.click();
-	};
-
 	return (
 		<div className={`${className}`} style={{ textAlign: "center" }}>
 			<Avatar
-				// src={imageURL || AVATARIMG} // Display a default avatar image if none is selected
-				// alt="User Avatar"
-				// size="large" // Customize size according to your preference
-				onClick={handleAvatarClick} // Trigger file selection on avatar click
-				// style={{ cursor: "pointer" }} // Change cursor to pointer indicating it's clickable
-				className={`w-24 h-24 flex justify-center items-center relative overflow-hidden`}
+				onClick={() => fileInputRef.current.click()}
+				className={styles.profile}
 			>
-				<div className="w-full h-full top-1/2 absolute bg-black opacity-25" />
-				<CameraAltIcon className="absolute top-[60%] text-white opacity-90" />
+				<div className={styles.shadow} />
+				<CameraAltIcon className={styles.camera_icon} />
 				<AvatarImage
 					src={imageURL || AVATARIMG}
 					alt="User Avatar"
 					size="large"
+					className="object-cover"
 				/>
 			</Avatar>
 			<input
 				type="file"
 				accept="image/*"
-				style={{ display: "none" }} // Hide the file input element
-				ref={fileInputRef} // Attach input to useRef
-				onChange={handleImageChange} // Handle file selection
+				style={{ display: "none" }}
+				ref={fileInputRef}
+				onChange={handleImageChange}
 			/>
 		</div>
 	);

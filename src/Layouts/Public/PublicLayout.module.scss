@@ -1,0 +1,10 @@
+@media (max-width: 640) {
+  .topMargin {
+    @apply mt-12;
+  }
+}
+@media (min-width: 641) {
+  .topMargin {
+    @apply mt-24;
+  }
+}

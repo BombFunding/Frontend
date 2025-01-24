@@ -18,8 +18,10 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 import { toast } from "react-toastify";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import { useNavigate } from "react-router-dom";
 
 const TeamItem = ({ setMembers, memberData, className }) => {
+	const Navigate = useNavigate();
 	const [deleteMemberOpen, setDeleteMemberOpen] = useState(false);
 	const [editMemberOpen, setEditMemberOpen] = useState(false);
 	const [profileData, setProfileData] = React.useState(null);
@@ -63,8 +65,9 @@ const TeamItem = ({ setMembers, memberData, className }) => {
 			<div className="flex flex-col justify-center items-center gap-2">
 				<Avatar>
 					<AvatarImage
-						className="w-[60px] aspect-square rounded-full"
+						className="w-[60px] aspect-square rounded-full hover:cursor-pointer"
 						src={memberData.profile_pic}
+						onClick={() => {Navigate(`/profile/${memberData?.username}`)}}
 					/>
 				</Avatar>
 				<Label>{memberData.username}</Label>
@@ -85,7 +88,6 @@ const TeamItem = ({ setMembers, memberData, className }) => {
 					</DialogContent>
 				</Dialog>
 			</div>
-			<Separator />
 			<div className="flex flex-row items-center justify-center gap-2">
 				<Drawer open={editMemberOpen}>
 					<DrawerTrigger>

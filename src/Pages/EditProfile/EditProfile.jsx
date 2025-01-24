@@ -18,171 +18,204 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import ErrorMessage from "@/components/messages/ErrorMessage/ErrorMessage";
 import {
-  getData,
-  postData,
-  postImageData,
+	getData,
+	postData,
+	postImageData,
 } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import useTokenStore from "@/stores/TokenStore";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
-  firstName: yup.string().optional().nullable(),
-  lastName: yup.string().optional().nullable(),
-  phoneNumber: yup
-    .string()
-    .optional()
-    .nullable()
-    .matches(/^09[0-9]{9}$|^$/, "شماره تلفن معتبر وارد کنید"),
+	firstName: yup.string().optional().nullable(),
+	lastName: yup.string().optional().nullable(),
+	phoneNumber: yup
+		.string()
+		.optional()
+		.nullable()
+		.matches(/^09[0-9]{9}$|^$/, "شماره تلفن معتبر وارد کنید"),
 
-  bio: yup.string().max(300, "بیوگرافی نباید بیشتر از ۳۰۰ کاراکتر باشد"),
+	bio: yup.string().max(300, "بیوگرافی نباید بیشتر از ۳۰۰ کاراکتر باشد"),
 
-  telegramAccount: yup
-    .string()
-    .nullable()
-    .optional()
-    .matches(/^[a-zA-Z][a-zA-Z0-9_]{4,31}$|^$/, "آدرس تلگرام معتبر وارد کنید"),
+	telegramAccount: yup
+		.string()
+		.nullable()
+		.optional()
+		.matches(
+			/^[a-zA-Z][a-zA-Z0-9_]{4,31}$|^$/,
+			"آدرس تلگرام معتبر وارد کنید"
+		),
 
-  linkedinAccount: yup
-    .string()
-    .nullable()
-    .optional()
-    .url("آدرس لینکدین معتبر وارد کنید")
-    .matches(/linkedin\.com|^$/, "لینک باید مربوط به لینکدین باشد"),
+	linkedinAccount: yup
+		.string()
+		.nullable()
+		.optional()
+		.url("آدرس لینکدین معتبر وارد کنید")
+		.matches(/linkedin\.com|^$/, "لینک باید مربوط به لینکدین باشد"),
 
-  twitterAccount: yup
-    .string()
-    .nullable()
-    .optional()
-    .matches(/^[a-zA-Z][a-zA-Z0-9_]{0,14}$|^$/, "آدرس توییتر معتبر وارد کنید"),
+	twitterAccount: yup
+		.string()
+		.nullable()
+		.optional()
+		.matches(
+			/^[a-zA-Z][a-zA-Z0-9_]{0,14}$|^$/,
+			"آدرس توییتر معتبر وارد کنید"
+		),
 
-  website: yup
-    .string()
-    .nullable()
-    .optional()
-    .url("آدرس وب‌سایت معتبر وارد کنید")
-    .matches(
-      /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/[^\s]*)?$|^$/,
-      "فرمت آدرس وب‌سایت صحیح نیست"
-    ),
+	website: yup
+		.string()
+		.nullable()
+		.optional()
+		.url("آدرس وب‌سایت معتبر وارد کنید")
+		.matches(
+			/^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/[^\s]*)?$|^$/,
+			"فرمت آدرس وب‌سایت صحیح نیست"
+		),
 });
 
 const EditProfile = () => {
-  const userType = useTokenStore((state) => state.userType);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setFocus,
-    setValue,
-    reset,
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+	const userType = useTokenStore((state) => state.userType);
+	const Navigate = useNavigate();
+	const {
+		loading,
+		setLoading,
+		setFullname,
+		setEmail,
+		setPhone,
+		setUsername,
+		setBio,
+		setAvatar,
+		setHeader,
+	} = useProfileStore();
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		setFocus,
+		setValue,
+		reset,
+	} = useForm({
+		resolver: yupResolver(schema),
+	});
+	const [profileInfo, setProfileInfo] = React.useState({});
+	const [bannerFile, setBannerFile] = React.useState(null);
+	const [avatarFile, setAvatarFile] = React.useState(null);
+	const [imageLoading, setImageLoading] = React.useState(false);
 
-  const [profileInfo, setProfileInfo] = React.useState({});
-  const [bannerFile, setBannerFile] = React.useState(null);
-  const [avatarFile, setAvatarFile] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
-  const [imageLoading, setImageLoading] = React.useState(false);
+	useEffect(() => {
+		const fetchDefaultValues = async () => {
+			setLoading(true);
+			// await getData("/startup/view_own_startup_profile/", {
+			//   headers: {
+			//     "Cache-Control": "no-cache",
+			//     Pragma: "no-cache",
+			//   },
+			// });
+			// if (userType === "startup") {
+			await getData("/auth/view_own_baseuser_profile/")
+				.then((data) => {
+					console.log("data: ", data);
+					const profile = data.base_profile;
+					console.log("recived profile: ", profile);
+					setBannerFile(
+						`http://104.168.46.4:8000${profile.header_picture}`
+					);
+					setAvatarFile(
+						`http://104.168.46.4:8000${profile.profile_picture}`
+					);
+					const profileInfo_ = {
+						firstName: profile.first_name ?? "",
+						lastName: profile.last_name ?? "",
+						phoneNumber: profile.phone ?? "",
+						bio: profile.bio ?? "",
+						telegramAccount: profile.socials?.telegram ?? "",
+						linkedinAccount: profile.socials?.linkedin ?? "",
+						twitterAccount: profile.socials?.twitter ?? "",
+						website: profile.socials?.website ?? "",
+						email: profile.email ?? "",
+					};
+					setProfileInfo(profileInfo_);
+					reset(profileInfo_);
+					setLoading(false);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+			// }
+		};
 
-  useEffect(() => {
-    const fetchDefaultValues = async () => {
-      setLoading(true);
-      // await getData("/startup/view_own_startup_profile/", {
-      //   headers: {
-      //     "Cache-Control": "no-cache",
-      //     Pragma: "no-cache",
-      //   },
-      // });
-      // if (userType === "startup") {
-      await getData("/auth/view_own_baseuser_profile/")
-        .then((data) => {
-          console.log("data: ", data);
-          const profile = data.base_profile;
-          console.log("recived profile: ", profile);
-          setBannerFile(`http://104.168.46.4:8000${profile.header_picture}`);
-          setAvatarFile(`http://104.168.46.4:8000${profile.profile_picture}`);
-          const profileInfo_ = {
-            firstName: profile.first_name ?? "",
-            lastName: profile.last_name ?? "",
-            phoneNumber: profile.phone ?? "",
-            bio: profile.bio ?? "",
-            telegramAccount: profile.socials?.telegram ?? "",
-            linkedinAccount: profile.socials?.linkedin ?? "",
-            twitterAccount: profile.socials?.twitter ?? "",
-            website: profile.socials?.website ?? "",
-            email: profile.email ?? "",
-          };
-          setProfileInfo(profileInfo_);
-          reset(profileInfo_);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      // }
-    };
+		fetchDefaultValues();
+	}, [reset]);
 
-    fetchDefaultValues();
-  }, [reset]);
+	useEffect(() => {
+		if (errors) {
+			console.log("errors: ", errors);
+			Object.values(errors).map((err) => {
+				// console.log(err.message);
+				// toast.error(err.message);
+				// toast.error(<ErrorMessage message={err.message} />);
+				toast.error(<CustomToast Header={err.message} />);
+			});
+		}
+	}, [errors]);
 
-  useEffect(() => {
-    if (errors) {
-      console.log("errors: ", errors);
-      Object.values(errors).map((err) => {
-        // console.log(err.message);
-        // toast.error(err.message);
-        // toast.error(<ErrorMessage message={err.message} />);
-        toast.error(<CustomToast Header={err.message} />);
-      });
-    }
-  }, [errors]);
+	const onSubmit = (data) => {
+		console.log("Form submitted");
+		console.log(data);
+		const bodyData = {
+			phone: data.phoneNumber ?? profileInfo.phoneNumber,
+			first_name: data.firstName ?? profileInfo.firstName,
+			last_name: data.lastName ?? profileInfo.lastName,
+			bio: data.bio ?? profileInfo.bio,
+			socials: {
+				linkedin: data.linkedinAccount ?? profileInfo.linkedinAccount,
+				twitter: data.twitterAccount ?? profileInfo.twitterAccount,
+				telegram: data.telegramAccount ?? profileInfo.telegramAccount,
+				website: data.website ?? profileInfo.website,
+			},
+		};
+		const updateData = async (bodyData) => {
+			console.log("bodyData: ", bodyData);
+			await postData("/auth/update_baseuser_profile/", bodyData)
+				.then((res) => {
+					console.log(res);
 
-  const onSubmit = (data) => {
-    console.log("Form submitted");
-    console.log(data);
-    const bodyData = {
-      phone: data.phoneNumber ?? profileInfo.phoneNumber,
-      first_name: data.firstName ?? profileInfo.firstName,
-      last_name: data.lastName ?? profileInfo.lastName,
-      bio: data.bio ?? profileInfo.bio,
-      socials: {
-        linkedin: data.linkedinAccount ?? profileInfo.linkedinAccount,
-        twitter: data.twitterAccount ?? profileInfo.twitterAccount,
-        telegram: data.telegramAccount ?? profileInfo.telegramAccount,
-        website: data.website ?? profileInfo.website,
-      },
-    };
-    const updateData = async (bodyData) => {
-      console.log("bodyData: ", bodyData);
-      await postData("/auth/update_baseuser_profile/", bodyData)
-        .then((data) => {
-          console.log("Data posted successfully:", data);
-          toast.success(
-            // <ErrorMessage
-            // 	message={"پروفایل با موفقیت بروزرسانی شد"}
-            // />
-            <CustomToast Header="پروفایل با موفقیت بروزرسانی شد" />
-          );
-        })
-        .catch((error) => {
-          console.log("Data posting FAILED:", error);
-          toast.error(
-            // <ErrorMessage message={"پروفایل بروزرسانی نشد"} />
-            <CustomToast Header="خطا" Message="پروفایل بروزرسانی نشد" />
-          );
-        });
-    };
-    updateData(bodyData);
-  };
+					toast.success(
+						<CustomToast Header="پروفایل با موفقیت بروزرسانی شد" />
+					);
+					// setTimeout(() => {
+					// 	Navigate("/dashboard");
+					// }, 3000);
+					setLoading(false);
 
-  const fileInputRef = useRef(null);
+					setFullname(
+						res.profile.first_name + " " + res.profile.last_name
+					);
+					setUsername(res.profile.name);
+					setBio(res.profile.bio);
+					setEmail(res.profile.email);
+					setPhone(res.profile.phone);
+				})
+				.catch((error) => {
+					console.log("Data posting FAILED:", error);
+					toast.error(
+						<CustomToast
+							Header="خطا"
+							Message="پروفایل بروزرسانی نشد"
+						/>
+					);
+				});
+		};
+		updateData(bodyData);
+	};
 
-  const handleBannerClick = () => {
-    fileInputRef.current.click();
-  };
+	const fileInputRef = useRef(null);
+
+	const handleBannerClick = () => {
+		fileInputRef.current.click();
+	};
 
 	// Function to handle file input change
 	const handleBannerChange = (event) => {
@@ -195,56 +228,51 @@ const EditProfile = () => {
 				formData.append("header_picture", file);
 				setImageLoading(true);
 				const toastId = toast.success(
-					// <ErrorMessage message={"بنر در حال بروزرسانی ..."} />,
-					<CustomToast Header="بنر در حال بروزرسانی ..." />,
-					{
-						autoClose: 20000,
-					}
+					<CustomToast Header="بنر در حال بارگزاری ..." />,
+					{ autoClose: 20000 }
 				);
 				postImageData("/auth/update_baseuser_profile/", formData)
 					.then((res) => {
 						console.log("Image posted successfully:", res);
 						setImageLoading(false);
+						setHeader(
+							`http://104.168.46.4:8000${res.profile.header_picture}`
+						);
 						toast.dismiss(toastId);
 						toast.success(
-							// <ErrorMessage
-							// 	message={"بنر با موفقیت بروزرسانی شد"}
-							// />
-							<CustomToast Header="بنر با موفقیت بروزرسانی شد" />
+							<CustomToast Header="بنر با موفقیت بارگزاری شد" />
 						);
 					})
 					.catch((err) => {
 						console.log("Image posting FAILED:", err);
 						setImageLoading(false);
 						toast.dismiss(toastId);
-						toast.error(
-							// <ErrorMessage message={"بنر بروزرسانی نشد"} />
-							<CustomToast Header="بنر بروزرسانی نشد" />
-						);
+						toast.error(<CustomToast Header="بنر بارگزاری نشد" />);
 					});
 			};
 			reader.readAsDataURL(file);
 		}
 	};
-	if (loading) return <Loading />;
+	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
 	return (
 		<div className="font-vazirmatn mt-8 h-auto rtl place-self-center translate-y-[3vw] mb-[6vw]">
 			<Label className=" text-black text-2xl">اطلاعات کاربری</Label>
 
 			<Card className={styles.card_style}>
 				<form onSubmit={handleSubmit(onSubmit)}>
+					<AvatarWithFileUpload
+						avatarFileState={[avatarFile, setAvatarFile]}
+						className="m-4"
+					/>
 					<div className={styles.avatar_container}>
 						<img
 							className="w-full object-cover absolute"
 							src={bannerFile}
 							alt="avatar"
 						/>
-						<AvatarWithFileUpload
-							avatarFileState={[avatarFile, setAvatarFile]}
-							className={"m-4"}
-						/>
+
 						<button
-							className="absolute bottom-2 left-3 font-vazirmatn text-xs px-1 bg-gray-100 rounded-xl text-black text-gray-500 hover:text-bomborange transition-all duration-300 ease-in-out transform opacity-[93%] hover:opacity-100 hover:scale-110 bg-slate-50 shadow-md rounded-lg px-1 flex items-center h-4"
+							className="absolute bottom-2 left-3 font-vazirmatn text-xs px-1 bg-gray-100 rounded-xl text-black text-gray-500 hover:text-bomborange transition-all duration-300 ease-in-out transform opacity-[93%] hover:opacity-100 hover:scale-110 bg-slate-50 shadow-md rounded-lg flex items-center h-4"
 							type="button"
 							onClick={handleBannerClick}
 						>
@@ -359,9 +387,6 @@ const EditProfile = () => {
 							</div>
 						</div>
 					</div>
-					{/* <GeneralDrawerButton classNames="fixed bottom-4 right-5" icon={<SaveIcon />}>
-            <span>ذخیره</span>
-          </GeneralDrawerButton> */}
 					<button className={styles.save_btn} type="submit">
 						<SaveIcon className={styles.save_icon} />
 						<span className={styles.save_txt}>ذخیره</span>

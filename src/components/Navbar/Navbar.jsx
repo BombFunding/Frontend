@@ -7,21 +7,41 @@ import styles from "./Navbar.module.scss";
 import PushyButton from "../Custom/PushyButton/PushyButton";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu.jsx";
 import NavbarDropDown from "../NavbarDropdown/NavbarDropDown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchResultsList from "../SearchBar/SearchResultsList/SearchResultsList.jsx";
+import { getData } from "@/Services/ApiClient/Services";
+import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import NavbarDropDownSCN from "../NavbarDropDownSCN/NavbarDropDownSCN";
+import HamburgerSearch from "../HamburgerSearch/HamburgerSearch";
 function Navbar() {
   const Navigate = useNavigate();
+  const { accessToken } = useTokenStore();
   const [isOpen, setOpen] = useState(false);
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState({
+    users: [],
+    startups: [],
+    projects: [],
+  });
   const [isFocused, setIsFocused] = useState(false);
   const [input, setInput] = useState("");
-  const TOKEN = useTokenStore((state) => state.accessToken);
+  const [isVisible, setIsVisible] = useState(false);
+  const { avatar, setAvatar } = useProfileStore();
+  useEffect(() => {
+    getData(`/auth/view_own_baseuser_profile/`).then((data) => {
+      console.log("navbar: ", data);
+      setAvatar(`http://104.168.46.4:8000${data.base_profile.profile_picture}`);
+    });
+  }, []);
   return (
     <nav
-      className={`flex flex-col justify-around bg-bomborange h-24 top-0 fixed right-0 z-40 w-[100vw] gap-1`}
+      className={`flex flex-col justify-around top-0 fixed right-0 z-40 w-screen`}
     >
-      <div className="flex flex-row bg-bomborange w-full h-12 justify-between items-center px-6">
-        <div className="px-4 py-6 flex justify-between items-center w-full">
+      <div
+        className={`flex flex-row ${
+          isOpen ? "bg-black" : "bg-bomborange"
+        } w-full h-12 justify-between items-center px-6`}
+      >
+        <div className="px-4 flex justify-between items-center w-full">
           <div
             className="flex text-white hover:cursor-pointer"
             onClick={() => Navigate("/")}
@@ -39,14 +59,18 @@ function Navbar() {
               </>
             )}
           </div>
-          <div>
+          <div className={`${styles.searchbar}`}>
             <SearchBar
               setResults={setResults}
               setIsFocused={setIsFocused}
               setInput={setInput}
+              mode="desktop"
             />
             {/* <SearchResultsList results={results} className={"z-50 hidden"} /> */}
             <div
+              // className={`absolute top-14 w-[32.7vw] z-50 rounded-b-full shadow-lg ${
+              //   true == "" ? "hidden" : ""
+              // }`}
               className={`absolute top-14 w-[32.7vw] z-50 rounded-b-full shadow-lg ${
                 !isFocused || input == "" ? "hidden" : ""
               }`}
@@ -55,25 +79,38 @@ function Navbar() {
             </div>
           </div>
 
-          <div className={`${styles.mobile} flex`}>
-            {TOKEN ? (
-              <ProfileDropDown />
+          <div className={`${styles.mobile} flex gap-[1vw]`}>
+            <PushyButton onClick={() => Navigate("/starboard")}>
+              استارت‌آپ‌ها
+            </PushyButton>
+            {accessToken ? (
+              <div className="place-items-center">
+                <ProfileDropDown />
+              </div>
             ) : (
-              <PushyButton onClick={() => Navigate("/login")}>
-                Login
-              </PushyButton>
+              <PushyButton onClick={() => Navigate("/login")}>ورود</PushyButton>
             )}
           </div>
           <HamburgerMenu
             isOpen={isOpen}
             setOpen={setOpen}
             mode={"sm:hidden font-vazirmatn"}
+            token={accessToken}
+            isVisible={isVisible}
+            setIsVisible={setIsVisible}
           />
         </div>
       </div>
-      <div className="mt-[5vh] h-[2vh] w-[100vw] z-[-20]">
-        <NavbarDropDown />
+      <div
+        className={`h-12 bg-bomborange w-screen z-[-20] place-items-center ${styles.dropdown}`}
+      >
+        {/* <NavbarDropDown /> */}
+        <NavbarDropDownSCN />
       </div>
+      <HamburgerSearch
+        isSliderVisible={isVisible}
+        setIsSliderVisible={setIsVisible}
+      />
     </nav>
   );
 }

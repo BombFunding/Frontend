@@ -19,6 +19,7 @@
     background-color: white !important;
     @apply place-self-center;
   }
+
 }
 
 h1 {
@@ -63,6 +64,7 @@ h6 {
 }
 
 body {
+  @apply font-vazirmatn;
   margin: 0;
   display: flex;
   min-width: 320px;

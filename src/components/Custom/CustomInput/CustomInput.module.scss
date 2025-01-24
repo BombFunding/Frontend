@@ -12,11 +12,16 @@
 
 .CustomInput::-webkit-outer-spin-button,
 .CustomInput::-webkit-inner-spin-button {
-	-webkit-appearance: none;
+  -webkit-appearance: none;
 }
 
 /* Firefox */
 .CustomInput[type="number"] {
-	-moz-appearance: textfield;
-	appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
 }
+
+// .CustomInput {
+// 	@apply text-left transition duration-150 ease-in-out text-black px-4 pb-2 pt-2.5 rounded-lg border-solid border-2 border-bomborange;
+// 	direction: ltr;
+// }

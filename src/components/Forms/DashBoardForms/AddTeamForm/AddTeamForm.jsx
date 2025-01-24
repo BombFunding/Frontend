@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AddTeamForm.module.scss";
 import formStyles from "../DashBoardForm.module.scss";
 import { Label } from "@/components/ui/label";
@@ -16,82 +16,74 @@ import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 
 const validationSchema = Yup.object().shape({
-	username: Yup.string().required("Name is required"),
-	description: Yup.string().required("Name is required"),
-	role: Yup.string().required("Email is required"),
+  username: Yup.string().required("Name is required"),
+  description: Yup.string().required("Name is required"),
+  role: Yup.string().required("Email is required"),
 });
 const AddTeamForm = ({ setFormOpen, setMembers }) => {
-	const { username } = useProfileStore();
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm({
-		resolver: yupResolver(validationSchema),
-	});
-	const onSubmit = (data) => {
-		console.log(data);
-		const bodyData = {
-			username: data.username,
-			role: data.role,
-			description: data.description,
-		};
+  const { username } = useProfileStore();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
 
-		postData(`/startup/profile/team/add/`, bodyData)
-			.then((data) => {
-				getData(`/startup/profile/team/list/${username}/`).then(
-					(res) => {
-						toast.success(
-							<CustomToast Header="عضو جدید تیم اضافه شد" />
-						);
-						setTimeout(() => {
-							setMembers(res);
-							setFormOpen(false);
-						}, 3000);
-					}
-				);
-			})
-			.catch((err) => {
-				console.log("E: ", err);
-				if (err.response?.data?.error === "User already in team") {
-					toast.error(
-						<CustomToast
-							Header="خطا"
-							Message="کاربر در تیم وجود دارد"
-						/>
-					);
-				} else {
-					toast.error(
-						<CustomToast Header="خطا" Message="کاربر وجود ندارد" />
-					);
-				}
-				console.log(err);
-			});
-	};
-	return (
-		<form
-			className="flex flex-col gap-4 items-center font-vazirmatn m-5"
-			onSubmit={handleSubmit(onSubmit)}
-		>
-			<CustomInput
-				inputClassName={"w-[60vw] text-right"}
-				placeholder="نام کاربری"
-				register={register}
-				name={"username"}
-			/>
-			<CustomInput
-				inputClassName={"w-[60vw] text-right"}
-				placeholder="نقش عضو در تیم"
-				register={register}
-				name={"role"}
-			/>
-			<CustomTextArea
-				inputClassName={"w-[60vw] text-right"}
-				placeholder="توضیحات"
-				register={register}
-				name={"description"}
-			/>
-			{/* <div className={formStyles.input_box}>
+  const onSubmit = (data) => {
+    console.log(data);
+    const bodyData = {
+      username: data.username,
+      role: data.role,
+      description: data.description,
+    };
+
+    postData(`/startup/profile/team/add/`, bodyData)
+      .then((data) => {
+        getData(`/startup/profile/team/list/${username}/`).then((res) => {
+          toast.success(<CustomToast Header="عضو جدید تیم اضافه شد" />);
+          setTimeout(() => {
+            setMembers(res);
+            setFormOpen(false);
+          }, 3000);
+        });
+      })
+      .catch((err) => {
+        console.log("E: ", err);
+        if (err.response?.data?.error === "User already in team") {
+          toast.error(
+            <CustomToast Header="خطا" Message="کاربر در تیم وجود دارد" />
+          );
+        } else {
+          toast.error(<CustomToast Header="خطا" Message="کاربر وجود ندارد" />);
+        }
+        console.log(err);
+      });
+  };
+  return (
+    <form
+      className="flex flex-col gap-4 items-center font-vazirmatn m-5"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <CustomInput
+        inputClassName={"w-[60vw] text-right"}
+        placeholder="نام کاربری"
+        register={register}
+        name={"username"}
+      />
+      <CustomInput
+        inputClassName={"w-[60vw] text-right"}
+        placeholder="نقش عضو در تیم"
+        register={register}
+        name={"role"}
+      />
+      <CustomTextArea
+        inputClassName={"w-[60vw] text-right"}
+        placeholder="توضیحات"
+        register={register}
+        name={"description"}
+      />
+      {/* <div className={formStyles.input_box}>
         <Label className={formStyles.label_style}>نام کاربری</Label>
         <Input className={formStyles.input_style}></Input>
       </div>
@@ -103,11 +95,11 @@ const AddTeamForm = ({ setFormOpen, setMembers }) => {
         <Label className={formStyles.label_style}>توضیحات</Label>
         <Textarea className={formStyles.input_style}></Textarea>
       </div> */}
-			<Button className="btn bg-bomborange hover:text-white hover:bg-black">
-				اضافه کردن
-			</Button>
-		</form>
-	);
+      <Button className="btn bg-bomborange hover:text-white hover:bg-black">
+        اضافه کردن
+      </Button>
+    </form>
+  );
 };
 
 export default AddTeamForm;

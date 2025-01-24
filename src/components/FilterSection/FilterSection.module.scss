@@ -1,0 +1,32 @@
+@media (max-width: 641px) {
+  .topMargin {
+    @apply mt-24;
+  }
+}
+@media (min-width: 642px) {
+  .topMargin {
+    @apply mt-36;
+  }
+}
+
+@media (max-width: 850px) {
+  .flexBox {
+    @apply grid grid-cols-2 grid-rows-6 text-sm;
+    // @apply flex flex-row;
+  }
+  .buttonWidth {
+    @apply w-[50%];
+  }
+  .formWidth {
+    @apply w-[80vw];
+  }
+}
+
+@media (min-width: 851px) {
+  .flexBox {
+    @apply flex flex-row;
+  }
+  .formWidth {
+    @apply w-[95vw];
+  }
+}

@@ -6,9 +6,10 @@ import defaultpfp from "../../assets/defaultpfp.png";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
+import { Label } from "../ui/label";
 function PersonalInfo({ loading }) {
   const x = true;
-  const { likeCount, fullname, username, phone, email, bio, avatar, header } =
+  const { fullname, username, phone, email, bio, avatar, header } =
     useProfileStore();
   const Navigate = useNavigate();
   console.log(`email: ${email}`);
@@ -22,16 +23,24 @@ function PersonalInfo({ loading }) {
         src={avatar ? avatar : defaultpfp}
         className={`${
           styles.on
-        } absolute place-self-end rounded-full w-[12vw] translate-x-[-5vw] mt-[6vw] border-solid ${
+        } absolute place-self-end rounded-full w-[12vw] h-[12vw] object-cover translate-x-[-5vw] mt-[6vw] border-solid ${
           loading ? "" : "ring-[0.5vw]"
         } ring-bomborange`}
       />
       <Button
-        className="absolute border-solid border-2 bg-bomborange hover:bg-white translate-x-[0.5vw] mt-[1vw]"
+        className="absolute border-solid border-2 bg-bomborange hover:bg-white flex items-center justify-center"
+        style={{
+          width: "clamp(60px, 10vw, 150px)",
+          height: "calc(clamp(60px, 10vw, 150px) / 3)",
+          fontSize: "calc(clamp(60px, 10vw, 150px) / 10)",
+          top: "clamp(2px, 5vh, 40px)",
+          left: "clamp(10px, 5vw, 25px)",
+        }}
         onClick={() => Navigate("/editprofile")}
       >
-        ویرایش اطلاعات
+        <span>ویرایش اطلاعات</span>
       </Button>
+
       {/* <Likes count={2} className="absolute mt-[11.2vw] ml-[1.5vw]" /> */}
       <section
         className={`${
@@ -43,7 +52,9 @@ function PersonalInfo({ loading }) {
           <h1 className="text-gray-500 text-[1.25vw] place-self-center">
             @{username}
           </h1>
-          <h1 className={`text-[2vw]`}>{fullname}</h1>
+          {fullname !== "null null" && (
+            <h1 className={`text-[2vw]`}>{fullname}</h1>
+          )}
         </div>
         {/* <div className="flex gap-[0.75vw]">
 					<img src={calendarIcon} className="h-[2vw]" />
@@ -56,15 +67,19 @@ function PersonalInfo({ loading }) {
         </p>
         <div className="flex justify-between items-center w-full text-[1.5vw]">
           {/* Left Section (Empty or for other content) */}
-          <div className="w-1/2 flex justify-between pr-5 items-center gap-2">
-            <div className="phone-value text-[#555]">{email}</div>
-            <h3 className="phone-label">ایمیل</h3>
-          </div>
 
           {/* Right Section */}
-          <div className="w-1/2 flex justify-between pl-5 items-center gap-2">
-            <div className="phone-value text-[#555]">{phone}</div>
-            <h3 className="phone-label">شماره تماس</h3>
+          <div className="w-1/2 flex justify-end pl-5 items-center gap-2">
+            {phone && (
+              <>
+                <div className="phone-value text-[#555]">{phone}</div>
+                <Label className="text-xl">شماره تماس</Label>
+              </>
+            )}
+          </div>
+          <div className="w-1/2 flex justify-end pr-5 items-center gap-2">
+            <div className="phone-value text-[#555]">{email}</div>
+            <Label className="text-xl">ایمیل</Label>
           </div>
         </div>
       </section>

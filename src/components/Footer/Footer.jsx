@@ -1,27 +1,54 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./Footer.module.scss";
+import LottieAnimation from "./animation";
+
 function Footer() {
+	const Navigate = useNavigate();
+	const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+	};
+
 	return (
 		<footer className="w-[100vw]">
 			<div className="footer bg-bomborange text-bombblack p-10 rtl w-full">
 				<nav>
 					<h6 className={styles.top}>سرمایه گذاران</h6>
 					<a className={styles.option}>راهنمای سرمایه گذاری</a>
-					<a className={styles.option}>پروژه‌های برتر برای سرمایه‌گذاری</a>
-					<a className={styles.option}>سوالات متداول برای سرمایه‌گذاران</a>
+					<a className={styles.option}>
+						پروژه‌های برتر برای سرمایه‌گذاری
+					</a>
+					<a className={styles.option}>
+						سوالات متداول برای سرمایه‌گذاران
+					</a>
 					<a className={styles.option}>تیم پشتیبانی سرمایه‌گذاران</a>
 				</nav>
 				<nav>
 					<h6 className={styles.top}>استارت‌آپ‌ها</h6>
 					<a className={styles.option}>راهنمای استارت‌آپ‌ها</a>
 					<a className={styles.option}>پروژه‌های موفق</a>
-					<a className={styles.option}>قوانین و مقررات استارت‌آپ‌ها</a>
+					<a className={styles.option}>
+						قوانین و مقررات استارت‌آپ‌ها
+					</a>
 				</nav>
 				<nav>
 					<h6 className={styles.top}>ارتباط با ما</h6>
-					<a className={styles.option}>درباره ما</a>
-					<a className={styles.option}>تماس با ما</a>
+					<a
+						className={styles.option}
+						onClick={() => Navigate("/aboutus")}
+					>
+						درباره ما
+					</a>
+					<a
+						className={styles.option}
+						onClick={() => Navigate("/aboutus")}
+					>
+						تماس با ما
+					</a>
 					<a className={styles.option}>سوالات متداول</a>
 					<a className={styles.option}>حریم خصوصی</a>
+				</nav>
+				<nav>
+					<LottieAnimation onClick={scrollToTop} />
 				</nav>
 			</div>
 			<div className="footer bg-white text-bombblack border-t px-10 py-4 rtl">

@@ -190,70 +190,110 @@ import "./SearchBar.css";
 import { getData } from "@/Services/ApiClient/Services";
 import profPic from "../../assets/defaultpfp.png";
 
-const SearchBar = ({ setResults, setIsFocused, setInput }) => {
+// const SearchBar = ({ setResults, setIsFocused, setInput }) => {
+//   const handleFocus = () => setIsFocused(true);
+//   const handleBlur = () => setIsFocused(false);
+//   // const results = [
+//   //   {
+//   //     avatar: profPic,
+//   //     fullName: "علیرضا رحیمی",
+//   //     username: "basicalireza1",
+//   //   },
+//   //   {
+//   //     avatar: profPic,
+//   //     fullName: "علیرضا رحیمی",
+//   //     username: "basicalireza2",
+//   //   },
+//   //   {
+//   //     avatar: profPic,
+//   //     fullName: "علیرضا رحیمی",
+//   //     username: "basicalireza2",
+//   //   },
+//   //   {
+//   //     avatar: profPic,
+//   //     fullName: "علیرضا رحیمی",
+//   //     username: "basicalireza3",
+//   //   },
+//   //   {
+//   //     avatar: profPic,
+//   //     fullName: "علیرضا رحیمی",
+//   //     username: "basicalireza4",
+//   //   },
+//   //   {
+//   //     avatar: profPic,
+//   //     fullName: "علیرضا رحیمی",
+//   //     username: "basicalireza5",
+//   //   },
+//   // ];
+//   const handleChange = (e) => {
+//     // setResults(results);
+//     setInput(e.target.value);
+//     console.log(`input: ${e.target.value}`);
+//     // fetchData(value);
+//   };
+
+//   return (
+//     <div className={`input-wrapper text-black transition-all rounded-[10px]`}>
+//       <FaSearch id="search-icon" />
+//       <input
+//         placeholder="...جست و جو"
+//         className="font-vazirmatn h-8 w-[20vw] text-[18px] focus:w-[28vw] border-solid border-[3px] focus:outline-none mr-2 border-white px-[2vw] py-3 transition-all outline-none"
+//         name="search"
+//         onFocus={handleFocus}
+//         onBlur={handleBlur}
+//         onChange={handleChange}
+//       />
+//     </div>
+//   );
+// };
+// import { useState } from "react";
+// import { FaSearch } from "react-icons/fa";
+// import { getData } from "./path-to-getData"; // Adjust the path to where getData is defined
+
+const SearchBar = ({ setResults, setIsFocused, setInput, mode }) => {
+  const [timeoutId, setTimeoutId] = useState(null); // For debouncing
+
   const handleFocus = () => setIsFocused(true);
   const handleBlur = () => setIsFocused(false);
 
-  // const fetchData = (value) => {
-  //   fetch("https://jsonplaceholder.typicode.com/users")
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       const results = json.filter((user) => {
-  //         return (
-  //           value &&
-  //           user &&
-  //           user.name &&
-  //           user.name.toLowerCase().includes(value)
-  //         );
-  //       });
-  //       setResults(results);
-  //     });
-  // };
-  const results = [
-    {
-      avatar: profPic,
-      fullName: "علیرضا رحیمی",
-      username: "basicalireza1",
-    },
-    {
-      avatar: profPic,
-      fullName: "علیرضا رحیمی",
-      username: "basicalireza2",
-    },
-    {
-      avatar: profPic,
-      fullName: "علیرضا رحیمی",
-      username: "basicalireza2",
-    },
-    {
-      avatar: profPic,
-      fullName: "علیرضا رحیمی",
-      username: "basicalireza3",
-    },
-    {
-      avatar: profPic,
-      fullName: "علیرضا رحیمی",
-      username: "basicalireza4",
-    },
-    {
-      avatar: profPic,
-      fullName: "علیرضا رحیمی",
-      username: "basicalireza5",
-    },
-  ];
   const handleChange = (e) => {
-    setResults(results);
-    setInput(e.target.value);
-    console.log(`input: ${e.target.value}`);
-    // fetchData(value);
+    const value = e.target.value;
+    setInput(value);
+
+    // Debouncing to avoid making API calls on every keystroke
+    if (timeoutId) clearTimeout(timeoutId);
+
+    const newTimeoutId = setTimeout(async () => {
+      if (value.trim() === "") {
+        setResults({ users: [], startups: [], projects: [] }); // Clear results if input is empty
+        return;
+      }
+
+      try {
+        const results = await getData(
+          `/search/search/${encodeURIComponent(value)}`
+        );
+        setResults(results);
+        console.log(`Fetched results: `, results);
+      } catch (error) {
+        console.error("Error fetching search results: ", error);
+        setResults([]); // Optionally clear results on error
+      }
+    }, 500); // Delay for debouncing
+
+    setTimeoutId(newTimeoutId);
   };
 
   return (
-    <div className={`input-wrapper text-black transition-all rounded-[10px]`}>
+    <div className={`input-wrapper text-black transition-all rounded-lg`}>
       <FaSearch id="search-icon" />
       <input
         placeholder="...جست و جو"
-        className="font-vazirmatn h-8 w-[20vw] text-[18px] w-[28vw] border-solid border-[3px] outline-none mr-2 border-white px-[2vw] py-3 transition-all outline-none"
+        className={`font-vazirmatn h-8 ${
+          mode === "desktop"
+            ? "w-[20vw] text-[18px] focus:w-[28vw] border-solid border-[3px] focus:outline-none mr-2 border-white px-[2vw] py-3 transition-all outline-none"
+            : "text-[18px] w-[80vw] border-solid border-[3px] mr-2 border-white px-[2vw] py-3 outline-none"
+        }`}
         name="search"
         onFocus={handleFocus}
         onBlur={handleBlur}
