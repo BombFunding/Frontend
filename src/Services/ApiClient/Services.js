@@ -30,7 +30,7 @@ const RefreshToken = async () => {
 };
 
 const apiClient = axios.create({
-	baseURL: "http://104.168.46.4:8000/",
+	baseURL: "http://localhost:8000/",
 	timeout: 20000,
 	headers: {
 		"Content-Type": "application/json",

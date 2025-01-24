@@ -16,7 +16,7 @@ const InfiniteCarousel = ({ items, children }) => {
 							}
 						>
 							<img
-								src={`http://104.168.46.4:8000/${item.profile_picture}`}
+								src={`http://localhost:8000/${item.profile_picture}`}
 								className={styles.image}
 								alt=""
 							/>

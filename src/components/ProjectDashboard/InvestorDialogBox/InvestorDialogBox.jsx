@@ -46,7 +46,7 @@ const InvestotItem = ({ username, valueOfInvestment, investTime, id, profile }) 
 	useEffect(() => {
 		getData(`/auth/baseuser_search_by_name/${username}/`).then((data) => {
 			setAvatar(
-				`http://104.168.46.4:8000${data.baseuser_profile.profile_picture}`
+				`http://localhost:8000${data.baseuser_profile.profile_picture}`
 			);
 		});
 	}, []);

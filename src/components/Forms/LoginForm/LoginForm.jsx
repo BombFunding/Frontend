@@ -69,10 +69,10 @@ function LoginForm() {
 					setUserType(data.base_profile.user_type);
 					setPhone(data.base_profile.phone);
 					setAvatar(
-						`http://104.168.46.4:8000${data.base_profile.profile_picture}`
+						`http://localhost:8000${data.base_profile.profile_picture}`
 					);
 					setHeader(
-						`http://104.168.46.4:8000${data.base_profile.header_picture}`
+						`http://localhost:8000${data.base_profile.header_picture}`
 					);
 					getData(`/balance/balance/`).then((data1) => {
 						setBalance(data1.balance);

@@ -34,8 +34,8 @@ const StartupProfile = ({ className }) => {
           twitterAccount: profile.socials?.twitter ?? "",
           website: profile.socials?.website ?? "",
           email: profile.email ?? "",
-          banner: `http://104.168.46.4:8000${profile.header_picture}`,
-          avatar: `http://104.168.46.4:8000${profile.profile_picture}`,
+          banner: `http://localhost:8000${profile.header_picture}`,
+          avatar: `http://localhost:8000${profile.profile_picture}`,
         };
         setProfileInfo(profileInfo_);
         setLoading(false);

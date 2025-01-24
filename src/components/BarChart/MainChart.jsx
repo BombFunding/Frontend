@@ -67,7 +67,7 @@ function MainChart({ color, label, apiEndpoints, projectId, className }) {
 			// 	"90d": "/profile_statics/last-90-days/",
 			// 	"365d": "/profile_statics/last-year/",
 			// };
-			const apiUrl = `http://104.168.46.4:8000${apiEndpoints[timeRange]}?username=${uname}`; // ${uname} when fixed
+			const apiUrl = `http://localhost:8000${apiEndpoints[timeRange]}?username=${uname}`; // ${uname} when fixed
 			try {
 				// const response = await fetch(apiUrl, {
 				// 	headers: {

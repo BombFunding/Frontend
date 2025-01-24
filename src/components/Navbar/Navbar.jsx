@@ -13,7 +13,12 @@ import { getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import NavbarDropDownSCN from "../NavbarDropDownSCN/NavbarDropDownSCN";
 import HamburgerSearch from "../HamburgerSearch/HamburgerSearch";
+// import Inbox from "../Inbox/Inbox";
+// import inboxstyles from '../Inbox/Inbox.module.scss';
+
+
 function Navbar() {
+	const { userType } = useProfileStore();
   const Navigate = useNavigate();
   const { accessToken } = useTokenStore();
   const [isOpen, setOpen] = useState(false);
@@ -29,19 +34,18 @@ function Navbar() {
   useEffect(() => {
     getData(`/auth/view_own_baseuser_profile/`).then((data) => {
       console.log("navbar: ", data);
-      setAvatar(`http://104.168.46.4:8000${data.base_profile.profile_picture}`);
+      setAvatar(`http://localhost:8000${data.base_profile.profile_picture}`);
     });
   }, []);
   return (
-    <nav
-      className={`flex flex-col justify-around top-0 fixed right-0 z-40 w-screen`}
-    >
-      <div
-        className={`flex flex-row ${
-          isOpen ? "bg-black" : "bg-bomborange"
-        } w-full h-12 justify-between items-center px-6`}
-      >
-        <div className="px-4 flex justify-between items-center w-full">
+    <nav className={`flex flex-col justify-around top-0 fixed right-0 z-40 w-screen`}>
+  <div
+    className={`flex flex-row ${
+      isOpen ? "bg-black" : "bg-bomborange"
+    } w-full justify-between items-center px-6 transition-all duration-300`} // transition added
+    style={{ height: window.innerWidth <= 768 ? '78px' : '60px' }} // Adjust height based on screen width
+  >
+    <div className="px-4 flex justify-between items-center w-full">
           <div
             className="flex text-white hover:cursor-pointer"
             onClick={() => Navigate("/")}
@@ -80,9 +84,43 @@ function Navbar() {
           </div>
 
           <div className={`${styles.mobile} flex gap-[1vw]`}>
+            
             <PushyButton onClick={() => Navigate("/starboard")}>
               استارت‌آپ‌ها
             </PushyButton>
+            
+        {/* <div className={inboxstyles.spacer}></div> */}
+
+{/* <div className={`${inboxstyles['notification-icons']}`}>
+  {accessToken && (
+    <>
+      {userType === "startup" && (
+        <>
+          <div className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}>
+            <i className="material-icons dp48">email</i>
+            <span className={inboxstyles['num-count']}>2</span>
+          </div>
+          <div className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}>
+            <i className="material-icons dp48">notifications</i>
+            <span className={inboxstyles['num-count']}>13</span>
+          </div>
+        </>
+      )}
+      {userType !== "startup" && (
+        <div className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}>
+          <i className="material-icons dp48">email</i>
+          <span className={inboxstyles['num-count']}>2</span>
+        </div>
+      )}
+    </>
+  )}
+</div> */}
+
+
+
+
+
+
             {accessToken ? (
               <div className="place-items-center">
                 <ProfileDropDown />

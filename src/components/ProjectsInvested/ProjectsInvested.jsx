@@ -52,7 +52,7 @@ const ProjectsInvested = ({ className }) => {
 				<div className={styles.project_list}>
 					{projects?.map((item, index) => (
 						<InvestedItem
-							header={`http://104.168.46.4:8000${item.project.image}`}
+							header={`http://localhost:8000${item.project.image}`}
 							name={item.project.name}
 							key={index}
 							amount={item.investment_amount}

@@ -30,7 +30,7 @@ const AvatarWithFileUpload = ({ className, avatarFileState }) => {
 						console.log("Image posted successfully:", res);
 						setImageLoading(false);
 						setAvatar(
-							`http://104.168.46.4:8000${res.profile.profile_picture}`
+							`http://localhost:8000${res.profile.profile_picture}`
 						);
 						toast.dismiss(toastId);
 						toast.success(

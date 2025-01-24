@@ -65,10 +65,10 @@ const InvestorDashBoard = () => {
 			setEmail(data.base_profile.email);
 			setPhone(data.base_profile.phone);
 			setAvatar(
-				`http://104.168.46.4:8000${data.base_profile.profile_picture}`
+				`http://localhost:8000${data.base_profile.profile_picture}`
 			);
 			setHeader(
-				`http://104.168.46.4:8000${data.base_profile.header_picture}`
+				`http://localhost:8000${data.base_profile.header_picture}`
 			);
 			getData(`/categories/${data.base_profile.name}/`).then((data) => {
 				setSubcategories(data.subcategories);

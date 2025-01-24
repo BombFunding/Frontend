@@ -1,12 +1,12 @@
 .login_button {
-	@apply hover:bg-[#f0f0f0] h-7 py-0 -top-[1px];
+	@apply hover:bg-[#f0f0f0] h-9 py-1;
 	font: inherit;
 	background-color: #f0f0f0;
 	border: 0;
 	color: #242424;
 	border-radius: 0.5em;
 	font-size: 0.8rem;
-	padding: 0.375em 1em;
+	padding: 0.5em 1em; 
 	font-weight: 600;
 	text-shadow: 0 0.0625em 0 #fff;
 	box-shadow: inset 0 0.0625em 0 0 #f4f4f4, 0 0.0625em 0 0 #efefef,
