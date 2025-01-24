@@ -28,12 +28,25 @@ $trans: cubic-bezier(0.3,0,0.7,1);
 $media-mobile: "only screen and (max-width: 720px)";
 
 .notification-container {
+  direction: rtl;  // جهت متن را از راست به چپ تنظیم می‌کند
+  text-align: right;  // به طور پیش‌فرض متن به سمت راست تراز می‌شود
+  position: absolute;
+  z-index: 999;
+  top: 70px;
+  right: 93px;
+  width: 400px;
+  font-weight: 300;
+  background: white;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  box-shadow: $container-shadow;
+
+  // مثلث قبل از باکس (در سمت راست)
   &:before {
-    // triangle
     content: "";
     position: absolute;
     top: 1px;
-    right: 0;
+    right: 0;  // مثلث در سمت راست قرار می‌گیرد
     width: 0;
     height: 0; 
     transform: translate(-1rem, -100%);
@@ -41,44 +54,36 @@ $media-mobile: "only screen and (max-width: 720px)";
     border-right: .75rem solid transparent;
     border-bottom: .75rem solid white;
   }
-  cursor: default;
-  position: absolute;
-  z-index: 999;
-  top: 0;
-  right: ($h-gutter*5);
-  width: 400px;
-  font-weight: 300;
-  background: white;
-  border-radius: 0.5rem;
-  box-sizing: border-box;
-  box-shadow: $container-shadow;
+
   h3 {
     text-transform: uppercase;
     font-size: 75%;
     font-weight: 700;
-    color: #84929f;
+    color: #0C0C42;
     padding: $v-gutter*2 $h-gutter;
   }
+
   i {
-    color: #b5c4d2;
+    color: #0C0C42;
     font-size: 140%;
-    @vertical-align(50%);
     position: absolute;
-    &.right {
-      right: $h-gutter;
-      &:hover {
-        opacity: .8;
-        cursor: pointer;
-      }
+    left: $h-gutter;  // آیتم i در سمت چپ قرار می‌گیرد
+    @vertical-align(50%);
+    
+    &:hover {
+      opacity: .8;
+      cursor: pointer;
     }
   }
-   em {
-     margin-right: $v-gutter;
-     font-weight: 700;
-     font-size: 115%;
-     color: #b5c4d2;
-     vertical-align: bottom;
-     display: inline-block;
+
+  em {
+    margin-right: $v-gutter;
+    font-weight: 700;
+    font-size: 115%;
+    color: #FF7517;
+    vertical-align: bottom;
+    display: inline-block;
+    text-align: left;  // متن در داخل em به سمت چپ تراز می‌شود
   }
 
   animation-name: dropPanel;
@@ -97,9 +102,13 @@ $media-mobile: "only screen and (max-width: 720px)";
 .notification {
   box-sizing: border-box;
   &.new {
-    background: #f3f9fd;
+    background: transparent; // رنگ پیش‌فرض شفاف (بدون رنگ)
+    &:hover {
+      background: #fff2c2; // تغییر: رنگ با شفافیت 50%
+    }
   }
 }
+
 
 input.checkbox[type='checkbox']{
   display: none;
@@ -167,22 +176,22 @@ spacer {
   width: 100%;
 }
 
-button {
-  float: right;
-  border-radius: 3px;
-  cursor: pointer;
-  display: inline-block;
-  font-weight: normal;
-  padding: 8px 12px;
-  border: 0;
-  font-size: 13px;
-  line-height: 13px;
-  color: white;
-  background: #B2B9C5;
-  &:hover {
-    opacity: .9;
-  }
-}
+// button {
+//   float: right;
+//   border-radius: 3px;
+//   cursor: pointer;
+//   display: inline-block;
+//   font-weight: normal;
+//   padding: 8px 12px;
+//   border: 0;
+//   font-size: 13px;
+//   line-height: 13px;
+//   color: white;
+//   background: #B2B9C5;
+//   &:hover {
+//     opacity: .9;
+//   }
+// }
 
 .notification-icon {
   position: relative;
@@ -330,7 +339,7 @@ button {
         @include vertical-align(50%);
       }
     }
-    &.dropdown {
+    &.inboxdropdown {
       &.active {
         background: $menu;
         margin-top: $v-gutter;
@@ -347,32 +356,6 @@ button {
 
 // PROFILE CONTAINER
 
-.profile-container {
-  position: absolute;
-  z-index: 99;
-  top: 0;
-  right: ($h-gutter)-($v-gutter);
-  width: 400px;
-  font-weight: 300;
-  background: white;
-  padding: $v-gutter*1.5 $v-gutter $v-gutter;
-  //border-radius: 0.5rem;
-  box-sizing: border-box;
-  box-shadow: $container-shadow;
-  .user-photo {
-    width: 100px;
-    height: 100px;
-    margin: 0 $v-gutter $v-gutter 0;
-    border-radius: 8px; //100%;
-  }
-  .user-email {
-    display: block;
-  }
-  i {
-    color: #b5c4d2;
-    font-size: 110%;
-  }
-}
 
 h1 {
   font-size: 125%;

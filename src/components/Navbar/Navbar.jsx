@@ -7,7 +7,7 @@ import styles from "./Navbar.module.scss";
 import PushyButton from "../Custom/PushyButton/PushyButton";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu.jsx";
 import NavbarDropDown from "../NavbarDropdown/NavbarDropDown";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchResultsList from "../SearchBar/SearchResultsList/SearchResultsList.jsx";
 import { getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
@@ -16,6 +16,26 @@ import HamburgerSearch from "../HamburgerSearch/HamburgerSearch";
 import inboxstyles from '../Inbox/Inbox.module.scss';
 
 function Navbar() {
+const [messages, setMessages] = useState([
+  { id: "message_1", count: 1, text: '   یک پیام فارسی.' },
+  { id: "message_2", count: 2, text: '   یک پیام فارسی.' },
+  { id: "message_3", count: 3, text: '   یک پیام فارسی.' },
+  { id: "message_4", count: 4, text: '   یک پیام فارسی.' },
+  { id: "message_5", count: 5, text: '   یک پیام فارسی.' },
+]);
+
+const [notificationCount, setNotificationCount] = useState(messages.length); // مقدار اولیه تعداد پیام‌ها
+
+const handleRemoveMessage = (messageId) => {
+  setMessages((prevMessages) => {
+    const updatedMessages = prevMessages.filter((message) => message.id !== messageId);
+    setNotificationCount(updatedMessages.length); // به‌روزرسانی تعداد اعلان‌ها
+    return updatedMessages;
+  });
+};
+
+
+
   const { userType } = useProfileStore();
   const Navigate = useNavigate();
   const { accessToken } = useTokenStore();
@@ -91,15 +111,18 @@ function Navbar() {
                   <>
                     {userType === "startup" && (
                       <>
-                        <div
-                          className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}
-                          onClick={handleNotificationClick}
-                            style={{ cursor: 'pointer' }} // تغییر حالت موس به حالت کلیک
-// مدیریت کلیک برای باز و بسته کردن پنل اعلان
-                        >
-                          <i className="material-icons dp48">notifications</i>
-                          <span className={inboxstyles['num-count']}>13</span>
-                        </div>
+<div
+  className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}
+  onClick={handleNotificationClick}
+  style={{ cursor: 'pointer' }} // تغییر حالت موس به حالت کلیک
+>
+  <i className="material-icons dp48">notifications</i>
+  {notificationCount > 0 && (
+    <span className={inboxstyles['num-count']}>{notificationCount}</span>
+  )}
+</div>
+
+
                         <div className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}>
                           <i className="material-icons dp48">email</i>
                           <span className={inboxstyles['num-count']}>2</span>
@@ -138,7 +161,7 @@ function Navbar() {
 
         {/* پنل اعلان */}
         <div
-          className={`h-12 bg-bomborange w-screen z-[-20] place-items-center ${styles.dropdown}`}
+          className={`h-12 bg-bomborange w-screen z-[-20] place-items-center ${styles.inboxdropdown}`}
           style={{ transform: isNotificationPanelOpen ? 'translateY(0)' : 'translateY(-100%)', transition: 'transform 0.3s ease-in-out' }} // انیمیشن پنل
         >
           <NavbarDropDownSCN />
@@ -151,41 +174,48 @@ function Navbar() {
 
       {/* پنل اعلان‌ها */}
       {isNotificationPanelOpen && (
-        <div className={inboxstyles["notification-container"]}>
-          <h3>
-            Notifications
-            <i className="material-icons dp48 right">settings</i>
-          </h3>
+<div className={inboxstyles["notification-container"]}>
+  <h3>
+    {notificationCount > 0 ? "اطلاعیه ها" : "هیچ اطلاعیه جدیدی نیست"}
+    {/* <i className="material-icons dp48 right">settings</i> */}
+  </h3>
 
           <input className={inboxstyles["checkbox"]} type="checkbox" id="size_1" value="small" checked />
-          <label className={inboxstyles["notification"] + " " + inboxstyles["new"]} htmlFor="size_1">
-            <em>1</em> new <a href="">guest account(s)</a> have been created.
-            <i className="material-icons dp48 right">clear</i>
-          </label>
+{/* /////////////////////
+/////////////////////
+///////////////////// */}
+{messages.map((message) => (
+  <React.Fragment key={message.id}>
+    <input
+      className={inboxstyles["checkbox"]}
+      type="checkbox"
+      id={`size_${message.id}`}
+      value={`message_${message.id}`}
+      checked
+    />
+    <label
+      className={inboxstyles["notification"] + " " + inboxstyles["new"]}
+      htmlFor={`size_${message.id}`}
+    >
+      <em className={inboxstyles["number"]}>{message.count}</em>
+      <span className={inboxstyles["text"]} id={`message_${message.id}`}>
+        {message.text}
+      </span>
+      <i
+        className="material-icons dp48 right"
+        onClick={() => handleRemoveMessage(message.id)}
+      >
+        clear
+      </i>
+    </label>
+  </React.Fragment>
+))}
 
-          <input className={inboxstyles["checkbox"]} type="checkbox" id="size_2" value="small" checked />
-          <label className={inboxstyles["notification"] + " " + inboxstyles["new"]} htmlFor="size_2">
-            <em>3</em> new <a href="">lead(s)</a> are available in the system.
-            <i className="material-icons dp48 right">clear</i>
-          </label>
-
-          <input className={inboxstyles["checkbox"]} type="checkbox" id="size_3" value="small" checked />
-          <label className={inboxstyles["notification"]} htmlFor="size_3">
-            <em>5</em> new <a href="">task(s)</a>.
-            <i className="material-icons dp48 right">clear</i>
-          </label>
-
-          <input className={inboxstyles["checkbox"]} type="checkbox" id="size_4" value="small" checked />
-          <label className={inboxstyles["notification"]} htmlFor="size_4">
-            <em>9</em> new <a href="">calendar event(s)</a> are scheduled for today.
-            <i className="material-icons dp48 right">clear</i>
-          </label>
-
-          <input className={inboxstyles["checkbox"]} type="checkbox" id="size_5" value="small" checked />
-          <label className={inboxstyles["notification"]} htmlFor="size_5">
-            <em>1</em> blog post <a href="">comment(s)</a> need approval.
-            <i className="material-icons dp48 right">clear</i>
-          </label>
+  {/* /////////////////////
+  /////////////////////
+  /////////////////////
+           */}
+          
         </div>
       )}
     </>
