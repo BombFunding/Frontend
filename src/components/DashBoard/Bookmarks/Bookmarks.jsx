@@ -31,7 +31,7 @@ const Bookmarks = ({ className, type }) => {
 				<div className={styles.project_list}>
 					{projects?.map((project, index) => (
 						<ProjectItem
-							header={`http://localhost:8000${project.project_header_picture}`}
+							header={`https://bombfundingbackend.liara.run${project.project_header_picture}`}
 							name={project.project_name}
 							add={false}
 							key={index}

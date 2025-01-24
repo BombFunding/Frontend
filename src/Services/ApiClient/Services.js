@@ -30,7 +30,7 @@ const RefreshToken = async () => {
 };
 
 const apiClient = axios.create({
-	baseURL: "http://localhost:8000/",
+	baseURL: "https://bombfundingbackend.liara.run/",
 	timeout: 20000,
 	headers: {
 		"Content-Type": "application/json",

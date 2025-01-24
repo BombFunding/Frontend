@@ -239,7 +239,7 @@ const observer = new IntersectionObserver(
   async (entries) => {
     if (entries.some((entry) => entry.isIntersecting)) {
       try {
-        const response = await fetch('http://localhost:8000/landing/get_statistics/');
+        const response = await fetch('https://bombfundingbackend.liara.run/landing/get_statistics/');
         const data = await response.json();
 
         const { total_base_profiles, total_startup_profiles, total_positions } = data;

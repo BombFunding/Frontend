@@ -58,7 +58,7 @@ const usePublicProjectStore = create(
           //       );
           //       return {
           //         ...pre,
-          //         profile: `http://localhost:8000${data.baseuser_profile.profile_picture}`,
+          //         profile: `https://bombfundingbackend.liara.run${data.baseuser_profile.profile_picture}`,
           //         ownerName:
           //           data.baseuser_profile.first_name +
           //           " " +

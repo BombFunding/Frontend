@@ -10,7 +10,7 @@ const IranMap = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/map/pins/province-count/");
+        const response = await fetch("https://bombfundingbackend.liara.run/map/pins/province-count/");
         const data = await response.json();
         setApiData(data);
       } catch (error) {

@@ -33,7 +33,7 @@ let colorIndex = 0;
 
 const get_revenue_data = async () => {
   try {
-    const response = await fetch('http://localhost:8000/landing/category-revenue/', {
+    const response = await fetch('https://bombfundingbackend.liara.run/landing/category-revenue/', {
       method: 'GET',
     });
     if (!response.ok) {
@@ -70,7 +70,7 @@ const get_revenue_data = async () => {
 
 const get_count_data = async () => {
   try {
-    const response = await fetch('http://localhost:8000/landing/category-count/', {
+    const response = await fetch('https://bombfundingbackend.liara.run/landing/category-count/', {
       method: 'GET',
     });
     if (!response.ok) {
@@ -106,7 +106,7 @@ const get_count_data = async () => {
 };
 const get_liked_data = async () => {
   try {
-    const response = await fetch('http://localhost:8000/landing/category-liked/', {
+    const response = await fetch('https://bombfundingbackend.liara.run/landing/category-liked/', {
       method: 'GET',
     });
     if (!response.ok) {
@@ -142,7 +142,7 @@ const get_liked_data = async () => {
 };
 const get_viewd_data = async () => {
   try {
-    const response = await fetch('http://localhost:8000/landing/category-viewd/', {
+    const response = await fetch('https://bombfundingbackend.liara.run/landing/category-viewd/', {
       method: 'GET',
     });
     if (!response.ok) {

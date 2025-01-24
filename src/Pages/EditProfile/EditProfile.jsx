@@ -120,10 +120,10 @@ const EditProfile = () => {
 					const profile = data.base_profile;
 					console.log("recived profile: ", profile);
 					setBannerFile(
-						`http://localhost:8000${profile.header_picture}`
+						`https://bombfundingbackend.liara.run${profile.header_picture}`
 					);
 					setAvatarFile(
-						`http://localhost:8000${profile.profile_picture}`
+						`https://bombfundingbackend.liara.run${profile.profile_picture}`
 					);
 					const profileInfo_ = {
 						firstName: profile.first_name ?? "",
@@ -236,7 +236,7 @@ const EditProfile = () => {
 						console.log("Image posted successfully:", res);
 						setImageLoading(false);
 						setHeader(
-							`http://localhost:8000${res.profile.header_picture}`
+							`https://bombfundingbackend.liara.run${res.profile.header_picture}`
 						);
 						toast.dismiss(toastId);
 						toast.success(

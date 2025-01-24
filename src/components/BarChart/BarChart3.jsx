@@ -37,7 +37,7 @@ function ProjectFund() {
         "90d": `/profile_statics/project/${project_id}/fund/last-90-days/`,
         "365d": `/profile_statics/project/${project_id}/fund/last-year/`,
       };
-      const apiUrl = `http://localhost:8000${apiEndpoints[timeRange]}`; // ${uname} when fixed 
+      const apiUrl = `https://bombfundingbackend.liara.run${apiEndpoints[timeRange]}`; // ${uname} when fixed 
       try {
         const response = await fetch(apiUrl, {
           headers: {

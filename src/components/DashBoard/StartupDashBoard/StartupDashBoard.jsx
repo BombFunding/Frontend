@@ -54,10 +54,10 @@ const StartupDashBoard = () => {
 			setEmail(data.base_profile.email);
 			setPhone(data.base_profile.phone);
 			setAvatar(
-				`http://localhost:8000${data.base_profile.profile_picture}`
+				`https://bombfundingbackend.liara.run${data.base_profile.profile_picture}`
 			);
 			setHeader(
-				`http://localhost:8000${data.base_profile.header_picture}`
+				`https://bombfundingbackend.liara.run${data.base_profile.header_picture}`
 			);
 			getData(`/balance/balance/`).then((data) =>
 				setBalance(data.balance)

@@ -31,8 +31,8 @@ const InvestorProfile = ({ className }) => {
 					twitterAccount: profile.socials?.twitter ?? "",
 					website: profile.socials?.website ?? "",
 					email: profile.email ?? "",
-					banner: `http://localhost:8000${profile.header_picture}`,
-					avatar: `http://localhost:8000${profile.profile_picture}`,
+					banner: `https://bombfundingbackend.liara.run${profile.header_picture}`,
+					avatar: `https://bombfundingbackend.liara.run${profile.profile_picture}`,
 				};
 				setProfileInfo(profileInfo_);
 				setLoading(false);

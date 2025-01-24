@@ -52,7 +52,7 @@ const ProjectsInvested = ({ className }) => {
 				<div className={styles.project_list}>
 					{projects?.map((item, index) => (
 						<InvestedItem
-							header={`http://localhost:8000${item.project.image}`}
+							header={`https://bombfundingbackend.liara.run${item.project.image}`}
 							name={item.project.name}
 							key={index}
 							amount={item.investment_amount}

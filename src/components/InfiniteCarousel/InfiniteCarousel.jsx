@@ -16,7 +16,7 @@ const InfiniteCarousel = ({ items, children }) => {
 							}
 						>
 							<img
-								src={`http://localhost:8000/${item.profile_picture}`}
+								src={`https://bombfundingbackend.liara.run/${item.profile_picture}`}
 								className={styles.image}
 								alt=""
 							/>

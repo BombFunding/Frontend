@@ -54,7 +54,7 @@ const handleRemoveMessage = (messageId) => {
   useEffect(() => {
     getData(`/auth/view_own_baseuser_profile/`).then((data) => {
       console.log("navbar: ", data);
-      setAvatar(`http://localhost:8000${data.base_profile.profile_picture}`);
+      setAvatar(`https://bombfundingbackend.liara.run${data.base_profile.profile_picture}`);
     });
   }, []);
 
@@ -111,28 +111,28 @@ const handleRemoveMessage = (messageId) => {
                   <>
                     {userType === "startup" && (
                       <>
-<div
-  className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}
-  onClick={handleNotificationClick}
-  style={{ cursor: 'pointer' }} // تغییر حالت موس به حالت کلیک
->
-  <i className="material-icons dp48">notifications</i>
-  {notificationCount > 0 && (
-    <span className={inboxstyles['num-count']}>{notificationCount}</span>
-  )}
-</div>
-
-
-                        <div className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}>
-                          <i className="material-icons dp48">email</i>
-                          <span className={inboxstyles['num-count']}>2</span>
-                        </div>
+                      <div
+                        className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}
+                        onClick={handleNotificationClick}
+                        style={{ cursor: 'pointer' }} // تغییر حالت موس به حالت کلیک
+                      >
+                        <i className="material-icons dp48">notifications</i>
+                        {notificationCount > 0 && (
+                          <span className={inboxstyles['num-count']}>{notificationCount}</span>
+                        )}
+                      </div>
                       </>
                     )}
                     {userType !== "startup" && (
-                      <div className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}>
+                                            <div
+                        className={`${inboxstyles['notification-icon']} ${inboxstyles.right}`}
+                        onClick={handleNotificationClick}
+                        style={{ cursor: 'pointer' }} // تغییر حالت موس به حالت کلیک
+                      >
                         <i className="material-icons dp48">notifications</i>
-                        <span className={inboxstyles['num-count']}>13</span>
+                        {notificationCount > 0 && (
+                          <span className={inboxstyles['num-count']}>{notificationCount}</span>
+                        )}
                       </div>
                     )}
                   </>

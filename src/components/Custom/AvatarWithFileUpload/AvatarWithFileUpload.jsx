@@ -30,7 +30,7 @@ const AvatarWithFileUpload = ({ className, avatarFileState }) => {
 						console.log("Image posted successfully:", res);
 						setImageLoading(false);
 						setAvatar(
-							`http://localhost:8000${res.profile.profile_picture}`
+							`https://bombfundingbackend.liara.run${res.profile.profile_picture}`
 						);
 						toast.dismiss(toastId);
 						toast.success(
