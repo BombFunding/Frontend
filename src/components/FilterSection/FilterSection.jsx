@@ -136,12 +136,11 @@ function FilterSection() {
       my_favorite: favorite,
     };
     setPageNumber(page ? Number(page) : 1);
-    console.log(formData);
+    console.log("formData", formData);
     getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
       setResults(data.result_count);
       setTotalPages(data.total_pages);
       setProjects(data.results);
-      console.log(data.results);
       setLoading(false);
     });
   };
