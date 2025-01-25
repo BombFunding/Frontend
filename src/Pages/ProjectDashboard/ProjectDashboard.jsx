@@ -28,6 +28,7 @@ const ProjectDashboard = () => {
 	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
 	return (
 		<>
+		<div className="justify-center items-center flex flex-col">
 			<div className={styles.full_page}>
 				{/* <div className={styles.typer}>
           <TypewriterComponent
@@ -121,6 +122,7 @@ const ProjectDashboard = () => {
 					}}
 				/>
 			</div>
+		</div>
 		</>
 	);
 };
