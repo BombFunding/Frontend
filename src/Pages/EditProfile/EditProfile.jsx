@@ -182,9 +182,9 @@ const EditProfile = () => {
 					toast.success(
 						<CustomToast Header="پروفایل با موفقیت بروزرسانی شد" />
 					);
-					// setTimeout(() => {
-					// 	Navigate("/dashboard");
-					// }, 3000);
+					setTimeout(() => {
+						Navigate("/dashboard");
+					}, 3000);
 					setLoading(false);
 
 					setFullname(
@@ -194,6 +194,7 @@ const EditProfile = () => {
 					setBio(res.profile.bio);
 					setEmail(res.profile.email);
 					setPhone(res.profile.phone);
+
 				})
 				.catch((error) => {
 					console.log("Data posting FAILED:", error);

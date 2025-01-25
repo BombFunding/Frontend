@@ -45,10 +45,11 @@ function PersonalInfo({ loading }) {
 			</Button>
 
 			{/* <Likes count={2} className="absolute mt-[11.2vw] ml-[1.5vw]" /> */}
+			<Label className="text-xl pt-[3vw] mr-4">اطلاعات کاربری</Label>
 			<section
 				className={`${
-					x ?? "border-solid border-2 border-bomborange "
-				} rounded-lg py-[3vw] px-[5vw] place-content-end`}
+					x ?? "border-solid border-2 border-bomborange"
+				} border-solid border-2 border-bomborange rounded-lg py-[3vw] px-[5vw] place-content-end`}
 			>
 				<div className="absolute translate-x-[5.2vw] -translate-y-[4vh] z-0"></div>
 				<div className="flex justify-between">
@@ -56,7 +57,7 @@ function PersonalInfo({ loading }) {
 						@{username}
 					</h1>
 					{fullname !== "null null" && (
-						<h1 className={`text-[2vw]`}>{fullname}</h1>
+						<h1 className={`text-2xl mb-4`}>{fullname}</h1>
 					)}
 				</div>
 				{/* <div className="flex gap-[0.75vw]">
@@ -65,9 +66,14 @@ function PersonalInfo({ loading }) {
 						عضویت از 2024/12/5
 					</div>
 				</div> */}
-				<p className="rtl text-[1.5vw] border-solid border-2 my-[1vw] p-[2vw] rounded-lg">
-					{bio}
-				</p>
+				{bio && (
+					<>
+						<Label className="text-lg mr-4">بیوگرافی</Label>
+						<p className="rtl text-[1.5vw] border-solid border-2 my-[1vw] p-[2vw] rounded-lg">
+							{bio}
+						</p>
+					</>
+				)}
 				<div className="flex justify-between items-center w-full text-[1.5vw]">
 					{/* Left Section (Empty or for other content) */}
 
