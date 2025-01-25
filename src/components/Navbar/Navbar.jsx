@@ -15,6 +15,7 @@ import { baseURL, getData } from "@/Services/ApiClient/Services";
 import Inbox from "../Inbox/Inbox";
 import styles from "./Navbar.module.scss";
 import inboxstyles from "../Inbox/Inbox.module.scss";
+import { FiInbox } from "react-icons/fi";
 
 function Navbar() {
   const { userType } = useProfileStore();
@@ -85,12 +86,14 @@ function Navbar() {
 
   // console.log(accessToken);
 
-  fetchOfflineNotifications();
+  useEffect(() => {
+    fetchOfflineNotifications();
+  }, []);
 
   useEffect(() => {
     setNotificationCount(messages.length);
   }, [messages]);
-  console.log("ref");
+  // console.log("ref");
 
   useEffect(() => {
     getData(`/auth/view_own_baseuser_profile/`).then((data) => {
@@ -172,12 +175,16 @@ function Navbar() {
               <PushyButton onClick={() => Navigate("/starboard")}>
                 استارت‌آپ‌ها
               </PushyButton>
-
+              {/* <FiInbox /> */}
               {accessToken && (
                 <div
                   className={`${inboxstyles["notification-icon"]} ${inboxstyles.right}`}
                   onClick={handleNotificationClick}
-                  style={{ cursor: "pointer" }}
+                  style={{
+                    cursor: "pointer",
+                    height: "32px",
+                    width: "32px",
+                  }}
                 >
                   <i className="material-icons dp48">notifications</i>
                   {notificationCount > 0 && (
