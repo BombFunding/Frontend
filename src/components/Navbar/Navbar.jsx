@@ -40,7 +40,7 @@ function Navbar() {
   const fetchOfflineNotifications = async () => {
     try {
       const response = await fetch(
-        "https://bombfundingbackend.liara.run/notifications/user-notifications/",
+        "http://104.168.46.4:8000/notifications/user-notifications/",
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -83,17 +83,20 @@ function Navbar() {
     }
   };
 
+  // console.log(accessToken);
+
   fetchOfflineNotifications();
 
   useEffect(() => {
     setNotificationCount(messages.length);
-  }, []);
+  }, [messages]);
+  console.log("ref");
 
   useEffect(() => {
     getData(`/auth/view_own_baseuser_profile/`).then((data) => {
       setAvatar(`http://localhost:8000${data.base_profile.profile_picture}`);
     });
-  }, []);
+  }, [accessToken]);
 
   const handleNotificationClick = () => {
     setIsNotificationPanelOpen((prev) => !prev);

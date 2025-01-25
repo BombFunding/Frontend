@@ -21,9 +21,9 @@ const StartupProfile = ({ className }) => {
     setLoading(true);
     getData(`/auth/baseuser_search_by_name/${username}/`)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         const profile = data.baseuser_profile;
-        console.log("recived profile: ", profile);
+        // console.log("recived profile: ", profile);
         const profileInfo_ = {
           firstName: profile.first_name ?? "",
           lastName: profile.last_name ?? "",
@@ -34,8 +34,8 @@ const StartupProfile = ({ className }) => {
           twitterAccount: profile.socials?.twitter ?? "",
           website: profile.socials?.website ?? "",
           email: profile.email ?? "",
-          banner: `https://bombfundingbackend.liara.run${profile.header_picture}`,
-          avatar: `https://bombfundingbackend.liara.run${profile.profile_picture}`,
+          banner: `http://104.168.46.4:8000${profile.header_picture}`,
+          avatar: `http://104.168.46.4:8000${profile.profile_picture}`,
         };
         setProfileInfo(profileInfo_);
         setLoading(false);

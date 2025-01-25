@@ -18,7 +18,7 @@ function Inbox({
   // const fetchOfflineNotifications = async () => {
   //   try {
   //     const response = await fetch(
-  //       "https://bombfundingbackend.liara.run/notifications/user-notifications/",
+  //       "http://104.168.46.4:8000/notifications/user-notifications/",
   //       {
   //         headers: {
   //           Authorization: `Bearer ${accessToken}`,
@@ -115,7 +115,7 @@ function Inbox({
   const handleRemoveMessage = async (messageId) => {
     try {
       const response = await fetch(
-        `https://bombfundingbackend.liara.run/notifications/read-notification/${messageId}/`,
+        `http://104.168.46.4:8000/notifications/read-notification/${messageId}/`,
         {
           method: "POST",
           headers: {

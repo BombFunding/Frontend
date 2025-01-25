@@ -110,7 +110,7 @@ function Project({ className }) {
   //       getData(`/auth/baseuser_search_by_name/${data.owner_username}/`).then(
   //         (res) => {
   //           setProfile(
-  //             `https://bombfundingbackend.liara.run${res.baseuser_profile.profile_picture}`
+  //             `http://104.168.46.4:8000${res.baseuser_profile.profile_picture}`
   //           );
   //           setOwnerName(
   //             res.baseuser_profile.first_name +

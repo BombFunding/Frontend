@@ -130,7 +130,7 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
       Icon: SlLogout,
     },
   ];
-  console.log(`fullname: ${fullname}`);
+  // console.log(`fullname: ${fullname}`);
   return (
     <div ref={ref} className={`${mode}`}>
       <Hamburger

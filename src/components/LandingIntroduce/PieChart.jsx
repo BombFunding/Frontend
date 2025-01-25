@@ -3,41 +3,53 @@
 import * as React from "react";
 import { TrendingUp } from "lucide-react";
 import { Label, Pie, PieChart } from "recharts";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { useInView } from 'react-intersection-observer'; 
-import moment from 'moment-jalaali'; 
-import { Bar, BarChart, XAxis, YAxis } from "recharts"
-
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+import { useInView } from "react-intersection-observer";
+import moment from "moment-jalaali";
+import { Bar, BarChart, XAxis, YAxis } from "recharts";
 
 const colors = [
-  '#FF7517',  
-  '#024CAA',  
-  '#821131',  
-  '#C7253E',  
-  '#E2A701',
-  '#556B2F',
-  '#87A922',  
-  '#9B3922',  
-  '#0C084B',  
+  "#FF7517",
+  "#024CAA",
+  "#821131",
+  "#C7253E",
+  "#E2A701",
+  "#556B2F",
+  "#87A922",
+  "#9B3922",
+  "#0C084B",
 ];
 
-  const currentDate = moment(); 
-  const persianMonth = currentDate.jMonth(); 
-  const persianYear = currentDate.jYear(); 
-  const persianMonthName = currentDate.format('jMMMM'); 
-  const lastMonthName = moment().subtract(1, 'month').format('jMMMM'); 
+const currentDate = moment();
+const persianMonth = currentDate.jMonth();
+const persianYear = currentDate.jYear();
+const persianMonthName = currentDate.format("jMMMM");
+const lastMonthName = moment().subtract(1, "month").format("jMMMM");
 
 let colorIndex = 0;
 
-
 const get_revenue_data = async () => {
   try {
-    const response = await fetch('https://bombfundingbackend.liara.run/landing/category-revenue/', {
-      method: 'GET',
-    });
+    const response = await fetch(
+      "http://104.168.46.4:8000/landing/category-revenue/",
+      {
+        method: "GET",
+      }
+    );
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
     const data = await response.json();
     console.log("Received Data from API:", data);
@@ -70,11 +82,14 @@ const get_revenue_data = async () => {
 
 const get_count_data = async () => {
   try {
-    const response = await fetch('https://bombfundingbackend.liara.run/landing/category-count/', {
-      method: 'GET',
-    });
+    const response = await fetch(
+      "http://104.168.46.4:8000/landing/category-count/",
+      {
+        method: "GET",
+      }
+    );
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
     const data = await response.json();
     console.log("Received Data from API:", data);
@@ -106,11 +121,14 @@ const get_count_data = async () => {
 };
 const get_liked_data = async () => {
   try {
-    const response = await fetch('https://bombfundingbackend.liara.run/landing/category-liked/', {
-      method: 'GET',
-    });
+    const response = await fetch(
+      "http://104.168.46.4:8000/landing/category-liked/",
+      {
+        method: "GET",
+      }
+    );
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
     const data = await response.json();
     console.log("Received Data from API:", data);
@@ -142,11 +160,14 @@ const get_liked_data = async () => {
 };
 const get_viewd_data = async () => {
   try {
-    const response = await fetch('https://bombfundingbackend.liara.run/landing/category-viewd/', {
-      method: 'GET',
-    });
+    const response = await fetch(
+      "http://104.168.46.4:8000/landing/category-viewd/",
+      {
+        method: "GET",
+      }
+    );
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
     const data = await response.json();
     console.log("Received Data from API:", data);
@@ -179,38 +200,40 @@ const get_viewd_data = async () => {
 
 //////////////////////////////////////////////////////////////////////////////////////
 const PieChartComponent = () => {
-  const [chartData, setChartData] = React.useState([]); 
+  const [chartData, setChartData] = React.useState([]);
 
   React.useEffect(() => {
-    
     const fetchData = async () => {
       const data = await get_revenue_data();
-      console.log("Chart Data:", data); 
-      setChartData(data); 
+      console.log("Chart Data:", data);
+      setChartData(data);
     };
 
     fetchData();
-  }, []); 
+  }, []);
 
   const totalstartup = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.startup, 0);
   }, [chartData]);
 
   const { ref, inView } = useInView({
-    triggerOnce: true, 
-    threshold: 1, 
+    triggerOnce: true,
+    threshold: 1,
   });
 
   return (
     <Card ref={ref} className="flex flex-col">
       <CardHeader className="items-center pb-0">
         <CardTitle>توزیع درآمدی استارتاپ ها</CardTitle>
-                <CardDescription>{`${lastMonthName} - ${persianMonthName} ${persianYear}`}</CardDescription>
+        <CardDescription>{`${lastMonthName} - ${persianMonthName} ${persianYear}`}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer className="mx-auto aspect-square max-h-[250px]">
           <PieChart>
-            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
             <Pie
               data={chartData}
               dataKey="startup"
@@ -223,11 +246,24 @@ const PieChartComponent = () => {
                 content={({ viewBox }) => {
                   if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                     return (
-                      <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle" dominantBaseline="middle">
-                        <tspan x={viewBox.cx} y={viewBox.cy} className="fill-foreground text-3xl font-bold">
+                      <text
+                        x={viewBox.cx}
+                        y={viewBox.cy}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                      >
+                        <tspan
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          className="fill-foreground text-3xl font-bold"
+                        >
                           {totalstartup.toLocaleString()}
                         </tspan>
-                        <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 24} className="fill-muted-foreground">
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 24}
+                          className="fill-muted-foreground"
+                        >
                           هزار تومان
                         </tspan>
                       </text>
@@ -241,10 +277,11 @@ const PieChartComponent = () => {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-          مجموع درآمد همه استارتاپ ها در یک ماه گذشته<TrendingUp className="h-4 w-4" />
+          مجموع درآمد همه استارتاپ ها در یک ماه گذشته
+          <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-        مقادیر برحسب هزار تومان است
+          مقادیر برحسب هزار تومان است
         </div>
       </CardFooter>
     </Card>
@@ -252,38 +289,40 @@ const PieChartComponent = () => {
 };
 
 const PieChartComponent2 = () => {
-  const [chartData, setChartData] = React.useState([]); 
+  const [chartData, setChartData] = React.useState([]);
 
   React.useEffect(() => {
-    
     const fetchData = async () => {
       const data = await get_liked_data();
-      console.log("Chart Data:", data); 
-      setChartData(data); 
+      console.log("Chart Data:", data);
+      setChartData(data);
     };
 
     fetchData();
-  }, []); 
+  }, []);
 
   const totalstartup = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.startup, 0);
   }, [chartData]);
 
   const { ref, inView } = useInView({
-    triggerOnce: true, 
-    threshold: 1, 
+    triggerOnce: true,
+    threshold: 1,
   });
 
   return (
     <Card ref={ref} className="flex flex-col">
       <CardHeader className="items-center pb-0">
         <CardTitle>توزیع محبوبیت استارتاپ ها</CardTitle>
-                <CardDescription>{`${lastMonthName} - ${persianMonthName} ${persianYear}`}</CardDescription>
+        <CardDescription>{`${lastMonthName} - ${persianMonthName} ${persianYear}`}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer className="mx-auto aspect-square max-h-[250px]">
           <PieChart>
-            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
             <Pie
               data={chartData}
               dataKey="startup"
@@ -296,12 +335,25 @@ const PieChartComponent2 = () => {
                 content={({ viewBox }) => {
                   if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                     return (
-                      <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle" dominantBaseline="middle">
-                        <tspan x={viewBox.cx} y={viewBox.cy} className="fill-foreground text-3xl font-bold">
+                      <text
+                        x={viewBox.cx}
+                        y={viewBox.cy}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                      >
+                        <tspan
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          className="fill-foreground text-3xl font-bold"
+                        >
                           {totalstartup.toLocaleString()}
                         </tspan>
-                        <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 24} className="fill-muted-foreground">
-نفر
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 24}
+                          className="fill-muted-foreground"
+                        >
+                          نفر
                         </tspan>
                       </text>
                     );
@@ -314,49 +366,52 @@ const PieChartComponent2 = () => {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-          مجموع لایک همه استارتاپ ها در یک ماه گذشته<TrendingUp className="h-4 w-4" />
+          مجموع لایک همه استارتاپ ها در یک ماه گذشته
+          <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-       برحسب حوزه هایی که در آن فعالیت میکند
-   </div>
+          برحسب حوزه هایی که در آن فعالیت میکند
+        </div>
       </CardFooter>
     </Card>
   );
 };
 
 const PieChartComponent3 = () => {
-  const [chartData, setChartData] = React.useState([]); 
+  const [chartData, setChartData] = React.useState([]);
 
   React.useEffect(() => {
-    
     const fetchData = async () => {
       const data = await get_viewd_data();
-      console.log("Chart Data:", data); 
-      setChartData(data); 
+      console.log("Chart Data:", data);
+      setChartData(data);
     };
 
     fetchData();
-  }, []); 
+  }, []);
 
   const totalstartup = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.startup, 0);
   }, [chartData]);
 
   const { ref, inView } = useInView({
-    triggerOnce: true, 
-    threshold: 1, 
+    triggerOnce: true,
+    threshold: 1,
   });
 
   return (
     <Card ref={ref} className="flex flex-col">
       <CardHeader className="items-center pb-0">
         <CardTitle>توزیع بازدیدهای استارتاپ ها</CardTitle>
-                <CardDescription>{`${lastMonthName} - ${persianMonthName} ${persianYear}`}</CardDescription>
+        <CardDescription>{`${lastMonthName} - ${persianMonthName} ${persianYear}`}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer className="mx-auto aspect-square max-h-[250px]">
           <PieChart>
-            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
             <Pie
               data={chartData}
               dataKey="startup"
@@ -369,11 +424,24 @@ const PieChartComponent3 = () => {
                 content={({ viewBox }) => {
                   if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                     return (
-                      <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle" dominantBaseline="middle">
-                        <tspan x={viewBox.cx} y={viewBox.cy} className="fill-foreground text-3xl font-bold">
+                      <text
+                        x={viewBox.cx}
+                        y={viewBox.cy}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                      >
+                        <tspan
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          className="fill-foreground text-3xl font-bold"
+                        >
                           {totalstartup.toLocaleString()}
                         </tspan>
-                        <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 24} className="fill-muted-foreground">
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 24}
+                          className="fill-muted-foreground"
+                        >
                           بار بازدید
                         </tspan>
                       </text>
@@ -387,7 +455,8 @@ const PieChartComponent3 = () => {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-          مجموع بازدید استارتاپهای فعال در آن حوزه<TrendingUp className="h-4 w-4" />
+          مجموع بازدید استارتاپهای فعال در آن حوزه
+          <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
           تعداد بازدید ها در یک ماه گذشته حساب شده است
@@ -398,24 +467,24 @@ const PieChartComponent3 = () => {
 };
 
 const BarChartComponent = () => {
-  const [chartData, setChartData] = React.useState([]); 
+  const [chartData, setChartData] = React.useState([]);
 
   React.useEffect(() => {
     const fetchData = async () => {
       const data = await get_count_data();
-      console.log("Chart Data:", data); 
-      setChartData(data); 
+      console.log("Chart Data:", data);
+      setChartData(data);
     };
     fetchData();
-  }, []); 
+  }, []);
 
   const totalstartup = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.startup, 0);
   }, [chartData]);
 
   const { ref, inView } = useInView({
-    triggerOnce: true, 
-    threshold: 1, 
+    triggerOnce: true,
+    threshold: 1,
   });
 
   const chartConfig = chartData.reduce((acc, { category, startup, fill }) => {
@@ -447,12 +516,13 @@ const BarChartComponent = () => {
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) =>
-                chartConfig[value]?.label || value
-              }
+              tickFormatter={(value) => chartConfig[value]?.label || value}
             />
             <XAxis dataKey="startup" type="number" hide />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
             <Bar
               dataKey="startup"
               layout="vertical"
@@ -469,7 +539,7 @@ const BarChartComponent = () => {
           <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-  برحسب حوزه هایی که در آن فعالیت میکند
+          برحسب حوزه هایی که در آن فعالیت میکند
         </div>
       </CardFooter>
     </Card>
@@ -478,14 +548,12 @@ const BarChartComponent = () => {
 
 function ThreePieCharts() {
   return (
-<div className="flex flex-wrap lg:flex-nowrap flex-col lg:flex-row justify-around items-center gap-0">
-
-  <BarChartComponent />
-  <PieChartComponent2 />
-  <PieChartComponent3 />
-  <PieChartComponent />
-</div>
-
+    <div className="flex flex-wrap lg:flex-nowrap flex-col lg:flex-row justify-around items-center gap-0">
+      <BarChartComponent />
+      <PieChartComponent2 />
+      <PieChartComponent3 />
+      <PieChartComponent />
+    </div>
   );
 }
 

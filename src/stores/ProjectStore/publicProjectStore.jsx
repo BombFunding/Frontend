@@ -36,7 +36,7 @@ const usePublicProjectStore = create(
         set((pre) => ({ ...pre, loading: true }));
         try {
           let data = await getData(`/projects/detail/${projectId}/`);
-          console.log(data)
+          console.log(data);
           set((pre) => ({
             ...pre,
             image: data.image,
@@ -48,7 +48,7 @@ const usePublicProjectStore = create(
             subcategories: data.subcategories,
             position: data.open_position,
             profile: data.owner_profile_picture,
-            likes: data.like_count
+            likes: data.like_count,
           }));
           //   set(async (pre) => {
           //     try {
@@ -58,7 +58,7 @@ const usePublicProjectStore = create(
           //       );
           //       return {
           //         ...pre,
-          //         profile: `https://bombfundingbackend.liara.run${data.baseuser_profile.profile_picture}`,
+          //         profile: `http://104.168.46.4:8000${data.baseuser_profile.profile_picture}`,
           //         ownerName:
           //           data.baseuser_profile.first_name +
           //           " " +

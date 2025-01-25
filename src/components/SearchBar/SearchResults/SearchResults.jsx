@@ -37,7 +37,7 @@ export default function SearchResult({ result }) {
         } overflow-hidden lg:w-[5vw] md:w-[7vw]`}
       >
         <img
-          src={`https://bombfundingbackend.liara.run${
+          src={`http://104.168.46.4:8000${
             result.profile_picture ?? result.image
           }`}
           alt={`${result.fullName ?? result.name}`}
