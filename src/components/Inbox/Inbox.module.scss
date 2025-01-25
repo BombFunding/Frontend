@@ -1,4 +1,5 @@
-@import "https://fonts.googleapis.com/css?family=Material+Icons";
+
+@import 'https://fonts.googleapis.com/css?family=Material+Icons';
 
 $clr-white-1: #ecf0f1;
 $clr-white-2: darken($clr-white-1, 5%);
@@ -13,23 +14,23 @@ $menu: #444753;
 $link-color: $teal;
 
 $primary-button: $teal;
-$secondary-button: #b2b9c5;
+$secondary-button: #B2B9C5;
 
-$v-gutter: 0.75rem;
+$v-gutter: .75rem;
 $h-gutter: 2rem;
 $toggle-gutter: 2px;
 $toggle-width: 90px;
 $toggle-height: 26px;
 
 $container-shadow: 0.5rem 0.5rem 2rem 0 rgba(black, 0.2);
-$trans: cubic-bezier(0.3, 0, 0.7, 1);
+$trans: cubic-bezier(0.3,0,0.7,1);
 
 $media-mobile: "only screen and (max-width: 720px)";
 // این برای دراپ داون نوتیف هاست اما باگ داره
 .notification-container {
   direction: rtl;
-  text-align: right;
-  position: fixed;
+  text-align: right; 
+  position: absolute;
   z-index: 999;
   top: 70px;
   right: 93px;
@@ -44,32 +45,32 @@ $media-mobile: "only screen and (max-width: 720px)";
     content: "";
     position: absolute;
     top: 1px;
-    right: 0;
+    right: 0;  
     width: 0;
-    height: 0;
+    height: 0; 
     transform: translate(-1rem, -100%);
-    border-left: 0.75rem solid transparent;
-    border-right: 0.75rem solid transparent;
-    border-bottom: 0.75rem solid white;
+    border-left: .75rem solid transparent;
+    border-right: .75rem solid transparent;
+    border-bottom: .75rem solid white;
   }
 
   h3 {
     text-transform: uppercase;
     font-size: 75%;
     font-weight: 700;
-    color: #0c0c42;
-    padding: $v-gutter * 2 $h-gutter;
+    color: #0C0C42;
+    padding: $v-gutter*2 $h-gutter;
   }
 
   i {
-    color: #0c0c42;
+    color: #0C0C42;
     font-size: 140%;
     position: absolute;
-    left: $h-gutter;
-    @vertical-align (50%);
-
+    left: $h-gutter; 
+    @vertical-align(50%);
+    
     &:hover {
-      opacity: 0.8;
+      opacity: .8;
       cursor: pointer;
     }
   }
@@ -78,7 +79,7 @@ $media-mobile: "only screen and (max-width: 720px)";
     margin-right: $v-gutter;
     font-weight: 700;
     font-size: 115%;
-    color: #ff7517;
+    color: #FF7517;
     vertical-align: bottom;
     display: inline-block;
     text-align: left;
@@ -87,13 +88,13 @@ $media-mobile: "only screen and (max-width: 720px)";
   animation-name: dropPanel;
   animation-iteration-count: 1;
   animation-timing-function: all;
-  animation-duration: 0.75s;
+  animation-duration: .75s;
 }
 
 @keyframes dropPanel {
   0% {
     opacity: 0;
-    transform: translateY(-100px) scaleY(0.5);
+    transform: translateY(-100px) scaleY(.5);
   }
 }
 
@@ -102,48 +103,49 @@ $media-mobile: "only screen and (max-width: 720px)";
   &.new {
     background: transparent;
     &:hover {
-      background: #fff2c2;
+      background: #fff2c2; 
     }
   }
 }
 
-input.checkbox[type="checkbox"] {
+
+input.checkbox[type='checkbox']{
   display: none;
   + label {
     display: block;
   }
   &:not(:checked) + label {
-    transition: height 0.25s;
+    transition: height .25s;
     height: 0;
     padding: 0;
     font-size: 0;
     border: none;
     * {
-      display: none;
+      display: none; 
     }
   }
-  &:checked + label {
-    height: ($v-gutter * 3) + 1rem;
-    padding: $v-gutter * 1.5 $h-gutter * 2 $v-gutter $h-gutter;
+  &:checked + label {  
+    height: ($v-gutter*3) + 1rem;
+    padding: $v-gutter*1.5 $h-gutter*2 $v-gutter $h-gutter;   
     font-size: 75%;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(0,0,0,.1);
   }
 }
 
 //------------------------------------
 
 @mixin vertical-align($fifty-percent) {
-  top: $fifty-percent;
-  -webkit-transform: translateY(-$fifty-percent);
-  -ms-transform: translateY(-$fifty-percent);
-  transform: translateY(-$fifty-percent);
+    top: $fifty-percent;
+    -webkit-transform: translateY(-$fifty-percent);
+    -ms-transform: translateY(-$fifty-percent);
+    transform: translateY(-$fifty-percent);
 }
 
 .red {
   color: #f8b2a6 !important;
 }
 .teal {
-  color: desaturate(lighten($teal, 5%), 5%);
+  color: desaturate(lighten($teal,5%),5%);
 }
 .gray {
   color: $gray;
@@ -196,7 +198,7 @@ spacer {
   border-radius: 5px;
   background: $clr-white-1;
   i {
-    margin: 0.5rem;
+    margin: .5rem;
   }
   &:nth-of-type(1) {
     i {
@@ -243,7 +245,7 @@ spacer {
   align-items: center;
   border-radius: 50%;
   top: -0.33rem;
-  right: -0.66rem;
+  right: -.66rem;
   box-sizing: border-box;
 
   animation-name: scaleCount;
@@ -260,7 +262,7 @@ spacer {
       transform: scale(1);
     }
     60% {
-      transform: scale(0.5);
+      transform: scale(.5);
     }
     80% {
       transform: scale(1.25);
@@ -273,8 +275,8 @@ spacer {
   order: 1;
   flex: 1 6 25%;
   padding: $h-gutter 0;
-  border-radius: 0 0 0 0.5rem;
-  background: darken($menu, 5%);
+  border-radius: 0 0 0 .5rem;
+  background: darken($menu,5%);
   color: #aaa;
   text-transform: uppercase;
   font-size: 70%;
@@ -284,46 +286,46 @@ spacer {
     @include vertical-align(70%);
     right: 1rem;
     width: auto;
-    padding: 0 0.5rem;
+    padding: 0 .5rem;
     border-radius: 1rem;
   }
   ul.active {
-    background: lighten($menu, 5%);
+    background: lighten($menu,5%);
     margin-bottom: $v-gutter;
-
+    
     li {
-      padding-left: $h-gutter * 2;
+      padding-left: $h-gutter*2;
       &.active {
         color: white;
         &:before {
-          content: "•";
-          color: desaturate(lighten($teal, 5%), 5%);
+          content:"•";
+          color: desaturate(lighten($teal,5%),5%);
           left: $h-gutter;
           position: absolute;
           @include vertical-align(65%);
-          padding-left: 0.7em;
+          padding-left: .7em;
         }
       }
       &:first-child {
-        padding-top: $v-gutter * 2;
+        padding-top: $v-gutter*2; 
       }
       &:last-child {
-        padding-bottom: $v-gutter * 2;
+        padding-bottom: $v-gutter*2; 
       }
     }
   }
   > li {
-    padding-left: $h-gutter * 2 !important;
+    padding-left: $h-gutter*2 !important;
   }
   li {
     padding: $v-gutter $h-gutter;
     position: relative;
     i {
-      @vertical-align (50%);
+      @vertical-align(50%);
       position: absolute;
       font-size: 180%;
       &:not(.left) {
-        right: $v-gutter * 2;
+        right: $v-gutter*2;
         position: absolute;
         @include vertical-align(50%);
         &:hover {
@@ -340,7 +342,7 @@ spacer {
       &.active {
         background: $menu;
         margin-top: $v-gutter;
-        padding: ($v-gutter * 2) $h-gutter;
+        padding: ($v-gutter*2) $h-gutter;
         color: white;
       }
     }
@@ -353,6 +355,7 @@ spacer {
 
 // PROFILE CONTAINER
 
+
 h1 {
   font-size: 125%;
 }
@@ -361,7 +364,7 @@ hr {
   border: 0;
   clear: both;
   margin-bottom: $v-gutter;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0,0,0,.1);
 }
 
 // TOGGLE
@@ -379,13 +382,13 @@ hr {
   font-weight: bold;
   font-size: 9px;
   text-transform: uppercase;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .06);
   width: 50%;
   text-align: center;
 }
 
 input.check-toggle-round-flat:checked ~ .off {
-  color: desaturate(lighten($teal, 10%), 10%);
+  color: desaturate(lighten($teal,10%),10%);
 }
 
 input.check-toggle-round-flat:checked ~ .on {
@@ -394,7 +397,7 @@ input.check-toggle-round-flat:checked ~ .on {
 
 .switch > span.on {
   left: $toggle-gutter;
-  color: desaturate(lighten($teal, 10%), 10%);
+  color: desaturate(lighten($teal,10%),10%);
 }
 
 .switch > span.off {
@@ -414,15 +417,15 @@ input.check-toggle-round-flat:checked ~ .on {
 input.check-toggle-round-flat + label {
   width: $toggle-width;
   height: $toggle-height;
-  background: desaturate(lighten($teal, 5%), 5%);
+  background: desaturate(lighten($teal,5%),5%);
   border-radius: 5px;
 }
-input.check-toggle-round-flat + label:before,
-input.check-toggle-round-flat + label:after {
+input.check-toggle-round-flat + label:before, input.check-toggle-round-flat + label:after {
   display: block;
   position: absolute;
   content: "";
 }
+
 
 input.check-toggle-round-flat + label:after {
   top: $toggle-gutter;
@@ -436,5 +439,6 @@ input.check-toggle-round-flat + label:after {
 }
 
 input.check-toggle-round-flat:checked + label:after {
-  margin-left: ($toggle-width/2) - ($toggle-gutter * 2);
+  margin-left: ($toggle-width/2) - ($toggle-gutter*2);
 }
+

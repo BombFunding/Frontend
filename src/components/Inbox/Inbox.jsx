@@ -11,6 +11,42 @@ function Inbox({
   fetchOfflineNotifications,
 }) {
   const { accessToken } = useTokenStore();
+  // const [messages, setMessages] = useState([]);
+  // const [notificationCount, setNotificationCount] = useState(0);
+
+  // // Fetch unread messages from the API
+  // const fetchOfflineNotifications = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       "https://bombfundingbackend.liara.run/notifications/user-notifications/",
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //       }
+  //     );
+
+  //     if (response.ok) {
+  //       const offlineMessages = await response.json();
+  //       // Map messages to a standard format
+  //       const formattedMessages = offlineMessages.map((item) => ({
+  //         id: item.id || new Date().getTime(),
+  //         message: item.message || item.text || "پیام آفلاین",
+  //         count: item.count || 1,
+  //       }));
+
+  //       setMessages((prevMessages) => {
+  //         const updatedMessages = [...prevMessages, ...formattedMessages];
+  //         setNotificationCount(updatedMessages.length);
+  //         return updatedMessages;
+  //       });
+  //     } else {
+  //       console.error("Failed to fetch offline notifications.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching offline notifications:", error);
+  //   }
+  // };
 
   // Handle WebSocket connection
   useEffect(() => {
@@ -87,7 +123,7 @@ function Inbox({
           },
         }
       );
-      console.log(response);
+
       if (response.ok) {
         // Remove the message locally if the request is successful
         setMessages((prevMessages) => {

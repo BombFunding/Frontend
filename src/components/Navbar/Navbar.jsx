@@ -34,6 +34,7 @@ function Navbar() {
   const panelRef = useRef(null); // Ref for the notification panel
   const { avatar, setAvatar } = useProfileStore();
   const [messages, setMessages] = useState([]);
+  // const [notificationCount, setNotificationCount] = useState(0);
 
   // Fetch unread messages from the API
   const fetchOfflineNotifications = async () => {
@@ -49,6 +50,7 @@ function Navbar() {
 
       if (response.ok) {
         const offlineMessages = await response.json();
+
         // Map messages to a standard format
         const formattedMessages = offlineMessages.map((item) => ({
           id: item.id || new Date().getTime(),
@@ -57,8 +59,20 @@ function Navbar() {
         }));
 
         setMessages((prevMessages) => {
-          const updatedMessages = [...prevMessages, ...formattedMessages];
+          // Filter out messages that already exist in the state
+          const newMessages = formattedMessages.filter(
+            (newMessage) =>
+              !prevMessages.some(
+                (existingMessage) => existingMessage.id === newMessage.id
+              )
+          );
+
+          // Combine new messages with previous ones
+          const updatedMessages = [...prevMessages, ...newMessages];
+
+          // Update the notification count
           setNotificationCount(updatedMessages.length);
+
           return updatedMessages;
         });
       } else {
@@ -69,11 +83,11 @@ function Navbar() {
     }
   };
 
+  fetchOfflineNotifications();
+
   useEffect(() => {
-    if (accessToken) {
-      fetchOfflineNotifications();
-    }
-  }, [accessToken]);
+    setNotificationCount(messages.length);
+  }, []);
 
   useEffect(() => {
     getData(`/auth/view_own_baseuser_profile/`).then((data) => {
@@ -105,8 +119,6 @@ function Navbar() {
       document.removeEventListener("mousedown", handleOutsideClick); // Cleanup
     };
   }, [isNotificationPanelOpen]);
-
-  useEffect(() => {}, [notificationCount]);
 
   return (
     <>
@@ -206,11 +218,8 @@ function Navbar() {
       </nav>
 
       {/* Render the Inbox component for its side effect of setting notification count */}
-      {/* <div className={`${isNotificationPanelOpen ? "visible" : `hidden`}`}>
-        <Inbox
-          onNotificationCountChange={handleNotificationCountChange}
-          // onClick={() => setIsNotificationPanelOpen(false)}
-        />
+      {/* <div style={{ display: "none" }}>
+        <Inbox onNotificationCountChange={handleNotificationCountChange} />
       </div> */}
 
       {isNotificationPanelOpen && (
@@ -219,7 +228,7 @@ function Navbar() {
             onNotificationCountChange={handleNotificationCountChange}
             messages={messages}
             setMessages={setMessages}
-            notificationCOunt={notificationCount}
+            notificationCount={notificationCount}
             setNotificationCount={setNotificationCount}
             fetchOfflineNotifications={fetchOfflineNotifications}
           />
