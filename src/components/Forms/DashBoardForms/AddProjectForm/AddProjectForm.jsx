@@ -58,11 +58,20 @@ const AddProjectForm = ({ addProjectCard }) => {
 			>
 				<form
 					onSubmit={handleSubmit(onSubmit)}
-					className="px-5 flex flex-col items-center gap-5"
+					className="flex flex-col place-items-center gap-5 place-self-center align-middle"
 				>
+					{/* <div className="flex place-self-center place-items-center border-solid border-2">
+						<CustomInput
+							// holderClassName={"w-full"}
+							inputClassName={"w-full"}
+							name={"name"}
+							register={register}
+							placeholder={"نام پروژه"}
+						/>
+					</div> */}
 					<CustomInput
 						holderClassName={"w-full"}
-						inputClassName={"w-full"}
+						inputClassName={"w-full translate-x-[-0.4vw]"}
 						name={"name"}
 						register={register}
 						placeholder={"نام پروژه"}
