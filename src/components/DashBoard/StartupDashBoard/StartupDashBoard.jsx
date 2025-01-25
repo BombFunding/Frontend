@@ -76,6 +76,7 @@ const StartupDashBoard = () => {
 
 	return (
 		<>
+		<div className="flex flex-col justify-center items-center w-screen">
 			<Card className={styles.card_style}>
 				{/* <Likes
 					className="translate-x-[1vw] translate-y-[11.5vw]"
@@ -137,6 +138,7 @@ const StartupDashBoard = () => {
         </div>
     </div>
 			</Card>
+		</div>
 		</>
 	);
 };
