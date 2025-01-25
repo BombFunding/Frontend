@@ -196,7 +196,9 @@ function Navbar() {
                     width: "32px",
                   }}
                 >
-                  <i className="material-icons dp48">notifications</i>
+                  <i className="material-icons dp48 bottom-14 translate-x-[-3px] translate-y-[-3px]">
+                    notifications
+                  </i>
                   {notificationCount > 0 && (
                     <span className={inboxstyles["num-count"]}>
                       {notificationCount}
