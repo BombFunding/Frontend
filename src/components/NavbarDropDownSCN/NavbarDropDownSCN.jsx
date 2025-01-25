@@ -162,7 +162,7 @@ function NavbarDropDownSCN() {
     </div>
   );
   return (
-    <div className="w-screen -translate-y-2 h-7 mt-6 grid grid-cols-6 px-[9vw] gap-[1.5vw] sm:text-[1.6vw] md:text-[1.5vw] lg:text-[1.2vw] font-vazirmatn">
+    <div className="w-screen -translate-y-2 h-7 mt-6 grid grid-cols-6 px-[9vw] gap-[1.5vw] sm:text-[1.6vw] md:text-[0.75rem] lg:text-[1rem] font-vazirmatn">
       {components.map((comp, i) => {
         return (
           <div
