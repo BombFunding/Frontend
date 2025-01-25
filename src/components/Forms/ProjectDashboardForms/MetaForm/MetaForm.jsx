@@ -59,7 +59,7 @@ const MetaForm = ({ setClose }) => {
 		>
 			<CustomInput
 				holderClassName={"w-full"}
-				inputClassName={"w-full"}
+				inputClassName={"w-full translate-x-[-0.5vw]"}
 				name={"name"}
 				register={register}
 				placeholder={"نام پروژه"}

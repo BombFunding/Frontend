@@ -17,7 +17,7 @@ const InfiniteCarousel = ({ items, children }) => {
 							}
 						>
 							<img
-								src={`${baseURL}/${item.profile_picture}`}
+								src={`${baseURL}${item.profile_picture}`}
 								className={styles.image}
 								alt=""
 							/>

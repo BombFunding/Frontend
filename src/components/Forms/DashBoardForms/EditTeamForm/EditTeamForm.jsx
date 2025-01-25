@@ -13,6 +13,7 @@ import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { getData, postData, putData } from "@/Services/ApiClient/Services";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
+import CustomTextArea from "@/components/Custom/CustomTextArea/CustomTextArea";
 
 const validationSchema = Yup.object().shape({
 	description: Yup.string().required("Name is required"),
@@ -70,14 +71,14 @@ const EditTeamForm = ({ memberData, setMembers, setEditMemberOpen }) => {
 			onSubmit={handleSubmit(onSubmit)}
 		>
 			<CustomInput
-				inputClassName={"w-[60vw] text-right"}
+				inputClassName={"w-[60vw] text-right translate-x-[-0.5vw]"}
 				placeholder="نقش عضو در تیم"
 				register={register}
 				name={"role"}
 				value={role}
 				onChange={setRole}
 			/>
-			<CustomInput
+			<CustomTextArea
 				inputClassName={"w-[60vw] text-right"}
 				placeholder="توضیحات"
 				register={register}
