@@ -71,7 +71,7 @@ const EditTeamForm = ({ memberData, setMembers, setEditMemberOpen }) => {
 			onSubmit={handleSubmit(onSubmit)}
 		>
 			<CustomInput
-				inputClassName={"w-[60vw] text-right translate-x-[-0.4vw]"}
+				inputClassName={"w-[60vw] text-right translate-x-[-0.5vw]"}
 				placeholder="نقش عضو در تیم"
 				register={register}
 				name={"role"}

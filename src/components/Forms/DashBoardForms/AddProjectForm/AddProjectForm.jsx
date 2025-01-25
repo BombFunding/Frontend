@@ -71,7 +71,7 @@ const AddProjectForm = ({ addProjectCard }) => {
 					</div> */}
 					<CustomInput
 						holderClassName={"w-full"}
-						inputClassName={"w-full translate-x-[-0.4vw]"}
+						inputClassName={"w-full translate-x-[-0.5vw]"}
 						name={"name"}
 						register={register}
 						placeholder={"نام پروژه"}

@@ -218,73 +218,73 @@ const Landing = () => {
             }
         `}
 				</style>
-<div
-  className="text-section"
-  style={{
-    flex: "1",
-    minWidth: "300px",
-    marginBottom: "10px",
-    direction: "rtl",
-    paddingRight: "40px",
-    width: "100%",
-	  textAlign: "center",
-  }}
->
-  <h1
-    style={{
-      fontSize: "2rem",
-      marginBottom: "10px",
-      fontWeight: "bold",
-      color: "#0C084B",
-    }}
-  >
-    <span style={{ color: "#FF7F00" }}>&lt;</span>
-    <span style={{ color: "#FF7F00" }}>&lt;</span>چه شهرهایی
-    در پلتفرم ما استارتاپ دارند؟
-    <span style={{ color: "#FF7F00" }}>&gt;</span>
-    <span style={{ color: "#FF7F00" }}>&gt;</span>
-  </h1>
-  <p style={{ fontSize: "1.5rem", lineHeight: "1.8" }}>
-    هدف بمب فاندنیگ از بین بردن مرزها و محدودیت هایی ست که
-    سر راه شرکت های استارتاپی قرار گرفته اند.
-  </p>
-  <p style={{ fontSize: "1.5rem", lineHeight: "1.8" }}>
-    ما تلاش کرده ایم محدودیت هایی مانند قیمت های خرید سهام،
-    ارتباط انحصاری بین شرکت ها و سرمایه گذاران و مرزهای
-    جغرافیایی را کمتر کنیم.
-  </p>
-  <p style={{ fontSize: "1.5rem", lineHeight: "1.8" }}>
-    در نمودار مقابل توزیع استارتاپ ها را در استان های مختلف
-    میتوانید ببینید.
-  </p>
+				<div
+					className="text-section"
+					style={{
+						flex: "1",
+						minWidth: "300px",
+						marginBottom: "10px",
+						direction: "rtl",
+						paddingRight: "40px",
+						width: "100%",
+						textAlign: "center",
+					}}
+				>
+					<h1
+						style={{
+							fontSize: "2rem",
+							marginBottom: "10px",
+							fontWeight: "bold",
+							color: "#0C084B",
+						}}
+					>
+						<span style={{ color: "#FF7F00" }}>&lt;</span>
+						<span style={{ color: "#FF7F00" }}>&lt;</span>چه شهرهایی
+						در پلتفرم ما استارتاپ دارند؟
+						<span style={{ color: "#FF7F00" }}>&gt;</span>
+						<span style={{ color: "#FF7F00" }}>&gt;</span>
+					</h1>
+					<p style={{ fontSize: "1.5rem", lineHeight: "1.8" }}>
+						هدف بمب فاندنیگ از بین بردن مرزها و محدودیت هایی ست که
+						سر راه شرکت های استارتاپی قرار گرفته اند.
+					</p>
+					<p style={{ fontSize: "1.5rem", lineHeight: "1.8" }}>
+						ما تلاش کرده ایم محدودیت هایی مانند قیمت های خرید سهام،
+						ارتباط انحصاری بین شرکت ها و سرمایه گذاران و مرزهای
+						جغرافیایی را کمتر کنیم.
+					</p>
+					<p style={{ fontSize: "1.5rem", lineHeight: "1.8" }}>
+						در نمودار مقابل توزیع استارتاپ ها را در استان های مختلف
+						میتوانید ببینید.
+					</p>
 
-  <div
-    onClick={() => window.location.href = '/googlemap'}
-    style={{
-      color: "#0C0C42",
-      fontSize: "1.3rem",
-      fontWeight: "bold",
-      cursor: "pointer",
-    //   textAlign: "center",
-    //   display: "inline-block", // برای وسط‌چین کردن
-      animation: "glowText 1.5s infinite",
-    }}
+					<div
+						onClick={() => (window.location.href = "/googlemap")}
+						style={{
+							color: "#0C0C42",
+							fontSize: "1.3rem",
+							fontWeight: "bold",
+							cursor: "pointer",
+							//   textAlign: "center",
+							//   display: "inline-block", // برای وسط‌چین کردن
+							animation: "glowText 1.5s infinite",
+						}}
 						onMouseOver={(e) => (e.target.style.color = "#a84400")}
 						onMouseOut={(e) => (e.target.style.color = "#0C0C42")}
 					>
 						برای دیدن جزئیات بیشتر کلیک کنید
-  </div>
+					</div>
 
-  <style>
-    {`
+					<style>
+						{`
       @keyframes glowText {
         0% { text-shadow: 0 0 5px #999999; }
         50% { text-shadow: 0 0 20px #999999; }
         100% { text-shadow: 0 0 5px #999999; }
       }
     `}
-  </style>
-</div>
+					</style>
+				</div>
 
 				<div
 					className="map-section"
@@ -320,7 +320,9 @@ const Landing = () => {
 						پربازدیدترین استارت‌آپ‌ها
 					</Label>
 					<Link
-						onClick={() => {setSorting("top-visited")}}
+						onClick={() => {
+							setSorting("top-visited");
+						}}
 						to="/Starboard"
 						className="text-black font-vazirmatn text-sm md:text-base lg:text-lg xl:text-xl px-3 py-1 rounded hover:bg-gray-200 transition-all duration-300"
 					>
@@ -349,7 +351,9 @@ const Landing = () => {
 					</Label>
 					<Link
 						to="/Starboard"
-						onClick={() => {setSorting("top-liked")}}
+						onClick={() => {
+							setSorting("top-liked");
+						}}
 						className="text-black font-vazirmatn text-sm md:text-base lg:text-lg xl:text-xl px-3 py-1 rounded hover:bg-gray-200 transition-all duration-300"
 					>
 						دیدن بیشتر...
