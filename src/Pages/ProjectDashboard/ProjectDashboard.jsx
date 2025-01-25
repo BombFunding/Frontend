@@ -64,7 +64,10 @@ const ProjectDashboard = () => {
 					<div className="flex flex-col gap-2 items-center w-full md:w-1/2">
 						<div className="w-full flex justify-center items-center bg-bomborange rounded-lg shadow-md p-5">
 							<button
-								onClick={() => navigate(`/Editor/${projectId}`)}
+								onClick={() => {
+									window.scrollTo(0, 0);
+									navigate(`/Editor/${projectId}`);
+								}}
 								className="btn bg-white text-black hover:bg-black hover:text-white"
 							>
 								شخصی سازی پروژه

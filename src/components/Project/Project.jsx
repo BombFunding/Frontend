@@ -305,7 +305,10 @@ function Project({ className }) {
 						<img
 							src={profile}
 							className="rounded-full w-[16vw] h-[16vw] hover:cursor-pointer"
-							onClick={() => Navigate(`/profile/${owner}`)}
+							onClick={() => {
+								window.scrollTo(0, 0);
+								Navigate(`/profile/${owner}`);
+							}}
 						/>
 					</div>
 				</div>

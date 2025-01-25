@@ -74,7 +74,10 @@ function ChangePassword() {
 				toast.success(
 					<CustomToast Header="رمز عبور شما با موفقیت تغییر داده شد" />
 				);
-				setTimeout(() => Navigate("/login"), 3000);
+				setTimeout(() => {
+					window.scrollTo(0, 0);
+					Navigate("/login");
+				}, 3000);
 			})
 			.catch((err) => {
 				console.log("Data posting FAILED:", err);
@@ -84,7 +87,10 @@ function ChangePassword() {
 						toast.error(
 							<CustomToast Header="لینک تغییر رمز عبور شما منقضی شده" />
 						);
-						setTimeout(() => Navigate("/forgetpassword"), 3000);
+						setTimeout(() => {
+							window.scrollTo(0, 0);
+							Navigate("/forgetpassword");
+						}, 3000);
 					}
 				}
 			});

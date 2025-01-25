@@ -96,7 +96,12 @@ function Navbar() {
 								<ProfileDropDown />
 							</div>
 						) : (
-							<PushyButton onClick={() => Navigate("/login")}>
+							<PushyButton
+								onClick={() => {
+									window.scrollTo(0, 0);
+									Navigate("/login");
+								}}
+							>
 								ورود
 							</PushyButton>
 						)}
