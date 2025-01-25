@@ -9,7 +9,7 @@ import HamburgerMenu from "../HamburgerMenu/HamburgerMenu.jsx";
 import NavbarDropDown from "../NavbarDropdown/NavbarDropDown";
 import { useEffect, useState } from "react";
 import SearchResultsList from "../SearchBar/SearchResultsList/SearchResultsList.jsx";
-import { getData } from "@/Services/ApiClient/Services";
+import { baseURL, getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import NavbarDropDownSCN from "../NavbarDropDownSCN/NavbarDropDownSCN";
 import HamburgerSearch from "../HamburgerSearch/HamburgerSearch";
@@ -29,7 +29,7 @@ function Navbar() {
   useEffect(() => {
     getData(`/auth/view_own_baseuser_profile/`).then((data) => {
       console.log("navbar: ", data);
-      setAvatar(`http://104.168.46.4:8000${data.base_profile.profile_picture}`);
+      setAvatar(`${baseURL}${data.base_profile.profile_picture}`);
     });
   }, []);
   return (

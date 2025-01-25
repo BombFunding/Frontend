@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, Tooltip } from "recharts";
-import { getData } from "@/Services/ApiClient/Services";
+import { baseURL, getData } from "@/Services/ApiClient/Services";
 import { useParams } from "react-router-dom";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
@@ -67,7 +67,8 @@ function MainChart({ color, label, apiEndpoints, projectId, className }) {
 			// 	"90d": "/profile_statics/last-90-days/",
 			// 	"365d": "/profile_statics/last-year/",
 			// };
-			const apiUrl = `http://104.168.46.4:8000${apiEndpoints[timeRange]}?username=${uname}`; // ${uname} when fixed
+			const apiUrl = `${baseURL}${apiEndpoints[timeRange]}?username=${uname}`; // ${uname} when fixed
+			console.log("apiUrl", apiUrl);
 			try {
 				// const response = await fetch(apiUrl, {
 				// 	headers: {
@@ -94,7 +95,9 @@ function MainChart({ color, label, apiEndpoints, projectId, className }) {
 		fetchData();
 	}, [timeRange]);
 	return (
-		<Card className={`border-solid border-2 border-bomborange ${className}`}>
+		<Card
+			className={`border-solid border-2 border-bomborange ${className}`}
+		>
 			<CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
 				<div className="grid flex-1 gap-1 text-center sm:text-left">
 					{projectId ? (

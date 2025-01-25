@@ -1,3 +1,4 @@
+import { baseURL } from "@/Services/ApiClient/Services";
 import styles from "./InfiniteCarousel.module.scss";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +17,7 @@ const InfiniteCarousel = ({ items, children }) => {
 							}
 						>
 							<img
-								src={`http://104.168.46.4:8000/${item.profile_picture}`}
+								src={`${baseURL}/${item.profile_picture}`}
 								className={styles.image}
 								alt=""
 							/>

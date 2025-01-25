@@ -29,8 +29,10 @@ const RefreshToken = async () => {
 	}
 };
 
+export const baseURL = "https://bombfundingbackend.liara.run";
+
 const apiClient = axios.create({
-	baseURL: "http://104.168.46.4:8000/",
+	baseURL: baseURL,
 	timeout: 20000,
 	headers: {
 		"Content-Type": "application/json",
@@ -169,7 +171,7 @@ export const deleteData = async (endPoint, data, additionalHeaders) => {
 	try {
 		const response = await apiClient.delete(
 			endPoint,
-			{data},
+			{ data },
 			additionalHeaders
 		);
 		return response.data;
