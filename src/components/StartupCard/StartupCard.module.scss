@@ -48,7 +48,7 @@
 }
 
 .ownerProfile {
-	@apply rounded-full lg:w-16 md:w-14 sm:w-14 w-12 h-auto lg:mx-4 md:mx-3 sm:mx-3 m-2 hover:cursor-pointer;
+	@apply rounded-full lg:w-16 md:w-14 sm:w-14 w-12 lg:h-16 md:h-14 sm:h-14 h-12 lg:mx-4 md:mx-3 sm:mx-3 m-2 hover:cursor-pointer object-cover;
 }
 
 .container {
