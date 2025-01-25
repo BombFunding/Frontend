@@ -156,8 +156,8 @@
   position: relative;
   height: 80vh; 
   display: flex;
-  align-items: flex-start; 
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
   padding: 10% 5%; 
 }
 
@@ -211,6 +211,9 @@
 
 .title {
   position: relative;
+  display: block;
+  display: flex;
+  justify-content: center;
   margin: 0;
   line-height: 1.2;
   font-size: calc(1rem + 3vw);
