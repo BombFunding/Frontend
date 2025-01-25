@@ -7,9 +7,45 @@ function Inbox({ onNotificationCountChange }) {
   const [messages, setMessages] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0);
 
+  // Fetch unread messages from the API
+  const fetchOfflineNotifications = async () => {
+    try {
+      const response = await fetch(
+        "https://bombfundingbackend.liara.run/notifications/user-notifications/",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const offlineMessages = await response.json();
+        // Map messages to a standard format
+        const formattedMessages = offlineMessages.map((item) => ({
+          id: item.id || new Date().getTime(),
+          message: item.message || item.text || "پیام آفلاین",
+          count: item.count || 1,
+        }));
+
+        setMessages((prevMessages) => {
+          const updatedMessages = [...prevMessages, ...formattedMessages];
+          setNotificationCount(updatedMessages.length);
+          return updatedMessages;
+        });
+      } else {
+        console.error("Failed to fetch offline notifications.");
+      }
+    } catch (error) {
+      console.error("Error fetching offline notifications:", error);
+    }
+  };
+
+  // Handle WebSocket connection
   useEffect(() => {
     if (!accessToken) return;
 
+    // WebSocket connection
     const ws = new WebSocket(
       `wss://bombfundingbackend.liara.run/ws/notifications/${accessToken}/`
     );
@@ -18,7 +54,20 @@ function Inbox({ onNotificationCountChange }) {
       try {
         const data = JSON.parse(event.data);
 
-        const newNotifications = Array.isArray(data) ? data : [data];
+        // Map WebSocket data to standard format
+        const newNotifications = Array.isArray(data)
+          ? data.map((item) => ({
+              id: item.id || new Date().getTime(),
+              message: item.message || item.text || "پیام جدید",
+              count: item.count || 1,
+            }))
+          : [
+              {
+                id: data.id || new Date().getTime(),
+                message: data.message || data.text || "پیام جدید",
+                count: data.count || 1,
+              },
+            ];
 
         setMessages((prevMessages) => {
           const updatedMessages = [...newNotifications, ...prevMessages];
@@ -26,7 +75,7 @@ function Inbox({ onNotificationCountChange }) {
           return updatedMessages;
         });
 
-        console.log("New notifications:", newNotifications);
+        console.log("WebSocket notifications:", newNotifications);
       } catch (error) {
         console.error("Error parsing WebSocket message:", error);
       }
@@ -34,7 +83,6 @@ function Inbox({ onNotificationCountChange }) {
 
     ws.onerror = (event) => {
       console.error("WebSocket error:", event);
-      console.error("WebSocket URL:", ws.url);
     };
 
     return () => {
@@ -42,20 +90,51 @@ function Inbox({ onNotificationCountChange }) {
     };
   }, [accessToken]);
 
+  // Fetch offline notifications when component mounts
+  useEffect(() => {
+    if (accessToken) {
+      fetchOfflineNotifications();
+    }
+  }, [accessToken]);
+
+  // Notify parent component about the count change
   useEffect(() => {
     if (onNotificationCountChange) {
       onNotificationCountChange(notificationCount);
     }
   }, [notificationCount, onNotificationCountChange]);
 
-  const handleRemoveMessage = (messageId) => {
-    setMessages((prevMessages) => {
-      const updatedMessages = prevMessages.filter(
-        (message) => message.id !== messageId
+  // Remove a notification
+  const handleRemoveMessage = async (messageId) => {
+    try {
+      const response = await fetch(
+        `https://bombfundingbackend.liara.run/notifications/read-notification/${messageId}/`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
       );
-      setNotificationCount(updatedMessages.length);
-      return updatedMessages;
-    });
+
+      if (response.ok) {
+        // Remove the message locally if the request is successful
+        setMessages((prevMessages) => {
+          const updatedMessages = prevMessages.filter(
+            (message) => message.id !== messageId
+          );
+          setNotificationCount(updatedMessages.length);
+          return updatedMessages;
+        });
+      } else {
+        console.error(
+          `Failed to mark notification ${messageId} as read:`,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error(`Error marking notification ${messageId} as read:`, error);
+    }
   };
 
   return (
@@ -79,7 +158,7 @@ function Inbox({ onNotificationCountChange }) {
           >
             <em className={inboxstyles["number"]}>{message.count || "1"}</em>
             <span className={inboxstyles["text"]} id={`message_${message.id}`}>
-              {message.message || message.text}
+              {message.message}
             </span>
             <i
               className="material-icons dp48 right"
