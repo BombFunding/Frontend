@@ -15,6 +15,7 @@ import { getData } from "@/Services/ApiClient/Services";
 import Inbox from "../Inbox/Inbox";
 import styles from "./Navbar.module.scss";
 import inboxstyles from "../Inbox/Inbox.module.scss";
+import { Opacity } from "@mui/icons-material";
 
 function Navbar() {
   const { userType } = useProfileStore();
@@ -37,11 +38,12 @@ function Navbar() {
   useEffect(() => {
     getData(`/auth/view_own_baseuser_profile/`).then((data) => {
       setAvatar(`http://localhost:8000${data.base_profile.profile_picture}`);
+      // console.log("Aman Man");
     });
   }, []);
 
   const handleNotificationClick = () => {
-    setIsNotificationPanelOpen((prev) => !prev);
+    setIsNotificationPanelOpen(() => !isNotificationPanelOpen);
   };
 
   const handleNotificationCountChange = (count) => {
@@ -115,20 +117,20 @@ function Navbar() {
                 استارت‌آپ‌ها
               </PushyButton>
 
-{accessToken && (
-  <div
-    className={`${inboxstyles["notification-icon"]} ${inboxstyles.right}`}
-    onClick={handleNotificationClick}
-    style={{ cursor: "pointer" }}
-  >
-    <i className="material-icons dp48">notifications</i>
-    {notificationCount > 0 && (
-      <span className={inboxstyles["num-count"]}>
-        {notificationCount}
-      </span>
-    )}
-  </div>
-)}
+              {accessToken && (
+                <div
+                  className={`${inboxstyles["notification-icon"]} ${inboxstyles.right}`}
+                  onClick={handleNotificationClick}
+                  style={{ cursor: "pointer" }}
+                >
+                  <i className="material-icons dp48">notifications</i>
+                  {notificationCount > 0 && (
+                    <span className={inboxstyles["num-count"]}>
+                      {notificationCount}
+                    </span>
+                  )}
+                </div>
+              )}
               {accessToken ? (
                 <div className="place-items-center">
                   <ProfileDropDown />
@@ -152,11 +154,9 @@ function Navbar() {
         </div>
 
         <div
-          className={`h-12 bg-bomborange w-screen z-[-20] place-items-center ${styles.inboxdropdown}`}
+          className={`h-12 bg-bomborange w-screen z-[20] place-items-center ${styles.inboxdropdown}`}
           style={{
-            transform: isNotificationPanelOpen
-              ? "translateY(0)"
-              : "translateY(-100%)",
+            transform: Opacity ? "translateY(0)" : "translateY(-100%)",
             transition: "transform 0.3s ease-in-out",
           }}
         >
@@ -169,15 +169,18 @@ function Navbar() {
       </nav>
 
       {/* Render the Inbox component for its side effect of setting notification count */}
-      <div style={{ display: "none" }}>
-        <Inbox onNotificationCountChange={handleNotificationCountChange} />
+      <div className={`${isNotificationPanelOpen ? "visible" : `hidden`}`}>
+        <Inbox
+          onNotificationCountChange={handleNotificationCountChange}
+          onClick={() => setIsNotificationPanelOpen(false)}
+        />
       </div>
 
-      {isNotificationPanelOpen && (
+      {/* {isNotificationPanelOpen && (
         <div ref={panelRef}>
           <Inbox onNotificationCountChange={handleNotificationCountChange} />
         </div>
-      )}
+      )} */}
     </>
   );
 }
