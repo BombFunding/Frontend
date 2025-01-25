@@ -105,12 +105,12 @@ const InvestorDialogBox = ({ className, projectId }) => {
 	}, []);
 	return (
 		<>
-			<div className={`${className}`}>
+			<div className={`${className} place-self-center`}>
 				<Dialog>
 					<DialogTrigger asChild>
 						<Button
 							variant="link"
-							className=" text-bomborange hover:text-black text-xl mb-3"
+							className=" text-bomborange hover:text-black lg:text-xl md:text-base place-self-center"
 						>
 							{investments.length} بار روی این پروژه سرمایه گذاری
 							شده است.

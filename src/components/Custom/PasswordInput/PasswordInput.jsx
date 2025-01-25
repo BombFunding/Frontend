@@ -9,6 +9,7 @@ function PasswordInput({
 	placeholder,
 	hasEye,
 	onChange,
+	style,
 	showPassword,
 	togglePasswordVisibility,
 }) {
@@ -41,6 +42,7 @@ function PasswordInput({
 				labelClassname={`${className} ${hasEye ? "right-[2.5rem]" : ""}`}
 				name={name}
 				onChange={onChange}
+				style={style}
 			/>
 			{hasEye && (
 				<>

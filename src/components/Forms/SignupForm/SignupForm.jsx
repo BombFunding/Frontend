@@ -254,10 +254,12 @@ function SignupForm() {
 					<div className={styles.input_row}>
 						<CustomInput
 							placeholder="ایمیل"
+							inputClassName={""}
 							autofocus={true}
 							name="email"
 							onChange={(e) => updateEmail(e)}
 							value={email}
+							style={{"direction": "ltr"}}
 						/>
 						<CustomInput
 							placeholder="نام کاربری"
@@ -265,6 +267,7 @@ function SignupForm() {
 							name="username"
 							onChange={(e) => updateUsername(e)}
 							value={username}
+							style={{"direction": "ltr"}}
 						/>
 					</div>
 					<div className={styles.input_row}>
@@ -275,6 +278,7 @@ function SignupForm() {
 							onChange={(e) => updatePassword(e)}
 							showPassword={showPassword}
 							togglePasswordVisibility={togglePasswordVisibility}
+							style={{"direction": "ltr"}}
 						/>
 						<PasswordInput
 							placeholder="تایید رمز عبور"
@@ -282,6 +286,7 @@ function SignupForm() {
 							onChange={(e) => updateConfirmPassword(e)}
 							showPassword={showPassword}
 							togglePasswordVisibility={togglePasswordVisibility}
+							style={{"direction": "ltr"}}
 						/>
 					</div>
 				</div>

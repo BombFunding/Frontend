@@ -111,7 +111,7 @@ const MetaBox = ({ className }) => {
 						<Label className="text-xl text-black">نام پروژه</Label>
 						<Label className=" text-base">{projectName}</Label>
 					</div>
-					<div className="w-full flex flex-col mb-6 flex gap-2">
+					<div className="w-full flex flex-col mb-12 gap-2">
 						<Label className="text-xl text-black">توضیحات</Label>
 						<Label className="">{description}</Label>
 					</div>

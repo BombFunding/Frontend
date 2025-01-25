@@ -32,7 +32,9 @@ const TagBox = ({ className }) => {
 			</div>
 		);
 	return (
-		<div className={`${className} flex flex-col p-5`}>
+		<div
+			className={`${className} flex flex-col p-5`}
+		>
 			<Label className="text-black text-lg">دسته‌بندی‌ها</Label>
 			{loading ? (
 				<Loading size={8} className="pb-8 place-self-center" />
