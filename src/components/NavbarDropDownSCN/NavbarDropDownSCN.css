@@ -1,7 +1,7 @@
 .unfader {
   opacity: 1;
   animation-name: starter;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
   transition: oppacity 2s ease-in-out;
   /* transition-delay: 1000ms; */
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
