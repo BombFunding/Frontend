@@ -7,7 +7,7 @@ import StartupProfiles from "@/components/StartupProfiles/StartupProfiles";
 import CommentSection from "@/components/CommentSection/CommentSection";
 import PersonalInfo from "@/components/PersonalInfo/PersonalInfo";
 import { useEffect, useState } from "react";
-import { getData } from "@/Services/ApiClient/Services";
+import { baseURL, getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import TeamBox from "../Sections/TeamBox/TeamBox";
 import { Label } from "@/components/ui/label";
@@ -65,10 +65,10 @@ const InvestorDashBoard = () => {
 			setEmail(data.base_profile.email);
 			setPhone(data.base_profile.phone);
 			setAvatar(
-				`http://104.168.46.4:8000${data.base_profile.profile_picture}`
+				`${baseURL}${data.base_profile.profile_picture}`
 			);
 			setHeader(
-				`http://104.168.46.4:8000${data.base_profile.header_picture}`
+				`${baseURL}${data.base_profile.header_picture}`
 			);
 			getData(`/categories/${data.base_profile.name}/`).then((data) => {
 				setSubcategories(data.subcategories);

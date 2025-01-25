@@ -1,6 +1,6 @@
 import styles from "./ProjectsInvested.module.scss";
 import { useEffect } from "react";
-import { getData } from "@/Services/ApiClient/Services";
+import { baseURL, getData } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
 import useProjectBoxStore from "@/stores/ProjectStore/ProjectBoxStore";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
@@ -52,7 +52,7 @@ const ProjectsInvested = ({ className }) => {
 				<div className={styles.project_list}>
 					{projects?.map((item, index) => (
 						<InvestedItem
-							header={`http://104.168.46.4:8000${item.project.image}`}
+							header={`${baseURL}${item.project.image}`}
 							name={item.project.name}
 							key={index}
 							amount={item.investment_amount}

@@ -6,13 +6,11 @@ import baner from "../../../assets/baner.jpg";
 // import CommentSection from "@/components/CommentSection/CommentSection";
 import PersonalInfo from "@/components/PersonalInfo/PersonalInfo";
 import { useEffect } from "react";
-import { getData } from "@/Services/ApiClient/Services";
+import { baseURL, getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import TeamBox from "../Sections/TeamBox/TeamBox";
 import { Label } from "@/components/ui/label";
 import { Loading } from "@/components/Loading/Loading";
-import BarChart1 from "@/components/BarChart/BarChart1";
-import BarChart2 from "@/components/BarChart/BarChart2";
 import Likes from "@/components/Likes/Likes";
 import ProjectBox from "../ProjectBox/ProjectBox";
 import useProjectBoxStore from "@/stores/ProjectStore/ProjectBoxStore";
@@ -54,10 +52,10 @@ const StartupDashBoard = () => {
 			setEmail(data.base_profile.email);
 			setPhone(data.base_profile.phone);
 			setAvatar(
-				`http://104.168.46.4:8000${data.base_profile.profile_picture}`
+				`${baseURL}${data.base_profile.profile_picture}`
 			);
 			setHeader(
-				`http://104.168.46.4:8000${data.base_profile.header_picture}`
+				`${baseURL}${data.base_profile.header_picture}`
 			);
 			getData(`/balance/balance/`).then((data) =>
 				setBalance(data.balance)
@@ -96,16 +94,6 @@ const StartupDashBoard = () => {
 				</div>
 				<Label className={styles.label_style}>پروژه‌ها</Label>
 				<ProjectBox type="پروژه‌" add={true} />
-				{/* <div
-					className={`flex flex-wrap gap-6 p-6 rounded-md ${styles.chartbox}`}
-				>
-					<div className="flex-1 min-w-[300px]">
-						<BarChart1 />
-					</div>
-					<div className="flex-1 min-w-[300px]">
-						<BarChart2 />
-					</div>
-				</div> */}
 				<Label className={styles.label_style}>ذخیره شده</Label>
 				{/* <ProjectBox type="پروژه‌" /> */}
 				<Bookmarks type="پروژه‌ا" />

@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import ErrorMessage from "@/components/messages/ErrorMessage/ErrorMessage";
 import {
+	baseURL,
 	getData,
 	postData,
 	postImageData,
@@ -119,12 +120,8 @@ const EditProfile = () => {
 					console.log("data: ", data);
 					const profile = data.base_profile;
 					console.log("recived profile: ", profile);
-					setBannerFile(
-						`http://104.168.46.4:8000${profile.header_picture}`
-					);
-					setAvatarFile(
-						`http://104.168.46.4:8000${profile.profile_picture}`
-					);
+					setBannerFile(`${baseURL}${profile.header_picture}`);
+					setAvatarFile(`${baseURL}${profile.profile_picture}`);
 					const profileInfo_ = {
 						firstName: profile.first_name ?? "",
 						lastName: profile.last_name ?? "",
@@ -235,9 +232,7 @@ const EditProfile = () => {
 					.then((res) => {
 						console.log("Image posted successfully:", res);
 						setImageLoading(false);
-						setHeader(
-							`http://104.168.46.4:8000${res.profile.header_picture}`
-						);
+						setHeader(`${baseURL}${res.profile.header_picture}`);
 						toast.dismiss(toastId);
 						toast.success(
 							<CustomToast Header="بنر با موفقیت بارگزاری شد" />

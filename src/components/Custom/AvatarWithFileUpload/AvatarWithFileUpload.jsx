@@ -4,7 +4,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import ErrorMessage from "@/components/messages/ErrorMessage/ErrorMessage";
 import { toast } from "react-toastify";
-import { getData, postImageData } from "@/Services/ApiClient/Services";
+import { baseURL, getData, postImageData } from "@/Services/ApiClient/Services";
 import styles from "./AvatarWithFileUpload.module.scss";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 const AvatarWithFileUpload = ({ className, avatarFileState }) => {
@@ -30,7 +30,7 @@ const AvatarWithFileUpload = ({ className, avatarFileState }) => {
 						console.log("Image posted successfully:", res);
 						setImageLoading(false);
 						setAvatar(
-							`http://104.168.46.4:8000${res.profile.profile_picture}`
+							`${baseURL}${res.profile.profile_picture}`
 						);
 						toast.dismiss(toastId);
 						toast.success(

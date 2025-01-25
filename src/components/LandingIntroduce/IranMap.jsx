@@ -3,6 +3,7 @@ import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts/highmaps";
 import iranMap from "@highcharts/map-collection/countries/ir/ir-all.topo.json";
 import "./IranMap.scss";
+import { baseURL } from "@/Services/ApiClient/Services";
 
 const IranMap = () => {
   const [apiData, setApiData] = useState([]);
@@ -10,7 +11,7 @@ const IranMap = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://104.168.46.4:8000/map/pins/province-count/");
+        const response = await fetch(`${baseURL}map/pins/province-count/`);
         const data = await response.json();
         setApiData(data);
       } catch (error) {

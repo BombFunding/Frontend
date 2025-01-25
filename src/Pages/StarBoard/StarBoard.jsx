@@ -26,6 +26,7 @@ function StarBoard() {
 		favorite,
 		setResults,
 		setTotalPages,
+		setSearchQuery,
 	} = useStarboardStore();
 	useEffect(() => {
 		setLoading(true);
@@ -54,6 +55,9 @@ function StarBoard() {
 		sorting,
 		favorite,
 	]);
+	useEffect(() => {
+		setSearchQuery("");
+	}, []);
 
 	// useEffect(() => {
 	// 	// reset();

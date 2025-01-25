@@ -6,7 +6,7 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 import XIcon from "@mui/icons-material/X";
 import WebIcon from "@mui/icons-material/Web";
 import { useParams } from "react-router-dom";
-import { getData } from "@/Services/ApiClient/Services";
+import { baseURL, getData } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
 import { Separator } from "@/components/ui/separator";
 import ProjectBox from "@/components/DashBoard/ProjectBox/ProjectBox";
@@ -34,8 +34,8 @@ const StartupProfile = ({ className }) => {
           twitterAccount: profile.socials?.twitter ?? "",
           website: profile.socials?.website ?? "",
           email: profile.email ?? "",
-          banner: `http://104.168.46.4:8000${profile.header_picture}`,
-          avatar: `http://104.168.46.4:8000${profile.profile_picture}`,
+          banner: `${baseURL}${profile.header_picture}`,
+          avatar: `${baseURL}${profile.profile_picture}`,
         };
         setProfileInfo(profileInfo_);
         setLoading(false);

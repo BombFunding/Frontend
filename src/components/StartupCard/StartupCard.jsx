@@ -130,7 +130,7 @@ function StartupCard({
 	const Navigate = useNavigate();
 	const handleShare = () => {
 		// const url = window.location.href;
-		const url = `http://104.168.46.4:3000/projects/${id}`;
+		const url = `https://aminfiroozi.ir/projects/${id}`;
 		navigator.clipboard
 			.writeText(url)
 			.then(() => {

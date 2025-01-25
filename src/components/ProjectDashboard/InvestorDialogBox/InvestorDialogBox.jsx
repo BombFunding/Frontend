@@ -18,7 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import EmptySection from "@/components/EmptySection/EmptySection";
 import styles from "./InvestorDialogBox.module.scss";
 import { Button } from "@/components/ui/button";
-import { getData } from "@/Services/ApiClient/Services";
+import { baseURL, getData } from "@/Services/ApiClient/Services";
 import { useNavigate } from "react-router-dom";
 
 const InvestotItem = ({ username, valueOfInvestment, investTime, id, profile }) => {
@@ -46,7 +46,7 @@ const InvestotItem = ({ username, valueOfInvestment, investTime, id, profile }) 
 	useEffect(() => {
 		getData(`/auth/baseuser_search_by_name/${username}/`).then((data) => {
 			setAvatar(
-				`http://104.168.46.4:8000${data.baseuser_profile.profile_picture}`
+				`${baseURL}${data.baseuser_profile.profile_picture}`
 			);
 		});
 	}, []);

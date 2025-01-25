@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./SearchResult.css";
 import { useNavigate } from "react-router-dom";
 import styles from "./SearchResults.module.scss";
+import { baseURL } from "@/Services/ApiClient/Services";
 
 export default function SearchResult({ result }) {
   // console.log(`fullname: ${result.fullName}`);
@@ -37,7 +38,7 @@ export default function SearchResult({ result }) {
         } overflow-hidden lg:w-[5vw] md:w-[7vw]`}
       >
         <img
-          src={`http://104.168.46.4:8000${
+          src={`${baseURL}${
             result.profile_picture ?? result.image
           }`}
           alt={`${result.fullName ?? result.name}`}
