@@ -5,8 +5,8 @@ import { getData } from "@/Services/ApiClient/Services";
 import defaultPic from "../../assets/defaultpfp.png";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 
-function ProfileTeamBox({}) {
-	const { username } = useProfileStore();
+function ProfileTeamBox({ username }) {
+	// const { username } = useProfileStore();
 	const [children, setChildren] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);

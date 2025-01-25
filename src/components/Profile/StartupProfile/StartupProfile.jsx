@@ -85,7 +85,7 @@ const StartupProfile = ({ className }) => {
               <Label className="text-xl">:بیوگرافی</Label>
               <p className="text-base">{profileInfo.bio}</p>
             </div>
-            <ProfileTeamBox />
+            <ProfileTeamBox username={username} />
             {/* <ProjectBox type="پروژه‌ا" /> */}
             <div className="flex justify-center items-center gap-6 absolute">
               {profileInfo.linkedinAccoun && (
