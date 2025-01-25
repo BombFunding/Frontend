@@ -4,15 +4,15 @@ import LoginForm from "@/components/Forms/LoginForm/LoginForm";
 import HomeButton from "@/components/HomeButton/HomeButton";
 
 function Login() {
-	return (
-		<>
-			<div className={styles.login_container}>
-				<img className={styles.bg_img} src={loginimage} alt="login" />
-				<LoginForm />
-			</div>
-			<HomeButton className="translate-x-[5vw] translate-y-[-12vh]" />
-		</>
-	);
+  return (
+    <>
+      <div className={styles.login_container}>
+        <img className={styles.bg_img} src={loginimage} alt="login" />
+        <LoginForm />
+      </div>
+      <HomeButton className="top-12 right-10 lg:right-24" />
+    </>
+  );
 }
 
 export default Login;
