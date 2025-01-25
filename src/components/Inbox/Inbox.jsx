@@ -1,19 +1,47 @@
-// Inbox.jsx
 import React, { useEffect, useState } from "react";
 import inboxstyles from "./Inbox.module.scss";
+import useTokenStore from "@/stores/TokenStore";
 
 function Inbox({ onNotificationCountChange }) {
-  const [messages, setMessages] = useState([
-    { id: "message_1", count: 1, text: "یک پیام فارسی." },
-    { id: "message_2", count: 2, text: "یک پیام فارسی." },
-    { id: "message_3", count: 3, text: "یک پیام فارسی." },
-    // { id: "message_4", count: 4, text: "یک پیام فارسی." },
-    // { id: "message_5", count: 5, text: "یک پیام فارسی." },
-  ]);
+  const { accessToken } = useTokenStore();
+  const [messages, setMessages] = useState([]);
+  const [notificationCount, setNotificationCount] = useState(0);
 
-  const [notificationCount, setNotificationCount] = useState(messages.length);
+  useEffect(() => {
+    if (!accessToken) return;
 
-  // Notify parent component of changes in notification count
+    const ws = new WebSocket(
+      `wss://bombfundingbackend.liara.run/ws/notifications/${accessToken}/`
+    );
+
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+
+        const newNotifications = Array.isArray(data) ? data : [data];
+
+        setMessages((prevMessages) => {
+          const updatedMessages = [...newNotifications, ...prevMessages];
+          setNotificationCount(updatedMessages.length);
+          return updatedMessages;
+        });
+
+        console.log("New notifications:", newNotifications);
+      } catch (error) {
+        console.error("Error parsing WebSocket message:", error);
+      }
+    };
+
+    ws.onerror = (event) => {
+      console.error("WebSocket error:", event);
+      console.error("WebSocket URL:", ws.url);
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, [accessToken]);
+
   useEffect(() => {
     if (onNotificationCountChange) {
       onNotificationCountChange(notificationCount);
@@ -49,9 +77,9 @@ function Inbox({ onNotificationCountChange }) {
             className={inboxstyles["notification"] + " " + inboxstyles["new"]}
             htmlFor={`size_${message.id}`}
           >
-            <em className={inboxstyles["number"]}>{message.count}</em>
+            <em className={inboxstyles["number"]}>{message.count || "1"}</em>
             <span className={inboxstyles["text"]} id={`message_${message.id}`}>
-              {message.text}
+              {message.message || message.text}
             </span>
             <i
               className="material-icons dp48 right"
