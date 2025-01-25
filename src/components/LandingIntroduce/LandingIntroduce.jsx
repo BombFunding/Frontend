@@ -242,7 +242,7 @@ const App = () => {
 				if (entries.some((entry) => entry.isIntersecting)) {
 					try {
 						const response = await fetch(
-							`${baseURL}landing/get_statistics/`
+							`${baseURL}/landing/get_statistics/`
 						);
 						const data = await response.json();
 
