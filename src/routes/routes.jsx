@@ -29,6 +29,7 @@ import StartupProfile from "@/components/Profile/StartupProfile/StartupProfile";
 import InvestorProfile from "@/components/Profile/InvestorProfile/InvestorProfile";
 import FilterSection from "@/components/FilterSection/FilterSection";
 import ProfileTeamBox from "@/components/ProfileTeamBox/ProfileTeamBox";
+import FAQ from "@/components/FAQ/FAQ";
 
 export const router = createBrowserRouter([
   {
@@ -73,6 +74,10 @@ export const router = createBrowserRouter([
       {
         path: "/projects/:projectId",
         element: <Project />,
+      },
+      {
+        path: "/faq",
+        element: <FAQ />,
       },
     ],
   },
