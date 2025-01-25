@@ -151,6 +151,9 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
             <ul className="grid gap-2">
               {routes.map((route, idx) => {
                 const { Icon } = route;
+                if (route.title == "خروج" && !accessToken) {
+                  return;
+                }
                 return (
                   <motion.li
                     initial={{ scale: 0, opacity: 0 }}
@@ -173,6 +176,7 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
                           toggleShowCategories((prev) => !prev);
                         } else if (route.title === "خروج") {
                           deleteToken();
+                          handleToggle(false);
                         } else if (route.title === "جستجو") {
                           e.preventDefault();
                           setIsVisible(true);
