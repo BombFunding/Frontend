@@ -52,8 +52,8 @@ function Navbar() {
 
   const handleOutsideClick = (event) => {
     if (
-      panelRef.current &&
-      !panelRef.current.contains(event.target) &&
+      // panelRef.current &&
+      // !panelRef.current.contains(event.target) &&
       isNotificationPanelOpen
     ) {
       setIsNotificationPanelOpen(false); // Close panel if clicked outside
@@ -155,10 +155,6 @@ function Navbar() {
 
         <div
           className={`h-12 bg-bomborange w-screen z-[20] place-items-center ${styles.inboxdropdown}`}
-          style={{
-            transform: Opacity ? "translateY(0)" : "translateY(-100%)",
-            transition: "transform 0.3s ease-in-out",
-          }}
         >
           <NavbarDropDownSCN />
         </div>
