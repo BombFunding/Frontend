@@ -17,6 +17,7 @@ import { getDataParams } from "@/Services/ApiClient/Services";
 import { MdSpaceDashboard, MdOutlineSpaceDashboard } from "react-icons/md";
 import useTokenStore from "@/stores/TokenStore";
 import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
+import { RiListCheck } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage } from "../ui/avatar";
 // import { pic } from "../../assets/defaultpfp.png";
@@ -71,6 +72,11 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
       title: "داشبورد",
       href: "/dashboard",
       Icon: MdOutlineSpaceDashboard,
+    },
+    {
+      title: "استاربورد",
+      href: "/starboard",
+      Icon: RiListCheck,
     },
     {
       title: "خانه",
