@@ -11,7 +11,7 @@ import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 import NavbarDropDownSCN from "../NavbarDropDownSCN/NavbarDropDownSCN";
 import useTokenStore from "@/stores/TokenStore";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
-import { getData } from "@/Services/ApiClient/Services";
+import { baseURL, getData } from "@/Services/ApiClient/Services";
 import Inbox from "../Inbox/Inbox";
 import styles from "./Navbar.module.scss";
 import inboxstyles from "../Inbox/Inbox.module.scss";
@@ -40,7 +40,7 @@ function Navbar() {
   const fetchOfflineNotifications = async () => {
     try {
       const response = await fetch(
-        "http://104.168.46.4:8000/notifications/user-notifications/",
+        `${baseURL}/notifications/user-notifications/`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -94,7 +94,7 @@ function Navbar() {
 
   useEffect(() => {
     getData(`/auth/view_own_baseuser_profile/`).then((data) => {
-      setAvatar(`http://localhost:8000${data.base_profile.profile_picture}`);
+      setAvatar(`${baseURL}${data.base_profile.profile_picture}`);
     });
   }, [accessToken]);
 
