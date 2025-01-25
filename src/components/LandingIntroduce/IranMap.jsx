@@ -12,7 +12,7 @@ const IranMap = () => {
 		const fetchData = async () => {
 			try {
 				const response = await fetch(
-					`${baseURL}map/pins/province-count/`
+					`${baseURL}/map/pins/province-count/`
 				);
 				const data = await response.json();
 				setApiData(data);
