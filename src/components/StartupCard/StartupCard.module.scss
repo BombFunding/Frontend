@@ -42,7 +42,7 @@
 
 
 .image {
-	@apply rounded-t-lg;
+	@apply rounded-t-lg w-full;
 	aspect-ratio: 16/9;
 	object-fit: cover;
 }
