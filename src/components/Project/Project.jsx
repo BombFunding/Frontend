@@ -153,8 +153,9 @@ function Project({ className }) {
 		// 	className={`${className} bg-slate-50 overflow-hidden font-vazirmatn w-[90vw] translate-y-[3vw] mb-[6vw] place-self-center`}
 		// >
 		<>
+		<div className="flex flex-col justify-center items-center">
 			<div
-				className={`${className} w-[80vw] place-self-center py-[2vw] grid gap-y-[2vw]`}
+				className={`${className} w-[80vw] place-self-center py-[2vw] grid gap-y-[2vw] border-black`}
 				// className={`${className} w-[80vw] flex flex-col justify-start items-end mx-auto bg-white my-5 gap-3`}
 			>
 				<div className="place-self-center text-gray-800 text-4xl py-[3vw] ">
@@ -317,6 +318,7 @@ function Project({ className }) {
 				</div>
 				<PageView />
 				<CommentSection />
+			</div>
 			</div>
 		</>
 	);
