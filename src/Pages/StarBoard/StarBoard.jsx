@@ -83,7 +83,9 @@ function StarBoard() {
 		// 	onSubmit={onSubmit}
 		// >
 		<div className="font-vazirmatn text-black w-[100vw]">
+			<div className="flex justify-center items-center">
 			<FilterSection setResultsPerPage={setResultsPerPage} />
+</div>
 			{loading ? (
 				<Loading className="pt-20 pb-64 place-self-center" />
 			) : (
@@ -92,7 +94,7 @@ function StarBoard() {
 			{loading ? (
 				<></>
 			) : (
-				<p className="rtl place-self-center">
+				<p className="rtl place-self-center text-center">
 					{projects.length === 0
 						? "هیچ استارت‌آپی یافت نشد"
 						: `${results} استارت‌آپ یافت شد`}
