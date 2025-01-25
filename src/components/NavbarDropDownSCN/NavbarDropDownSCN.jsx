@@ -173,8 +173,10 @@ function NavbarDropDownSCN() {
             onMouseLeave={() => setSelected(null)}
             // onMouseLeave={() => handleMouseLeave()}
           >
-            <div className="hover:cursor-pointer place-content-center h-fit ml-[2.5vw] px-[1vw] w-[12vw] flex  flex-row text-black">
-              {comp.title}
+            <div className="hover:cursor-pointer place-content-center h-fit ml-[2.5vw] px-[1vw] w-[12vw] flex flex-row text-black">
+              <label className="sm:translate-y-1 lg:translate-y-0">
+                {comp.title}
+              </label>
               <FiChevronDown
                 className={`mt-1.5 ml-[0.2vw] transition ${
                   selected == i ? "rotate-180  duration-500" : ""
