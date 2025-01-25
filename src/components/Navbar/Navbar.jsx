@@ -115,19 +115,20 @@ function Navbar() {
                 استارت‌آپ‌ها
               </PushyButton>
 
-              <div
-                className={`${inboxstyles["notification-icon"]} ${inboxstyles.right}`}
-                onClick={handleNotificationClick}
-                style={{ cursor: "pointer" }}
-              >
-                <i className="material-icons dp48">notifications</i>
-                {notificationCount > 0 && (
-                  <span className={inboxstyles["num-count"]}>
-                    {notificationCount}
-                  </span>
-                )}
-              </div>
-
+{accessToken && (
+  <div
+    className={`${inboxstyles["notification-icon"]} ${inboxstyles.right}`}
+    onClick={handleNotificationClick}
+    style={{ cursor: "pointer" }}
+  >
+    <i className="material-icons dp48">notifications</i>
+    {notificationCount > 0 && (
+      <span className={inboxstyles["num-count"]}>
+        {notificationCount}
+      </span>
+    )}
+  </div>
+)}
               {accessToken ? (
                 <div className="place-items-center">
                   <ProfileDropDown />
