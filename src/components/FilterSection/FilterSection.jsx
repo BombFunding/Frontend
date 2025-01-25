@@ -166,7 +166,7 @@ function FilterSection() {
 			onSubmit={onSubmit}
 			className={`${styles.topMargin} mb-12 py-6 px-2 border-solid border-2 border-bomborange rounded-lg w-[95vw] text-[1vw] place-items-center place-self-center ${styles.formWidth}`}
 		>
-			<div className={`flex flex-row rtl gap-3 ${styles.flexBox}`}>
+			<div className={`flex flex-row rtl gap-3 justify-center ${styles.flexBox}`}>
 				<p className="place-self-center translate-y-[0.7vw]">
 					{" "}
 					پروژه های

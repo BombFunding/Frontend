@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -17,7 +17,7 @@ const schema = yup.object().shape({
 	description: yup.string().required("Description is required"),
 });
 
-const AddProjectForm = ({ addProjectCard }) => {
+const AddProjectForm = ({ addProjectCard, open, setOpen }) => {
 	const { updateProjects } = useProjectBoxStore();
 	const { username } = useProfileStore();
 	const {
@@ -38,12 +38,14 @@ const AddProjectForm = ({ addProjectCard }) => {
 			console.log("Response:", response);
 			updateProjects(username);
 			toast.success(<CustomToast Header="پروژه با موفقیت اضافه شد" />);
+			setOpen(false);
 		});
 	};
 
 	return (
 		<>
 			<DrawerDialog
+				open={open}
 				title={"پروژه جدید"}
 				closeButton={
 					<button

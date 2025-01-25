@@ -82,6 +82,7 @@ const InvestorDashBoard = () => {
 	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
 	return (
 		<>
+		<div className="flex flex-col items-center justify-center">
 			<Card className={styles.card_style}>
 				<PersonalInfo loading={loading} />
 				<Label className={styles.label_style}>
@@ -111,6 +112,7 @@ const InvestorDashBoard = () => {
 				<Label className={styles.label_style}>ذخیره شده</Label>
 				<Bookmarks type="پروژه‌ا" />
 			</Card>
+		</div>
 		</>
 	);
 };
