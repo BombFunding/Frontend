@@ -66,13 +66,13 @@ const AddTeamForm = ({ setFormOpen, setMembers }) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <CustomInput
-        inputClassName={"w-[60vw] text-right"}
+        inputClassName={"w-[60vw] text-right translate-x-[-0.4vw]"}
         placeholder="نام کاربری"
         register={register}
         name={"username"}
       />
       <CustomInput
-        inputClassName={"w-[60vw] text-right"}
+        inputClassName={"w-[60vw] text-right translate-x-[-0.4vw]"}
         placeholder="نقش عضو در تیم"
         register={register}
         name={"role"}
