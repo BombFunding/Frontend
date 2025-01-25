@@ -10,7 +10,7 @@ function Login() {
         <img className={styles.bg_img} src={loginimage} alt="login" />
         <LoginForm />
       </div>
-      <HomeButton className="top-12 right-10" />
+      <HomeButton className="top-12 right-10 lg:right-24" />
     </>
   );
 }
