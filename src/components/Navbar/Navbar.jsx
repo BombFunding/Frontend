@@ -51,9 +51,9 @@ function Navbar() {
                 <img
                   src={Logo}
                   alt="Bomb Funding"
-                  className="rounded-full w-[2.5vw] h-[2.5vw] place-self-center mix-blend-multiply mx-[0.5vw]"
+                  className="rounded-full w-8 h-8 sm:w-10 sm:h-10 place-self-center mix-blend-multiply mx-[0.5vw]"
                 />
-                <a className="font-extrabold text-[1.5vw] text-left px-0 place-self-center text-bombblack">
+                <a className="font-extrabold text-[0.8rem] sm:text-[0.9rem] md:text-[1.2rem] text-left px-0 place-self-center text-bombblack">
                   Bomb Funding
                 </a>
               </>

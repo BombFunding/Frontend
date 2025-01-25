@@ -17,6 +17,7 @@ import { getDataParams } from "@/Services/ApiClient/Services";
 import { MdSpaceDashboard, MdOutlineSpaceDashboard } from "react-icons/md";
 import useTokenStore from "@/stores/TokenStore";
 import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
+import { RiListCheck } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage } from "../ui/avatar";
 // import { pic } from "../../assets/defaultpfp.png";
@@ -71,6 +72,11 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
       title: "داشبورد",
       href: "/dashboard",
       Icon: MdOutlineSpaceDashboard,
+    },
+    {
+      title: "استاربورد",
+      href: "/starboard",
+      Icon: RiListCheck,
     },
     {
       title: "خانه",
@@ -151,6 +157,9 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
             <ul className="grid gap-2">
               {routes.map((route, idx) => {
                 const { Icon } = route;
+                if (route.title == "خروج" && !accessToken) {
+                  return;
+                }
                 return (
                   <motion.li
                     initial={{ scale: 0, opacity: 0 }}
@@ -173,6 +182,7 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
                           toggleShowCategories((prev) => !prev);
                         } else if (route.title === "خروج") {
                           deleteToken();
+                          handleToggle(false);
                         } else if (route.title === "جستجو") {
                           e.preventDefault();
                           setIsVisible(true);
