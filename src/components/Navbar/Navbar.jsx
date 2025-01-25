@@ -135,7 +135,18 @@ function Navbar() {
       document.removeEventListener("mousedown", handleOutsideClick); // Cleanup
     };
   }, [isNotificationPanelOpen]);
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
 
+    // Clean up when component unmounts
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [isOpen]);
   return (
     <>
       <nav
@@ -147,7 +158,7 @@ function Navbar() {
           } w-full justify-between items-center px-6 transition-all duration-300`}
           style={{ height: window.innerWidth <= 641 ? "50px" : "78px" }}
         >
-          <div className={`px-4 flex justify-between items-center w-full`}>
+          <div className={`px-0 flex justify-between items-center w-full`}>
             <div
               className={`flex text-white hover:cursor-pointer`}
               onClick={() => Navigate("/")}
@@ -157,9 +168,9 @@ function Navbar() {
                   <img
                     src={Logo}
                     alt="Bomb Funding"
-                    className="rounded-full w-[2.5vw] h-[2.5vw] place-self-center mix-blend-multiply mx-[0.5vw]"
+                    className="rounded-full w-[35px] h-[35px] place-self-center mix-blend-multiply mx-[0.5vw]"
                   />
-                  <a className="font-extrabold text-[1.5vw] text-left px-0 place-self-center text-bombblack">
+                  <a className="font-extrabold text-[15px] text-left pl-1 pt-2 place-self-center text-bombblack">
                     Bomb Funding
                   </a>
                 </>
