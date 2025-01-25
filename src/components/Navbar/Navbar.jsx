@@ -90,7 +90,7 @@ function Navbar() {
   useEffect(() => {
     setNotificationCount(messages.length);
   }, [messages]);
-  console.log("ref");
+  // console.log("ref");
 
   useEffect(() => {
     getData(`/auth/view_own_baseuser_profile/`).then((data) => {
