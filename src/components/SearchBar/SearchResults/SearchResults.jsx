@@ -14,12 +14,15 @@ export default function SearchResult({ result }) {
     // alert("chi");
     if (result.profile_id) {
       // startup
+      window.scrollTo(0, 0);
       Navigate(`/profile/${result.username}`);
     } else if (result.id) {
       // projects
+      window.scrollTo(0, 0);
       Navigate(`/projects/${result.id}`);
     } else {
       // investors
+      window.scrollTo(0, 0);
       Navigate(`/profile/${result.username}`);
     }
     window.location.reload();

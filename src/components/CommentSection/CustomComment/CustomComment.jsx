@@ -13,8 +13,7 @@ function CustomComment({ pfp, Username, Comment, time }) {
 			// Less than 1 minute
 			// return `${timeDifference} ثانیه پیش`;
 			return `همین الان`;
-		} else 
-		if (timeDifference < 3600) {
+		} else if (timeDifference < 3600) {
 			// Less than 1 hour
 			const minutes = Math.floor(timeDifference / 60);
 			return `${minutes} دقیقه پیش`;
@@ -32,7 +31,9 @@ function CustomComment({ pfp, Username, Comment, time }) {
 		<div className={styles.box}>
 			<div className={styles.comment_section}>
 				<div className="flex flex-row justify-between w-full">
-					<div className="place-self-start rtl">{timeSinceCommented(time)}</div>
+					<div className="place-self-start rtl">
+						{timeSinceCommented(time)}
+					</div>
 					<h2 className={styles.username}>{Username}</h2>
 				</div>
 				<p className={styles.comment}>{Comment}</p>
@@ -40,7 +41,10 @@ function CustomComment({ pfp, Username, Comment, time }) {
 			<img
 				src={pfp ?? profile_default}
 				className={styles.profile}
-				onClick={() => Navigate(`/profile/${Username}`)}
+				onClick={() => {
+					window.scrollTo(0, 0);
+					Navigate(`/profile/${Username}`);
+				}}
 			/>
 		</div>
 	);

@@ -14,7 +14,10 @@ function Accounting({ className }) {
 			<div className={styles.balance}>{balance} تومان</div>
 			<button
 				className="btn bg-bomborange text-black hover:text-white m-[2vw]"
-				onClick={() => Navigate("/ChargeAccount")}
+				onClick={() => {
+					window.scrollTo(0, 0);
+					Navigate("/ChargeAccount");
+				}}
 			>
 				افزایش موجودی
 			</button>

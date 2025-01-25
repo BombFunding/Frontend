@@ -32,13 +32,19 @@ function ProfileDropDown() {
 			<DropdownMenuContent className={styles.content}>
 				<DropdownMenuItem
 					className={styles.item}
-					onClick={() => Navigate(`/profile/${username}`)}
+					onClick={() => {
+						window.scrollTo(0, 0);
+						Navigate(`/profile/${username}`);
+					}}
 				>
 					پروفایل
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					className={styles.item}
-					onClick={() => Navigate("/dashboard")}
+					onClick={() => {
+						window.scrollTo(0, 0);
+						Navigate("/dashboard");
+					}}
 				>
 					داشبورد
 				</DropdownMenuItem>
