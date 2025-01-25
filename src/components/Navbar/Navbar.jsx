@@ -86,9 +86,19 @@ function Navbar() {
 
   // console.log(accessToken);
 
+  // useEffect(() => {
+  //   fetchOfflineNotifications();
+  // }, []);
+  const pollingInterval = 500;
   useEffect(() => {
-    fetchOfflineNotifications();
-  }, []);
+    // Start polling for real-time notifications
+    const interval = setInterval(() => {
+      fetchOfflineNotifications();
+    }, pollingInterval);
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(interval);
+  }, [accessToken]);
 
   useEffect(() => {
     setNotificationCount(messages.length);
