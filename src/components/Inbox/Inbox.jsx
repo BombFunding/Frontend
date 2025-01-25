@@ -146,7 +146,9 @@ function Inbox({
   };
 
   return (
-    <div className={inboxstyles["notification-container"]}>
+    <div
+      className={`${inboxstyles.notificationCenterRight} ${inboxstyles["notification-container"]}`}
+    >
       <h3>{notificationCount > 0 ? "اطلاعیه ها" : "هیچ اطلاعیه جدیدی نیست"}</h3>
 
       {messages.map((message) => (

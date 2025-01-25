@@ -139,17 +139,17 @@ function Navbar() {
   return (
     <>
       <nav
-        className={`flex flex-col justify-around top-0 fixed right-0 z-40 w-screen`}
+        className={`flex flex-col justify-between top-0 fixed right-0 z-40 w-screen`}
       >
         <div
           className={`flex flex-row ${
             isOpen ? "bg-black" : "bg-bomborange"
           } w-full justify-between items-center px-6 transition-all duration-300`}
-          style={{ height: window.innerWidth <= 768 ? "78px" : "60px" }}
+          style={{ height: window.innerWidth <= 641 ? "50px" : "78px" }}
         >
-          <div className="px-4 flex justify-between items-center w-full">
+          <div className={`px-4 flex justify-between items-center w-full`}>
             <div
-              className="flex text-white hover:cursor-pointer"
+              className={`flex text-white hover:cursor-pointer`}
               onClick={() => Navigate("/")}
             >
               {!isOpen && (
@@ -181,14 +181,52 @@ function Navbar() {
               </div>
             </div>
 
-            <div className={`${styles.mobile} flex gap-[1vw]`}>
-              <PushyButton onClick={() => Navigate("/starboard")}>
-                استارت‌آپ‌ها
-              </PushyButton>
+            <div className={`flex gap-[1vw]`}>
+              <div className={`${styles.mobile}`}>
+                <PushyButton onClick={() => Navigate("/starboard")}>
+                  استارت‌آپ‌ها
+                </PushyButton>
+              </div>
               {/* <FiInbox /> */}
               {accessToken && (
                 <div
-                  className={`${inboxstyles["notification-icon"]} ${inboxstyles.right}`}
+                  className={`${inboxstyles["notification-icon"]} ${styles.mobile} ${styles.inbox} ${inboxstyles.right}`}
+                  onClick={handleNotificationClick}
+                  style={{
+                    cursor: "pointer",
+                    height: "32px",
+                    width: "32px",
+                    // background: "transparent",
+                  }}
+                >
+                  <i className="material-icons dp48 bottom-14 translate-x-[-3px] translate-y-[-3px]">
+                    notifications
+                  </i>
+                  {notificationCount > 0 && (
+                    <span className={inboxstyles["num-count"]}>
+                      {notificationCount}
+                    </span>
+                  )}
+                </div>
+              )}
+              <div className={`${styles.mobile}`}>
+                {accessToken ? (
+                  <div className="place-items-center">
+                    <ProfileDropDown />
+                  </div>
+                ) : (
+                  <PushyButton onClick={() => Navigate("/login")}>
+                    ورود
+                  </PushyButton>
+                )}
+              </div>
+            </div>
+            <div className={`flex flex-row items-center sm:hidden mt-1`}>
+              {accessToken && (
+                <div
+                  className={`${inboxstyles["notification-icon"]} ${
+                    isOpen ? "hidden" : ""
+                  } sm:hidden ${styles.inbox} ${inboxstyles.right}`}
                   onClick={handleNotificationClick}
                   style={{
                     cursor: "pointer",
@@ -206,30 +244,20 @@ function Navbar() {
                   )}
                 </div>
               )}
-              {accessToken ? (
-                <div className="place-items-center">
-                  <ProfileDropDown />
-                </div>
-              ) : (
-                <PushyButton onClick={() => Navigate("/login")}>
-                  ورود
-                </PushyButton>
-              )}
+              <HamburgerMenu
+                isOpen={isOpen}
+                setOpen={setOpen}
+                mode={"sm:hidden font-vazirmatn"}
+                token={accessToken}
+                isVisible={isVisible}
+                setIsVisible={setIsVisible}
+              />
             </div>
-
-            <HamburgerMenu
-              isOpen={isOpen}
-              setOpen={setOpen}
-              mode={"sm:hidden font-vazirmatn"}
-              token={accessToken}
-              isVisible={isVisible}
-              setIsVisible={setIsVisible}
-            />
           </div>
         </div>
 
         <div
-          className={`h-12 bg-bomborange w-screen z-[-20] place-items-center ${styles.inboxdropdown}`}
+          className={`h-12 bg-bomborange w-screen z-[-20] place-items-center ${styles.mobile}`}
         >
           <NavbarDropDownSCN />
         </div>

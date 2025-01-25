@@ -25,6 +25,56 @@ $container-shadow: 0.5rem 0.5rem 2rem 0 rgba(black, 0.2);
 $trans: cubic-bezier(0.3, 0, 0.7, 1);
 
 $media-mobile: "only screen and (max-width: 720px)";
+
+@media (max-width: 640px) {
+  .notification-icon {
+    position: relative;
+    margin-right: 1em;
+    border-radius: 5px;
+    background: transparent;
+    i {
+      margin: 0.5rem;
+    }
+    &:nth-of-type(1) {
+      i {
+        background: -webkit-linear-gradient(300deg, #000000, #000000);
+        // background: rgba(255, 255, 255, 1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+    &:nth-of-type(2) i {
+      background: -webkit-linear-gradient(300deg, #acccea, #000da1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}
+
+@media (min-width: 641px) {
+  .notification-icon {
+    position: relative;
+    margin-right: 1em;
+    border-radius: 5px;
+    background: $clr-white-1;
+    i {
+      margin: 0.5rem;
+    }
+    &:nth-of-type(1) {
+      i {
+        background: -webkit-linear-gradient(300deg, #fff9ab, rgb(161, 89, 0));
+        // background: rgba(255, 255, 255, 1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: $clr-white-1;
+      }
+    }
+    &:nth-of-type(2) i {
+      background: -webkit-linear-gradient(300deg, #fff9ab, rgb(161, 89, 0));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}
 // این برای دراپ داون نوتیف هاست اما باگ داره
 .notification-container {
   direction: rtl;
@@ -190,28 +240,28 @@ spacer {
 //   }
 // }
 
-.notification-icon {
-  position: relative;
-  margin-right: 1em;
-  border-radius: 5px;
-  background: $clr-white-1;
-  i {
-    margin: 0.5rem;
-  }
-  &:nth-of-type(1) {
-    i {
-      background: -webkit-linear-gradient(300deg, #fff9ab, rgb(161, 89, 0));
-      // background: rgba(255, 255, 255, 1);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  }
-  &:nth-of-type(2) i {
-    background: -webkit-linear-gradient(300deg, #acccea, #000da1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-}
+// .notification-icon {
+//   position: relative;
+//   margin-right: 1em;
+//   border-radius: 5px;
+//   background: $clr-white-1;
+//   i {
+//     margin: 0.5rem;
+//   }
+//   &:nth-of-type(1) {
+//     i {
+//       background: -webkit-linear-gradient(300deg, #fff9ab, rgb(161, 89, 0));
+//       // background: rgba(255, 255, 255, 1);
+//       -webkit-background-clip: text;
+//       -webkit-text-fill-color: transparent;
+//     }
+//   }
+//   &:nth-of-type(2) i {
+//     background: -webkit-linear-gradient(300deg, #acccea, #000da1);
+//     -webkit-background-clip: text;
+//     -webkit-text-fill-color: transparent;
+//   }
+// }
 
 // .num-count {
 //   position: absolute;
