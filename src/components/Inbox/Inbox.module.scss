@@ -26,10 +26,10 @@ $container-shadow: 0.5rem 0.5rem 2rem 0 rgba(black, 0.2);
 $trans: cubic-bezier(0.3,0,0.7,1);
 
 $media-mobile: "only screen and (max-width: 720px)";
-
+// این برای دراپ داون نوتیف هاست اما باگ داره
 .notification-container {
-  direction: rtl;  // جهت متن را از راست به چپ تنظیم می‌کند
-  text-align: right;  // به طور پیش‌فرض متن به سمت راست تراز می‌شود
+  direction: rtl;
+  text-align: right; 
   position: absolute;
   z-index: 999;
   top: 70px;
@@ -41,12 +41,11 @@ $media-mobile: "only screen and (max-width: 720px)";
   box-sizing: border-box;
   box-shadow: $container-shadow;
 
-  // مثلث قبل از باکس (در سمت راست)
   &:before {
     content: "";
     position: absolute;
     top: 1px;
-    right: 0;  // مثلث در سمت راست قرار می‌گیرد
+    right: 0;  
     width: 0;
     height: 0; 
     transform: translate(-1rem, -100%);
@@ -67,7 +66,7 @@ $media-mobile: "only screen and (max-width: 720px)";
     color: #0C0C42;
     font-size: 140%;
     position: absolute;
-    left: $h-gutter;  // آیتم i در سمت چپ قرار می‌گیرد
+    left: $h-gutter; 
     @vertical-align(50%);
     
     &:hover {
@@ -83,7 +82,7 @@ $media-mobile: "only screen and (max-width: 720px)";
     color: #FF7517;
     vertical-align: bottom;
     display: inline-block;
-    text-align: left;  // متن در داخل em به سمت چپ تراز می‌شود
+    text-align: left;
   }
 
   animation-name: dropPanel;
@@ -102,9 +101,9 @@ $media-mobile: "only screen and (max-width: 720px)";
 .notification {
   box-sizing: border-box;
   &.new {
-    background: transparent; // رنگ پیش‌فرض شفاف (بدون رنگ)
+    background: transparent;
     &:hover {
-      background: #fff2c2; // تغییر: رنگ با شفافیت 50%
+      background: #fff2c2; 
     }
   }
 }
