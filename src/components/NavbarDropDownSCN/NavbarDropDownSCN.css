@@ -25,12 +25,3 @@
     opacity: 1;
   }
 }
-@keyframes finisher {
-  from {
-    visibility: visible;
-  }
-  to {
-    visibility: hidden;
-    display: none;
-  }
-}
