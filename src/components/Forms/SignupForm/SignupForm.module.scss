@@ -25,7 +25,7 @@
 }
 
 .welcome {
-	@apply text-black m-4 text-xl;
+	@apply text-black m-4 text-2xl bg-bomborange p-2 font-bold rounded-sm;
 }
 
 .logo {
@@ -33,7 +33,7 @@
 }
 
 .text {
-	@apply text-black text-xs text-center mb-3;
+	@apply text-black text-sm text-center mb-3;
 }
 
 .form_column {

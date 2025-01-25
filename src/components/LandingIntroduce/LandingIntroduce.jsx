@@ -277,19 +277,19 @@ const App = () => {
 				<div className={styles.visual}>
 					<City3D />
 				</div>
-				<div className={styles.content}>
+				<div className={`${styles.content} bg-black/30 backdrop-blur-md p-11 rounded-badge`}>
 					<AnimatedText
 						el="h2"
 						text={["BOMB FUNDING"]}
 						repeatDelay={5000}
-						className="text-left text-[4vw] font-bold text-[#ffffff] League Gothic"
+						className="text-[4vw] text-center flex justify-center font-bold text-white bg-black/20 rounded-md shadow-2xl League Gothic"
 					/>
 
 					<h1 className={`${styles.title}`}>
 						<FlipAnimation />
 					</h1>
 					<p
-						className="font-vazirmatn text-[0.6em] mt-4 text-right"
+						className="font-vazirmatn text-[0.6em] mt-4 text-center"
 						style={{ whiteSpace: "pre-line" }}
 					>
 						بمب فاندینگ، پلتفرمی برای ارتباط با سرمایه گذاران ،
@@ -298,16 +298,16 @@ const App = () => {
 						توست...
 					</p>
 
-					<div className="mt-8 flex gap-4 justify-start text-right md:justify-right md:text-center">
+					<div className="mt-8 flex justify-center gap-4 text-right md:justify-right md:text-center">
 						<Link
 							to="/Starboard"
-							className="btn font-vazirmatn text-[#0C0C42] bg-[#FFFFFFAD] hover:bg-[#FFBB00AD] hover:text-white text-[1rem] w-[10rem] h-[2vw] md:w-[8rem] sm:w-[9rem]"
+							className="btn font-vazirmatn text-[#0C0C42] bg-[#FFFFFFAD] hover:bg-[#FFBB00AD] hover:text-white text-[1rem] w-[10rem] border-4 border-bomborange md:w-[8rem] sm:w-[9rem]"
 						>
 							کشف پروژه‌ها
 						</Link>
 						<Link
 							to="/SignUp"
-							className="btn font-vazirmatn text-[#0C0C42] bg-[#FFFFFFAD] hover:bg-[#FFBB00AD] hover:text-white text-[1rem] w-[10rem] h-[3vw] md:w-[8rem] sm:w-[9rem]"
+							className="btn font-vazirmatn text-[#0C0C42] bg-[#FFFFFFAD] hover:bg-[#FFBB00AD] hover:text-white text-[1rem] w-[10rem] md:w-[8rem] sm:w-[9rem]"
 						>
 							ثبت نام
 						</Link>
