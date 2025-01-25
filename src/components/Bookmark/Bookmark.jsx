@@ -25,7 +25,10 @@ function Bookmark({ className, username, projectId, isBookmarked }) {
 			setChecked((checked) => !checked);
 		} else {
 			toast.error(<CustomToast Header="لطفا وارد حساب کاربری خود شود" />);
-			setTimeout(() => Navigate("/login"), 3000);
+			setTimeout(() => {
+				window.scrollTo(0, 0);
+				Navigate("/login");
+			}, 3000);
 		}
 	};
 	return (

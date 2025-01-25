@@ -16,7 +16,10 @@ function ChargeAccount() {
 				toast.success(
 					<CustomToast Header={`موجودی شما با موفقیت افزایش یافت`} />
 				);
-				setTimeout(() => Navigate("/dashboard"), 3000);
+				setTimeout(() => {
+					window.scrollTo(0, 0);
+					Navigate("/dashboard");
+				}, 3000);
 			})
 			.catch((err) => {
 				console.log(err);
