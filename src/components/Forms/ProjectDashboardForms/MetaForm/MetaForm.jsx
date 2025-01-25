@@ -23,7 +23,7 @@ const MetaForm = ({ setClose }) => {
 	} = useForm({
 		resolver: yupResolver(schema),
 	});
-	const { updateProject } = useProjectStore();
+	const { updateProject, projectName, description, setProjectName, setDescription } = useProjectStore();
 	const { projectId } = useParams();
 
 	const onSubmit = (data) => {
@@ -61,6 +61,8 @@ const MetaForm = ({ setClose }) => {
 				holderClassName={"w-full"}
 				inputClassName={"w-full translate-x-[-0.5vw]"}
 				name={"name"}
+				value={projectName}
+				onChange={setProjectName}
 				register={register}
 				placeholder={"نام پروژه"}
 			/>
@@ -68,6 +70,8 @@ const MetaForm = ({ setClose }) => {
 				holderClassName={"w-full"}
 				inputClassName={"w-full h-32"}
 				name={"description"}
+				value={description}
+				onChange={setDescription}
 				register={register}
 				placeholder={"توضیحات"}
 			/>
