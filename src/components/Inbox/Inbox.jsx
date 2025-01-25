@@ -1,33 +1,111 @@
-// Inbox.jsx
 import React, { useEffect, useState } from "react";
 import inboxstyles from "./Inbox.module.scss";
+import useTokenStore from "@/stores/TokenStore";
 
-function Inbox({ onNotificationCountChange }) {
-  const [messages, setMessages] = useState([
-    { id: "message_1", count: 1, text: "یک پیام فارسی." },
-    { id: "message_2", count: 2, text: "یک پیام فارسی." },
-    { id: "message_3", count: 3, text: "یک پیام فارسی." },
-    // { id: "message_4", count: 4, text: "یک پیام فارسی." },
-    // { id: "message_5", count: 5, text: "یک پیام فارسی." },
-  ]);
+function Inbox({
+  onNotificationCountChange,
+  messages,
+  setMessages,
+  notificationCount,
+  setNotificationCount,
+  fetchOfflineNotifications,
+}) {
+  const { accessToken } = useTokenStore();
 
-  const [notificationCount, setNotificationCount] = useState(messages.length);
+  // Handle WebSocket connection
+  useEffect(() => {
+    if (!accessToken) return;
 
-  // Notify parent component of changes in notification count
+    // WebSocket connection
+    const ws = new WebSocket(
+      `wss://bombfundingbackend.liara.run/ws/notifications/${accessToken}/`
+    );
+
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+
+        // Map WebSocket data to standard format
+        const newNotifications = Array.isArray(data)
+          ? data.map((item) => ({
+              id: item.id || new Date().getTime(),
+              message: item.message || item.text || "پیام جدید",
+              count: item.count || 1,
+            }))
+          : [
+              {
+                id: data.id || new Date().getTime(),
+                message: data.message || data.text || "پیام جدید",
+                count: data.count || 1,
+              },
+            ];
+
+        setMessages((prevMessages) => {
+          const updatedMessages = [...newNotifications, ...prevMessages];
+          setNotificationCount(updatedMessages.length);
+          return updatedMessages;
+        });
+
+        console.log("WebSocket notifications:", newNotifications);
+      } catch (error) {
+        console.error("Error parsing WebSocket message:", error);
+      }
+    };
+
+    ws.onerror = (event) => {
+      console.error("WebSocket error:", event);
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, [accessToken]);
+
+  // Fetch offline notifications when component mounts
+  useEffect(() => {
+    if (accessToken) {
+      fetchOfflineNotifications();
+    }
+  }, [accessToken]);
+
+  // Notify parent component about the count change
   useEffect(() => {
     if (onNotificationCountChange) {
       onNotificationCountChange(notificationCount);
     }
   }, [notificationCount, onNotificationCountChange]);
 
-  const handleRemoveMessage = (messageId) => {
-    setMessages((prevMessages) => {
-      const updatedMessages = prevMessages.filter(
-        (message) => message.id !== messageId
+  // Remove a notification
+  const handleRemoveMessage = async (messageId) => {
+    try {
+      const response = await fetch(
+        `https://bombfundingbackend.liara.run/notifications/read-notification/${messageId}/`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
       );
-      setNotificationCount(updatedMessages.length);
-      return updatedMessages;
-    });
+      console.log(response);
+      if (response.ok) {
+        // Remove the message locally if the request is successful
+        setMessages((prevMessages) => {
+          const updatedMessages = prevMessages.filter(
+            (message) => message.id !== messageId
+          );
+          setNotificationCount(updatedMessages.length);
+          return updatedMessages;
+        });
+      } else {
+        console.error(
+          `Failed to mark notification ${messageId} as read:`,
+          response.statusText
+        );
+      }
+    } catch (error) {
+      console.error(`Error marking notification ${messageId} as read:`, error);
+    }
   };
 
   return (
@@ -47,9 +125,9 @@ function Inbox({ onNotificationCountChange }) {
             className={inboxstyles["notification"] + " " + inboxstyles["new"]}
             htmlFor={`size_${message.id}`}
           >
-            <em className={inboxstyles["number"]}>{message.count}</em>
+            <em className={inboxstyles["number"]}>{message.count || "1"}</em>
             <span className={inboxstyles["text"]} id={`message_${message.id}`}>
-              {message.text}
+              {message.message}
             </span>
             <i
               className="material-icons dp48 right"

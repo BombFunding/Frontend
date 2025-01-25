@@ -15,7 +15,6 @@ import { getData } from "@/Services/ApiClient/Services";
 import Inbox from "../Inbox/Inbox";
 import styles from "./Navbar.module.scss";
 import inboxstyles from "../Inbox/Inbox.module.scss";
-import { Opacity } from "@mui/icons-material";
 
 function Navbar() {
   const { userType } = useProfileStore();
@@ -34,16 +33,56 @@ function Navbar() {
   const [isNotificationPanelOpen, setIsNotificationPanelOpen] = useState(false);
   const panelRef = useRef(null); // Ref for the notification panel
   const { avatar, setAvatar } = useProfileStore();
+  const [messages, setMessages] = useState([]);
+
+  // Fetch unread messages from the API
+  const fetchOfflineNotifications = async () => {
+    try {
+      const response = await fetch(
+        "https://bombfundingbackend.liara.run/notifications/user-notifications/",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const offlineMessages = await response.json();
+        // Map messages to a standard format
+        const formattedMessages = offlineMessages.map((item) => ({
+          id: item.id || new Date().getTime(),
+          message: item.message || item.text || "پیام آفلاین",
+          count: item.count || 1,
+        }));
+
+        setMessages((prevMessages) => {
+          const updatedMessages = [...prevMessages, ...formattedMessages];
+          setNotificationCount(updatedMessages.length);
+          return updatedMessages;
+        });
+      } else {
+        console.error("Failed to fetch offline notifications.");
+      }
+    } catch (error) {
+      console.error("Error fetching offline notifications:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (accessToken) {
+      fetchOfflineNotifications();
+    }
+  }, [accessToken]);
 
   useEffect(() => {
     getData(`/auth/view_own_baseuser_profile/`).then((data) => {
       setAvatar(`http://localhost:8000${data.base_profile.profile_picture}`);
-      // console.log("Aman Man");
     });
   }, []);
 
   const handleNotificationClick = () => {
-    setIsNotificationPanelOpen(() => !isNotificationPanelOpen);
+    setIsNotificationPanelOpen((prev) => !prev);
   };
 
   const handleNotificationCountChange = (count) => {
@@ -52,8 +91,8 @@ function Navbar() {
 
   const handleOutsideClick = (event) => {
     if (
-      // panelRef.current &&
-      // !panelRef.current.contains(event.target) &&
+      panelRef.current &&
+      !panelRef.current.contains(event.target) &&
       isNotificationPanelOpen
     ) {
       setIsNotificationPanelOpen(false); // Close panel if clicked outside
@@ -66,6 +105,8 @@ function Navbar() {
       document.removeEventListener("mousedown", handleOutsideClick); // Cleanup
     };
   }, [isNotificationPanelOpen]);
+
+  useEffect(() => {}, [notificationCount]);
 
   return (
     <>
@@ -154,7 +195,7 @@ function Navbar() {
         </div>
 
         <div
-          className={`h-12 bg-bomborange w-screen z-[20] place-items-center ${styles.inboxdropdown}`}
+          className={`h-12 bg-bomborange w-screen z-[-20] place-items-center ${styles.inboxdropdown}`}
         >
           <NavbarDropDownSCN />
         </div>
@@ -165,18 +206,25 @@ function Navbar() {
       </nav>
 
       {/* Render the Inbox component for its side effect of setting notification count */}
-      <div className={`${isNotificationPanelOpen ? "visible" : `hidden`}`}>
+      {/* <div className={`${isNotificationPanelOpen ? "visible" : `hidden`}`}>
         <Inbox
           onNotificationCountChange={handleNotificationCountChange}
-          onClick={() => setIsNotificationPanelOpen(false)}
+          // onClick={() => setIsNotificationPanelOpen(false)}
         />
-      </div>
+      </div> */}
 
-      {/* {isNotificationPanelOpen && (
+      {isNotificationPanelOpen && (
         <div ref={panelRef}>
-          <Inbox onNotificationCountChange={handleNotificationCountChange} />
+          <Inbox
+            onNotificationCountChange={handleNotificationCountChange}
+            messages={messages}
+            setMessages={setMessages}
+            notificationCOunt={notificationCount}
+            setNotificationCount={setNotificationCount}
+            fetchOfflineNotifications={fetchOfflineNotifications}
+          />
         </div>
-      )} */}
+      )}
     </>
   );
 }
