@@ -38,7 +38,7 @@ function PasswordInput({
 				type={showPassword ? "text" : "password"}
 				update={update}
 				placeholder={placeholder}
-				className={`${className} ${hasEye ? "right-[2.5rem]" : ""}`}
+				labelClassname={`${className} ${hasEye ? "right-[2.5rem]" : ""}`}
 				name={name}
 				onChange={onChange}
 			/>

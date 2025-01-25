@@ -30,6 +30,7 @@ const RefreshToken = async () => {
 };
 
 export const baseURL = "https://bombfundingbackend.liara.run";
+// export const baseURL = "http://104.168.46.4:8000";
 
 const apiClient = axios.create({
 	baseURL: baseURL,
