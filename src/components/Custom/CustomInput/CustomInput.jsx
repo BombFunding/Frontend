@@ -11,7 +11,8 @@ function CustomInput({
 	name,
 	onChange,
 	register,
-	labelClassname
+	labelClassname,
+	style
 }) {
 	const [empty, setEmpty] = useState(true);
 	useEffect(() => {
@@ -33,6 +34,7 @@ function CustomInput({
 							onChange && onChange(e.target.value);
 						}}
 						value={value}
+						style={style}
 						className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5 place-self-center
                     text-black text-left transition duration-150 ease-in-out focus:outline-none focus:ring-0 focus:border-bomborange ${inputClassName}`}
 					/>
@@ -45,6 +47,7 @@ function CustomInput({
 							setEmpty(e.target.value.length === 0);
 							onChange(e.target.value);
 						}}
+						style={style}
 						className={`${styles.CustomInput} peer block border-solid border-2 border-bomborange rounded-lg bg-white px-4 pb-2 pt-2.5
                     text-black text-left transition duration-150 ease-in-out focus:outline-none focus:ring-0 focus:border-bomborange ${inputClassName}`}
 					/>

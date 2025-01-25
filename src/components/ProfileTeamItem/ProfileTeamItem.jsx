@@ -29,20 +29,22 @@ export default function ProfileTeamItem({
 	const navigate = useNavigate();
 	return (
 		<Card
-			className="rounded-full place-items-center h-[280px] max-w-[300px] min-w-[200px] shadow-lg cursor-pointer font-vazirmatn"
+			className="rounded-full place-items-center h-[280px] max-w-[300px] min-w-[200px] shadow-lg font-vazirmatn"
 			// sx={{ maxWidth: 345 }}
-			onClick={() => {
-				window.scrollTo(0, 0);
-				navigate(`/profile/${username}`);
-			}}
 		>
-			<Avatar className="w-24 h-24 mt-3">
+			<Avatar
+				className="w-24 h-24 mt-3 hover:cursor-pointer"
+				onClick={() => {
+					window.scrollTo(0, 0);
+					navigate(`/profile/${username}`);
+				}}
+			>
 				<AvatarImage src={profile} className="object-cover" />
-				<AvatarFallback>{`${name}'s avatar`}</AvatarFallback>
+				<AvatarFallback>{`${username}'s avatar`}</AvatarFallback>
 			</Avatar>
 			<CardContent className="flex flex-col gap-3 place-items-center">
-				<h1 className="place-self-center font-extrabold font-vazirmatn">
-					{name}
+				<h1 className="place-self-center text-lg font-vazirmatn">
+					{username}
 				</h1>
 				<Separator className="w-[6rem]" />
 				<p className="text-wrap overflow-hidden font-vazirmatn text-ellipsis rtl max-h-12 max-w-[15vw] line-clamp-2 text-center">
