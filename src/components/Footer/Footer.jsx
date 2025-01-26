@@ -124,7 +124,7 @@ function Footer() {
 					>
 						سوالات متداول
 					</a>
-					<a className={styles.option}>حریم خصوصی</a>
+					{/* <a className={styles.option}>حریم خصوصی</a> */}
 				</nav>
 				<nav>
 					<LottieAnimation onClick={scrollToTop} />
