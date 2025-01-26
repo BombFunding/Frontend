@@ -156,7 +156,7 @@ function Navbar() {
           className={`flex flex-row ${
             isOpen ? "bg-black" : "bg-bomborange"
           } w-full justify-between items-center px-6 transition-all duration-300`}
-          style={{ height: window.innerWidth <= 641 ? "50px" : "78px" }}
+          style={{ height: window.innerWidth <= 641 ? "60px" : "78px" }}
         >
           <div className={`px-0 flex justify-between items-center w-full`}>
             <div
