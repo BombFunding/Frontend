@@ -147,9 +147,11 @@ function Inbox({
 
   return (
     <div
-      className={`${inboxstyles.notificationCenterRight} ${inboxstyles["notification-container"]}`}
+      className={`${inboxstyles.notificationCenterRight} pb-2 ${inboxstyles["notification-container"]}`}
     >
-      <h3>{notificationCount > 0 ? "اطلاعیه ها" : "هیچ اطلاعیه جدیدی نیست"}</h3>
+      <p className="py-2 pr-3">
+        {notificationCount > 0 ? "اطلاعیه ها" : "هیچ اطلاعیه جدیدی نیست"}
+      </p>
 
       {messages.map((message) => (
         <React.Fragment key={message.id}>
