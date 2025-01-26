@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts/highmaps";
 import iranMap from "@highcharts/map-collection/countries/ir/ir-all.topo.json";
@@ -6,95 +6,87 @@ import "./IranMap.scss";
 import { baseURL } from "@/Services/ApiClient/Services";
 
 const IranMap = () => {
-	const [apiData, setApiData] = useState([]);
+    const [apiData, setApiData] = useState([]);
+	const isMobile = window.innerWidth <= 480;
 
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await fetch(
-					`${baseURL}/map/pins/province-count/`
-				);
-				const data = await response.json();
-				setApiData(data);
-			} catch (error) {
-				console.error("Error fetching API data:", error);
-			}
-		};
-		fetchData();
-	}, []);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`${baseURL}/map/pins/province-count/`);
+                const data = await response.json();
+                setApiData(data);
+            } catch (error) {
+                console.error("Error fetching API data:", error);
+            }
+        };
+        fetchData();
+    }, []);
 
-	const baseOptions = {
-		chart: {
-			map: iranMap,
-			reflow: false,
-		},
-		title: {
-			text: "",
-		},
-		plotOptions: {
-			map: {
-				states: {
-					hover: {
-						color: "#0C0C42",
-					},
-					select: {
-						color: "#0C0C42",
-					},
-				},
-			},
-		},
-		tooltip: {
-			useHTML: true,
-			backgroundColor: "transparent",
-			borderWidth: 0,
-			shadow: false,
-			formatter: function () {
-				const provinceData = apiData.find(
-					(item) => item.province === this.point.name
-				);
-				const pinCount = provinceData ? provinceData.pin_count : "0";
+    const baseOptions = {
+        chart: {
+            map: iranMap,
+            reflow: false,
+        },
+        title: {
+            text: "",
+        },
+        plotOptions: {
+            map: {
+                states: {
+                    hover: {
+                        color: "#0C0C42",
+                    },
+                    select: {
+                        color: "#0C0C42",
+                    },
+                },
+            },
+        },
+        tooltip: {
+            useHTML: true,
+            backgroundColor: "transparent",
+            borderWidth: 0,
+            shadow: false,
+            formatter: function () {
+                const provinceData = apiData.find(
+                    (item) => item.province === this.point.name
+                );
+                const pinCount = provinceData ? provinceData.pin_count : "0";
 
-				return `
-          <div id="tooltip-container" style="
-              padding: 10px; 
-              border-radius: 8px; 
-              background-color: white; 
-              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-              transform: rotateX(180deg); 
-              display: inline-block; 
-          ">
-            <span style="
-              font-size: 1.5em; 
-              font-weight: bold; 
-              color: #0C0C42;
-            ">
-              ${this.point.name}: ${pinCount}
-            </span>
-          </div>`;
-			},
-			positioner: function (labelWidth, labelHeight, point) {
-				const chart = this.chart;
-				const x = chart.pointer.chartPosition.left + point.plotX;
-				const y = chart.pointer.chartPosition.top + point.plotY;
-
-				return { x, y };
-			},
-			followPointer: true,
-			style: {
-				pointerEvents: "none",
-			},
-			positioner: function (labelWidth, labelHeight, point) {
-				const x = point.plotX;
-				const y = point.plotY;
-				return {
-					x: x,
-					y: -y + 350,
-				};
-			},
-		},
-		legend: {
-			enabled: false,
-		},
+                return `
+                    <div id="tooltip-container" style="
+                        padding: 10px; 
+                        border-radius: 8px; 
+                        background-color: white; 
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                        transform: rotateX(180deg); 
+                        display: inline-block; 
+                    ">
+                        <span style="
+                            font-size: 1.5em; 
+                            font-weight: bold; 
+                            color: #0C0C42;
+                        ">
+                            ${this.point.name}: ${pinCount}
+                        </span>
+                    </div>`;
+            },
+            positioner: function (labelWidth, labelHeight, point) {
+                const x = point.plotX;
+                const y = point.plotY;
+                return {
+                    x: x,
+                    y: -y + (isMobile ? 250 : 350), // تنظیم مکان تولتیپ بر اساس اندازه صفحه
+                };
+            },
+            followPointer: true,
+            style: {
+                pointerEvents: "none",
+            },
+        },
+        legend: {
+            enabled: false,
+        },
 		series: [
 			{
 				showInLegend: false,
@@ -268,7 +260,14 @@ const IranMap = () => {
 	return (
 		<div
 			className="iran-container font-vazirmatn"
-			style={{ transform: "scaleY(-1)" }}
+			// style={{ 
+				//  }}
+				style={{
+					transform: "scaleY(-1)",
+                width: "100%",
+					maxWidth: isMobile ? "300px" : "100%",
+                margin: "0 auto",
+            }}
 		>
 			<HighchartsReact
 				className="font-vazirmatn"
