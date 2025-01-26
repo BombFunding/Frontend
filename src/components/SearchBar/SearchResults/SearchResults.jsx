@@ -41,19 +41,24 @@ export default function SearchResult({ result }) {
           result.image ? "aspect-video rounded-sm" : "rounded-full"
         } overflow-hidden lg:w-[5vw] md:w-[7vw]`}
       >
-        <Avatar className="w-[17vw] h-[17vw] border-solid border-2 border-bomborange rounded-full">
-          <AvatarImage
+        {!result.id && (
+          <Avatar className="w-[17vw] h-[17vw] border-solid border-2 border-bomborange rounded-full">
+            <AvatarImage
+              src={`${baseURL}${result.profile_picture ?? result.image}`}
+              alt={`${result.fullName ?? result.name}`}
+              className="object-cover rounded-full"
+            />
+          </Avatar>
+        )}
+
+        {result.id && (
+          <img
             src={`${baseURL}${result.profile_picture ?? result.image}`}
             alt={`${result.fullName ?? result.name}`}
-            className="object-cover rounded-full"
+            className={`object-cover rounded-md`}
+            // style={"height:10vw"}
           />
-        </Avatar>
-        {/* <img
-          src={`${baseURL}${result.profile_picture ?? result.image}`}
-          alt={`${result.fullName ?? result.name}`}
-          className={`object-cover`}
-          // style={"height:10vw"}
-        /> */}
+        )}
       </div>
 
       {/* User Details */}
