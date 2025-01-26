@@ -30,8 +30,8 @@ const RefreshToken = async () => {
 };
 
 // export const baseURL = "https://bombfundingbackend.liara.run";
-export const baseURL = "http://104.168.46.4:8000";
-// export const baseURL = "https://miliisawesome.duckdns.org";
+// export const baseURL = "http://104.168.46.4:8000";
+export const baseURL = "https://miliisawesome.duckdns.org";
 
 const apiClient = axios.create({
   baseURL: baseURL,
