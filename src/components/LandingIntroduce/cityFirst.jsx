@@ -1,7 +1,10 @@
+import React from 'react';
 import Lottie from 'react-lottie';
 import animationData from './city1.json';
 
 const Cityan1 = () => {
+    const isMobile = window.innerWidth <= 480;
+
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -15,7 +18,7 @@ const Cityan1 = () => {
         <div
             style={{
                 width: '100%',
-                maxWidth: '600px',
+                maxWidth: isMobile ? '320px' : '600px',
                 height: 'auto',
                 display: 'flex',
                 justifyContent: 'center',

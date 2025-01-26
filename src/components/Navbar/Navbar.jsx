@@ -15,6 +15,8 @@ import { baseURL, getData } from "@/Services/ApiClient/Services";
 import Inbox from "../Inbox/Inbox";
 import styles from "./Navbar.module.scss";
 import inboxstyles from "../Inbox/Inbox.module.scss";
+import CustomToast from "../Custom/CustomToast/CustomToast";
+import { toast } from "react-toastify";
 
 function Navbar() {
   const { userType } = useProfileStore();
@@ -88,15 +90,64 @@ function Navbar() {
   // useEffect(() => {
   //   fetchOfflineNotifications();
   // }, []);
-  const pollingInterval = 500;
+  // const pollingInterval = 500;
   useEffect(() => {
     // Start polling for real-time notifications
-    const interval = setInterval(() => {
-      fetchOfflineNotifications();
-    }, pollingInterval);
+    fetchOfflineNotifications();
+    // const interval = setInterval(() => {
+    // }, pollingInterval);
 
     // Clean up the interval on component unmount
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
+  }, [accessToken]);
+
+  useEffect(() => {
+    if (!accessToken) return;
+
+    // WebSocket connection
+    const ws = new WebSocket(`${baseURL}/ws/notifications/${accessToken}/`);
+
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+
+        // Map WebSocket data to standard format
+        const newNotifications = Array.isArray(data)
+          ? data.map((item) => ({
+              id: item.id || new Date().getTime(),
+              message: item.message || item.text || "پیام جدید",
+              count: item.count || 1,
+            }))
+          : [
+              {
+                id: data.id || new Date().getTime(),
+                message: data.message || data.text || "پیام جدید",
+                count: data.count || 1,
+              },
+            ];
+
+        setMessages((prevMessages) => {
+          const updatedMessages = [...newNotifications, ...prevMessages];
+          setNotificationCount(updatedMessages.length);
+          return updatedMessages;
+        });
+        newNotifications.map((msg) =>
+          toast.info(<CustomToast Message={msg.message} />)
+        );
+        // toast.info(<CustomToast Message={"نوتیفیکیشن اومده"} />);
+        console.log("WebSocket notifications:", newNotifications);
+      } catch (error) {
+        console.error("Error parsing WebSocket message:", error);
+      }
+    };
+
+    ws.onerror = (event) => {
+      console.error("WebSocket error:", event);
+    };
+
+    return () => {
+      ws.close();
+    };
   }, [accessToken]);
 
   useEffect(() => {
@@ -152,7 +203,7 @@ function Navbar() {
         className={`flex flex-col justify-between top-0 fixed right-0 z-40 w-screen`}
       >
         <div
-          className={`flex flex-row py-2 ${
+          className={`flex flex-row py-2 pr-4 ${
             isOpen ? "bg-black" : "bg-bomborange"
           } w-full justify-between items-center pl-2 transition-all duration-300`}
           style={{ height: window.innerWidth <= 641 ? "60px" : "50px" }}

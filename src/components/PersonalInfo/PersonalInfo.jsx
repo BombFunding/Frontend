@@ -21,7 +21,7 @@ function PersonalInfo({ loading }) {
         src={avatar ? avatar : defaultpfp}
         className={`${
           styles.on
-        } absolute place-self-end rounded-full w-[125px] h-[125px] object-cover translate-x-[-5vw] mt-[6vw] border-solid ${
+        } absolute place-self-end rounded-full w-[72px] h-[72px]  sm:w-[90px] sm:h-[90px] md:w-[110px] md:h-[110px] lg:w-[130px] lg:h-[130px] xl:w-[165px] xl:h-[165px] object-cover translate-x-[-5vw] mt-[6vw] border-solid ${
           loading ? "" : "ring-[0.5vw]"
         } ring-bomborange`}
       />

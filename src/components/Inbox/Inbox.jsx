@@ -50,60 +50,58 @@ function Inbox({
   // };
 
   // Handle WebSocket connection
-  useEffect(() => {
-    if (!accessToken) return;
+  // useEffect(() => {
+  //   if (!accessToken) return;
 
-    // WebSocket connection
-    const ws = new WebSocket(
-      `wss://bombfundingbackend.liara.run/ws/notifications/${accessToken}/`
-    );
+  //   // WebSocket connection
+  //   const ws = new WebSocket(`${baseURL}/ws/notifications/${accessToken}/`);
 
-    ws.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
+  //   ws.onmessage = (event) => {
+  //     try {
+  //       const data = JSON.parse(event.data);
 
-        // Map WebSocket data to standard format
-        const newNotifications = Array.isArray(data)
-          ? data.map((item) => ({
-              id: item.id || new Date().getTime(),
-              message: item.message || item.text || "پیام جدید",
-              count: item.count || 1,
-            }))
-          : [
-              {
-                id: data.id || new Date().getTime(),
-                message: data.message || data.text || "پیام جدید",
-                count: data.count || 1,
-              },
-            ];
+  //       // Map WebSocket data to standard format
+  //       const newNotifications = Array.isArray(data)
+  //         ? data.map((item) => ({
+  //             id: item.id || new Date().getTime(),
+  //             message: item.message || item.text || "پیام جدید",
+  //             count: item.count || 1,
+  //           }))
+  //         : [
+  //             {
+  //               id: data.id || new Date().getTime(),
+  //               message: data.message || data.text || "پیام جدید",
+  //               count: data.count || 1,
+  //             },
+  //           ];
 
-        setMessages((prevMessages) => {
-          const updatedMessages = [...newNotifications, ...prevMessages];
-          setNotificationCount(updatedMessages.length);
-          return updatedMessages;
-        });
+  //       setMessages((prevMessages) => {
+  //         const updatedMessages = [...newNotifications, ...prevMessages];
+  //         setNotificationCount(updatedMessages.length);
+  //         return updatedMessages;
+  //       });
 
-        console.log("WebSocket notifications:", newNotifications);
-      } catch (error) {
-        console.error("Error parsing WebSocket message:", error);
-      }
-    };
+  //       console.log("WebSocket notifications:", newNotifications);
+  //     } catch (error) {
+  //       console.error("Error parsing WebSocket message:", error);
+  //     }
+  //   };
 
-    ws.onerror = (event) => {
-      console.error("WebSocket error:", event);
-    };
+  //   ws.onerror = (event) => {
+  //     console.error("WebSocket error:", event);
+  //   };
 
-    return () => {
-      ws.close();
-    };
-  }, [accessToken]);
+  //   return () => {
+  //     ws.close();
+  //   };
+  // }, [accessToken]);
 
   // Fetch offline notifications when component mounts
-  useEffect(() => {
-    if (accessToken) {
-      fetchOfflineNotifications();
-    }
-  }, [accessToken]);
+  // useEffect(() => {
+  //   if (accessToken) {
+  //     fetchOfflineNotifications();
+  //   }
+  // }, [accessToken]);
 
   // Notify parent component about the count change
   useEffect(() => {
@@ -147,9 +145,11 @@ function Inbox({
 
   return (
     <div
-      className={`${inboxstyles.notificationCenterRight} ${inboxstyles["notification-container"]}`}
+      className={`${inboxstyles.notificationCenterRight} pb-2 ${inboxstyles["notification-container"]}`}
     >
-      <h3>{notificationCount > 0 ? "اطلاعیه ها" : "هیچ اطلاعیه جدیدی نیست"}</h3>
+      <p className="py-2 pr-3">
+        {notificationCount > 0 ? "اطلاعیه ها" : "هیچ اطلاعیه جدیدی نیست"}
+      </p>
 
       {messages.map((message) => (
         <React.Fragment key={message.id}>
