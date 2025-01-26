@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);

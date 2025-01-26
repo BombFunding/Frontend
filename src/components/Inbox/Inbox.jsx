@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import inboxstyles from "./Inbox.module.scss";
 import useTokenStore from "@/stores/TokenStore";
 import { baseURL } from "@/Services/ApiClient/Services";

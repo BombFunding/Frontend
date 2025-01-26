@@ -1,7 +1,4 @@
 import LandingIntroduce from "@/components/LandingIntroduce/LandingIntroduce";
-import landing5 from "../../assets/landing5.png";
-import landing6 from "../../assets/landing6.png";
-import landing7 from "../../assets/landing7.png";
 
 import PieChartComponent from "@/components/LandingIntroduce/PieChart";
 import Cityan1 from "@/components/LandingIntroduce/cityFirst";
@@ -10,11 +7,9 @@ import IranMap from "@/components/LandingIntroduce/IranMap";
 
 import InfiniteCarousel from "@/components/InfiniteCarousel/InfiniteCarousel";
 import { Label } from "@radix-ui/react-label";
-import styles from "./Landing.module.scss";
 import { useEffect, useState } from "react";
 import { getData } from "@/Services/ApiClient/Services";
 import { Link } from "react-router-dom";
-import img9 from "../../assets/landing_back5.png";
 import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
 
 const Landing = () => {

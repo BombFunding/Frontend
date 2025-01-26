@@ -1,4 +1,3 @@
-import styles from "./AddPositionForm.module.scss";
 import { Button } from "@/components/ui/button";
 import { getData, postData } from "@/Services/ApiClient/Services";
 import CustomInput from "@/components/Custom/CustomInput/CustomInput";

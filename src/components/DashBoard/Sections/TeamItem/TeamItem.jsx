@@ -4,7 +4,6 @@ import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
-import AVATAR from "@/assets/A1.jpg";
 import { Label } from "@radix-ui/react-label";
 import {
 	Drawer,

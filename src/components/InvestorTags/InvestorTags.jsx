@@ -17,7 +17,7 @@ import {
 import EmptySection from "../EmptySection/EmptySection";
 import CustomToast from "../Custom/CustomToast/CustomToast";
 import { toast } from "react-toastify";
-import { deleteData, patchData, postData } from "@/Services/ApiClient/Services";
+import { deleteData, postData } from "@/Services/ApiClient/Services";
 import styles from "./InvestorTags.module.scss";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 function InvestorTags({

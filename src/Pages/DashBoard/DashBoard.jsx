@@ -2,7 +2,7 @@ import InvestorDashBoard from "@/components/DashBoard/InvestorDashBoard/Investor
 import StartupDashBoard from "@/components/DashBoard/StartupDashBoard/StartupDashBoard";
 import useTokenStore from "@/stores/TokenStore";
 import { useEffect } from "react";
-import Error404 from "../Error/404/Error404";
+import Error404 from "../Error/Error404/Error404";
 // import Voting from "@/components/Voting/Voting";
 // import styles from "./DashBoard";
 

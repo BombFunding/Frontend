@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./Bookmark.module.scss";
-import { deleteData, getData, postData } from "@/Services/ApiClient/Services";
+import { deleteData, postData } from "@/Services/ApiClient/Services";
 import useTokenStore from "@/stores/TokenStore";
 import { toast } from "react-toastify";
 import CustomToast from "../Custom/CustomToast/CustomToast";

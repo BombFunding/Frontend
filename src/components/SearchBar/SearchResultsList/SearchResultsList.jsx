@@ -1,7 +1,6 @@
 import "./SearchResultsList.css";
 import styles from "./SearchResultsList.module.scss";
 import SearchResult from "../SearchResults/SearchResults.jsx";
-import { Separator } from "@/components/ui/separator";
 
 function SearchResultsList({ results }) {
   // console.log(`results: ${results}`);

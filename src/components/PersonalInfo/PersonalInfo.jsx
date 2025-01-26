@@ -1,7 +1,5 @@
 import headerpic from "../../assets/upProfile.jpg";
-import Likes from "../Likes/Likes";
 import styles from "./PersonalInfo.module.scss";
-import calendarIcon from "../../assets/calendarIcon.png";
 import defaultpfp from "../../assets/defaultpfp.png";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { Button } from "../ui/button";

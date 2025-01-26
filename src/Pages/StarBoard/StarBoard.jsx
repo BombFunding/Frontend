@@ -1,8 +1,7 @@
-import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import FilterSection from "@/components/FilterSection/FilterSection";
 import { Loading } from "@/components/Loading/Loading";
 import StartupPagination from "@/components/StartupPagination/StartupPagination";
-import { getData, getDataParams } from "@/Services/ApiClient/Services";
+import { getDataParams } from "@/Services/ApiClient/Services";
 import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -84,8 +83,8 @@ function StarBoard() {
 		// >
 		<div className="font-vazirmatn text-black w-[100vw]">
 			<div className="flex justify-center items-center">
-			<FilterSection setResultsPerPage={setResultsPerPage} />
-</div>
+				<FilterSection setResultsPerPage={setResultsPerPage} />
+			</div>
 			{loading ? (
 				<Loading className="pt-20 pb-64 place-self-center" />
 			) : (

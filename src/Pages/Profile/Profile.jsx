@@ -1,5 +1,4 @@
-import Error404 from "../Error/404/Error404";
-import useTokenStore from "@/stores/TokenStore";
+import Error404 from "../Error/Error404/Error404";
 import StartupProfile from "@/components/Profile/StartupProfile/StartupProfile";
 import InvestorProfile from "@/components/Profile/InvestorProfile/InvestorProfile";
 import { useParams } from "react-router-dom";
@@ -14,7 +13,7 @@ const Profile = () => {
 			console.log(data.baseuser_profile.user_type);
 			setType(data.baseuser_profile.user_type);
 		});
-		}, []);
+	}, []);
 
 	// switch ("mamad") {
 	switch (type) {

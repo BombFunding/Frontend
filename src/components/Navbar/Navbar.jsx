@@ -1,5 +1,5 @@
 // Navbar.jsx
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResultsList from "../SearchBar/SearchResultsList/SearchResultsList.jsx";
@@ -15,7 +15,6 @@ import { baseURL, getData } from "@/Services/ApiClient/Services";
 import Inbox from "../Inbox/Inbox";
 import styles from "./Navbar.module.scss";
 import inboxstyles from "../Inbox/Inbox.module.scss";
-import { FiInbox } from "react-icons/fi";
 
 function Navbar() {
   const { userType } = useProfileStore();

@@ -3,7 +3,6 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
-import styles from "./PrivateLayout.module.scss";
 
 const PrivateLayout = () => {
   const TOKEN = useTokenStore((state) => state.accessToken);

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./SearchResult.css";
 import { useNavigate } from "react-router-dom";
 import styles from "./SearchResults.module.scss";

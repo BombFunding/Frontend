@@ -1,6 +1,5 @@
 import EmptyBox from "../../assets/EmptyBox.png";
 import { Label } from "../ui/label";
-import styles from "./EmptySection.module.scss";
 function EmptySection({
   image,
   type,

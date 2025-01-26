@@ -1,6 +1,5 @@
 import CustomComment from "./CustomComment/CustomComment";
 import commentIcon from "../../assets/commentIcon.png";
-import Comment from "../Comment/Comment";
 import styles from "./CommentSection.module.scss";
 import { useEffect, useState } from "react";
 import { getData, postData } from "@/Services/ApiClient/Services";

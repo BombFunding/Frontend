@@ -1,7 +1,6 @@
 import { Label } from "@/components/ui/label";
 import React, { useEffect } from "react";
 import EditIcon from "@mui/icons-material/Edit";
-import SaveAsIcon from "@mui/icons-material/SaveAs";
 import { Input } from "@/components/ui/input";
 import styles from "./EditableInput.module.scss";
 import { Textarea } from "@/components/ui/textarea";
