@@ -4,6 +4,7 @@ import InvestorProfile from "@/components/Profile/InvestorProfile/InvestorProfil
 import { useParams } from "react-router-dom";
 import { getData } from "@/Services/ApiClient/Services";
 import { useEffect, useState } from "react";
+import { Loading } from "@/components/Loading/Loading";
 
 const Profile = () => {
 	const { username } = useParams();
@@ -23,7 +24,7 @@ const Profile = () => {
 		case "basic":
 			return <InvestorProfile />;
 		default:
-			return <Error404 />;
+			return <Loading className={"py-50"} />;
 	}
 };
 

@@ -35,7 +35,7 @@ const ProjectsInvested = ({ className }) => {
 	const { username } = useProfileStore();
 	useEffect(() => {
 		getData(`/invest/history/${username}/amount/`).then((data) => {
-			console.log("history", data);
+			console.log("history: ", data);
 			setProjects(data);
 		});
 	}, []);
@@ -52,10 +52,10 @@ const ProjectsInvested = ({ className }) => {
 				<div className={styles.project_list}>
 					{projects?.map((item, index) => (
 						<InvestedItem
-							header={`${baseURL}${item.project.image}`}
-							name={item.project.name}
+							header={`${baseURL}${item.project?.image}`}
+							name={item.project?.name}
 							key={index}
-							amount={item.investment_amount}
+							amount={item?.investment_amount}
 							onClick={() => {
 								window.scrollTo(0, 0);
 								Navigate(`/projects/${item.project.id}`);
