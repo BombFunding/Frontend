@@ -257,7 +257,7 @@ const PieChartComponent = () => {
 													y={(viewBox.cy || 0) + 24}
 													className="fill-muted-foreground"
 												>
-													تومان
+													هزار تومان
 												</tspan>
 											</text>
 										);
@@ -274,7 +274,7 @@ const PieChartComponent = () => {
 					<TrendingUp className="h-4 w-4" />
 				</div>
 				<div className="leading-none text-muted-foreground">
-					مقادیر برحسب تومان است
+					مقادیر برحسب هزار تومان است
 				</div>
 			</CardFooter>
 		</Card>
@@ -497,21 +497,21 @@ const BarChartComponent = () => {
 	}, {});
 
 	return (
-		<Card ref={ref} className="flex flex-col w-[89%] place-self-center mt-10">
-			<CardHeader className="items-center w-full">
+		<Card ref={ref} className="flex flex-col">
+			<CardHeader className="items-center pb-0">
 				<CardTitle>توزیع تعداد استارتاپ ها</CardTitle>
 				<CardDescription>{`از زمان شروع تا - ${persianMonthName} ${persianYear}`}</CardDescription>
 			</CardHeader>
-			<CardContent className="flex-1 w-full">
-				<ChartContainer className="mx-auto aspect-square max-h-[250px] w-[90%]">
+			<CardContent className="flex-1 pb-0">
+				<ChartContainer className="mx-auto aspect-square max-h-[250px]">
 					<BarChart
 						data={chartData}
-						layout="horizontal"
+						layout="vertical"
 						margin={{
 							left: 0,
 						}}
 					>
-						<XAxis
+						<YAxis
 							dataKey="category"
 							type="category"
 							tickLine={false}
@@ -521,25 +521,14 @@ const BarChartComponent = () => {
 								chartConfig[value]?.label || value
 							}
 						/>
-						<YAxis dataKey="startup" type="number" hide />
-						{/* <YAxis
-							dataKey="category"
-							type="category"
-							tickLine={false}
-							tickMargin={10}
-							axisLine={false}
-							tickFormatter={(value) =>
-								chartConfig[value]?.label || value
-							}
-						/>
-						<XAxis dataKey="startup" type="number" hide /> */}
+						<XAxis dataKey="startup" type="number" hide />
 						<ChartTooltip
 							cursor={false}
 							content={<ChartTooltipContent hideLabel />}
 						/>
 						<Bar
 							dataKey="startup"
-							layout="horizontal"
+							layout="vertical"
 							radius={5}
 							fill={(data) =>
 								chartConfig[data.category]?.color || "gray"
@@ -564,15 +553,11 @@ const BarChartComponent = () => {
 
 function ThreePieCharts() {
 	return (
-		<div className="">
-			<div className="grid grid-flow-col flex-wrap lg:flex-nowrap flex-col lg:flex-row justify-around items-center gap-0">
-				<PieChartComponent2 />
-				<PieChartComponent3 />
-				<PieChartComponent />
-			</div>
-			<div>
-				<BarChartComponent />
-			</div>
+		<div className="grid grid-flow-col lg:grid-cols-4 lg:grid-rows-1 md:grid-cols-2 md:grid-rows-2 sm:grid-cols-1 sm:grid-rows-4 gap-5 px-5 flex-wrap lg:flex-nowrap flex-col lg:flex-row justify-around items-center">
+			<BarChartComponent />
+			<PieChartComponent2 />
+			<PieChartComponent3 />
+			<PieChartComponent />
 		</div>
 	);
 }
