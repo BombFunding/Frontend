@@ -21,7 +21,13 @@ import { Button } from "@/components/ui/button";
 import { baseURL, getData } from "@/Services/ApiClient/Services";
 import { useNavigate } from "react-router-dom";
 
-const InvestotItem = ({ username, valueOfInvestment, investTime, id, profile }) => {
+const InvestotItem = ({
+	username,
+	valueOfInvestment,
+	investTime,
+	id,
+	profile,
+}) => {
 	const Navigate = useNavigate();
 	function timeDiff(time) {
 		const now = new Date(); // Current time
@@ -45,15 +51,16 @@ const InvestotItem = ({ username, valueOfInvestment, investTime, id, profile }) 
 	const [avatar, setAvatar] = useState(null);
 	useEffect(() => {
 		getData(`/auth/baseuser_search_by_name/${username}/`).then((data) => {
-			setAvatar(
-				`${baseURL}${data.baseuser_profile.profile_picture}`
-			);
+			setAvatar(`${baseURL}${data.baseuser_profile.profile_picture}`);
 		});
 	}, []);
 	return (
 		<div
 			className="flex gap-2 w-full hover:cursor-pointer"
-			onClick={() => Navigate(`/profile/${username}`)}
+			onClick={() => {
+				window.scrollTo(0, 0);
+				Navigate(`/profile/${username}`);
+			}}
 		>
 			<Avatar>
 				<AvatarFallback>
@@ -98,12 +105,12 @@ const InvestorDialogBox = ({ className, projectId }) => {
 	}, []);
 	return (
 		<>
-			<div className={`${className}`}>
+			<div className={`${className} place-self-center`}>
 				<Dialog>
 					<DialogTrigger asChild>
 						<Button
 							variant="link"
-							className=" text-bomborange hover:text-black text-xl mb-3"
+							className=" text-bomborange hover:text-black lg:text-xl md:text-base place-self-center"
 						>
 							{investments.length} بار روی این پروژه سرمایه گذاری
 							شده است.
@@ -139,7 +146,7 @@ const InvestorDialogBox = ({ className, projectId }) => {
 														item.investment_date
 													}
 													id={Math.random()}
-                          profile={item.user_picture}
+													profile={item.user_picture}
 												/>
 											</CommandItem>
 										)

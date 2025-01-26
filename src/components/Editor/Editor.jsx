@@ -99,8 +99,8 @@ const Editor = () => {
           <ArrowBackIosNewIcon
             className="absolute left-[8vw] top-10 text-2xl text-gray-600 hover:text-bomborange hover:animate-kreep cursor-pointer"
             onClick={() => {
-              navigate(`/projectDashboard/${projectId}`);
               window.scrollTo(0, 0);
+              navigate(`/projectDashboard/${projectId}`);
             }}
           />
           <Label className="text-3xl text-gray-600 pl-5 StartTour">

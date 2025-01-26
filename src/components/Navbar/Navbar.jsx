@@ -11,10 +11,11 @@ import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 import NavbarDropDownSCN from "../NavbarDropDownSCN/NavbarDropDownSCN";
 import useTokenStore from "@/stores/TokenStore";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
-import { getData } from "@/Services/ApiClient/Services";
+import { baseURL, getData } from "@/Services/ApiClient/Services";
 import Inbox from "../Inbox/Inbox";
 import styles from "./Navbar.module.scss";
 import inboxstyles from "../Inbox/Inbox.module.scss";
+import { FiInbox } from "react-icons/fi";
 
 function Navbar() {
   const { userType } = useProfileStore();
@@ -40,7 +41,7 @@ function Navbar() {
   const fetchOfflineNotifications = async () => {
     try {
       const response = await fetch(
-        "http://104.168.46.4:8000/notifications/user-notifications/",
+        `${baseURL}/notifications/user-notifications/`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -85,16 +86,28 @@ function Navbar() {
 
   // console.log(accessToken);
 
-  fetchOfflineNotifications();
+  // useEffect(() => {
+  //   fetchOfflineNotifications();
+  // }, []);
+  const pollingInterval = 500;
+  useEffect(() => {
+    // Start polling for real-time notifications
+    const interval = setInterval(() => {
+      fetchOfflineNotifications();
+    }, pollingInterval);
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(interval);
+  }, [accessToken]);
 
   useEffect(() => {
     setNotificationCount(messages.length);
   }, [messages]);
-  console.log("ref");
+  // console.log("ref");
 
   useEffect(() => {
     getData(`/auth/view_own_baseuser_profile/`).then((data) => {
-      setAvatar(`http://localhost:8000${data.base_profile.profile_picture}`);
+      setAvatar(`${baseURL}${data.base_profile.profile_picture}`);
     });
   }, [accessToken]);
 
@@ -122,21 +135,32 @@ function Navbar() {
       document.removeEventListener("mousedown", handleOutsideClick); // Cleanup
     };
   }, [isNotificationPanelOpen]);
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
 
+    // Clean up when component unmounts
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [isOpen]);
   return (
     <>
       <nav
-        className={`flex flex-col justify-around top-0 fixed right-0 z-40 w-screen`}
+        className={`flex flex-col justify-between top-0 fixed right-0 z-40 w-screen`}
       >
         <div
-          className={`flex flex-row ${
+          className={`flex flex-row pt-3 ${
             isOpen ? "bg-black" : "bg-bomborange"
           } w-full justify-between items-center px-6 transition-all duration-300`}
-          style={{ height: window.innerWidth <= 768 ? "78px" : "60px" }}
+          style={{ height: window.innerWidth <= 641 ? "60px" : "50px" }}
         >
-          <div className="px-4 flex justify-between items-center w-full">
+          <div className={`px-0 flex justify-between items-center w-full`}>
             <div
-              className="flex text-white hover:cursor-pointer"
+              className={`flex text-white hover:cursor-pointer`}
               onClick={() => Navigate("/")}
             >
               {!isOpen && (
@@ -144,9 +168,9 @@ function Navbar() {
                   <img
                     src={Logo}
                     alt="Bomb Funding"
-                    className="rounded-full w-[2.5vw] h-[2.5vw] place-self-center mix-blend-multiply mx-[0.5vw]"
+                    className="rounded-full w-[35px] h-[35px] place-self-center mix-blend-multiply mx-[0.5vw]"
                   />
-                  <a className="font-extrabold text-[1.5vw] text-left px-0 place-self-center text-bombblack">
+                  <a className="font-extrabold text-[15px] text-left pl-1 pt-2 place-self-center text-bombblack">
                     Bomb Funding
                   </a>
                 </>
@@ -168,18 +192,27 @@ function Navbar() {
               </div>
             </div>
 
-            <div className={`${styles.mobile} flex gap-[1vw]`}>
-              <PushyButton onClick={() => Navigate("/starboard")}>
-                استارت‌آپ‌ها
-              </PushyButton>
-
+            <div className={`flex gap-[1vw]`}>
+              <div className={`${styles.mobile}`}>
+                <PushyButton onClick={() => Navigate("/starboard")}>
+                  استارت‌آپ‌ها
+                </PushyButton>
+              </div>
+              {/* <FiInbox /> */}
               {accessToken && (
                 <div
-                  className={`${inboxstyles["notification-icon"]} ${inboxstyles.right}`}
+                  className={`${inboxstyles["notification-icon"]} ${styles.mobile} ${styles.inbox} ${inboxstyles.right}`}
                   onClick={handleNotificationClick}
-                  style={{ cursor: "pointer" }}
+                  style={{
+                    cursor: "pointer",
+                    height: "32px",
+                    width: "32px",
+                    // background: "transparent",
+                  }}
                 >
-                  <i className="material-icons dp48">notifications</i>
+                  <i className="material-icons dp48 bottom-14 translate-x-[-3px] translate-y-[-3px]">
+                    notifications
+                  </i>
                   {notificationCount > 0 && (
                     <span className={inboxstyles["num-count"]}>
                       {notificationCount}
@@ -187,30 +220,55 @@ function Navbar() {
                   )}
                 </div>
               )}
-              {accessToken ? (
-                <div className="place-items-center">
-                  <ProfileDropDown />
-                </div>
-              ) : (
-                <PushyButton onClick={() => Navigate("/login")}>
-                  ورود
-                </PushyButton>
-              )}
+              <div className={`${styles.mobile}`}>
+                {accessToken ? (
+                  <div className="place-items-center">
+                    <ProfileDropDown />
+                  </div>
+                ) : (
+                  <PushyButton onClick={() => Navigate("/login")}>
+                    ورود
+                  </PushyButton>
+                )}
+              </div>
             </div>
-
-            <HamburgerMenu
-              isOpen={isOpen}
-              setOpen={setOpen}
-              mode={"sm:hidden font-vazirmatn"}
-              token={accessToken}
-              isVisible={isVisible}
-              setIsVisible={setIsVisible}
-            />
+            <div className={`flex flex-row items-center sm:hidden mt-1`}>
+              {accessToken && (
+                <div
+                  className={`${inboxstyles["notification-icon"]} ${
+                    isOpen ? "hidden" : ""
+                  } sm:hidden ${styles.inbox} ${inboxstyles.right}`}
+                  onClick={handleNotificationClick}
+                  style={{
+                    cursor: "pointer",
+                    height: "32px",
+                    width: "32px",
+                  }}
+                >
+                  <i className="material-icons dp48 bottom-14 translate-x-[-3px] translate-y-[-3px]">
+                    notifications
+                  </i>
+                  {notificationCount > 0 && (
+                    <span className={inboxstyles["num-count"]}>
+                      {notificationCount}
+                    </span>
+                  )}
+                </div>
+              )}
+              <HamburgerMenu
+                isOpen={isOpen}
+                setOpen={setOpen}
+                mode={"sm:hidden font-vazirmatn"}
+                token={accessToken}
+                isVisible={isVisible}
+                setIsVisible={setIsVisible}
+              />
+            </div>
           </div>
         </div>
 
         <div
-          className={`h-12 bg-bomborange w-screen z-[-20] place-items-center ${styles.inboxdropdown}`}
+          className={`h-12 bg-bomborange w-screen z-[-20] place-items-center ${styles.mobile}`}
         >
           <NavbarDropDownSCN />
         </div>

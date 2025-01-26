@@ -45,6 +45,7 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
   const searchProject = (category, subcategory) => {
     setLoading(true);
     setMainCategory(category);
+    window.scrollTo(0, 0);
     Navigate("/starboard");
   };
 
@@ -136,7 +137,7 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
       Icon: SlLogout,
     },
   ];
-  console.log(`fullname: ${fullname}`);
+  // console.log(`fullname: ${fullname}`);
   return (
     <div ref={ref} className={`${mode}`}>
       <Hamburger
@@ -152,7 +153,7 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed left-0 shadow-4xl h-screen right-0 p-5 overflow-hidden overflow-y-scroll pt-0 bg-neutral-950 border-b border-b-white/20"
+            className="fixed left-0 shadow-4xl h-screen right-0 p-5 overflow-hidden overflow-y-scroll pt-0 bg-neutral-950 border-b hide-scrollbar border-b-white/20"
           >
             <ul className="grid gap-2">
               {routes.map((route, idx) => {

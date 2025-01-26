@@ -14,13 +14,19 @@ function EmailVerification() {
 				</p>
 				<button
 					className={styles.return_button}
-					onClick={(e) => Navigate("/login")}
+					onClick={(e) => {
+						window.scrollTo(0, 0);
+						Navigate("/login");
+					}}
 				>
 					بازگشت به لاگین
 				</button>
 				<button
 					className={styles.edit_button}
-					onClick={(e) => Navigate(-1)}
+					onClick={(e) => {
+						window.scrollTo(0, 0);
+						Navigate(-1);
+					}}
 				>
 					تغییر ایمیل
 				</button>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import inboxstyles from "./Inbox.module.scss";
 import useTokenStore from "@/stores/TokenStore";
+import { baseURL } from "@/Services/ApiClient/Services";
 
 function Inbox({
   onNotificationCountChange,
@@ -115,7 +116,7 @@ function Inbox({
   const handleRemoveMessage = async (messageId) => {
     try {
       const response = await fetch(
-        `http://104.168.46.4:8000/notifications/read-notification/${messageId}/`,
+        `${baseURL}/notifications/read-notification/${messageId}/`,
         {
           method: "POST",
           headers: {
@@ -145,7 +146,9 @@ function Inbox({
   };
 
   return (
-    <div className={inboxstyles["notification-container"]}>
+    <div
+      className={`${inboxstyles.notificationCenterRight} ${inboxstyles["notification-container"]}`}
+    >
       <h3>{notificationCount > 0 ? "اطلاعیه ها" : "هیچ اطلاعیه جدیدی نیست"}</h3>
 
       {messages.map((message) => (

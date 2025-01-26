@@ -4,9 +4,10 @@ import axios from "axios"; // Using axios for HTTP requests
 import { getData } from "@/Services/ApiClient/Services";
 import defaultPic from "../../assets/defaultpfp.png";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import { Loading } from "../Loading/Loading";
 
-function ProfileTeamBox({}) {
-	const { username } = useProfileStore();
+function ProfileTeamBox({ username }) {
+	// const { username } = useProfileStore();
 	const [children, setChildren] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -34,22 +35,23 @@ function ProfileTeamBox({}) {
 
 	if (loading) {
 		return (
-			<div className="w-[90vw] py-5 px-5 bg-neutral-100 mt-24 text-yellow-500">
-				Loading team data...
-			</div>
+			// <div className="w-[90vw] py-5 px-5 bg-neutral-100 mt-24 text-yellow-500">
+			// 	Loading team data...
+			// </div>
+			<Loading />
 		);
 	}
 
-	if (error) {
-		return (
-			<div className="w-[90vw] py-5 px-5 bg-neutral-100 mt-24 text-red-500">
-				{error}
-			</div>
-		);
-	}
+	// if (error) {
+	// 	return (
+	// 		<div className="w-[90vw] py-5 px-5 bg-neutral-100 mt-24 text-red-500">
+	// 			{error}
+	// 		</div>
+	// 	);
+	// }
 
 	return (
-		<div className="hide-scrollbar place-items-center rounded-lg flex flex-row overflow-hidden overflow-x-scroll py-5 px-5 bg-neutral-100 mt-24 text-yellow-500 gap-7">
+		<div className="hide-scrollbar place-items-center rounded-lg flex flex-row overflow-hidden overflow-x-scroll py-5 px-5 mt-24 text-yellow-500 gap-7">
 			{children.length > 0 ? (
 				children.map((child, i) => (
 					<ProfileTeamItem
@@ -62,7 +64,7 @@ function ProfileTeamBox({}) {
 					/>
 				))
 			) : (
-				<p className="text-gray-500">No team members found.</p>
+				<></>
 			)}
 		</div>
 	);

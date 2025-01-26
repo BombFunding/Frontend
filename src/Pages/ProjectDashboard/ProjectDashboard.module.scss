@@ -1,15 +1,15 @@
 .panel_box {
-  height: calc(100vh - 96px);
+	height: calc(100vh - 96px);
 }
 
 .full_page {
-  @apply min-h-screen relative flex flex-col gap-5 items-center justify-start rtl font-vazirmatn;
+	@apply min-h-screen relative flex flex-col gap-5 items-center justify-center rtl font-vazirmatn w-5/6;
 }
 
 .typer {
-  @apply relative rounded-lg mt-5 p-5 w-11/12 shadow-sm bg-bomborange text-white;
+	@apply relative rounded-lg mt-5 p-5 w-11/12 shadow-sm bg-bomborange text-white;
 }
 
 .down_box {
-  @apply w-11/12 flex md:flex-row justify-between items-start gap-5 flex-col;
+	@apply w-11/12 flex flex-col md:flex-row justify-between items-start gap-5;
 }

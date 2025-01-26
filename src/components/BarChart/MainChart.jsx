@@ -77,6 +77,7 @@ function MainChart({ color, label, apiEndpoints, projectId, className }) {
 				// });
 				// const data = response.json();
 				getData(apiUrl).then((data) => {
+					console.log(data)
 					if (timeRange === "365d") {
 						const newdata = data.map((item) => ({
 							...item,

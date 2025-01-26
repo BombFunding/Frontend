@@ -11,6 +11,7 @@ const PrivateLayout = () => {
   const Navigate = useNavigate();
   if (!TOKEN) {
     console.log("token not setted!");
+    window.scrollTo(0, 0);
     Navigate("/login");
   } else {
     console.log("token: " + TOKEN);
@@ -33,7 +34,7 @@ const PrivateLayout = () => {
         closeButton={false}
         limit={5}
       />
-      <div className={`mt-12 sm:mt-24`}>
+      <div className={`mt-12 sm:mt-20`}>
         <Navbar />
         <Outlet />
         <Footer />

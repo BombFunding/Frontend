@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./CustomTextArea.module.scss";
 import { Textarea } from "@/components/ui/textarea";
 function CustomTextArea({
@@ -6,7 +6,6 @@ function CustomTextArea({
   autofocus,
   type,
   value,
-  onKey,
   className,
   holderClassName,
   inputClassName,
@@ -14,8 +13,14 @@ function CustomTextArea({
   onChange,
   register,
   style,
+  labelClassname
 }) {
   const [empty, setEmpty] = useState(true);
+  useEffect(() => {
+      if (value) {
+        setEmpty(false);
+      }
+    }, [value]);
   return (
     <>
       <div className={`relative group mt-6 ${holderClassName}`}>
@@ -54,7 +59,7 @@ function CustomTextArea({
 						!empty && "-translate-y-[25px] px-[5px]"
 					} absolute right-4 peer-focus:px-[5px] pointer-events-none text-sm top-4
                     text-gray-500 transition-all peer-focus:-translate-y-[25px] peer-focus:right-1 
-                    peer-focus:scale-[80%] peer-valid:bg-white peer-focus:text-gray-500 ${className}`}
+                    peer-focus:scale-[80%] peer-valid:bg-white peer-focus:text-gray-500 ${labelClassname}`}
 				>
 					{placeholder}
 				</label>

@@ -164,7 +164,10 @@ function StartupCard({
 					<img
 						src={ownerProfile}
 						className={styles.ownerProfile}
-						onClick={() => Navigate(`/profile/${owner}`)}
+						onClick={() => {
+							window.scrollTo(0, 0);
+							Navigate(`/profile/${owner}`);
+						}}
 					/>
 					<h1 className={styles.name}>{owner}</h1>
 				</div>
