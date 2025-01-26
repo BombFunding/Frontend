@@ -39,8 +39,14 @@ Bomb Funding is more than a funding platform—it's a collaborative ecosystem th
 
 ## Getting Started
 
-[Provide instructions for startups and supporters to join the platform]
+It's pretty straight forward! I'll provide you with a description for some of the sections:
+1. **Startboard**: This is where you can find the startups that are looking for funds!
+2. **Usertypes**: There are 2 user types:
+- Startup: As the name states, these users are looking for funds and they can make a customized page for their own projects! How cool is that?
+- Investor: Are you looking for supporting startups and help them grow? Then this is the type of user for you!
+3. **Project Builder**: If you are looking for funds, then you have to make a startup page for your brilliant ideas! Don't worry, there's a step-by-step guide for this section.
+4. **Get hired**: Each and every great project is built by capable people! Startups can open positions for you to get hired!
 
 ## Contact
 
-For more information, partnership inquiries, or support, please contact: [Your Contact Information]
+For more information, partnership inquiries, or support, please contact: support@bombfunding.com
