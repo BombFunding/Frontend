@@ -3,6 +3,7 @@ import "./SearchResult.css";
 import { useNavigate } from "react-router-dom";
 import styles from "./SearchResults.module.scss";
 import { baseURL } from "@/Services/ApiClient/Services";
+import { Avatar, AvatarImage } from "radix-ui";
 
 export default function SearchResult({ result }) {
   // console.log(`fullname: ${result.fullName}`);
@@ -40,14 +41,19 @@ export default function SearchResult({ result }) {
           result.image ? "aspect-video rounded-sm" : "rounded-full"
         } overflow-hidden lg:w-[5vw] md:w-[7vw]`}
       >
-        <img
-          src={`${baseURL}${
-            result.profile_picture ?? result.image
-          }`}
+        <Avatar className="w-[17vw] h-[17vw] border-solid border-2 border-bomborange rounded-full">
+          <AvatarImage
+            src={`${baseURL}${result.profile_picture ?? result.image}`}
+            alt={`${result.fullName ?? result.name}`}
+            className="object-cover rounded-full"
+          />
+        </Avatar>
+        {/* <img
+          src={`${baseURL}${result.profile_picture ?? result.image}`}
           alt={`${result.fullName ?? result.name}`}
           className={`object-cover`}
           // style={"height:10vw"}
-        />
+        /> */}
       </div>
 
       {/* User Details */}
