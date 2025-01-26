@@ -6,41 +6,41 @@ import Footer from "@/components/Footer/Footer";
 import styles from "./PrivateLayout.module.scss";
 
 const PrivateLayout = () => {
-	const TOKEN = useTokenStore((state) => state.accessToken);
-	console.log("token: " + TOKEN);
-	const Navigate = useNavigate();
-	if (!TOKEN) {
-		console.log("token not setted!");
-		window.scrollTo(0, 0);
-		Navigate("/login");
-	} else {
-		console.log("token: " + TOKEN);
-	}
-	return (
-		<>
-			<ToastContainer
-				toastStyle={{
-					backgroundColor: "#2C2727",
-					fontSize: "16px",
-					borderRadius: "8px",
-				}}
-				position="bottom-right"
-				autoClose={2000}
-				closeOnClick
-				draggable
-				theme="dark"
-				newestOnTop={true}
-				role="alert"
-				closeButton={false}
-				limit={5}
-			/>
-			<div className={`mt-12 sm:mt-24`}>
-				<Navbar />
-				<Outlet />
-				<Footer />
-			</div>
-		</>
-	);
+  const TOKEN = useTokenStore((state) => state.accessToken);
+  console.log("token: " + TOKEN);
+  const Navigate = useNavigate();
+  if (!TOKEN) {
+    console.log("token not setted!");
+    window.scrollTo(0, 0);
+    Navigate("/login");
+  } else {
+    console.log("token: " + TOKEN);
+  }
+  return (
+    <>
+      <ToastContainer
+        toastStyle={{
+          backgroundColor: "#2C2727",
+          fontSize: "16px",
+          borderRadius: "8px",
+        }}
+        position="bottom-right"
+        autoClose={2000}
+        closeOnClick
+        draggable
+        theme="dark"
+        newestOnTop={true}
+        role="alert"
+        closeButton={false}
+        limit={5}
+      />
+      <div className={`mt-12 sm:mt-20`}>
+        <Navbar />
+        <Outlet />
+        <Footer />
+      </div>
+    </>
+  );
 };
 
 export default PrivateLayout;

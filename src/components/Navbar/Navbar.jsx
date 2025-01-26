@@ -153,10 +153,10 @@ function Navbar() {
         className={`flex flex-col justify-between top-0 fixed right-0 z-40 w-screen`}
       >
         <div
-          className={`flex flex-row ${
+          className={`flex flex-row pt-3 ${
             isOpen ? "bg-black" : "bg-bomborange"
           } w-full justify-between items-center px-6 transition-all duration-300`}
-          style={{ height: window.innerWidth <= 641 ? "60px" : "78px" }}
+          style={{ height: window.innerWidth <= 641 ? "60px" : "50px" }}
         >
           <div className={`px-0 flex justify-between items-center w-full`}>
             <div

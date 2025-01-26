@@ -42,7 +42,7 @@ export default function SearchResult({ result }) {
         } overflow-hidden lg:w-[5vw] md:w-[7vw]`}
       >
         {!result.id && (
-          <Avatar className="w-[17vw] h-[17vw] border-solid border-2 border-bomborange rounded-full">
+          <Avatar className="w-[50px] h-[50px] border-solid border-2 border-bomborange rounded-full">
             <AvatarImage
               src={`${baseURL}${result.profile_picture ?? result.image}`}
               alt={`${result.fullName ?? result.name}`}
