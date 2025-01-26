@@ -553,7 +553,7 @@ const BarChartComponent = () => {
 
 function ThreePieCharts() {
 	return (
-		<div className="grid grid-flow-col lg:grid-cols-4 lg:grid-rows-1 md:grid-cols-2 md:grid-rows-2 sm:grid-cols-1 sm:grid-rows-4 gap-5 px-5 flex-wrap lg:flex-nowrap flex-col lg:flex-row justify-around items-center">
+		<div className="grid grid-flow-col lg:grid-cols-4 lg:grid-rows-1 md:grid-cols-2 md:grid-rows-2 sm:grid-cols-1 sm:grid-rows-4 grid-cols-1 grid-rows-4 gap-5 px-5 flex-wrap lg:flex-nowrap flex-col lg:flex-row justify-around items-center">
 			<BarChartComponent />
 			<PieChartComponent2 />
 			<PieChartComponent3 />

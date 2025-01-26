@@ -149,8 +149,12 @@ function Navbar() {
   return (
     <>
       <nav
-        className={`flex flex-col justify-between top-0 fixed right-0 z-40 w-screen`}
+        className={`flex flex-col justify-between top-0 fixed z-40 w-full`}
       >
+        {/* <div
+          className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16`}
+          style={{ height: window.innerWidth <= 641 ? "60px" : "50px" }}
+        > */}
         <div
           className={`flex flex-row py-2 pr-4 ${
             isOpen ? "bg-black" : "bg-bomborange"
