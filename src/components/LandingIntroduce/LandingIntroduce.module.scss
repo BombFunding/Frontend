@@ -256,48 +256,59 @@
 
 
 .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: fixed; /* موقعیت ثابت */
+  left: 0; /* فاصله از چپ */
+  width: 100%; /* عرض کل صفحه */
+  height: 100%; /* ارتفاع کل صفحه */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 2;
+  z-index: 2; /* روی سایر محتوا قرار بگیرد */
   color: white;
   text-align: center;
-  font-size: calc(1.5rem + 1vw); /* فونت نسبی با استفاده از calc */
-}
-
-@media (max-width: 1152px) {
-  .overlay {
-    font-size: calc(1.5rem + 0.5vw); /* برای اندازه‌های متوسط‌تر */
-  }
-}
-
-@media (max-width: 768px) {
-  .overlay {
-    font-size: calc(1.5rem + 0.2vw); /* برای اندازه‌های کوچکتر */
-    padding: 0 10px; /* فضای داخلی برای نمایش بهتر */
-  }
-}
-
-@media (max-width: 480px) {
-  .overlay {
-    font-size: calc(1.5rem + 0.1vw); /* برای نمایش موبایل */
-    justify-content: flex-start; /* تنظیم محتوا */
+  font-size: calc(1.5rem + 1vw);
+  
+  /* Media Query برای گوشی‌ها */
+  @media (max-width: 480px) {
+    top: 30%; /* فاصله از بالا */
+    font-size: calc(1.5rem + 0.1vw);
+    justify-content: flex-start; /* تنظیم محتوا برای گوشی */
     text-align: left; /* متن به چپ */
   }
 }
 
-/* تنظیم سایز فونت برای زمانی که صفحه از نصف صفحه لپتاپ کوچکتر میشود */
-@media (max-width: 960px) { 
-  .overlay {
-    font-size: calc(1.5rem * 0.7); /* کاهش فونت به اندازه 0.7 برابر */
+/* ریسپانسیو کردن محتوای داخلی */
+.overlay .counters {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  .col-md-4 {
+    flex: 0 0 100%; /* عرض کامل برای موبایل */
+    text-align: center; /* مرکز کردن متن */
+    margin-bottom: 1rem;
   }
 }
+
+/* Media Query برای گوشی‌ها */
+@media (max-width: 480px) {
+  .overlay .counters {
+    flex-direction: column; /* چیدمان عمودی */
+    gap: 1.5rem;
+
+    .counter {
+      font-size: 1.8rem;
+    }
+
+    .counter-label {
+      font-size: 1rem;
+    }
+  }
+}
+
 .counters {
   display: flex;
   justify-content: space-between;

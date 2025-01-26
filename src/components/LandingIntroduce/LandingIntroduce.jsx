@@ -321,7 +321,7 @@ const App = () => {
 					/>
 					<div className={styles["overlay"]}>
 						<h1 className={styles["title"]}>
-							تعداد کاربران و موقعیت های سایت
+							تعداد کاربران و استارتاپ های سایت
 						</h1>
 						<div
 							className={`${styles["counters"]} row justify-content-center text-center`}
@@ -344,7 +344,7 @@ const App = () => {
 									className={styles["counter"]}
 								></span>
 								<p className={styles["counter-label"]}>
-									تعداد کاربران عادی{" "}
+									تعداد سرمایه گذاران{" "}
 									<span className={styles["plus-sign"]}>
 										+
 									</span>
@@ -458,7 +458,7 @@ const App = () => {
 										</svg>
 										<span className="text-[1.5vw] sm:text-[1.2vw] md:text-[1.25vw] lg:text-[1.5vw]">
 											پروژه ها را با فیلتر دلخواه خود
-											جستجو کنید و موقعیت های مورد علاقه
+											جستجو کنید و استارتاپ های مورد علاقه
 											را ذخیره کنید.
 										</span>
 									</li>

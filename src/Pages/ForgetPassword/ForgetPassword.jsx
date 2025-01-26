@@ -46,11 +46,19 @@ function ForgetPassword() {
 				console.log("Data posting FAILED:", err);
 				if (err?.response?.data) {
 					const data = err?.response?.data;
+					// console.log(err?.response?.data?.error[0])
 					if (data?.non_field_errors) {
-						if (
-							data?.non_field_errors[0] ===
-							"Email does not exist."
-						) {
+						if (data?.non_field_errors[0]) {
+							toast.error(
+								<CustomToast Header="حساب کاربری با این ایمیل پیدا نشد" />
+							);
+						} else {
+							toast.error(
+								<CustomToast Header="مشکلی در ارسال ایمیل به وجود آمد" />
+							);
+						}
+					} else {
+						if (err?.response?.data?.error[0]) {
 							toast.error(
 								<CustomToast Header="حساب کاربری با این ایمیل پیدا نشد" />
 							);
