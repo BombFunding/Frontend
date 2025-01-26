@@ -188,7 +188,6 @@ import { FaSearch } from "react-icons/fa";
 
 import "./SearchBar.css";
 import { getData } from "@/Services/ApiClient/Services";
-import profPic from "../../assets/defaultpfp.png";
 
 // const SearchBar = ({ setResults, setIsFocused, setInput }) => {
 //   const handleFocus = () => setIsFocused(true);

@@ -1,4 +1,3 @@
-import React from 'react';
 import './FlipAnimation.scss';
 
 const FlipAnimation = () => {

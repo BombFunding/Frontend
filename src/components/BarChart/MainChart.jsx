@@ -1,10 +1,5 @@
-"use client";
-
-import React, { useEffect, useState, useRef } from "react";
-import { TrendingUp } from "lucide-react";
-import { Bar, BarChart, Tooltip } from "recharts";
-import { getData } from "@/Services/ApiClient/Services";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { baseURL, getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import {
@@ -14,13 +9,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "../ui/card";
-import {
-	ChartContainer,
-	ChartLegend,
-	ChartLegendContent,
-	ChartTooltip,
-	ChartTooltipContent,
-} from "../ui/chart";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "../ui/chart";
 import {
 	Select,
 	SelectContent,
@@ -67,7 +56,8 @@ function MainChart({ color, label, apiEndpoints, projectId, className }) {
 			// 	"90d": "/profile_statics/last-90-days/",
 			// 	"365d": "/profile_statics/last-year/",
 			// };
-			const apiUrl = `http://104.168.46.4:8000${apiEndpoints[timeRange]}?username=${uname}`; // ${uname} when fixed
+			const apiUrl = `${baseURL}${apiEndpoints[timeRange]}?username=${uname}`; // ${uname} when fixed
+			console.log("apiUrl", apiUrl);
 			try {
 				// const response = await fetch(apiUrl, {
 				// 	headers: {
@@ -76,6 +66,7 @@ function MainChart({ color, label, apiEndpoints, projectId, className }) {
 				// });
 				// const data = response.json();
 				getData(apiUrl).then((data) => {
+					console.log(data);
 					if (timeRange === "365d") {
 						const newdata = data.map((item) => ({
 							...item,
@@ -94,7 +85,9 @@ function MainChart({ color, label, apiEndpoints, projectId, className }) {
 		fetchData();
 	}, [timeRange]);
 	return (
-		<Card className={`border-solid border-2 border-bomborange ${className}`}>
+		<Card
+			className={`border-solid border-2 border-bomborange ${className}`}
+		>
 			<CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
 				<div className="grid flex-1 gap-1 text-center sm:text-left">
 					{projectId ? (

@@ -1,6 +1,6 @@
 import styles from "./ProjectsInvested.module.scss";
 import { useEffect } from "react";
-import { getData } from "@/Services/ApiClient/Services";
+import { baseURL, getData } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
 import useProjectBoxStore from "@/stores/ProjectStore/ProjectBoxStore";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
@@ -35,7 +35,7 @@ const ProjectsInvested = ({ className }) => {
 	const { username } = useProfileStore();
 	useEffect(() => {
 		getData(`/invest/history/${username}/amount/`).then((data) => {
-			console.log("history", data);
+			console.log("history: ", data);
 			setProjects(data);
 		});
 	}, []);
@@ -52,10 +52,10 @@ const ProjectsInvested = ({ className }) => {
 				<div className={styles.project_list}>
 					{projects?.map((item, index) => (
 						<InvestedItem
-							header={`http://104.168.46.4:8000${item.project.image}`}
-							name={item.project.name}
+							header={`${baseURL}${item.project?.image}`}
+							name={item.project?.name}
 							key={index}
-							amount={item.investment_amount}
+							amount={item?.investment_amount}
 							onClick={() => {
 								window.scrollTo(0, 0);
 								Navigate(`/projects/${item.project.id}`);

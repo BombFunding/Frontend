@@ -50,24 +50,6 @@ const usePublicProjectStore = create(
             profile: data.owner_profile_picture,
             likes: data.like_count
           }));
-          //   set(async (pre) => {
-          //     try {
-          //       console.log("befor data:", data);
-          //       data = await getData(
-          //         `/auth/baseuser_search_by_name/${pre.owner}/`
-          //       );
-          //       return {
-          //         ...pre,
-          //         profile: `http://104.168.46.4:8000${data.baseuser_profile.profile_picture}`,
-          //         ownerName:
-          //           data.baseuser_profile.first_name +
-          //           " " +
-          //           data.baseuser_profile.last_name,
-          //       };
-          //     } catch (err) {
-          //       console.log("faile to get profile");
-          //     }
-          //   });
           data = await getData(`/invest/history/project/${projectId}/amount/`);
           set((pre) => {
             let total = 0;

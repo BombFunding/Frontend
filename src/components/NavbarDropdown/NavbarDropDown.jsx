@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import {
   FiArrowRight,
-  FiBarChart2,
   FiChevronDown,
-  FiHome,
-  FiPieChart,
 } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
 function NavbarDropDown() {

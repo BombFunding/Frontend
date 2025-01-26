@@ -1,7 +1,5 @@
 import headerpic from "../../assets/upProfile.jpg";
-import Likes from "../Likes/Likes";
 import styles from "./PersonalInfo.module.scss";
-import calendarIcon from "../../assets/calendarIcon.png";
 import defaultpfp from "../../assets/defaultpfp.png";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { Button } from "../ui/button";
@@ -23,7 +21,7 @@ function PersonalInfo({ loading }) {
         src={avatar ? avatar : defaultpfp}
         className={`${
           styles.on
-        } absolute place-self-end rounded-full w-[12vw] h-[12vw] object-cover translate-x-[-5vw] mt-[6vw] border-solid ${
+        } absolute place-self-end rounded-full w-[72px] h-[72px]  sm:w-[90px] sm:h-[90px] md:w-[110px] md:h-[110px] lg:w-[130px] lg:h-[130px] xl:w-[165px] xl:h-[165px] object-cover translate-x-[-5vw] mt-[6vw] border-solid ${
           loading ? "" : "ring-[0.5vw]"
         } ring-bomborange`}
       />
@@ -36,35 +34,36 @@ function PersonalInfo({ loading }) {
           top: "clamp(2px, 5vh, 40px)",
           left: "clamp(10px, 5vw, 25px)",
         }}
-        onClick={() => Navigate("/editprofile")}
+        onClick={() => {
+          window.scrollTo(0, 0);
+          Navigate("/editprofile");
+        }}
       >
         <span>ویرایش اطلاعات</span>
       </Button>
 
       {/* <Likes count={2} className="absolute mt-[11.2vw] ml-[1.5vw]" /> */}
+      <Label className="text-xl pt-[3vw] mr-4">اطلاعات کاربری</Label>
+      <div className="absolute translate-x-[5.2vw] -translate-y-[4vh] z-0"></div>
+      <div className="flex justify-between">
+        <h1 className="text-gray-500 text-lg place-self-center ml-4">
+          @{username}
+        </h1>
+        {fullname !== "null null" && (
+          <h1 className={`text-xl mr-4`}>{fullname}</h1>
+        )}
+      </div>
       <section
         className={`${
-          x ?? "border-solid border-2 border-bomborange "
-        } rounded-lg py-[3vw] px-[5vw] place-content-end`}
+          x ?? "border-solid border-2 border-bomborange"
+        } border-solid border-2 border-bomborange rounded-lg py-[3vw] px-[5vw] place-content-end`}
       >
-        <div className="absolute translate-x-[5.2vw] -translate-y-[4vh] z-0"></div>
-        <div className="flex justify-between">
-          <h1 className="text-gray-500 text-[1.25vw] place-self-center">
-            @{username}
-          </h1>
-          {fullname !== "null null" && (
-            <h1 className={`text-[2vw]`}>{fullname}</h1>
-          )}
-        </div>
         {/* <div className="flex gap-[0.75vw]">
 					<img src={calendarIcon} className="h-[2vw]" />
 					<div className="text-[1.5vw] place-self-center place-content-center align-middle">
 						عضویت از 2024/12/5
 					</div>
 				</div> */}
-        <p className="rtl text-[1.5vw] border-solid border-2 my-[1vw] p-[2vw] rounded-lg">
-          {bio}
-        </p>
         <div className="flex justify-between items-center w-full text-[1.5vw]">
           {/* Left Section (Empty or for other content) */}
 
@@ -82,6 +81,14 @@ function PersonalInfo({ loading }) {
             <Label className="text-xl">ایمیل</Label>
           </div>
         </div>
+        {bio && (
+          <div className="mt-6">
+            <Label className="text-lg mr-4">بیوگرافی</Label>
+            <p className="rtl text-[1.5vw] border-solid border-2 mt-2 p-[2vw] rounded-lg">
+              {bio}
+            </p>
+          </div>
+        )}
       </section>
     </>
   );

@@ -1,7 +1,6 @@
 import styles from "./Like.module.scss";
 import { useEffect, useState } from "react";
-import { deleteData, getData, postData } from "@/Services/ApiClient/Services";
-import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import { deleteData, postData } from "@/Services/ApiClient/Services";
 import { toast } from "react-toastify";
 import CustomToast from "../Custom/CustomToast/CustomToast";
 import useTokenStore from "@/stores/TokenStore";

@@ -1,9 +1,3 @@
-import React from "react";
-import styles from "./MoreInfoForm.module.scss";
-import formStyles from "../DashBoardForm.module.scss";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import CustomTextArea from "@/components/Custom/CustomTextArea/CustomTextArea";

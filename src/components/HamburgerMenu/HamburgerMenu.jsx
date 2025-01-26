@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Squash as Hamburger } from "hamburger-react";
 // import { routes } from "../../routes/routes";
@@ -13,10 +13,10 @@ import { FaBookOpen } from "react-icons/fa";
 import { FaCoins } from "react-icons/fa";
 import { SlLogin, SlLogout } from "react-icons/sl";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
-import { getDataParams } from "@/Services/ApiClient/Services";
-import { MdSpaceDashboard, MdOutlineSpaceDashboard } from "react-icons/md";
+import { MdOutlineSpaceDashboard } from "react-icons/md";
 import useTokenStore from "@/stores/TokenStore";
 import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
+import { RiListCheck } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarImage } from "../ui/avatar";
 // import { pic } from "../../assets/defaultpfp.png";
@@ -44,6 +44,7 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
   const searchProject = (category, subcategory) => {
     setLoading(true);
     setMainCategory(category);
+    window.scrollTo(0, 0);
     Navigate("/starboard");
   };
 
@@ -71,6 +72,11 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
       title: "داشبورد",
       href: "/dashboard",
       Icon: MdOutlineSpaceDashboard,
+    },
+    {
+      title: "استاربورد",
+      href: "/starboard",
+      Icon: RiListCheck,
     },
     {
       title: "خانه",
@@ -130,7 +136,7 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
       Icon: SlLogout,
     },
   ];
-  console.log(`fullname: ${fullname}`);
+  // console.log(`fullname: ${fullname}`);
   return (
     <div ref={ref} className={`${mode}`}>
       <Hamburger
@@ -146,11 +152,14 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed left-0 shadow-4xl h-screen right-0 p-5 overflow-hidden overflow-y-scroll pt-0 bg-neutral-950 border-b border-b-white/20"
+            className="fixed left-0 shadow-4xl h-screen right-0 p-5 overflow-hidden overflow-y-scroll pt-0 bg-neutral-950 border-b hide-scrollbar border-b-white/20"
           >
             <ul className="grid gap-2">
               {routes.map((route, idx) => {
                 const { Icon } = route;
+                if (route.title == "خروج" && !accessToken) {
+                  return;
+                }
                 return (
                   <motion.li
                     initial={{ scale: 0, opacity: 0 }}
@@ -173,6 +182,7 @@ function HamburgerMenu({ isOpen, setOpen, mode, token, setIsVisible }) {
                           toggleShowCategories((prev) => !prev);
                         } else if (route.title === "خروج") {
                           deleteToken();
+                          handleToggle(false);
                         } else if (route.title === "جستجو") {
                           e.preventDefault();
                           setIsVisible(true);

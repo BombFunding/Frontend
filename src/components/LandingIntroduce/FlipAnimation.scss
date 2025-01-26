@@ -7,13 +7,16 @@
   display: flex;
   align-items: center;
   white-space: nowrap;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 #flip {
   height: 50px;
   overflow: hidden;
   display: inline-block;
-  margin-left: 10px;
+  margin: 1rem;
 }
 
 #flip > div > div {

@@ -1,8 +1,7 @@
-import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import FilterSection from "@/components/FilterSection/FilterSection";
 import { Loading } from "@/components/Loading/Loading";
 import StartupPagination from "@/components/StartupPagination/StartupPagination";
-import { getData, getDataParams } from "@/Services/ApiClient/Services";
+import { getDataParams } from "@/Services/ApiClient/Services";
 import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -26,6 +25,7 @@ function StarBoard() {
 		favorite,
 		setResults,
 		setTotalPages,
+		setSearchQuery,
 	} = useStarboardStore();
 	useEffect(() => {
 		setLoading(true);
@@ -54,6 +54,9 @@ function StarBoard() {
 		sorting,
 		favorite,
 	]);
+	useEffect(() => {
+		setSearchQuery("");
+	}, []);
 
 	// useEffect(() => {
 	// 	// reset();
@@ -79,7 +82,9 @@ function StarBoard() {
 		// 	onSubmit={onSubmit}
 		// >
 		<div className="font-vazirmatn text-black w-[100vw]">
-			<FilterSection setResultsPerPage={setResultsPerPage} />
+			<div className="flex justify-center items-center">
+				<FilterSection setResultsPerPage={setResultsPerPage} />
+			</div>
 			{loading ? (
 				<Loading className="pt-20 pb-64 place-self-center" />
 			) : (
@@ -88,7 +93,7 @@ function StarBoard() {
 			{loading ? (
 				<></>
 			) : (
-				<p className="rtl place-self-center">
+				<p className="rtl place-self-center text-center">
 					{projects.length === 0
 						? "هیچ استارت‌آپی یافت نشد"
 						: `${results} استارت‌آپ یافت شد`}

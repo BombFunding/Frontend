@@ -1,11 +1,9 @@
-import Editor from "@/components/Editor/Editor";
 import EditorJS from "@editorjs/editorjs";
 import EditorTools from "@/components/Editor/EditorTools";
 import FaTranslation from "@/components/Editor/FaTranslation";
 import { Card } from "@/components/ui/card";
 import { getData } from "@/Services/ApiClient/Services";
-import React, { useEffect, useState } from "react";
-import { use } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const PageView = () => {

@@ -21,7 +21,7 @@
 
 //   const handleShare = () => {
 //     // const url = window.location.href;
-//     const url = `http://localhost:3000/project/${projectId}`;
+//     const url = `http://104.168.46.4:3000/project/${projectId}`;
 //     navigator.clipboard
 //       .writeText(url)
 //       .then(() => {
@@ -92,11 +92,9 @@
 // export default StartupCard;
 
 import { Progress } from "@/components/ui/progress";
-import mockuppic from "../../assets/upProfile.jpg";
 import mockuppic2 from "../../assets/baner.jpg";
 import clock from "../../assets/clock.png";
 import styles from "./StartupCard.module.scss";
-import defaultpfp from "../../assets/defaultpfp.png";
 import Bookmark from "../Bookmark/Bookmark";
 import Tags from "../Tags/Tags";
 import Like from "../Like/Like";
@@ -107,9 +105,6 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useNavigate } from "react-router-dom";
-import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
-import { useEffect, useState } from "react";
-import { getData } from "@/Services/ApiClient/Services";
 import { GoPaperAirplane } from "react-icons/go";
 import { toast } from "react-toastify";
 import CustomToast from "../Custom/CustomToast/CustomToast";
@@ -130,7 +125,7 @@ function StartupCard({
 	const Navigate = useNavigate();
 	const handleShare = () => {
 		// const url = window.location.href;
-		const url = `http://localhost:3000/projects/${id}`;
+		const url = `https://aminfiroozi.ir/projects/${id}`;
 		navigator.clipboard
 			.writeText(url)
 			.then(() => {
@@ -164,7 +159,10 @@ function StartupCard({
 					<img
 						src={ownerProfile}
 						className={styles.ownerProfile}
-						onClick={() => Navigate(`/profile/${owner}`)}
+						onClick={() => {
+							window.scrollTo(0, 0);
+							Navigate(`/profile/${owner}`);
+						}}
 					/>
 					<h1 className={styles.name}>{owner}</h1>
 				</div>

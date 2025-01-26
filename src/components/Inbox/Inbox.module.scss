@@ -1,0 +1,491 @@
+@import "https://fonts.googleapis.com/css?family=Material+Icons";
+
+$clr-white-1: #ecf0f1;
+$clr-white-2: darken($clr-white-1, 5%);
+$clr-t300: #444;
+$clr-t500: #95a5a6;
+$clr-p300: #111;
+$clr-a300: #ff1900; //#FF6A6A; //salmon
+
+$gray: rgba(255, 255, 255, 0.2);
+$teal: cornflowerblue;
+$menu: #444753;
+$link-color: $teal;
+
+$primary-button: $teal;
+$secondary-button: #b2b9c5;
+
+$v-gutter: 0.75rem;
+$h-gutter: 2rem;
+$toggle-gutter: 2px;
+$toggle-width: 90px;
+$toggle-height: 26px;
+
+$container-shadow: 0.5rem 0.5rem 2rem 0 rgba(black, 0.2);
+$trans: cubic-bezier(0.3, 0, 0.7, 1);
+
+$media-mobile: "only screen and (max-width: 720px)";
+
+@media (max-width: 640px) {
+  .notification-icon {
+    position: relative;
+    margin-right: 1em;
+    border-radius: 5px;
+    background: transparent;
+    i {
+      margin: 0.5rem;
+    }
+    &:nth-of-type(1) {
+      i {
+        background: -webkit-linear-gradient(300deg, #000000, #000000);
+        // background: rgba(255, 255, 255, 1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+    &:nth-of-type(2) i {
+      background: -webkit-linear-gradient(300deg, #acccea, #000da1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}
+
+@media (min-width: 641px) {
+  .notification-icon {
+    position: relative;
+    margin-right: 1em;
+    border-radius: 5px;
+    background: $clr-white-1;
+    i {
+      margin: 0.5rem;
+    }
+    &:nth-of-type(1) {
+      i {
+        background: -webkit-linear-gradient(300deg, #fff9ab, rgb(161, 89, 0));
+        // background: rgba(255, 255, 255, 1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: $clr-white-1;
+      }
+    }
+    &:nth-of-type(2) i {
+      background: -webkit-linear-gradient(300deg, #fff9ab, rgb(161, 89, 0));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}
+// این برای دراپ داون نوتیف هاست اما باگ داره
+.notification-container {
+  direction: rtl;
+  text-align: right;
+  position: fixed;
+  z-index: 999;
+  top: 70px;
+  right: 70px;
+  width: 400px;
+  font-weight: 300;
+  background: white;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  box-shadow: $container-shadow;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 1px;
+    right: 0;
+    width: 0;
+    height: 0;
+    transform: translate(-1rem, -100%);
+    border-left: 0.75rem solid transparent;
+    border-right: 0.75rem solid transparent;
+    border-bottom: 0.75rem solid white;
+  }
+
+  h3 {
+    text-transform: uppercase;
+    font-size: 75%;
+    font-weight: 700;
+    color: #0c0c42;
+    padding: $v-gutter * 2 $h-gutter;
+  }
+
+  i {
+    color: #0c0c42;
+    font-size: 140%;
+    position: absolute;
+    left: $h-gutter;
+    @vertical-align (50%);
+
+    &:hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+  }
+
+  em {
+    margin-right: $v-gutter;
+    font-weight: 700;
+    font-size: 115%;
+    color: #ff7517;
+    vertical-align: bottom;
+    display: inline-block;
+    text-align: left;
+  }
+
+  animation-name: dropPanel;
+  animation-iteration-count: 1;
+  animation-timing-function: all;
+  animation-duration: 0.75s;
+}
+
+@keyframes dropPanel {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px) scaleY(0.5);
+  }
+}
+
+.notification {
+  box-sizing: border-box;
+  &.new {
+    background: transparent;
+    &:hover {
+      background: #fff2c2;
+    }
+  }
+}
+
+input.checkbox[type="checkbox"] {
+  display: none;
+  + label {
+    display: block;
+  }
+  &:not(:checked) + label {
+    transition: height 0.25s;
+    height: 0;
+    padding: 0;
+    font-size: 0;
+    border: none;
+    * {
+      display: none;
+    }
+  }
+  &:checked + label {
+    height: ($v-gutter * 3) + 1rem;
+    padding: $v-gutter * 1.5 $h-gutter * 2 $v-gutter $h-gutter;
+    font-size: 75%;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+}
+
+//------------------------------------
+
+@mixin vertical-align($fifty-percent) {
+  top: $fifty-percent;
+  -webkit-transform: translateY(-$fifty-percent);
+  -ms-transform: translateY(-$fifty-percent);
+  transform: translateY(-$fifty-percent);
+}
+
+.red {
+  color: #f8b2a6 !important;
+}
+.teal {
+  color: desaturate(lighten($teal, 5%), 5%);
+}
+.gray {
+  color: $gray;
+}
+.gray-bg {
+  background: $gray !important;
+}
+.primary-button {
+  background: $primary-button;
+  border: 2px solid $primary-button;
+}
+.secondary-button {
+  border: 2px solid $secondary-button;
+  background: none;
+  color: $secondary-button;
+}
+
+.left {
+  margin-right: $v-gutter;
+  float: left;
+}
+.right {
+  margin-left: $v-gutter;
+  float: right;
+}
+spacer {
+  width: 100%;
+}
+
+// button {
+//   float: right;
+//   border-radius: 3px;
+//   cursor: pointer;
+//   display: inline-block;
+//   font-weight: normal;
+//   padding: 8px 12px;
+//   border: 0;
+//   font-size: 13px;
+//   line-height: 13px;
+//   color: white;
+//   background: #B2B9C5;
+//   &:hover {
+//     opacity: .9;
+//   }
+// }
+
+// .notification-icon {
+//   position: relative;
+//   margin-right: 1em;
+//   border-radius: 5px;
+//   background: $clr-white-1;
+//   i {
+//     margin: 0.5rem;
+//   }
+//   &:nth-of-type(1) {
+//     i {
+//       background: -webkit-linear-gradient(300deg, #fff9ab, rgb(161, 89, 0));
+//       // background: rgba(255, 255, 255, 1);
+//       -webkit-background-clip: text;
+//       -webkit-text-fill-color: transparent;
+//     }
+//   }
+//   &:nth-of-type(2) i {
+//     background: -webkit-linear-gradient(300deg, #acccea, #000da1);
+//     -webkit-background-clip: text;
+//     -webkit-text-fill-color: transparent;
+//   }
+// }
+
+// .num-count {
+//   position: absolute;
+//   user-select: none;
+//   cursor: default;
+//   font-size: 0.6rem;
+//   background: $clr-a300;
+//   width: 1.2rem;
+//   height: 1.2rem;
+//   color: $clr-white-1;
+//   display: inline-flex;
+//   justify-content: center;
+//   align-items: center;
+//   border-radius: 50%;
+//   top: -0.33rem;
+//   right: -.66rem;
+//   box-sizing: border-box;
+// }
+.num-count {
+  position: absolute;
+  user-select: none;
+  cursor: default;
+  font-size: 0.6rem;
+  background: $clr-a300;
+  width: 1.2rem;
+  height: 1.2rem;
+  color: $clr-white-1;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  top: -0.33rem;
+  right: -0.66rem;
+  box-sizing: border-box;
+
+  animation-name: scaleCount;
+  animation-iteration-count: 1;
+  animation-timing-function: all;
+  animation-duration: 1s;
+  animation-delay: 0s;
+
+  @keyframes scaleCount {
+    0% {
+      transform: scale(0);
+    }
+    40% {
+      transform: scale(1);
+    }
+    60% {
+      transform: scale(0.5);
+    }
+    80% {
+      transform: scale(1.25);
+    }
+  }
+}
+
+.menu {
+  position: relative;
+  order: 1;
+  flex: 1 6 25%;
+  padding: $h-gutter 0;
+  border-radius: 0 0 0 0.5rem;
+  background: darken($menu, 5%);
+  color: #aaa;
+  text-transform: uppercase;
+  font-size: 70%;
+  font-weight: 700;
+  .num-count {
+    position: absolute;
+    @include vertical-align(70%);
+    right: 1rem;
+    width: auto;
+    padding: 0 0.5rem;
+    border-radius: 1rem;
+  }
+  ul.active {
+    background: lighten($menu, 5%);
+    margin-bottom: $v-gutter;
+
+    li {
+      padding-left: $h-gutter * 2;
+      &.active {
+        color: white;
+        &:before {
+          content: "•";
+          color: desaturate(lighten($teal, 5%), 5%);
+          left: $h-gutter;
+          position: absolute;
+          @include vertical-align(65%);
+          padding-left: 0.7em;
+        }
+      }
+      &:first-child {
+        padding-top: $v-gutter * 2;
+      }
+      &:last-child {
+        padding-bottom: $v-gutter * 2;
+      }
+    }
+  }
+  > li {
+    padding-left: $h-gutter * 2 !important;
+  }
+  li {
+    padding: $v-gutter $h-gutter;
+    position: relative;
+    i {
+      @vertical-align (50%);
+      position: absolute;
+      font-size: 180%;
+      &:not(.left) {
+        right: $v-gutter * 2;
+        position: absolute;
+        @include vertical-align(50%);
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      &.left {
+        left: $h-gutter;
+        position: absolute;
+        @include vertical-align(50%);
+      }
+    }
+    &.inboxdropdown {
+      &.active {
+        background: $menu;
+        margin-top: $v-gutter;
+        padding: ($v-gutter * 2) $h-gutter;
+        color: white;
+      }
+    }
+  }
+}
+.content {
+  order: 2;
+  flex: 1 6 75%;
+}
+
+// PROFILE CONTAINER
+
+h1 {
+  font-size: 125%;
+}
+
+hr {
+  border: 0;
+  clear: both;
+  margin-bottom: $v-gutter;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+// TOGGLE
+
+.switch {
+  position: relative;
+  display: inline-block;
+  margin: $v-gutter 0 0;
+}
+
+.switch > span {
+  position: absolute;
+  @include vertical-align(50%);
+  pointer-events: none;
+  font-weight: bold;
+  font-size: 9px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+  width: 50%;
+  text-align: center;
+}
+
+input.check-toggle-round-flat:checked ~ .off {
+  color: desaturate(lighten($teal, 10%), 10%);
+}
+
+input.check-toggle-round-flat:checked ~ .on {
+  color: #fff;
+}
+
+.switch > span.on {
+  left: $toggle-gutter;
+  color: desaturate(lighten($teal, 10%), 10%);
+}
+
+.switch > span.off {
+  right: $toggle-gutter;
+  color: #fff;
+}
+
+.check-toggle {
+  display: none;
+}
+.check-toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+
+input.check-toggle-round-flat + label {
+  width: $toggle-width;
+  height: $toggle-height;
+  background: desaturate(lighten($teal, 5%), 5%);
+  border-radius: 5px;
+}
+input.check-toggle-round-flat + label:before,
+input.check-toggle-round-flat + label:after {
+  display: block;
+  position: absolute;
+  content: "";
+}
+
+input.check-toggle-round-flat + label:after {
+  top: $toggle-gutter;
+  left: $toggle-gutter;
+  bottom: $toggle-gutter;
+  width: 50%;
+  background-color: white;
+  border-radius: 3px;
+  transition: margin 0.2s;
+  cursor: default;
+}
+
+input.check-toggle-round-flat:checked + label:after {
+  margin-left: ($toggle-width/2) - ($toggle-gutter * 2);
+}

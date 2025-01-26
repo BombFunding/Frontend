@@ -1,7 +1,4 @@
 import LandingIntroduce from "@/components/LandingIntroduce/LandingIntroduce";
-import landing5 from "../../assets/landing5.png";
-import landing6 from "../../assets/landing6.png";
-import landing7 from "../../assets/landing7.png";
 
 import PieChartComponent from "@/components/LandingIntroduce/PieChart";
 import Cityan1 from "@/components/LandingIntroduce/cityFirst";
@@ -10,11 +7,9 @@ import IranMap from "@/components/LandingIntroduce/IranMap";
 
 import InfiniteCarousel from "@/components/InfiniteCarousel/InfiniteCarousel";
 import { Label } from "@radix-ui/react-label";
-import styles from "./Landing.module.scss";
 import { useEffect, useState } from "react";
 import { getData } from "@/Services/ApiClient/Services";
 import { Link } from "react-router-dom";
-import img9 from "../../assets/landing_back5.png";
 import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
 
 const Landing = () => {
@@ -227,6 +222,7 @@ const Landing = () => {
 						direction: "rtl",
 						paddingRight: "40px",
 						width: "100%",
+						textAlign: "center",
 					}}
 				>
 					<h1
@@ -235,7 +231,6 @@ const Landing = () => {
 							marginBottom: "10px",
 							fontWeight: "bold",
 							color: "#0C084B",
-							textAlign: "center",
 						}}
 					>
 						<span style={{ color: "#FF7F00" }}>&lt;</span>
@@ -257,7 +252,35 @@ const Landing = () => {
 						در نمودار مقابل توزیع استارتاپ ها را در استان های مختلف
 						میتوانید ببینید.
 					</p>
+
+					<div
+						onClick={() => (window.location.href = "/googlemap")}
+						style={{
+							color: "#0C0C42",
+							fontSize: "1.3rem",
+							fontWeight: "bold",
+							cursor: "pointer",
+							//   textAlign: "center",
+							//   display: "inline-block", // برای وسط‌چین کردن
+							animation: "glowText 1.5s infinite",
+						}}
+						onMouseOver={(e) => (e.target.style.color = "#a84400")}
+						onMouseOut={(e) => (e.target.style.color = "#0C0C42")}
+					>
+						برای دیدن جزئیات بیشتر کلیک کنید
+					</div>
+
+					<style>
+						{`
+      @keyframes glowText {
+        0% { text-shadow: 0 0 5px #999999; }
+        50% { text-shadow: 0 0 20px #999999; }
+        100% { text-shadow: 0 0 5px #999999; }
+      }
+    `}
+					</style>
 				</div>
+
 				<div
 					className="map-section"
 					style={{
@@ -292,7 +315,9 @@ const Landing = () => {
 						پربازدیدترین استارت‌آپ‌ها
 					</Label>
 					<Link
-						onClick={() => {setSorting("top-visited")}}
+						onClick={() => {
+							setSorting("top-visited");
+						}}
 						to="/Starboard"
 						className="text-black font-vazirmatn text-sm md:text-base lg:text-lg xl:text-xl px-3 py-1 rounded hover:bg-gray-200 transition-all duration-300"
 					>
@@ -321,7 +346,9 @@ const Landing = () => {
 					</Label>
 					<Link
 						to="/Starboard"
-						onClick={() => {setSorting("top-liked")}}
+						onClick={() => {
+							setSorting("top-liked");
+						}}
 						className="text-black font-vazirmatn text-sm md:text-base lg:text-lg xl:text-xl px-3 py-1 rounded hover:bg-gray-200 transition-all duration-300"
 					>
 						دیدن بیشتر...

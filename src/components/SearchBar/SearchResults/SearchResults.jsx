@@ -1,7 +1,8 @@
-import { useState } from "react";
 import "./SearchResult.css";
 import { useNavigate } from "react-router-dom";
 import styles from "./SearchResults.module.scss";
+import { baseURL } from "@/Services/ApiClient/Services";
+import { Avatar, AvatarImage } from "radix-ui";
 
 export default function SearchResult({ result }) {
   // console.log(`fullname: ${result.fullName}`);
@@ -13,12 +14,15 @@ export default function SearchResult({ result }) {
     // alert("chi");
     if (result.profile_id) {
       // startup
+      window.scrollTo(0, 0);
       Navigate(`/profile/${result.username}`);
     } else if (result.id) {
       // projects
+      window.scrollTo(0, 0);
       Navigate(`/projects/${result.id}`);
     } else {
       // investors
+      window.scrollTo(0, 0);
       Navigate(`/profile/${result.username}`);
     }
     window.location.reload();
@@ -36,14 +40,24 @@ export default function SearchResult({ result }) {
           result.image ? "aspect-video rounded-sm" : "rounded-full"
         } overflow-hidden lg:w-[5vw] md:w-[7vw]`}
       >
-        <img
-          src={`http://104.168.46.4:8000${
-            result.profile_picture ?? result.image
-          }`}
-          alt={`${result.fullName ?? result.name}`}
-          className={`object-cover`}
-          // style={"height:10vw"}
-        />
+        {!result.id && (
+          <Avatar className="w-[50px] h-[50px] border-solid border-2 border-bomborange rounded-full">
+            <AvatarImage
+              src={`${baseURL}${result.profile_picture ?? result.image}`}
+              alt={`${result.fullName ?? result.name}`}
+              className="object-cover rounded-full"
+            />
+          </Avatar>
+        )}
+
+        {result.id && (
+          <img
+            src={`${baseURL}${result.profile_picture ?? result.image}`}
+            alt={`${result.fullName ?? result.name}`}
+            className={`object-cover rounded-md`}
+            // style={"height:10vw"}
+          />
+        )}
       </div>
 
       {/* User Details */}

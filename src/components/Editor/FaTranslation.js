@@ -1,5 +1,3 @@
-import { Heading } from "lucide-react";
-
 const FaTranslation = () => {
   return {
     /**

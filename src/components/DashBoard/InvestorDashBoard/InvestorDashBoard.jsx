@@ -1,43 +1,15 @@
-import React from "react";
 import styles from "./InvestorDashBoard.module.scss";
 import { Card } from "@/components/ui/card";
-import PositionBox from "../../ProjectDashboard/PositionBox/PositionBox";
 import Accounting from "@/components/Accounting/Accounting";
-import StartupProfiles from "@/components/StartupProfiles/StartupProfiles";
-import CommentSection from "@/components/CommentSection/CommentSection";
 import PersonalInfo from "@/components/PersonalInfo/PersonalInfo";
 import { useEffect, useState } from "react";
-import { getData } from "@/Services/ApiClient/Services";
+import { baseURL, getData } from "@/Services/ApiClient/Services";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
-import TeamBox from "../Sections/TeamBox/TeamBox";
 import { Label } from "@/components/ui/label";
-import ProjectBox from "../ProjectBox/ProjectBox";
-import { Button } from "@/components/ui/button";
-import {
-	Drawer,
-	DrawerClose,
-	DrawerContent,
-	DrawerTrigger,
-} from "@/components/ui/drawer";
-import MoreInfo from "@/components/Forms/DashBoardForms/MoreInfoForm/MoreInfoForm";
-import { Separator } from "@/components/ui/separator";
 import { Loading } from "@/components/Loading/Loading";
-import Tags from "@/components/Tags/Tags";
 import Bookmarks from "../Bookmarks/Bookmarks";
 import InvestorTags from "@/components/InvestorTags/InvestorTags";
-import EmptySection from "@/components/EmptySection/EmptySection";
 import ProjectsInvested from "@/components/ProjectsInvested/ProjectsInvested";
-
-const mockup = {
-	ssn: "4444444444",
-	legal: "5555555555",
-	shaba: "55555555555555555555",
-	tax: "1020315",
-	// address:
-	//   "نبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکانبش اکبر برادرز سریلانکا",
-	address:
-		"ایران، تهران، تهران، رسالت، خیابان هنگام، دانشگاه علم و صنعت ایران",
-};
 
 const InvestorDashBoard = () => {
 	const [loading, setLoading] = useState(false);
@@ -65,10 +37,10 @@ const InvestorDashBoard = () => {
 			setEmail(data.base_profile.email);
 			setPhone(data.base_profile.phone);
 			setAvatar(
-				`http://104.168.46.4:8000${data.base_profile.profile_picture}`
+				`${baseURL}${data.base_profile.profile_picture}`
 			);
 			setHeader(
-				`http://104.168.46.4:8000${data.base_profile.header_picture}`
+				`${baseURL}${data.base_profile.header_picture}`
 			);
 			getData(`/categories/${data.base_profile.name}/`).then((data) => {
 				setSubcategories(data.subcategories);
@@ -82,6 +54,7 @@ const InvestorDashBoard = () => {
 	if (loading) return <Loading className="pt-52 pb-64 place-self-center" />;
 	return (
 		<>
+		<div className="flex flex-col items-center justify-center">
 			<Card className={styles.card_style}>
 				<PersonalInfo loading={loading} />
 				<Label className={styles.label_style}>
@@ -111,6 +84,7 @@ const InvestorDashBoard = () => {
 				<Label className={styles.label_style}>ذخیره شده</Label>
 				<Bookmarks type="پروژه‌ا" />
 			</Card>
+		</div>
 		</>
 	);
 };

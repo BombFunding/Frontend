@@ -1,7 +1,7 @@
 import ProjectItem from "../ProjectItem/ProjectItem";
 import EmptySection from "@/components/EmptySection/EmptySection";
 import { useEffect, useState } from "react";
-import { getData } from "@/Services/ApiClient/Services";
+import { baseURL, getData } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
 import { useNavigate } from "react-router-dom";
 import styles from "./Bookmarks.module.scss";
@@ -31,7 +31,7 @@ const Bookmarks = ({ className, type }) => {
 				<div className={styles.project_list}>
 					{projects?.map((project, index) => (
 						<ProjectItem
-							header={`http://104.168.46.4:8000${project.project_header_picture}`}
+							header={`${baseURL}${project.project_header_picture}`}
 							name={project.project_name}
 							add={false}
 							key={index}

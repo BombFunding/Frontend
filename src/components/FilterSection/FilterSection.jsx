@@ -31,6 +31,7 @@ import { useParams } from "react-router-dom";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "../ui/label";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
+import useTokenStore from "@/stores/TokenStore";
 
 // const categories = [
 // 	{ value: "تکنولوژی", label: "تکنولوژی " },
@@ -120,26 +121,28 @@ function FilterSection() {
 	} = useStarboardStore();
 	const [open1, setOpen1] = useState(false);
 	const [open2, setOpen2] = useState(false);
+	const { accessToken } = useTokenStore();
 	const { userType } = useProfileStore();
 	const onSubmit = (e) => {
 		e?.preventDefault();
 		setLoading(true);
 		// reset();
 		const formData = {
-			category: mainCategory,
-			subcategory: subcategory,
+			// category: `"${mainCategory}"`,
+			// subcategory: `"${subcategory}"`,
 			search: searchQuery,
 			results_per_page: resultsPerPage,
 			page_number: pageNumber,
 			my_favorite: favorite,
 		};
+		formData.append("category", mainCategory);
+		formData.append("subcategory", subcategory);
 		setPageNumber(page ? Number(page) : 1);
-		console.log(formData);
+		console.log("formData", formData);
 		getDataParams(`/starboard/${sorting}/`, null, formData).then((data) => {
 			setResults(data.result_count);
 			setTotalPages(data.total_pages);
 			setProjects(data.results);
-			console.log(data.results);
 			setLoading(false);
 		});
 	};
@@ -163,7 +166,7 @@ function FilterSection() {
 			onSubmit={onSubmit}
 			className={`${styles.topMargin} mb-12 py-6 px-2 border-solid border-2 border-bomborange rounded-lg w-[95vw] text-[1vw] place-items-center place-self-center ${styles.formWidth}`}
 		>
-			<div className={`flex flex-row rtl gap-3 ${styles.flexBox}`}>
+			<div className={`flex flex-row rtl gap-3 justify-center ${styles.flexBox}`}>
 				<p className="place-self-center translate-y-[0.7vw]">
 					{" "}
 					پروژه های
@@ -389,7 +392,7 @@ function FilterSection() {
 					نمایش بده
 				</Button>
 			</div>
-			{userType === "basic" ? (
+			{userType === "basic" && accessToken && (
 				<div className="flex gap-2 place-self-end pt-5 pr-5">
 					<Label>فقط دسته‌بندی‌های مورد علاقه من</Label>
 					<Checkbox
@@ -397,8 +400,6 @@ function FilterSection() {
 						onCheckedChange={setFavorite}
 					/>
 				</div>
-			) : (
-				<></>
 			)}
 		</form>
 	);

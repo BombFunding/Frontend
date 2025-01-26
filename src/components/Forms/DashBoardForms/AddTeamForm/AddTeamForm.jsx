@@ -1,10 +1,4 @@
-import React, { useEffect, useState } from "react";
-import styles from "./AddTeamForm.module.scss";
-import formStyles from "../DashBoardForm.module.scss";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -66,13 +60,14 @@ const AddTeamForm = ({ setFormOpen, setMembers }) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <CustomInput
-        inputClassName={"w-[60vw] text-right"}
+        inputClassName={"w-[60vw] text-left translate-x-[-0.5vw]"}
         placeholder="نام کاربری"
         register={register}
         name={"username"}
+        style={{"direction": "ltr"}}
       />
       <CustomInput
-        inputClassName={"w-[60vw] text-right"}
+        inputClassName={"w-[60vw] text-right rtl translate-x-[-0.5vw]"}
         placeholder="نقش عضو در تیم"
         register={register}
         name={"role"}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Comment.module.scss";
 import CustomTextArea from "../Custom/CustomTextArea/CustomTextArea";
 import CustomComment from "../CommentSection/CustomComment/CustomComment";

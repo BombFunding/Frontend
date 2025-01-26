@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./Bookmark.module.scss";
-import { deleteData, getData, postData } from "@/Services/ApiClient/Services";
+import { deleteData, postData } from "@/Services/ApiClient/Services";
 import useTokenStore from "@/stores/TokenStore";
 import { toast } from "react-toastify";
 import CustomToast from "../Custom/CustomToast/CustomToast";
@@ -25,7 +25,10 @@ function Bookmark({ className, username, projectId, isBookmarked }) {
 			setChecked((checked) => !checked);
 		} else {
 			toast.error(<CustomToast Header="لطفا وارد حساب کاربری خود شود" />);
-			setTimeout(() => Navigate("/login"), 3000);
+			setTimeout(() => {
+				window.scrollTo(0, 0);
+				Navigate("/login");
+			}, 3000);
 		}
 	};
 	return (

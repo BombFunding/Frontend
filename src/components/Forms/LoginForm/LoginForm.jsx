@@ -5,7 +5,7 @@ import styles from "./LoginForm.module.scss";
 import DrawerButton from "@/components/Custom/DrawerButton/DrawerButton";
 import { useState } from "react";
 import { useLoginFormStore } from "@/stores/FormStore";
-import { getData, postData } from "@/Services/ApiClient/Services.js";
+import { baseURL, getData, postData } from "@/Services/ApiClient/Services.js";
 import useTokenStore from "@/stores/TokenStore";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
@@ -69,10 +69,10 @@ function LoginForm() {
 					setUserType(data.base_profile.user_type);
 					setPhone(data.base_profile.phone);
 					setAvatar(
-						`http://104.168.46.4:8000${data.base_profile.profile_picture}`
+						`${baseURL}${data.base_profile.profile_picture}`
 					);
 					setHeader(
-						`http://104.168.46.4:8000${data.base_profile.header_picture}`
+						`${baseURL}${data.base_profile.header_picture}`
 					);
 					getData(`/balance/balance/`).then((data1) => {
 						setBalance(data1.balance);

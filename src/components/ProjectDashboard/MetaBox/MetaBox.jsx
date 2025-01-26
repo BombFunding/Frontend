@@ -1,26 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./MetaBox.module.scss";
-import CustomTextArea from "@/components/Custom/CustomTextArea/CustomTextArea";
 import { Label } from "@/components/ui/label";
-import IMG from "@/assets/A1.jpg";
-import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import { DrawerDialog } from "@/components/Custom/DrawerDialog/DrawerDialog";
-import Button from "@/components/EditButton/EditButton";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 import MetaForm from "@/components/Forms/ProjectDashboardForms/MetaForm/MetaForm";
 import Likes from "@/components/Likes/Likes";
-import Baner from "../../../assets/baner.jpg";
-import { getData, patchData, postData } from "@/Services/ApiClient/Services";
+import { deleteData, patchData } from "@/Services/ApiClient/Services";
 import useProjectStore from "@/stores/ProjectStore/ProjectStore";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const MetaBox = ({ className }) => {
+	const Navigate = useNavigate();
 	const fileInputRef = useRef(null);
 	// const [bannerFile, setBannerFile] = React.useState(Baner);
 	const { projectName, description, image, updateProject, likes } =
 		useProjectStore();
 	const [closer, setCloser] = useState(false);
+	const [deleteCloser, setDeleteCloser] = useState(false);
 	const { projectId } = useParams();
 	const handleBannerClick = () => {
 		fileInputRef.current.click();
@@ -104,11 +101,11 @@ const MetaBox = ({ className }) => {
 						<Label className="text-xl text-black">نام پروژه</Label>
 						<Label className=" text-base">{projectName}</Label>
 					</div>
-					<div className="w-full flex flex-col mb-6 flex gap-2">
+					<div className="w-full flex flex-col mb-12 gap-2">
 						<Label className="text-xl text-black">توضیحات</Label>
 						<Label className="">{description}</Label>
 					</div>
-					<div className="absolute bottom-4 flex">
+					<div className="absolute bottom-4 flex gap-5">
 						{/* <Likes /> */}
 						<DrawerDialog
 							open={closer}
@@ -130,6 +127,48 @@ const MetaBox = ({ className }) => {
 							}
 						>
 							<MetaForm setClose={setCloser} />
+						</DrawerDialog>
+						<DrawerDialog
+							open={deleteCloser}
+							onOpenChange={setDeleteCloser}
+							title={"حذف پروژه"}
+							triggerButton={
+								<button
+									className={`${styles.btn} h-8 btn bg-bomborange text-white`}
+								>
+									حذف پروژه
+								</button>
+							}
+							closeButton={
+								<button
+									className={`${styles.btn} h-6 btn bg-bomborange text-white`}
+								>
+									بستن
+								</button>
+							}
+						>
+							<Label className="text-black">
+								آیا از حذف این پروژه اطمینان دارید؟
+							</Label>
+							<button
+								className={`${styles.btn} h-12 btn bg-bomborange text-white`}
+								onClick={() => {
+									deleteData(`/projects/${projectId}/`).then(
+										(data) => {
+											console.log("data", data);
+											toast.success(
+												<CustomToast Header="پروژه با موفقیت حذف شد" />
+											);
+											setTimeout(() => {
+												window.scrollTo(0, 0);
+												Navigate("/dashboard");
+											}, 3000);
+										}
+									);
+								}}
+							>
+								بله پروژه را حذف کن
+							</button>
 						</DrawerDialog>
 					</div>
 				</div>

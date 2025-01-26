@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -7,7 +6,6 @@ import CustomTextArea from "@/components/Custom/CustomTextArea/CustomTextArea";
 import { DrawerDialog } from "@/components/Custom/DrawerDialog/DrawerDialog";
 import { postData } from "@/Services/ApiClient/Services";
 import { toast } from "react-toastify";
-import { use } from "react";
 import useProjectBoxStore from "@/stores/ProjectStore/ProjectBoxStore";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
@@ -17,7 +15,7 @@ const schema = yup.object().shape({
 	description: yup.string().required("Description is required"),
 });
 
-const AddProjectForm = ({ addProjectCard }) => {
+const AddProjectForm = ({ addProjectCard, open, setOpen }) => {
 	const { updateProjects } = useProjectBoxStore();
 	const { username } = useProfileStore();
 	const {
@@ -38,12 +36,14 @@ const AddProjectForm = ({ addProjectCard }) => {
 			console.log("Response:", response);
 			updateProjects(username);
 			toast.success(<CustomToast Header="پروژه با موفقیت اضافه شد" />);
+			setOpen(false);
 		});
 	};
 
 	return (
 		<>
 			<DrawerDialog
+				open={open}
 				title={"پروژه جدید"}
 				closeButton={
 					<button
@@ -58,11 +58,20 @@ const AddProjectForm = ({ addProjectCard }) => {
 			>
 				<form
 					onSubmit={handleSubmit(onSubmit)}
-					className="px-5 flex flex-col items-center gap-5"
+					className="flex flex-col place-items-center gap-5 place-self-center align-middle"
 				>
+					{/* <div className="flex place-self-center place-items-center border-solid border-2">
+						<CustomInput
+							// holderClassName={"w-full"}
+							inputClassName={"w-full"}
+							name={"name"}
+							register={register}
+							placeholder={"نام پروژه"}
+						/>
+					</div> */}
 					<CustomInput
 						holderClassName={"w-full"}
-						inputClassName={"w-full"}
+						inputClassName={"w-full translate-x-[-0.5vw]"}
 						name={"name"}
 						register={register}
 						placeholder={"نام پروژه"}

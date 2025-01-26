@@ -1,18 +1,14 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import React, { useState } from "react";
-import formStyles from "../DashBoardForm.module.scss";
-import styles from "./EditTeamForm.module.scss";
+import { useState } from "react";
 import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
-import { getData, postData, putData } from "@/Services/ApiClient/Services";
+import { getData, putData } from "@/Services/ApiClient/Services";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
+import CustomTextArea from "@/components/Custom/CustomTextArea/CustomTextArea";
 
 const validationSchema = Yup.object().shape({
 	description: Yup.string().required("Name is required"),
@@ -70,15 +66,15 @@ const EditTeamForm = ({ memberData, setMembers, setEditMemberOpen }) => {
 			onSubmit={handleSubmit(onSubmit)}
 		>
 			<CustomInput
-				inputClassName={"w-[60vw] text-right"}
+				inputClassName={"w-[60vw] text-right rtl translate-x-[-0.5vw]"}
 				placeholder="نقش عضو در تیم"
 				register={register}
 				name={"role"}
 				value={role}
 				onChange={setRole}
 			/>
-			<CustomInput
-				inputClassName={"w-[60vw] text-right"}
+			<CustomTextArea
+				inputClassName={"w-[60vw] text-right rtl"}
 				placeholder="توضیحات"
 				register={register}
 				name={"description"}

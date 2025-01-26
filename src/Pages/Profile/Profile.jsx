@@ -1,10 +1,10 @@
-import Error404 from "../Error/404/Error404";
-import useTokenStore from "@/stores/TokenStore";
+import Error404 from "../Error/Error404/Error404";
 import StartupProfile from "@/components/Profile/StartupProfile/StartupProfile";
 import InvestorProfile from "@/components/Profile/InvestorProfile/InvestorProfile";
 import { useParams } from "react-router-dom";
 import { getData } from "@/Services/ApiClient/Services";
 import { useEffect, useState } from "react";
+import { Loading } from "@/components/Loading/Loading";
 
 const Profile = () => {
 	const { username } = useParams();
@@ -14,7 +14,7 @@ const Profile = () => {
 			console.log(data.baseuser_profile.user_type);
 			setType(data.baseuser_profile.user_type);
 		});
-		}, []);
+	}, []);
 
 	// switch ("mamad") {
 	switch (type) {
@@ -24,7 +24,7 @@ const Profile = () => {
 		case "basic":
 			return <InvestorProfile />;
 		default:
-			return <Error404 />;
+			return <Loading className={"py-50"} />;
 	}
 };
 
