@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styles from "./CustomTextArea.module.scss";
-import { Textarea } from "@/components/ui/textarea";
 function CustomTextArea({
   placeholder,
   autofocus,

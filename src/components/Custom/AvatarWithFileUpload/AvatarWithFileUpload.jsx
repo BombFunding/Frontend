@@ -4,7 +4,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import ErrorMessage from "@/components/messages/ErrorMessage/ErrorMessage";
 import { toast } from "react-toastify";
-import { baseURL, getData, postImageData } from "@/Services/ApiClient/Services";
+import { baseURL, postImageData } from "@/Services/ApiClient/Services";
 import styles from "./AvatarWithFileUpload.module.scss";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 const AvatarWithFileUpload = ({ className, avatarFileState }) => {

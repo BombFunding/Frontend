@@ -1,5 +1,4 @@
 import styles from "./Signup.module.scss";
-
 import loginimage from "../../assets/loginpage.png";
 import SignupForm from "@/components/Forms/SignupForm/SignupForm";
 import HomeButton from "@/components/HomeButton/HomeButton";

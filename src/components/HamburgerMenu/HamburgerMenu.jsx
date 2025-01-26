@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Squash as Hamburger } from "hamburger-react";
 // import { routes } from "../../routes/routes";
@@ -13,8 +13,7 @@ import { FaBookOpen } from "react-icons/fa";
 import { FaCoins } from "react-icons/fa";
 import { SlLogin, SlLogout } from "react-icons/sl";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";
-import { getDataParams } from "@/Services/ApiClient/Services";
-import { MdSpaceDashboard, MdOutlineSpaceDashboard } from "react-icons/md";
+import { MdOutlineSpaceDashboard } from "react-icons/md";
 import useTokenStore from "@/stores/TokenStore";
 import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
 import { RiListCheck } from "react-icons/ri";

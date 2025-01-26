@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./PositionBox.module.scss";
 import PositionItem from "../PositionItem/PositionItem";
 import {
@@ -9,10 +9,7 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import AddPositionForm from "@/components/Forms/DashBoardForms/AddPositionForm/AddPositionForm";
-import { getData } from "@/Services/ApiClient/Services";
-import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import EmptySection from "@/components/EmptySection/EmptySection";
-import { useParams } from "react-router-dom";
 import useProjectStore from "@/stores/ProjectStore/ProjectStore";
 import { Loading } from "@/components/Loading/Loading";
 

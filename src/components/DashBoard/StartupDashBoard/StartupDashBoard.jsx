@@ -1,8 +1,6 @@
 import styles from "./StartupDashBoard.module.scss";
 import { Card } from "@/components/ui/card";
-import PositionBox from "../../ProjectDashboard/PositionBox/PositionBox";
 import Accounting from "@/components/Accounting/Accounting";
-import baner from "../../../assets/baner.jpg";
 // import CommentSection from "@/components/CommentSection/CommentSection";
 import PersonalInfo from "@/components/PersonalInfo/PersonalInfo";
 import { useEffect } from "react";
@@ -11,12 +9,9 @@ import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import TeamBox from "../Sections/TeamBox/TeamBox";
 import { Label } from "@/components/ui/label";
 import { Loading } from "@/components/Loading/Loading";
-import Likes from "@/components/Likes/Likes";
 import ProjectBox from "../ProjectBox/ProjectBox";
-import useProjectBoxStore from "@/stores/ProjectStore/ProjectBoxStore";
 import Bookmarks from "@/components/DashBoard/Bookmarks/Bookmarks";
 import MainChart from "@/components/BarChart/MainChart";
-import { Button } from "@/components/ui/button";
 
 const StartupDashBoard = () => {
 	const {

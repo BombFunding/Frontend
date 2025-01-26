@@ -1,10 +1,4 @@
-import React, { useEffect, useState } from "react";
-import styles from "./AddTeamForm.module.scss";
-import formStyles from "../DashBoardForm.module.scss";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

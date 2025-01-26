@@ -1,21 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./MetaBox.module.scss";
-import CustomTextArea from "@/components/Custom/CustomTextArea/CustomTextArea";
 import { Label } from "@/components/ui/label";
-import IMG from "@/assets/A1.jpg";
-import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import { DrawerDialog } from "@/components/Custom/DrawerDialog/DrawerDialog";
-import Button from "@/components/EditButton/EditButton";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 import MetaForm from "@/components/Forms/ProjectDashboardForms/MetaForm/MetaForm";
 import Likes from "@/components/Likes/Likes";
-import Baner from "../../../assets/baner.jpg";
-import {
-	deleteData,
-	getData,
-	patchData,
-	postData,
-} from "@/Services/ApiClient/Services";
+import { deleteData, patchData } from "@/Services/ApiClient/Services";
 import useProjectStore from "@/stores/ProjectStore/ProjectStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";

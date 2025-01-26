@@ -9,9 +9,7 @@ import { useParams } from "react-router-dom";
 import { baseURL, getData } from "@/Services/ApiClient/Services";
 import { Loading } from "@/components/Loading/Loading";
 import { Separator } from "@/components/ui/separator";
-import ProjectBox from "@/components/DashBoard/ProjectBox/ProjectBox";
 import ProfileTeamBox from "@/components/ProfileTeamBox/ProfileTeamBox";
-import ProfileTeamItem from "@/components/ProfileTeamItem/ProfileTeamItem";
 
 const StartupProfile = ({ className }) => {
 	const { username } = useParams();

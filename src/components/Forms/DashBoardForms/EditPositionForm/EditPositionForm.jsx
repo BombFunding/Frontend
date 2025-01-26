@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
-import styles from "./EditPositionForm.module.scss";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import CustomInput from "@/components/Custom/CustomInput/CustomInput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { getData, patchData } from "@/Services/ApiClient/Services";
+import { patchData } from "@/Services/ApiClient/Services";
 import { toast } from "react-toastify";
 import CustomToast from "@/components/Custom/CustomToast/CustomToast";
 import useProfileStore from "@/stores/ProfileStore/ProfileStore";

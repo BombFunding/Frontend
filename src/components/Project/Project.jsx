@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { Card } from "../ui/card";
 import { useEffect, useState } from "react";
-import { getData, postData } from "@/Services/ApiClient/Services";
+import { postData } from "@/Services/ApiClient/Services";
 import { Progress } from "@/components/ui/progress";
 import toman from "../../assets/toman.png";
 import { Button } from "../ui/button";

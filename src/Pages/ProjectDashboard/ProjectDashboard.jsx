@@ -1,16 +1,12 @@
-import Editor from "@/components/Editor/Editor";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import UnderNavbar from "@/assets/UnderNavbar.svg?react";
-import picture from "../../assets/baner.jpg";
-import TypewriterComponent from "typewriter-effect";
 import MetaBox from "@/components/ProjectDashboard/MetaBox/MetaBox";
 import PositionBox from "@/components/ProjectDashboard/PositionBox/PositionBox";
 import InvestorDialogBox from "@/components/ProjectDashboard/InvestorDialogBox/InvestorDialogBox";
 import TagBox from "@/components/ProjectDashboard/TagBox/TagBox";
 import styles from "./ProjectDashboard.module.scss";
 import useProjectStore from "@/stores/ProjectStore/ProjectStore";
-import Error403 from "../Error/403/Error403";
+import Error403 from "../Error/Error403/Error403";
 import { Loading } from "@/components/Loading/Loading";
 import MainChart from "@/components/BarChart/MainChart";
 

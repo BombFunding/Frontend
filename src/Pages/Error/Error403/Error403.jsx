@@ -1,6 +1,4 @@
-import Navbar from "@/components/Navbar/Navbar";
 import styles from "./Error403.module.scss";
-import Footer from "@/components/Footer/Footer";
 const Error403 = () => {
     return (
         <>

@@ -1,4 +1,3 @@
-import React from "react";
 import OpenLayersComponent from "./MapPage";
 import styles from './googlemap.module.scss';
 

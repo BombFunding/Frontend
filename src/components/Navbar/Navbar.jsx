@@ -1,5 +1,5 @@
 // Navbar.jsx
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResultsList from "../SearchBar/SearchResultsList/SearchResultsList.jsx";
@@ -15,7 +15,6 @@ import { baseURL, getData } from "@/Services/ApiClient/Services";
 import Inbox from "../Inbox/Inbox";
 import styles from "./Navbar.module.scss";
 import inboxstyles from "../Inbox/Inbox.module.scss";
-import { FiInbox } from "react-icons/fi";
 
 function Navbar() {
   const { userType } = useProfileStore();
@@ -153,9 +152,9 @@ function Navbar() {
         className={`flex flex-col justify-between top-0 fixed right-0 z-40 w-screen`}
       >
         <div
-          className={`flex flex-row pt-3 ${
+          className={`flex flex-row py-2 ${
             isOpen ? "bg-black" : "bg-bomborange"
-          } w-full justify-between items-center px-6 transition-all duration-300`}
+          } w-full justify-between items-center pl-2 transition-all duration-300`}
           style={{ height: window.innerWidth <= 641 ? "60px" : "50px" }}
         >
           <div className={`px-0 flex justify-between items-center w-full`}>

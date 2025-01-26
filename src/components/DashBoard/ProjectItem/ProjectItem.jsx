@@ -2,7 +2,6 @@ import AddProjectForm from "@/components/Forms/DashBoardForms/AddProjectForm/Add
 import styles from "./ProjectItem.module.scss";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const ProjectItem = ({ header, name, add, className, onClick }) => {

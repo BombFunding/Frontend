@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileTeamItem from "../ProfileTeamItem/ProfileTeamItem"; // Assuming this is the child component
-import axios from "axios"; // Using axios for HTTP requests
 import { getData } from "@/Services/ApiClient/Services";
 import defaultPic from "../../assets/defaultpfp.png";
-import useProfileStore from "@/stores/ProfileStore/ProfileStore";
 import { Loading } from "../Loading/Loading";
 
 function ProfileTeamBox({ username }) {

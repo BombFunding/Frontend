@@ -1,25 +1,9 @@
 "use client";
-
 import * as React from "react";
 import "./NavbarDropDownSCN.css";
-// import Link from "next/link";
-
-import { cn } from "@/lib/utils";
-// import { Icons } from "@/components/icons";
-import {
-	NavigationMenu,
-	NavigationMenuContent,
-	NavigationMenuItem,
-	NavigationMenuLink,
-	NavigationMenuList,
-	NavigationMenuTrigger,
-	navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-// import { Link } from "radix-ui";
 import { FiChevronDown } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
-import { getDataParams } from "@/Services/ApiClient/Services";
 
 const components = [
 	{

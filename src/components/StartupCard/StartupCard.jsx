@@ -92,11 +92,9 @@
 // export default StartupCard;
 
 import { Progress } from "@/components/ui/progress";
-import mockuppic from "../../assets/upProfile.jpg";
 import mockuppic2 from "../../assets/baner.jpg";
 import clock from "../../assets/clock.png";
 import styles from "./StartupCard.module.scss";
-import defaultpfp from "../../assets/defaultpfp.png";
 import Bookmark from "../Bookmark/Bookmark";
 import Tags from "../Tags/Tags";
 import Like from "../Like/Like";
@@ -107,9 +105,6 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useNavigate } from "react-router-dom";
-import useStarboardStore from "@/stores/StarboardStore/StarboardStore";
-import { useEffect, useState } from "react";
-import { getData } from "@/Services/ApiClient/Services";
 import { GoPaperAirplane } from "react-icons/go";
 import { toast } from "react-toastify";
 import CustomToast from "../Custom/CustomToast/CustomToast";
