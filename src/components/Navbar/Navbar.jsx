@@ -88,15 +88,61 @@ function Navbar() {
   // useEffect(() => {
   //   fetchOfflineNotifications();
   // }, []);
-  const pollingInterval = 500;
+  // const pollingInterval = 500;
   useEffect(() => {
     // Start polling for real-time notifications
-    const interval = setInterval(() => {
-      fetchOfflineNotifications();
-    }, pollingInterval);
+    fetchOfflineNotifications();
+    // const interval = setInterval(() => {
+    // }, pollingInterval);
 
     // Clean up the interval on component unmount
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
+  }, [accessToken]);
+
+  useEffect(() => {
+    if (!accessToken) return;
+
+    // WebSocket connection
+    const ws = new WebSocket(`${baseURL}/ws/notifications/${accessToken}/`);
+
+    ws.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+
+        // Map WebSocket data to standard format
+        const newNotifications = Array.isArray(data)
+          ? data.map((item) => ({
+              id: item.id || new Date().getTime(),
+              message: item.message || item.text || "پیام جدید",
+              count: item.count || 1,
+            }))
+          : [
+              {
+                id: data.id || new Date().getTime(),
+                message: data.message || data.text || "پیام جدید",
+                count: data.count || 1,
+              },
+            ];
+
+        setMessages((prevMessages) => {
+          const updatedMessages = [...newNotifications, ...prevMessages];
+          setNotificationCount(updatedMessages.length);
+          return updatedMessages;
+        });
+
+        console.log("WebSocket notifications:", newNotifications);
+      } catch (error) {
+        console.error("Error parsing WebSocket message:", error);
+      }
+    };
+
+    ws.onerror = (event) => {
+      console.error("WebSocket error:", event);
+    };
+
+    return () => {
+      ws.close();
+    };
   }, [accessToken]);
 
   useEffect(() => {
